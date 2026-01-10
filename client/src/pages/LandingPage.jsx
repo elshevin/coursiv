@@ -13,10 +13,10 @@ export default function LandingPage() {
   return (
     <div className="w-full min-h-screen bg-white font-sans text-[#24234C] overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative w-full max-w-[1655px] mx-auto pt-4 pb-20 lg:pb-[80px] px-2 lg:px-0">
-        <div className="relative w-full rounded-[16px] border border-[#E2E5E9] overflow-hidden bg-gradient-to-b from-white to-[#F9FAFB]">
+      <section className="relative w-full max-w-[1655px] mx-auto pt-4 pb-9 lg:pb-[80px] px-2 lg:px-0">
+        <div className="relative w-full rounded-[16px] border border-[#E2E5E9] overflow-hidden bg-white">
           {/* Navbar Placeholder - Based on Figma structure */}
-          <div className="flex justify-between items-center px-6 py-4 lg:px-12 lg:py-6">
+          <div className="flex justify-between items-center px-6 py-4 lg:px-[60px] lg:py-6">
             <div className="flex items-center gap-2">
               <img src="/2-332.svg" alt="Logo" className="h-8" />
             </div>
@@ -40,14 +40,14 @@ export default function LandingPage() {
                 <span className="w-2 h-2 rounded-full bg-[#5A4CFF]"></span>
                 Master AI
               </div>
-              <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-6">
+              <h1 className="text-[40px] lg:text-[80px] font-bold leading-[1.1] mb-6 tracking-[-2px]">
                 Become the <br/>
                 <span className="text-[#5A4CFF]">Master of AI</span>
               </h1>
-              <p className="text-lg text-[#24234C]/80 mb-8 max-w-[480px]">
+              <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-10 max-w-[480px] leading-[1.4]">
                 Learn AI skills to advance your career and stay competitive in the digital age.
               </p>
-              <Button className="h-12 px-8 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-lg shadow-lg shadow-[#5A4CFF]/20">
+              <Button className="h-[60px] px-10 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-[20px] font-medium shadow-lg shadow-[#5A4CFF]/20">
                 Get Started
               </Button>
               
@@ -85,11 +85,11 @@ export default function LandingPage() {
       </section>
 
       {/* Why People Love Coursiv */}
-      <section className="w-full max-w-[1280px] mx-auto px-4 py-16">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 items-center border border-[#E2E5E9] rounded-[24px] p-8 lg:p-20 shadow-sm">
+      <section className="w-full max-w-[1280px] mx-auto px-4 py-[60px] lg:py-[100px]">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-[100px] items-center border border-[#E2E5E9] rounded-[24px] px-6 py-10 lg:px-[40px] lg:py-[80px] shadow-[0px_4px_4px_0px_rgba(20,21,26,0.05)]">
           <div className="flex-1 order-2 lg:order-1">
-            <h2 className="text-4xl lg:text-5xl font-medium mb-4">Why people love Coursiv</h2>
-            <p className="text-xl text-[#24234C]/80 mb-10">
+            <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">Why people love Coursiv</h2>
+            <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-10 leading-[1.4]">
               Thousands of users trust Coursiv to learn AI. Get the tools, skills, and confidence to grow in your career.
             </p>
             
@@ -143,13 +143,13 @@ export default function LandingPage() {
       </section>
 
       {/* Choose Your Path */}
-      <section className="w-full max-w-[1280px] mx-auto px-4 py-16 text-center">
-        <h2 className="text-4xl lg:text-5xl font-medium mb-4">Choose your path</h2>
-        <p className="text-xl text-[#24234C]/80 mb-12 max-w-[600px] mx-auto">
+      <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px] text-center">
+        <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">Choose your path</h2>
+        <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-16 max-w-[600px] mx-auto leading-[1.4]">
           Explore different paths where you could apply AI that will help you grow in today's digital world
         </p>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Card 1 */}
           <div className="bg-white border border-[#E2E5E9] rounded-2xl p-10 text-left hover:shadow-lg transition-shadow duration-300">
             <img src="/2-2573.svg" alt="Icon" className="w-12 h-12 mb-8" />
@@ -214,19 +214,19 @@ export default function LandingPage() {
       </section>
 
       {/* How Coursiv Works */}
-      <section className="w-full max-w-[1280px] mx-auto px-4 py-16 text-center">
-        <h2 className="text-4xl lg:text-5xl font-medium mb-4">How Coursiv works</h2>
-        <p className="text-xl text-[#24234C]/80 mb-16">
+      <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px] text-center">
+        <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">How Coursiv works</h2>
+        <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-20">
           Learn at your own pace and discover how AI and digital tools can help you grow
         </p>
         
-        <div className="flex flex-col gap-24">
+        <div className="flex flex-col gap-[100px]">
           {/* Step 1 */}
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24 text-left">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-[100px] text-left">
             <div className="flex-1">
-              <div className="text-[#5A4CFF] text-lg font-medium mb-2">Step 1</div>
-              <h3 className="text-3xl font-medium mb-4">Take a quiz and receive a learning plan</h3>
-              <p className="text-lg text-[#24234C]/80">
+              <div className="text-[#5A4CFF] text-[18px] font-medium mb-4">Step 1</div>
+              <h3 className="text-[32px] lg:text-[40px] font-medium mb-6 leading-[1.2]">Take a quiz and receive a learning plan</h3>
+              <p className="text-[18px] text-[#24234C]/80 leading-[1.6]">
                 Our smart AI algorithm will review your answers and create a personalized learning plan tailored to your goals and proficiency level.
               </p>
             </div>
@@ -236,11 +236,11 @@ export default function LandingPage() {
           </div>
           
           {/* Step 2 */}
-          <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-24 text-left">
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-[100px] text-left">
             <div className="flex-1">
-              <div className="text-[#5A4CFF] text-lg font-medium mb-2">Step 2</div>
-              <h3 className="text-3xl font-medium mb-4">Learn the skills you need</h3>
-              <p className="text-lg text-[#24234C]/80">
+              <div className="text-[#5A4CFF] text-[18px] font-medium mb-4">Step 2</div>
+              <h3 className="text-[32px] lg:text-[40px] font-medium mb-6 leading-[1.2]">Learn the skills you need</h3>
+              <p className="text-[18px] text-[#24234C]/80 leading-[1.6]">
                 Access bite-sized lessons and hands-on tutorials that fit into your schedule. Learn practical AI tools you can use immediately.
               </p>
             </div>
@@ -250,11 +250,11 @@ export default function LandingPage() {
           </div>
           
           {/* Step 3 */}
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24 text-left">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-[100px] text-left">
             <div className="flex-1">
-              <div className="text-[#5A4CFF] text-lg font-medium mb-2">Step 3</div>
-              <h3 className="text-3xl font-medium mb-4">Master AI for your goals</h3>
-              <p className="text-lg text-[#24234C]/80">
+              <div className="text-[#5A4CFF] text-[18px] font-medium mb-4">Step 3</div>
+              <h3 className="text-[32px] lg:text-[40px] font-medium mb-6 leading-[1.2]">Master AI for your goals</h3>
+              <p className="text-[18px] text-[#24234C]/80 leading-[1.6]">
                 Apply what you've learned to real-world tasks. Earn a certificate to showcase your new skills and advance your career.
               </p>
             </div>
@@ -266,24 +266,24 @@ export default function LandingPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="w-full max-w-[1280px] mx-auto px-4 py-16 text-center">
-        <h2 className="text-4xl lg:text-5xl font-medium mb-4">Coursiv in action</h2>
-        <p className="text-xl text-[#24234C]/80 mb-16">
+      <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px] text-center">
+        <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">Coursiv in action</h2>
+        <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-20">
           Discover Coursiv's impact on learners and our success in numbers
         </p>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
           <div>
-            <div className="text-5xl font-bold mb-2">1,456k+</div>
-            <div className="text-lg text-[#24234C]/60">Users learned new skills</div>
+            <div className="text-[48px] lg:text-[64px] font-bold mb-2 tracking-[-2px]">1,456k+</div>
+            <div className="text-[18px] text-[#24234C]/60">Users learned new skills</div>
           </div>
           <div>
-            <div className="text-5xl font-bold mb-2">12,751k+</div>
-            <div className="text-lg text-[#24234C]/60">Minutes of content consumed</div>
+            <div className="text-[48px] lg:text-[64px] font-bold mb-2 tracking-[-2px]">12,751k+</div>
+            <div className="text-[18px] text-[#24234C]/60">Minutes of content consumed</div>
           </div>
           <div>
-            <div className="text-5xl font-bold mb-2">149k+</div>
-            <div className="text-lg text-[#24234C]/60">AI prompts written</div>
+            <div className="text-[48px] lg:text-[64px] font-bold mb-2 tracking-[-2px]">149k+</div>
+            <div className="text-[18px] text-[#24234C]/60">AI prompts written</div>
           </div>
         </div>
         
@@ -293,14 +293,14 @@ export default function LandingPage() {
       </section>
 
       {/* Certificate Section */}
-      <section className="w-full bg-[#F9FAFB] py-20">
-        <div className="max-w-[1280px] mx-auto px-4 flex flex-col lg:flex-row items-center gap-12">
+      <section className="w-full bg-[#F9FAFB] py-[80px] lg:py-[120px]">
+        <div className="max-w-[1280px] mx-auto px-4 flex flex-col lg:flex-row items-center gap-12 lg:gap-[100px]">
           <div className="flex-1">
-            <h2 className="text-4xl lg:text-5xl font-medium mb-6">Earn a certificate that proves your AI skills</h2>
-            <p className="text-xl text-[#24234C]/80 mb-10">
+            <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px] leading-[1.2]">Earn a certificate that proves your AI skills</h2>
+            <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-10 leading-[1.4]">
               Complete your courses and receive a verified certificate to showcase your skills. Add it to your LinkedIn profile or resume to stand out.
             </p>
-            <Button className="h-12 px-8 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-lg">
+            <Button className="h-[60px] px-10 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-[20px] font-medium">
               Get Certified Today
             </Button>
           </div>
@@ -311,19 +311,19 @@ export default function LandingPage() {
       </section>
 
       {/* Testimonials */}
-      <section className="w-full max-w-[1280px] mx-auto px-4 py-20 text-center">
-        <h2 className="text-4xl lg:text-5xl font-medium mb-4">See how Coursiv changes lives</h2>
-        <div className="flex justify-center items-center gap-2 mb-12">
-          <span className="text-xl font-medium">Excellent</span>
+      <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px] text-center">
+        <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">See how Coursiv changes lives</h2>
+        <div className="flex justify-center items-center gap-2 mb-16">
+          <span className="text-[20px] font-medium">Excellent</span>
           <div className="flex gap-1">
             {[1, 2, 3, 4, 5].map((i) => (
               <div key={i} className="w-6 h-6 bg-[#00B67A] flex items-center justify-center text-white text-xs">★</div>
             ))}
           </div>
-          <span className="text-sm text-[#24234C]/60">Based on 1,200+ reviews on Trustpilot</span>
+          <span className="text-[16px] text-[#24234C]/60 ml-2">Based on 1,200+ reviews on Trustpilot</span>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Review 1 */}
           <div className="bg-white border border-[#E2E5E9] rounded-xl p-6 text-left shadow-sm">
             <div className="flex gap-1 text-[#00B67A] mb-4">★★★★★</div>
@@ -357,14 +357,14 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="w-full max-w-[1000px] mx-auto px-4 py-16">
-        <h2 className="text-4xl lg:text-5xl font-medium mb-12 text-center lg:text-left">Frequently asked questions</h2>
+      <section className="w-full max-w-[1000px] mx-auto px-4 py-[80px] lg:py-[120px]">
+        <h2 className="text-[32px] lg:text-[48px] font-medium mb-16 text-center lg:text-left tracking-[-1px]">Frequently asked questions</h2>
         
-        <div className="space-y-4">
-          <div className="border-b border-[#E2E5E9] py-4">
-            <button className="flex justify-between items-center w-full text-left text-lg font-medium hover:text-[#5A4CFF]">
+        <div className="space-y-6">
+          <div className="border-b border-[#E2E5E9] py-6">
+            <button className="flex justify-between items-center w-full text-left text-[20px] font-medium hover:text-[#5A4CFF]">
               What is Coursiv?
-              <span className="text-2xl">+</span>
+              <span className="text-2xl font-light">+</span>
             </button>
           </div>
           <div className="border-b border-[#E2E5E9] py-4">
@@ -389,37 +389,37 @@ export default function LandingPage() {
       </section>
 
       {/* Join Learners */}
-      <section className="w-full max-w-[1280px] mx-auto px-4 py-20 flex flex-col lg:flex-row items-center justify-between gap-12">
+      <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px] flex flex-col lg:flex-row items-center justify-between gap-12">
         <div className="max-w-[600px]">
-          <h2 className="text-4xl lg:text-5xl font-medium mb-6">Join 300,000+ learners around the world</h2>
-          <div className="flex items-center gap-2 text-lg">
+          <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px] leading-[1.2]">Join 300,000+ learners around the world</h2>
+          <div className="flex items-center gap-2 text-[18px]">
             <span className="font-bold">Excellent 4.8/5</span>
             <span className="text-[#00B67A]">on Trustpilot</span>
           </div>
         </div>
         
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <div className="flex -space-x-4">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="w-12 h-12 rounded-full border-2 border-white bg-gray-200 overflow-hidden">
+              <div key={i} className="w-14 h-14 rounded-full border-2 border-white bg-gray-200 overflow-hidden">
                 <img src={`/2-2662.webp`} alt="User" className="w-full h-full object-cover" />
               </div>
             ))}
           </div>
-          <Button className="h-12 px-8 bg-[#00B67A] hover:bg-[#009e6a] text-white rounded-full text-lg">
+          <Button className="h-[60px] px-10 bg-[#00B67A] hover:bg-[#009e6a] text-white rounded-full text-[20px] font-medium">
             Join Now
           </Button>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="w-full bg-[#F9FAFB] py-20 text-center">
+      <section className="w-full bg-[#F9FAFB] py-[80px] lg:py-[120px] text-center">
         <div className="max-w-[800px] mx-auto px-4">
-          <h2 className="text-4xl lg:text-5xl font-medium mb-6">Start your AI journey with Coursiv today!</h2>
-          <p className="text-xl text-[#24234C]/80 mb-10">
+          <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px] leading-[1.2]">Start your AI journey with Coursiv today!</h2>
+          <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-12 leading-[1.4]">
             Learn today, take control of your future, and build new skills in AI and digitization.
           </p>
-          <Button className="h-14 px-10 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-xl shadow-lg shadow-[#5A4CFF]/20">
+          <Button className="h-[72px] px-12 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-[24px] font-medium shadow-lg shadow-[#5A4CFF]/20">
             Start Now
           </Button>
         </div>
