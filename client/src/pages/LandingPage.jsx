@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import { Link } from "wouter";
@@ -10,6 +11,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default function LandingPage() {
   return (
@@ -343,36 +350,89 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* 28-Day Challenge Section */}
+      <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px]">
+        <div className="bg-gradient-to-r from-[#5A4CFF] to-[#7B6FFF] rounded-3xl p-8 lg:p-16 text-white relative overflow-hidden">
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="flex-1">
+              <h2 className="text-[28px] lg:text-[40px] font-bold mb-4 leading-tight">Learn new AI every day in our 28-day Challenge</h2>
+              <p className="text-[18px] lg:text-[20px] text-white/80 mb-6">
+                Get the best guided experience to master AI tools and become more productive every single day.
+              </p>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 bg-white/20 rounded-full px-4 py-2">
+                  <span className="text-sm font-medium">AI Masters</span>
+                </div>
+              </div>
+            </div>
+            <div className="flex-1 flex justify-center">
+              <div className="bg-white rounded-2xl p-6 shadow-2xl max-w-[300px]">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-[#5A4CFF] flex items-center justify-center">
+                    <span className="text-white text-xl">🎯</span>
+                  </div>
+                  <div>
+                    <div className="text-[#24234C] font-bold">Day 1</div>
+                    <div className="text-[#24234C]/60 text-sm">Introduction to AI</div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-7 gap-2">
+                  {[...Array(28)].map((_, i) => (
+                    <div key={i} className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${i < 3 ? 'bg-[#5A4CFF] text-white' : 'bg-gray-100 text-gray-400'}`}>
+                      {i + 1}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Decorative elements */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="w-full max-w-[1000px] mx-auto px-4 py-[80px] lg:py-[120px]">
         <h2 className="text-[32px] lg:text-[48px] font-medium mb-16 text-center lg:text-left tracking-[-1px]">Frequently asked questions</h2>
         
-        <div className="space-y-6">
-          <div className="border-b border-[#E2E5E9] py-6">
-            <button className="flex justify-between items-center w-full text-left text-[20px] font-medium hover:text-[#5A4CFF]">
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-1" className="border-b border-[#E2E5E9]">
+            <AccordionTrigger className="text-[20px] font-medium hover:text-[#5A4CFF] py-6 [&[data-state=open]>svg]:rotate-180">
               What is Coursiv?
-              <span className="text-2xl font-light">+</span>
-            </button>
-          </div>
-          <div className="border-b border-[#E2E5E9] py-4">
-            <button className="flex justify-between items-center w-full text-left text-lg font-medium hover:text-[#5A4CFF]">
+            </AccordionTrigger>
+            <AccordionContent className="text-[#24234C]/80 text-lg pb-6">
+              Coursiv is an AI-powered learning platform designed to help you master artificial intelligence skills. Our platform offers bite-sized lessons, interactive tutorials, and hands-on projects to help you learn AI at your own pace.
+            </AccordionContent>
+          </AccordionItem>
+          
+          <AccordionItem value="item-2" className="border-b border-[#E2E5E9]">
+            <AccordionTrigger className="text-[20px] font-medium hover:text-[#5A4CFF] py-6 [&[data-state=open]>svg]:rotate-180">
               How to download and use Coursiv?
-              <span className="text-2xl">+</span>
-            </button>
-          </div>
-          <div className="border-b border-[#E2E5E9] py-4">
-            <button className="flex justify-between items-center w-full text-left text-lg font-medium hover:text-[#5A4CFF]">
+            </AccordionTrigger>
+            <AccordionContent className="text-[#24234C]/80 text-lg pb-6">
+              You can download Coursiv from the App Store or Google Play Store. Simply search for "Coursiv" and install the app. Once installed, create an account and take our quick quiz to get a personalized learning plan.
+            </AccordionContent>
+          </AccordionItem>
+          
+          <AccordionItem value="item-3" className="border-b border-[#E2E5E9]">
+            <AccordionTrigger className="text-[20px] font-medium hover:text-[#5A4CFF] py-6 [&[data-state=open]>svg]:rotate-180">
               How long is the course?
-              <span className="text-2xl">+</span>
-            </button>
-          </div>
-          <div className="border-b border-[#E2E5E9] py-4">
-            <button className="flex justify-between items-center w-full text-left text-lg font-medium hover:text-[#5A4CFF]">
+            </AccordionTrigger>
+            <AccordionContent className="text-[#24234C]/80 text-lg pb-6">
+              Our courses are designed to fit your schedule. Most lessons take just 15 minutes a day. The complete learning path typically takes 4-8 weeks depending on your pace and the topics you choose to explore.
+            </AccordionContent>
+          </AccordionItem>
+          
+          <AccordionItem value="item-4" className="border-b border-[#E2E5E9]">
+            <AccordionTrigger className="text-[20px] font-medium hover:text-[#5A4CFF] py-6 [&[data-state=open]>svg]:rotate-180">
               How to cancel Coursiv subscription?
-              <span className="text-2xl">+</span>
-            </button>
-          </div>
-        </div>
+            </AccordionTrigger>
+            <AccordionContent className="text-[#24234C]/80 text-lg pb-6">
+              You can cancel your subscription at any time through your account settings or by contacting our support team at support@coursiv.io. If you cancel, you'll continue to have access until the end of your current billing period.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </section>
 
       {/* Join Learners */}

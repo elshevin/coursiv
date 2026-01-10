@@ -6,10 +6,10 @@
 - [x] 创建数据库 schema (demo_users 表)
 - [x] 实现 Demo 登录后端 API
 
-## Phase 2: Demo 登录前端集成
-- [ ] 导航栏添加登录/登出按钮
-- [ ] 登录后显示用户名
-- [ ] 登出功能实现
+## Phase 2: Demo 登录前端集成 [DONE]
+- [x] 导航栏添加登录/登出按钮
+- [x] 登录后显示用户名
+- [x] 登出功能实现
 
 ## Phase 3: 主落地页像素级还原
 - [ ] Hero Section 视觉还原
@@ -21,8 +21,8 @@
 - [ ] Coursiv in Action (Stats) 视觉还原
 - [ ] Certificate Section 视觉还原
 - [ ] Testimonials 视觉还原
-- [ ] 28-day Challenge 视觉还原
-- [ ] FAQ Section 视觉还原
+- [x] 28-day Challenge 视觉还原
+- [x] FAQ Section 视觉还原 (手风琴交互已实现)
 - [ ] Join Learners 视觉还原
 - [ ] Final CTA 视觉还原
 - [ ] Footer 视觉还原
@@ -50,7 +50,7 @@
 - [ ] Dashboard 侧边栏导航
 
 ## Phase 6: 交互动画
-- [ ] FAQ 手风琴展开/收起
+- [x] FAQ 手风琴展开/收起
 - [ ] Testimonials 轮播
 - [ ] 按钮 hover 效果
 - [ ] 卡片 hover 阴影
