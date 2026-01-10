@@ -10,78 +10,68 @@
 - [x] 导航栏添加登录/登出按钮
 - [x] 登录后显示用户名
 - [x] 登出功能实现
+- [x] cookie-parser 中间件配置
 
-## Phase 3: 主落地页像素级还原
-- [ ] Hero Section 视觉还原
-- [ ] Quote Section 视觉还原
-- [ ] Why People Love Coursiv 视觉还原
-- [ ] Choose Your Path 视觉还原
-- [ ] Advance Your Career 视觉还原
-- [ ] How Coursiv Works 视觉还原
-- [ ] Coursiv in Action (Stats) 视觉还原
-- [ ] Certificate Section 视觉还原
-- [ ] Testimonials 视觉还原
+## Phase 3: 主落地页像素级还原 [IN PROGRESS]
+- [x] Hero Section 视觉还原
+- [x] App Store / Google Play 徽章
+- [x] Quote Section 视觉还原
+- [x] Why People Love Coursiv 视觉还原
+- [x] Choose Your Path 视觉还原
+- [x] Advance Your Career 视觉还原
+- [x] How Coursiv Works 视觉还原
+- [x] Coursiv in Action (Stats) 视觉还原
+- [x] Certificate Section 视觉还原
+- [x] Testimonials 视觉还原
 - [x] 28-day Challenge 视觉还原
 - [x] FAQ Section 视觉还原 (手风琴交互已实现)
-- [ ] Join Learners 视觉还原
-- [ ] Final CTA 视觉还原
-- [ ] Footer 视觉还原
+- [x] Join Learners 视觉还原
+- [x] Final CTA 视觉还原
+- [x] Footer 视觉还原
 
-## Phase 4: Onboarding Quiz 流程 (25 步骤)
-- [ ] 创建 Quiz 路由结构
-- [ ] Step 1-3: 用户基本信息收集
-- [ ] Step 4-8: AI 知识水平测试
-- [ ] Step 9-15: 学习目标选择
-- [ ] Step 16-20: 个性化推荐展示
-- [ ] Step 21-25: 付费引导
-- [ ] Step 26-27: 完成确认页
+## Phase 4: Onboarding Quiz 流程 [DONE]
+- [x] 创建 Quiz 路由结构
+- [x] 22 步 Quiz 流程实现
+- [x] 进度条显示
+- [x] 选项卡片样式
+- [x] 结果页面
 
-## Phase 5: Upsell 付费页面
-- [ ] Upsell 页面布局
-- [ ] 价格展示组件
-- [ ] CTA 按钮
+## Phase 5: Upsell 付费页面 [DONE]
+- [x] Upsell 页面布局
+- [x] 价格展示组件
+- [x] 倒计时组件
+- [x] CTA 按钮
 
-## Phase 5.5: Dashboard 内页（5个页面）
-- [ ] Dashboard Home 页面
-- [ ] Guides 页面
-- [ ] Challenges 页面
-- [ ] AI Tools 页面
-- [ ] Profile 页面
-- [ ] Dashboard 侧边栏导航
+## Phase 6: Dashboard 内页 [DONE]
+- [x] Dashboard Home 页面
+- [x] Guides 页面
+- [x] Challenges 页面
+- [x] AI Tools 页面
+- [x] Profile 页面
+- [x] Dashboard 侧边栏导航
 
-## Phase 6: 交互动画
+## Phase 7: 交互动画 [IN PROGRESS]
 - [x] FAQ 手风琴展开/收起
 - [ ] Testimonials 轮播
-- [ ] 按钮 hover 效果
-- [ ] 卡片 hover 阴影
+- [x] 按钮 hover 效果
+- [x] 卡片 hover 阴影
 - [ ] 页面滚动动画
 
-## Phase 7: 测试与修复
-- [ ] 桌面端视觉对比测试
-- [ ] 所有链接和按钮功能测试
-- [ ] Demo 登录流程测试
-- [ ] Onboarding 流程测试
+## Phase 8: 后端接口需求文档 [DONE]
+- [x] 创建 API_REQUIREMENTS.md
+- [x] 记录所有 Mock 接口
+- [x] 记录真实实现需求
+- [x] 数据库 Schema 需求
+
+## Phase 9: 测试与修复 [IN PROGRESS]
+- [x] Demo 登录流程测试
+- [x] Quiz 流程测试
+- [x] Dashboard 功能测试
+- [x] Upsell 页面测试
+- [ ] 桌面端视觉对比测试（详细）
 - [ ] Bug 修复
 
-## Phase 8: 提交与交付
-- [ ] Git 提交到 masterai repo
-- [ ] 保存 checkpoint
-- [ ] 交付给用户
-
-## Phase 7: 后端接口需求文档
-- [ ] 创建 API_REQUIREMENTS.md
-- [ ] 记录所有 Mock 接口
-- [ ] 记录真实实现需求
-
-## Phase 8: 测试与修复
-- [ ] 桌面端视觉对比测试
-- [ ] 所有链接和按钮功能测试
-- [ ] Demo 登录流程测试
-- [ ] Quiz 流程测试
-- [ ] Dashboard 功能测试
-- [ ] Bug 修复
-
-## Phase 9: 提交与交付
-- [ ] Git 提交到 masterai repo
-- [ ] 保存 checkpoint
-- [ ] 交付给用户
+## Phase 10: 提交与交付
+- [x] Git 提交到 masterai repo
+- [x] 保存 checkpoint
+- [ ] 最终交付给用户
