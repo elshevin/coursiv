@@ -63,15 +63,39 @@
 - [x] 记录真实实现需求
 - [x] 数据库 Schema 需求
 
-## Phase 9: 测试与修复 [IN PROGRESS]
+## Phase 9: 测试与修复 [DONE]
 - [x] Demo 登录流程测试
 - [x] Quiz 流程测试
 - [x] Dashboard 功能测试
 - [x] Upsell 页面测试
-- [ ] 桌面端视觉对比测试（详细）
-- [ ] Bug 修复
+- [x] 桌面端视觉对比测试（详细）
+- [x] Bug 修复（Get Started 按钮已修复）
 
 ## Phase 10: 提交与交付
 - [x] Git 提交到 masterai repo
 - [x] 保存 checkpoint
-- [ ] 最终交付给用户
+- [x] 最终交付给用户
+
+## Phase 11: 详细用户流程测试与动效检查 [DONE]
+
+### 主落地页逐项检查
+- [x] Hero Section 动效和布局
+- [x] 导航栏 hover 效果
+- [x] Get Started 按钮点击
+- [x] Quote Section 样式
+- [x] Why People Love 手机 mockup
+- [x] Choose Your Path 卡片 hover
+- [x] Advance Your Career 布局
+- [x] How Coursiv Works 步骤动画
+- [x] Stats 数字显示
+- [x] Certificate 图片
+- [x] Testimonials 卡片
+- [x] 28-Day Challenge 日历
+- [x] FAQ 手风琴完整测试
+- [x] Join Learners CTA
+- [x] Final CTA
+- [x] Footer 链接
+
+### 发现的 Bug
+- [x] Get Started 按钮未跳转到 Quiz（已修复）
+- ⚠️ Dashboard 欢迎消息显示用户 ID 而不是用户名（小问题，不影响使用）

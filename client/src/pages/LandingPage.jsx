@@ -41,9 +41,11 @@ export default function LandingPage() {
               <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-10 max-w-[480px] leading-[1.4]">
                 Learn AI skills to advance your career and stay competitive in the digital age.
               </p>
-              <Button className="h-[60px] px-10 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-[20px] font-medium shadow-lg shadow-[#5A4CFF]/20">
-                Get Started
-              </Button>
+              <Link href="/quiz/1">
+                <Button className="h-[60px] px-10 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-[20px] font-medium shadow-lg shadow-[#5A4CFF]/20">
+                  Get Started
+                </Button>
+              </Link>
               
               <div className="mt-8 flex items-center gap-4">
                 <a href="#" className="transition-transform hover:scale-105">
