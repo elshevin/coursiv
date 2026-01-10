@@ -1,0 +1,40 @@
+{
+  "query": "SHOW TABLES; DESCRIBE demo_users;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2XNybeh847KtcNL.cc364ff00fae --database Wf3NYfVF8uZepnSpvgieAX --execute SHOW TABLES; DESCRIBE demo_users;",
+  "rows": [
+    {
+      "Tables_in_Wf3NYfVF8uZepnSpvgieAX": "__drizzle_migrations"
+    },
+    {
+      "Tables_in_Wf3NYfVF8uZepnSpvgieAX": "demo_users"
+    },
+    {
+      "Tables_in_Wf3NYfVF8uZepnSpvgieAX": "users"
+    },
+    {
+      "Tables_in_Wf3NYfVF8uZepnSpvgieAX": "Field\tType\tNull\tKey\tDefault\tExtra"
+    },
+    {
+      "Tables_in_Wf3NYfVF8uZepnSpvgieAX": "id\tint(11)\tNO\tPRI\tNULL\tauto_increment"
+    },
+    {
+      "Tables_in_Wf3NYfVF8uZepnSpvgieAX": "username\tvarchar(64)\tNO\tUNI\tNULL\t"
+    },
+    {
+      "Tables_in_Wf3NYfVF8uZepnSpvgieAX": "displayName\tvarchar(128)\tYES\t\tNULL\t"
+    },
+    {
+      "Tables_in_Wf3NYfVF8uZepnSpvgieAX": "avatarUrl\ttext\tYES\t\tNULL\t"
+    },
+    {
+      "Tables_in_Wf3NYfVF8uZepnSpvgieAX": "createdAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\t"
+    },
+    {
+      "Tables_in_Wf3NYfVF8uZepnSpvgieAX": "lastLoginAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\t"
+    }
+  ],
+  "messages": [],
+  "stdout": "Tables_in_Wf3NYfVF8uZepnSpvgieAX\n__drizzle_migrations\ndemo_users\nusers\nField\tType\tNull\tKey\tDefault\tExtra\nid\tint(11)\tNO\tPRI\tNULL\tauto_increment\nusername\tvarchar(64)\tNO\tUNI\tNULL\t\ndisplayName\tvarchar(128)\tYES\t\tNULL\t\navatarUrl\ttext\tYES\t\tNULL\t\ncreatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\t\nlastLoginAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\t\n",
+  "stderr": "",
+  "execution_time_ms": 1766
+}
