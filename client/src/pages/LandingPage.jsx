@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
+import Navbar from "@/components/Navbar";
+import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -15,23 +17,8 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="relative w-full max-w-[1655px] mx-auto pt-4 pb-9 lg:pb-[80px] px-2 lg:px-0">
         <div className="relative w-full rounded-[16px] border border-[#E2E5E9] overflow-hidden bg-white">
-          {/* Navbar Placeholder - Based on Figma structure */}
-          <div className="flex justify-between items-center px-6 py-4 lg:px-[60px] lg:py-6">
-            <div className="flex items-center gap-2">
-              <img src="/2-332.svg" alt="Logo" className="h-8" />
-            </div>
-            <div className="hidden lg:flex items-center gap-8 text-sm font-medium">
-              <a href="#" className="hover:text-[#5A4CFF]">Home</a>
-              <a href="#" className="hover:text-[#5A4CFF]">Blog</a>
-              <a href="#" className="hover:text-[#5A4CFF]">Support Center</a>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-sm font-medium hidden sm:block">EN</span>
-              <Button className="bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full px-6">
-                Log in
-              </Button>
-            </div>
-          </div>
+          {/* Navbar with Demo Login */}
+          <Navbar />
 
           {/* Hero Content */}
           <div className="flex flex-col lg:flex-row items-center justify-between px-6 lg:px-20 py-12 lg:py-20 gap-12">
