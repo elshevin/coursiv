@@ -6,7 +6,11 @@ import { createDemoUser, getDemoUserById, updateDemoUserLastLogin } from "./db";
 import { SignJWT, jwtVerify } from "jose";
 
 const DEMO_COOKIE_NAME = "demo_session";
-const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "demo-secret-key");
+
+// Helper function to get JWT secret - ensures env var is read at runtime
+function getJwtSecret(): Uint8Array {
+  return new TextEncoder().encode(process.env.JWT_SECRET || "demo-secret-key");
+}
 
 export const appRouter = router({
   system: systemRouter,
@@ -29,7 +33,7 @@ export const appRouter = router({
       if (!cookie) return null;
 
       try {
-        const { payload } = await jwtVerify(cookie, JWT_SECRET);
+        const { payload } = await jwtVerify(cookie, getJwtSecret());
         const userId = payload.userId as number;
         const user = await getDemoUserById(userId);
         return user;
@@ -49,7 +53,7 @@ export const appRouter = router({
       const token = await new SignJWT({ userId: user.id })
         .setProtectedHeader({ alg: "HS256" })
         .setExpirationTime("7d")
-        .sign(JWT_SECRET);
+        .sign(getJwtSecret());
 
       // Set cookie
       const cookieOptions = getSessionCookieOptions(ctx.req);

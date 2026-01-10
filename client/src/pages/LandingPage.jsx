@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import { Link } from "wouter";
@@ -17,6 +16,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 
 export default function LandingPage() {
   return (
@@ -310,51 +310,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px] text-center">
-        <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">See how Coursiv changes lives</h2>
-        <div className="flex justify-center items-center gap-2 mb-16">
-          <span className="text-[20px] font-medium">Excellent</span>
-          <div className="flex gap-1">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="w-6 h-6 bg-[#00B67A] flex items-center justify-center text-white text-xs">★</div>
-            ))}
-          </div>
-          <span className="text-[16px] text-[#24234C]/60 ml-2">Based on 1,200+ reviews on Trustpilot</span>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Review 1 */}
-          <div className="bg-white border border-[#E2E5E9] rounded-xl p-6 text-left shadow-sm">
-            <div className="flex gap-1 text-[#00B67A] mb-4">★★★★★</div>
-            <h4 className="font-bold mb-2">Truly valuable!</h4>
-            <p className="text-sm text-[#24234C]/80 mb-4">
-              "Easy to follow, straight to the point. Helps you learn AI tools and concepts in a very practical way. A must-have for anyone wanting to stay competitive."
-            </p>
-            <div className="text-xs text-[#24234C]/40">Sarah J.</div>
-          </div>
-          
-          {/* Review 2 */}
-          <div className="bg-white border border-[#E2E5E9] rounded-xl p-6 text-left shadow-sm">
-            <div className="flex gap-1 text-[#00B67A] mb-4">★★★★★</div>
-            <h4 className="font-bold mb-2">Best AI learning app</h4>
-            <p className="text-sm text-[#24234C]/80 mb-4">
-              "I've tried several apps but this is the best one. It breaks down complex topics into simple lessons. Highly recommended!"
-            </p>
-            <div className="text-xs text-[#24234C]/40">Michael T.</div>
-          </div>
-          
-          {/* Review 3 */}
-          <div className="bg-white border border-[#E2E5E9] rounded-xl p-6 text-left shadow-sm">
-            <div className="flex gap-1 text-[#00B67A] mb-4">★★★★★</div>
-            <h4 className="font-bold mb-2">It's a life changer!</h4>
-            <p className="text-sm text-[#24234C]/80 mb-4">
-              "I didn't know much about AI before, but now I use it daily for my work. This app gave me the confidence to use these new tools."
-            </p>
-            <div className="text-xs text-[#24234C]/40">Jessica R.</div>
-          </div>
-        </div>
-      </section>
+      {/* Testimonials Carousel */}
+      <TestimonialsCarousel />
 
       {/* 28-Day Challenge Section */}
       <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px]">

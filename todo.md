@@ -50,12 +50,12 @@
 - [x] Profile 页面
 - [x] Dashboard 侧边栏导航
 
-## Phase 7: 交互动画 [IN PROGRESS]
+## Phase 7: 交互动画 [DONE]
 - [x] FAQ 手风琴展开/收起
-- [ ] Testimonials 轮播
+- [x] Testimonials 轮播
 - [x] 按钮 hover 效果
 - [x] 卡片 hover 阴影
-- [ ] 页面滚动动画
+- [ ] 页面滚动动画（可选增强）
 
 ## Phase 8: 后端接口需求文档 [DONE]
 - [x] 创建 API_REQUIREMENTS.md
@@ -99,3 +99,22 @@
 ### 发现的 Bug
 - [x] Get Started 按钮未跳转到 Quiz（已修复）
 - ⚠️ Dashboard 欢迎消息显示用户 ID 而不是用户名（小问题，不影响使用）
+
+
+## Phase 12: Testimonials 轮播与测试用例完善 [DONE]
+
+### 新功能
+- [x] Testimonials 轮播功能实现
+  - [x] 自动轮播（每 5 秒切换）
+  - [x] 手动滑动/点击切换
+  - [x] 轮播指示器（小圆点 + 箭头按钮）
+  - [x] 平滑过渡动画
+
+### 前端交互测试用例
+- [x] 创建 client/src/__tests__/LandingPage.test.tsx
+- [x] 测试 Testimonials 轮播自动切换
+- [x] 测试 Testimonials 手动切换
+- [x] 测试 FAQ 手风琴展开/收起
+- [x] 测试 Get Started 按钮跳转
+- [x] 测试 导航栏链接
+- [x] 测试 28-Day Challenge 日历显示
