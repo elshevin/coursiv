@@ -17,6 +17,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+import AnimatedSection from "@/components/AnimatedSection";
 
 export default function LandingPage() {
   return (
@@ -77,16 +78,19 @@ export default function LandingPage() {
       </section>
 
       {/* Quote Section */}
-      <section className="w-full max-w-[1000px] mx-auto py-16 px-6 text-center">
-        <h2 className="text-2xl lg:text-3xl font-medium italic leading-relaxed">
-          "Using AI doesn't make you the best... You have to learn to take the best out of it. Coursiv helps you do that, perfectly!"
-        </h2>
-        <div className="mt-4 w-12 h-1 bg-[#E2E5E9] mx-auto rounded-full"></div>
-      </section>
+      <AnimatedSection animation="fadeIn">
+        <section className="w-full max-w-[1000px] mx-auto py-16 px-6 text-center">
+          <h2 className="text-2xl lg:text-3xl font-medium italic leading-relaxed">
+            "Using AI doesn't make you the best... You have to learn to take the best out of it. Coursiv helps you do that, perfectly!"
+          </h2>
+          <div className="mt-4 w-12 h-1 bg-[#E2E5E9] mx-auto rounded-full"></div>
+        </section>
+      </AnimatedSection>
 
       {/* Why People Love Coursiv */}
-      <section className="w-full max-w-[1280px] mx-auto px-4 py-[60px] lg:py-[100px]">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-[100px] items-center border border-[#E2E5E9] rounded-[24px] px-6 py-10 lg:px-[40px] lg:py-[80px] shadow-[0px_4px_4px_0px_rgba(20,21,26,0.05)]">
+      <AnimatedSection animation="fadeIn" delay={100}>
+        <section className="w-full max-w-[1280px] mx-auto px-4 py-[60px] lg:py-[100px]">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-[100px] items-center border border-[#E2E5E9] rounded-[24px] px-6 py-10 lg:px-[40px] lg:py-[80px] shadow-[0px_4px_4px_0px_rgba(20,21,26,0.05)]">
           <div className="flex-1 order-2 lg:order-1">
             <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">Why people love Coursiv</h2>
             <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-10 leading-[1.4]">
@@ -139,10 +143,12 @@ export default function LandingPage() {
           <div className="flex-1 order-1 lg:order-2 flex justify-center">
             <img src="/2-2458.webp" alt="Why Coursiv" className="max-w-full h-auto max-h-[550px]" />
           </div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </AnimatedSection>
 
       {/* Choose Your Path */}
+      <AnimatedSection animation="fadeIn" delay={100}>
       <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px] text-center">
         <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">Choose your path</h2>
         <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-16 max-w-[600px] mx-auto leading-[1.4]">
@@ -181,8 +187,10 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+      </AnimatedSection>
 
       {/* Advance Your Career */}
+      <AnimatedSection animation="fadeIn" delay={100}>
       <section className="w-full max-w-[1280px] mx-auto px-4 py-16">
         <div className="relative rounded-[24px] overflow-hidden bg-[#F9FAFB] border border-[#E2E5E9]">
           <div className="flex flex-col lg:flex-row items-center">
@@ -212,8 +220,10 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+      </AnimatedSection>
 
       {/* How Coursiv Works */}
+      <AnimatedSection animation="fadeIn" delay={100}>
       <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px] text-center">
         <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">How Coursiv works</h2>
         <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-20">
@@ -264,8 +274,10 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+      </AnimatedSection>
 
       {/* Stats Section */}
+      <AnimatedSection animation="fadeIn" delay={100}>
       <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px] text-center">
         <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">Coursiv in action</h2>
         <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-20">
@@ -291,8 +303,10 @@ export default function LandingPage() {
           <img src="/2-2648.webp" alt="World Map" className="w-full h-auto" />
         </div>
       </section>
+      </AnimatedSection>
 
       {/* Certificate Section */}
+      <AnimatedSection animation="fadeIn" delay={100}>
       <section className="w-full bg-[#F9FAFB] py-[80px] lg:py-[120px]">
         <div className="max-w-[1280px] mx-auto px-4 flex flex-col lg:flex-row items-center gap-12 lg:gap-[100px]">
           <div className="flex-1">
@@ -309,11 +323,15 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+      </AnimatedSection>
 
       {/* Testimonials Carousel */}
-      <TestimonialsCarousel />
+      <AnimatedSection animation="fadeIn" delay={100}>
+        <TestimonialsCarousel />
+      </AnimatedSection>
 
       {/* 28-Day Challenge Section */}
+      <AnimatedSection animation="fadeIn" delay={100}>
       <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px]">
         <div className="bg-gradient-to-r from-[#5A4CFF] to-[#7B6FFF] rounded-3xl p-8 lg:p-16 text-white relative overflow-hidden">
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
@@ -354,8 +372,10 @@ export default function LandingPage() {
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
         </div>
       </section>
+      </AnimatedSection>
 
       {/* FAQ Section */}
+      <AnimatedSection animation="fadeIn" delay={100}>
       <section className="w-full max-w-[1000px] mx-auto px-4 py-[80px] lg:py-[120px]">
         <h2 className="text-[32px] lg:text-[48px] font-medium mb-16 text-center lg:text-left tracking-[-1px]">Frequently asked questions</h2>
         
@@ -397,8 +417,10 @@ export default function LandingPage() {
           </AccordionItem>
         </Accordion>
       </section>
+      </AnimatedSection>
 
       {/* Join Learners */}
+      <AnimatedSection animation="fadeIn" delay={100}>
       <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px] flex flex-col lg:flex-row items-center justify-between gap-12">
         <div className="max-w-[600px]">
           <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px] leading-[1.2]">Join 300,000+ learners around the world</h2>
@@ -421,8 +443,10 @@ export default function LandingPage() {
           </Button>
         </div>
       </section>
+      </AnimatedSection>
 
       {/* Final CTA */}
+      <AnimatedSection animation="fadeIn" delay={100}>
       <section className="w-full bg-[#F9FAFB] py-[80px] lg:py-[120px] text-center">
         <div className="max-w-[800px] mx-auto px-4">
           <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px] leading-[1.2]">Start your AI journey with Coursiv today!</h2>
@@ -434,6 +458,7 @@ export default function LandingPage() {
           </Button>
         </div>
       </section>
+      </AnimatedSection>
 
       {/* Footer */}
       <footer className="w-full border-t border-[#E2E5E9] bg-white pt-16 pb-8">
