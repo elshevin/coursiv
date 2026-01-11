@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import CourseDetail from "./pages/CourseDetail";
 import LessonContent from "./pages/LessonContent";
 import QuizContent from "./pages/QuizContent";
+import ChallengeDetail from "./pages/ChallengeDetail";
 
 function Router() {
   return (
@@ -26,6 +27,7 @@ function Router() {
       <Route path={"/course/:courseId"} component={CourseDetail} />
       <Route path={"/lesson/:courseId/:moduleId"} component={LessonContent} />
       <Route path={"/course-quiz/:courseId/:moduleId"} component={QuizContent} />
+      <Route path={"/challenge/:challengeId"} component={ChallengeDetail} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

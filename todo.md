@@ -217,3 +217,68 @@
 - [x] 完成模块后进度更新测试
 - [x] Quiz 页面测试
 - [x] 所有单元测试通过 (44 passed, 1 skipped)
+
+
+## Phase 18: Iteration 7 - 挑战系统 [DONE]
+
+### 核心功能
+- [x] 创建挑战数据结构 (challengeData.ts)
+- [x] Challenges 页面显示挑战列表
+- [x] "All" / "Completed" 筛选按钮
+- [x] "My challenges" 区块（进行中的挑战）
+- [x] 挑战卡片（封面图、名称、天数、难度）
+- [x] 挑战详情页路由 `/challenge/:challengeId`
+- [x] 顶部天数导航 (D1-D28 横向滚动)
+- [x] 挑战介绍和进度百分比
+- [x] 证书卡片
+- [x] 每日任务列表（图标 + 名称 + 状态）
+- [x] "Start Lesson" 按钮
+- [x] 任务完成状态 (localStorage)
+- [x] 测试模式 Quick Complete 按钮
+- [ ] 单元测试
+
+## Phase 19: Iteration 8 - 证书系统 [DONE]
+
+### 核心功能
+- [x] 创建证书数据结构 (certificateData.ts)
+- [x] Profile 页面显示证书列表 (9个证书)
+- [x] 每个证书显示课程名 + 进度百分比
+- [x] 锁定/解锁状态图标 (Lock/Trophy)
+- [x] 进度条显示
+- [x] Quick Actions (“Prompts Library” Coming Soon, Help, Settings)
+- [ ] 单元测试
+
+## Phase 20: Iteration 9 - AI Tools + Profile 完善 [DONE]
+
+### AI Tools Coming Soon
+- [x] AI Tools 页面显示 Coming Soon UI
+- [x] 居中大标题 "AI Tools"
+- [x] 副标题 "Coming Soon"
+- [x] 简短说明文字
+- [x] 工具预览卡片 (AI Writer, Image Generator, Code Assistant, Data Analyzer)
+- [x] "Notify Me When Available" 按钮 (禁用状态)
+
+### Profile 页面完善
+- [x] 用户头像 + 用户名 + 邮箱显示
+- [x] "Prompts Library" 入口（Coming Soon 提示）
+- [x] "Help" 入口
+- [x] "Settings" 入口
+- [x] 证书列表（来自 Iteration 8）
+- [x] Developer Options (Test Mode 开关)
+- [x] "Log Out" 按钮
+
+## Phase 21: E2E Checkpoint 3 测试 [DONE]
+
+### 测试结果
+- [x] 首页正常显示，用户已登录
+- [x] Dashboard 首页显示 Weekly Streaks、统计数据、课程列表
+- [x] Challenges 页面显示 4 个挑战 + My Challenges 区块
+- [x] Challenge 详情页显示天数导航、任务列表、证书卡片
+- [x] AI Tools 页面显示 Coming Soon UI
+- [x] Profile 页面显示用户信息、Quick Actions、9 个证书
+- [x] 所有单元测试通过 (44 passed, 1 skipped)
+
+### 已完成迭代
+- [x] Iteration 7: 挑战系统
+- [x] Iteration 8: 证书系统
+- [x] Iteration 9: AI Tools Coming Soon + Profile 完善
