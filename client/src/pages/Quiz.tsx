@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useLocation, useParams } from "wouter";
-import { ChevronLeft, Loader2 } from "lucide-react";
+import { ChevronLeft, Loader2, Eye, EyeOff } from "lucide-react";
+import { useEmailAuth } from "@/hooks/useEmailAuth";
 
 // Mock Quiz Data - 22 steps based on Figma design
 const quizSteps = [
@@ -236,19 +237,24 @@ const quizSteps = [
   },
   {
     id: 22,
-    type: 'email',
+    type: 'register',
     title: "Almost there!",
-    subtitle: "Enter your email to save your personalized learning plan"
+    subtitle: "Create your account to save your personalized learning plan"
   },
 ];
 
 export default function Quiz() {
   const params = useParams();
   const [, setLocation] = useLocation();
+  const { register } = useEmailAuth();
+  
   const currentStep = parseInt(params.step || '1');
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const step = quizSteps[currentStep - 1];
   const progress = (currentStep / quizSteps.length) * 100;
@@ -282,11 +288,26 @@ export default function Quiz() {
     }
   };
 
-  const handleEmailSubmit = async () => {
+  const handleRegisterSubmit = async () => {
+    if (!email || !password) return;
+    
+    setError('');
     setIsLoading(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setLocation('/upsell');
+
+    try {
+      // Convert answers to string record for storage
+      const quizAnswers: Record<string, string> = {};
+      Object.entries(answers).forEach(([key, value]) => {
+        quizAnswers[`step_${key}`] = value;
+      });
+
+      await register(email, password, email.split('@')[0], quizAnswers);
+      setLocation('/upsell');
+    } catch (err: any) {
+      setError(err.message || 'Failed to create account');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleContinue = () => {
@@ -435,8 +456,8 @@ export default function Quiz() {
             </div>
           )}
 
-          {/* Email Collection */}
-          {step.type === 'email' && (
+          {/* Registration */}
+          {step.type === 'register' && (
             <div className="text-center">
               <h1 className="text-2xl lg:text-3xl font-bold text-[#24234C] mb-3">
                 {step.title}
@@ -445,7 +466,13 @@ export default function Quiz() {
                 {step.subtitle}
               </p>
               
-              <div className="space-y-4">
+              <div className="space-y-4 max-w-[400px] mx-auto">
+                {error && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
+                    {error}
+                  </div>
+                )}
+
                 <input
                   type="email"
                   value={email}
@@ -453,22 +480,48 @@ export default function Quiz() {
                   placeholder="Enter your email"
                   className="w-full h-14 px-6 rounded-xl border-2 border-[#E2E5E9] focus:border-[#5A4CFF] focus:outline-none text-lg"
                 />
+
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Create a password"
+                    className="w-full h-14 px-6 pr-12 rounded-xl border-2 border-[#E2E5E9] focus:border-[#5A4CFF] focus:outline-none text-lg"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[#24234C]/40 hover:text-[#24234C]"
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
                 
                 <Button 
-                  onClick={handleEmailSubmit}
-                  disabled={!email || isLoading}
+                  onClick={handleRegisterSubmit}
+                  disabled={!email || !password || password.length < 6 || isLoading}
                   className="w-full h-14 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-xl text-lg font-medium disabled:opacity-50"
                 >
                   {isLoading ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
                   ) : (
-                    'Continue'
+                    'Create Account'
                   )}
                 </Button>
                 
                 <p className="text-xs text-[#24234C]/40">
                   By continuing, you agree to our Terms of Service and Privacy Policy
                 </p>
+
+                <div className="pt-4 border-t border-[#E2E5E9]">
+                  <p className="text-sm text-[#24234C]/60">
+                    Already have an account?{' '}
+                    <a href="/login" className="text-[#5A4CFF] hover:underline font-medium">
+                      Sign in
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
           )}

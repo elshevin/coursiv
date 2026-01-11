@@ -171,3 +171,49 @@
 - [x] 运行所有自动测试 (22 passed, 1 skipped)
 - [x] 验证所有页面响应和交互
 - [x] 添加 Navbar 组件测试 (6 个测试)- [ ] 验证交互功能正常
+
+
+## Phase 15: Iteration 5 - 课程内容阅读页 [DONE]
+
+### 核心功能
+- [x] 创建 LessonContent.tsx 页面组件
+- [x] 课程内容数据结构 (courseContent.ts)
+- [x] 页面导航 (Continue/Complete 按钮)
+- [x] 进度条显示
+- [x] 退出确认模态框 ("Wait, don't go!")
+- [x] 页面指示器 (1/3, 2/3, 3/3)
+- [x] 音频按钮 (Coming Soon 提示)
+- [x] 课程内容展示 (标题、图标、文本)
+- [x] 完成模块后保存进度到数据库
+- [x] 完成模块后触发 streak 更新
+- [x] 测试模式快速完成按钮
+
+### 待完成
+- [x] 单元测试 (LessonContent.test.tsx) - 9 tests passed
+
+## Phase 16: Iteration 6 - 课程 Quiz 系统 [DONE]
+
+### 核心功能
+- [x] 创建 QuizContent.tsx 页面组件
+- [x] Quiz 题目和选项展示
+- [x] 选项选择状态 (A/B/C/D)
+- [x] Check Answer 按钮
+- [x] 正确答案反馈 (绿色勾选 + "Correct!")
+- [x] 错误答案反馈 (红色叉号 + "Not quite!")
+- [x] 解释文字展示
+- [x] Continue 按钮返回课程详情
+- [x] 完成 Quiz 后保存进度
+- [x] 测试模式 Skip Quiz 按钮
+- [x] 单元测试 (QuizContent.test.tsx) - 9 tests passed
+
+## Phase 17: E2E Checkpoint 2 测试 [DONE]
+
+- [x] 用户登录系统测试
+- [x] Dashboard 首页测试
+- [x] Weekly Streaks 功能测试
+- [x] 课程列表 (Guides) 测试
+- [x] 课程详情页测试
+- [x] 课程内容阅读页测试
+- [x] 完成模块后进度更新测试
+- [x] Quiz 页面测试
+- [x] 所有单元测试通过 (44 passed, 1 skipped)

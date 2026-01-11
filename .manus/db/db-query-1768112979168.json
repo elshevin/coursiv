@@ -1,0 +1,43 @@
+{
+  "query": "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'email_users';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2XNybeh847KtcNL.cc364ff00fae --database Wf3NYfVF8uZepnSpvgieAX --execute SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'email_users';",
+  "rows": [
+    {
+      "COLUMN_NAME": "id"
+    },
+    {
+      "COLUMN_NAME": "email"
+    },
+    {
+      "COLUMN_NAME": "passwordHash"
+    },
+    {
+      "COLUMN_NAME": "name"
+    },
+    {
+      "COLUMN_NAME": "avatarUrl"
+    },
+    {
+      "COLUMN_NAME": "quizAnswers"
+    },
+    {
+      "COLUMN_NAME": "testModeEnabled"
+    },
+    {
+      "COLUMN_NAME": "darkModeEnabled"
+    },
+    {
+      "COLUMN_NAME": "createdAt"
+    },
+    {
+      "COLUMN_NAME": "updatedAt"
+    },
+    {
+      "COLUMN_NAME": "lastLoginAt"
+    }
+  ],
+  "messages": [],
+  "stdout": "COLUMN_NAME\nid\nemail\npasswordHash\nname\navatarUrl\nquizAnswers\ntestModeEnabled\ndarkModeEnabled\ncreatedAt\nupdatedAt\nlastLoginAt\n",
+  "stderr": "",
+  "execution_time_ms": 1534
+}

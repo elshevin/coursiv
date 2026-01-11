@@ -2,10 +2,28 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
-import { createDemoUser, getDemoUserById, updateDemoUserLastLogin } from "./db";
+import { 
+  createDemoUser, 
+  getDemoUserById, 
+  updateDemoUserLastLogin,
+  createEmailUser,
+  getEmailUserById,
+  verifyEmailUserPassword,
+  updateEmailUserSettings,
+  getUserStreak,
+  createOrUpdateStreak,
+  getWeeklyActivity,
+  recordDailyActivity,
+  getUserCourseProgress,
+  getAllUserCourseProgress,
+  updateCourseProgress,
+  markCourseCompleted
+} from "./db";
 import { SignJWT, jwtVerify } from "jose";
+import { z } from "zod";
 
 const DEMO_COOKIE_NAME = "demo_session";
+const EMAIL_COOKIE_NAME = "coursiv_session";
 
 // Helper function to get JWT secret - ensures env var is read at runtime
 function getJwtSecret(): Uint8Array {
@@ -25,7 +43,129 @@ export const appRouter = router({
     }),
   }),
 
-  // Demo authentication for testing
+  // Email/Password authentication
+  emailAuth: router({
+    // Get current user from cookie
+    me: publicProcedure.query(async ({ ctx }) => {
+      const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
+      if (!cookie) return null;
+
+      try {
+        const { payload } = await jwtVerify(cookie, getJwtSecret());
+        const userId = payload.userId as number;
+        const user = await getEmailUserById(userId);
+        if (!user) return null;
+        
+        // Return user without password hash
+        const { passwordHash, ...safeUser } = user;
+        return safeUser;
+      } catch {
+        return null;
+      }
+    }),
+
+    // Register new user
+    register: publicProcedure
+      .input(z.object({
+        email: z.string().email(),
+        password: z.string().min(6),
+        name: z.string().optional(),
+        quizAnswers: z.record(z.string(), z.string()).optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const user = await createEmailUser(
+          input.email,
+          input.password,
+          input.name,
+          input.quizAnswers as Record<string, string> | undefined
+        );
+
+        if (!user) {
+          throw new Error("Failed to create user");
+        }
+
+        // Create JWT token
+        const token = await new SignJWT({ userId: user.id })
+          .setProtectedHeader({ alg: "HS256" })
+          .setExpirationTime("7d")
+          .sign(getJwtSecret());
+
+        // Set cookie
+        const cookieOptions = getSessionCookieOptions(ctx.req);
+        ctx.res.cookie(EMAIL_COOKIE_NAME, token, {
+          ...cookieOptions,
+          maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        });
+
+        // Return user without password hash
+        const { passwordHash, ...safeUser } = user;
+        return safeUser;
+      }),
+
+    // Login with email and password
+    login: publicProcedure
+      .input(z.object({
+        email: z.string().email(),
+        password: z.string(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const user = await verifyEmailUserPassword(input.email, input.password);
+
+        if (!user) {
+          throw new Error("Invalid email or password");
+        }
+
+        // Create JWT token
+        const token = await new SignJWT({ userId: user.id })
+          .setProtectedHeader({ alg: "HS256" })
+          .setExpirationTime("7d")
+          .sign(getJwtSecret());
+
+        // Set cookie
+        const cookieOptions = getSessionCookieOptions(ctx.req);
+        ctx.res.cookie(EMAIL_COOKIE_NAME, token, {
+          ...cookieOptions,
+          maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        });
+
+        // Return user without password hash
+        const { passwordHash, ...safeUser } = user;
+        return safeUser;
+      }),
+
+    // Logout
+    logout: publicProcedure.mutation(({ ctx }) => {
+      const cookieOptions = getSessionCookieOptions(ctx.req);
+      ctx.res.clearCookie(EMAIL_COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
+      return { success: true };
+    }),
+
+    // Update settings (test mode, dark mode)
+    updateSettings: publicProcedure
+      .input(z.object({
+        testModeEnabled: z.boolean().optional(),
+        darkModeEnabled: z.boolean().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
+        if (!cookie) {
+          throw new Error("Not authenticated");
+        }
+
+        try {
+          const { payload } = await jwtVerify(cookie, getJwtSecret());
+          const userId = payload.userId as number;
+          
+          await updateEmailUserSettings(userId, input);
+          
+          return { success: true };
+        } catch {
+          throw new Error("Not authenticated");
+        }
+      }),
+  }),
+
+  // Demo authentication for testing (legacy, keeping for backward compatibility)
   demo: router({
     // Get current demo user from cookie
     me: publicProcedure.query(async ({ ctx }) => {
@@ -71,6 +211,172 @@ export const appRouter = router({
       ctx.res.clearCookie(DEMO_COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
       return { success: true };
     }),
+  }),
+
+  // Streak system
+  streaks: router({
+    // Get current user's streak
+    get: publicProcedure.query(async ({ ctx }) => {
+      const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
+      if (!cookie) return null;
+
+      try {
+        const { payload } = await jwtVerify(cookie, getJwtSecret());
+        const userId = payload.userId as number;
+        const streak = await getUserStreak(userId, 'email');
+        return streak;
+      } catch {
+        return null;
+      }
+    }),
+
+    // Record activity and update streak
+    recordActivity: publicProcedure
+      .input(z.object({
+        testMode: z.boolean().optional(),
+        lessonsCompleted: z.number().optional(),
+        xpEarned: z.number().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
+        if (!cookie) {
+          throw new Error("Not authenticated");
+        }
+
+        try {
+          const { payload } = await jwtVerify(cookie, getJwtSecret());
+          const userId = payload.userId as number;
+          
+          // Update streak
+          const streak = await createOrUpdateStreak(userId, 'email', input.testMode || false);
+          
+          // Record daily activity
+          await recordDailyActivity(
+            userId,
+            'email',
+            input.lessonsCompleted || 1,
+            input.xpEarned || 50
+          );
+          
+          return streak;
+        } catch {
+          throw new Error("Not authenticated");
+        }
+      }),
+
+    // Get weekly activity for calendar
+    getWeeklyActivity: publicProcedure.query(async ({ ctx }) => {
+      const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
+      if (!cookie) return [];
+
+      try {
+        const { payload } = await jwtVerify(cookie, getJwtSecret());
+        const userId = payload.userId as number;
+        const activity = await getWeeklyActivity(userId, 'email');
+        return activity;
+      } catch {
+        return [];
+      }
+    }),
+  }),
+
+  // Course progress system
+  courses: router({
+    // Get all courses progress for current user
+    getAllProgress: publicProcedure.query(async ({ ctx }) => {
+      const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
+      if (!cookie) return [];
+
+      try {
+        const { payload } = await jwtVerify(cookie, getJwtSecret());
+        const userId = payload.userId as number;
+        const progress = await getAllUserCourseProgress(userId, 'email');
+        return progress;
+      } catch {
+        return [];
+      }
+    }),
+
+    // Get progress for a specific course
+    getProgress: publicProcedure
+      .input(z.object({ courseId: z.string() }))
+      .query(async ({ ctx, input }) => {
+        const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
+        if (!cookie) return null;
+
+        try {
+          const { payload } = await jwtVerify(cookie, getJwtSecret());
+          const userId = payload.userId as number;
+          const progress = await getUserCourseProgress(userId, 'email', input.courseId);
+          return progress;
+        } catch {
+          return null;
+        }
+      }),
+
+    // Update course progress (complete a module)
+    completeModule: publicProcedure
+      .input(z.object({
+        courseId: z.string(),
+        moduleId: z.string(),
+        nextModuleId: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
+        if (!cookie) {
+          throw new Error("Not authenticated");
+        }
+
+        try {
+          const { payload } = await jwtVerify(cookie, getJwtSecret());
+          const userId = payload.userId as number;
+          
+          // Get current progress
+          const currentProgress = await getUserCourseProgress(userId, 'email', input.courseId);
+          const completedModules = currentProgress?.completedModules 
+            ? JSON.parse(currentProgress.completedModules) 
+            : [];
+          
+          // Add module if not already completed
+          if (!completedModules.includes(input.moduleId)) {
+            completedModules.push(input.moduleId);
+          }
+          
+          // Update progress
+          const progress = await updateCourseProgress(
+            userId,
+            'email',
+            input.courseId,
+            completedModules,
+            input.nextModuleId
+          );
+          
+          return progress;
+        } catch {
+          throw new Error("Not authenticated");
+        }
+      }),
+
+    // Mark course as completed
+    completeCourse: publicProcedure
+      .input(z.object({ courseId: z.string() }))
+      .mutation(async ({ ctx, input }) => {
+        const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
+        if (!cookie) {
+          throw new Error("Not authenticated");
+        }
+
+        try {
+          const { payload } = await jwtVerify(cookie, getJwtSecret());
+          const userId = payload.userId as number;
+          
+          await markCourseCompleted(userId, 'email', input.courseId);
+          
+          return { success: true };
+        } catch {
+          throw new Error("Not authenticated");
+        }
+      }),
   }),
 });
 

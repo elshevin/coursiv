@@ -3,7 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useParams, Link, useLocation } from "wouter";
-import { useDemoAuth } from "@/hooks/useDemoAuth";
+import { useEmailAuth } from "@/hooks/useEmailAuth";
+import { useTestMode } from "@/contexts/TestModeContext";
+import { WeeklyStreaks } from "@/components/WeeklyStreaks";
 import { 
   Home, 
   BookOpen, 
@@ -17,7 +19,9 @@ import {
   ChevronRight,
   Flame,
   Target,
-  Zap
+  Zap,
+  Settings,
+  FlaskConical
 } from "lucide-react";
 
 // Mock data for dashboard
@@ -50,7 +54,8 @@ const sidebarItems = [
 export default function Dashboard() {
   const params = useParams();
   const [, setLocation] = useLocation();
-  const { demoUser, logout, isAuthenticated, isLoading } = useDemoAuth();
+  const { user, logout, isAuthenticated, isLoading } = useEmailAuth();
+  const { isTestModeEnabled, isTestModeAllowed, toggleTestMode } = useTestMode();
   const currentTab = params.tab || 'home';
 
   const handleLogout = async () => {
@@ -58,9 +63,12 @@ export default function Dashboard() {
     setLocation('/');
   };
 
+  // Get display name from user
+  const displayName = user?.name || user?.email?.split('@')[0] || 'Learner';
+
   // Redirect to login if not authenticated
   if (!isLoading && !isAuthenticated) {
-    setLocation('/');
+    setLocation('/login');
     return null;
   }
 
@@ -111,8 +119,8 @@ export default function Dashboard() {
               <User className="w-5 h-5 text-[#5A4CFF]" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-medium text-[#24234C] truncate">{demoUser?.username}</p>
-              <p className="text-xs text-[#24234C]/50">Demo User</p>
+              <p className="font-medium text-[#24234C] truncate">{displayName}</p>
+              <p className="text-xs text-[#24234C]/50">{user?.email}</p>
             </div>
           </div>
           <button 
@@ -132,9 +140,14 @@ export default function Dashboard() {
           <div className="max-w-[1200px] mx-auto">
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-[#24234C] mb-2">
-                Welcome back, {demoUser?.username?.split('_')[1] || 'Learner'}! 👋
+                Welcome back, {displayName}! 👋
               </h1>
               <p className="text-[#24234C]/60">Continue your AI learning journey</p>
+            </div>
+
+            {/* Weekly Streaks */}
+            <div className="mb-8">
+              <WeeklyStreaks />
             </div>
 
             {/* Stats Cards */}
@@ -257,12 +270,11 @@ export default function Dashboard() {
                     <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-4">
                       <Clock className="w-4 h-4" />
                       <span>{course.totalLessons} lessons</span>
-                      <span>•</span>
-                      <Star className="w-4 h-4 text-amber-400" />
-                      <span>4.9</span>
                     </div>
-                    <Progress value={course.progress} className="h-2 mb-3" />
-                    <p className="text-sm text-[#24234C]/60">{course.progress}% complete</p>
+                    <Progress value={course.progress} className="h-2 mb-4" />
+                    <Button className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0]">
+                      {course.progress > 0 ? 'Continue' : 'Start Learning'}
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
@@ -278,24 +290,18 @@ export default function Dashboard() {
               {mockChallenges.map((challenge) => (
                 <Card key={challenge.id} className="border-[#E2E5E9]">
                   <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <h3 className="font-semibold text-xl text-[#24234C] mb-1">{challenge.title}</h3>
-                        <p className="text-[#24234C]/60">Complete daily tasks to build your AI skills</p>
-                      </div>
-                      <div className="flex items-center gap-1 px-3 py-1 bg-amber-100 rounded-full text-amber-600">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-semibold text-xl text-[#24234C]">{challenge.title}</h3>
+                      <div className="flex items-center gap-1 text-amber-500 bg-amber-50 px-3 py-1 rounded-full">
                         <Flame className="w-4 h-4" />
                         <span className="text-sm font-medium">{challenge.streak} day streak</span>
                       </div>
                     </div>
-                    <div className="mb-4">
-                      <div className="flex items-center justify-between text-sm mb-2">
-                        <span className="text-[#24234C]/60">Progress</span>
-                        <span className="font-medium text-[#24234C]">Day {challenge.day}/{challenge.totalDays}</span>
-                      </div>
-                      <Progress value={(challenge.day / challenge.totalDays) * 100} className="h-3" />
+                    <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-4">
+                      <span>Day {challenge.day} of {challenge.totalDays}</span>
                     </div>
-                    <Button className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-xl">
+                    <Progress value={(challenge.day / challenge.totalDays) * 100} className="h-3 mb-4" />
+                    <Button className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0]">
                       Continue Challenge
                     </Button>
                   </CardContent>
@@ -327,15 +333,17 @@ export default function Dashboard() {
         {currentTab === 'profile' && (
           <div className="max-w-[600px] mx-auto">
             <h1 className="text-3xl font-bold text-[#24234C] mb-8">Profile</h1>
-            <Card className="border-[#E2E5E9]">
+            
+            {/* User Info Card */}
+            <Card className="border-[#E2E5E9] mb-6">
               <CardContent className="p-8">
                 <div className="flex items-center gap-6 mb-8">
                   <div className="w-20 h-20 rounded-full bg-[#5A4CFF]/10 flex items-center justify-center">
                     <User className="w-10 h-10 text-[#5A4CFF]" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-[#24234C]">{demoUser?.username}</h2>
-                    <p className="text-[#24234C]/60">Demo Account</p>
+                    <h2 className="text-2xl font-bold text-[#24234C]">{displayName}</h2>
+                    <p className="text-[#24234C]/60">{user?.email}</p>
                   </div>
                 </div>
                 
@@ -343,7 +351,7 @@ export default function Dashboard() {
                   <div className="flex items-center justify-between py-3 border-b border-[#E2E5E9]">
                     <span className="text-[#24234C]/60">Member since</span>
                     <span className="font-medium text-[#24234C]">
-                      {demoUser?.createdAt ? new Date(demoUser.createdAt).toLocaleDateString() : 'Today'}
+                      {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Today'}
                     </span>
                   </div>
                   <div className="flex items-center justify-between py-3 border-b border-[#E2E5E9]">
@@ -359,14 +367,51 @@ export default function Dashboard() {
                     <span className="font-medium text-[#24234C]">1,250</span>
                   </div>
                 </div>
-                
-                <div className="mt-8 pt-6 border-t border-[#E2E5E9]">
-                  <p className="text-sm text-[#24234C]/40 text-center">
-                    This is a demo account. Data will be reset periodically.
-                  </p>
-                </div>
               </CardContent>
             </Card>
+
+            {/* Developer Options Card - Only show if test mode is allowed */}
+            {isTestModeAllowed && (
+              <Card className="border-[#E2E5E9] border-dashed">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center gap-2 text-[#24234C]/70">
+                    <Settings className="w-5 h-5" />
+                    Developer Options
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-2">
+                  <div className="flex items-center justify-between py-3">
+                    <div className="flex items-center gap-3">
+                      <FlaskConical className="w-5 h-5 text-amber-500" />
+                      <div>
+                        <p className="font-medium text-[#24234C]">Test Mode</p>
+                        <p className="text-xs text-[#24234C]/50">Enable testing features for development</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={toggleTestMode}
+                      className={`relative w-12 h-6 rounded-full transition-colors ${
+                        isTestModeEnabled ? 'bg-amber-500' : 'bg-[#E2E5E9]'
+                      }`}
+                    >
+                      <span
+                        className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${
+                          isTestModeEnabled ? 'translate-x-7' : 'translate-x-1'
+                        }`}
+                      />
+                    </button>
+                  </div>
+                  
+                  {isTestModeEnabled && (
+                    <div className="mt-4 p-3 bg-amber-50 rounded-lg border border-amber-200">
+                      <p className="text-sm text-amber-800">
+                        <strong>Test Mode Active:</strong> Streaks won't reset, progress thresholds are lowered, and some features behave differently.
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
           </div>
         )}
       </main>

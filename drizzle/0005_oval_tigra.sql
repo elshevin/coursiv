@@ -1,0 +1,1 @@
+ALTER TABLE `user_course_progress` MODIFY COLUMN `completedModules` text;

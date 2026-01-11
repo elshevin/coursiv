@@ -1,0 +1,23 @@
+{
+  "query": "SELECT * FROM email_users LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2XNybeh847KtcNL.cc364ff00fae --database Wf3NYfVF8uZepnSpvgieAX --execute SELECT * FROM email_users LIMIT 1;",
+  "rows": [
+    {
+      "id": "1",
+      "email": "test@example.com",
+      "passwordHash": "$2b$10$acM7L6hPaByXsB7Dh0lnB.mCD.V.hV9Mvevnh7alzOiyAg2QXCmty",
+      "name": "test",
+      "avatarUrl": "NULL",
+      "quizAnswers": "{}",
+      "testModeEnabled": "1",
+      "darkModeEnabled": "0",
+      "createdAt": "2026-01-11 05:35:26",
+      "updatedAt": "2026-01-11 06:06:30",
+      "lastLoginAt": "2026-01-11 05:36:08"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\temail\tpasswordHash\tname\tavatarUrl\tquizAnswers\ttestModeEnabled\tdarkModeEnabled\tcreatedAt\tupdatedAt\tlastLoginAt\n1\ttest@example.com\t$2b$10$acM7L6hPaByXsB7Dh0lnB.mCD.V.hV9Mvevnh7alzOiyAg2QXCmty\ttest\tNULL\t{}\t1\t0\t2026-01-11 05:35:26\t2026-01-11 06:06:30\t2026-01-11 05:36:08\n",
+  "stderr": "",
+  "execution_time_ms": 1549
+}

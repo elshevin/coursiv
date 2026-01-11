@@ -1,0 +1,9 @@
+{
+  "query": "ALTER TABLE email_users ADD COLUMN IF NOT EXISTS passwordHash varchar(255) NOT NULL DEFAULT '';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2XNybeh847KtcNL.cc364ff00fae --database Wf3NYfVF8uZepnSpvgieAX --execute ALTER TABLE email_users ADD COLUMN IF NOT EXISTS passwordHash varchar(255) NOT NULL DEFAULT '';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1495
+}
