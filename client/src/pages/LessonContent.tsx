@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation } from "wouter";
 import { courses, CourseModule } from "../../../shared/courseData";
-import { getModuleContent } from "../../../shared/courseContent";
+import { getModuleContent, getModuleQuiz } from "../../../shared/courseContent";
 import { useEmailAuth } from "../hooks/useEmailAuth";
 import { useTestMode } from "../contexts/TestModeContext";
 import { trpc } from "../lib/trpc";
@@ -42,25 +42,34 @@ export default function LessonContent() {
   const totalPages = content.length;
   const progressPercent = totalPages > 0 ? ((currentPageIndex + 1) / totalPages) * 100 : 0;
 
+  // Check if this module has a quiz
+  const hasQuiz = moduleId ? getModuleQuiz(moduleId) !== null : false;
+
   const handleContinue = async () => {
     if (currentPageIndex < totalPages - 1) {
       setCurrentPageIndex(currentPageIndex + 1);
     } else {
-      // Module completed
-      if (user && courseId && moduleId) {
-        try {
-          await completeModuleMutation.mutateAsync({
-            courseId,
-            moduleId
-          });
-          // Record activity for streak
-          await recordActivityMutation.mutateAsync({ lessonsCompleted: 1 });
-        } catch (error) {
-          console.error("Failed to save progress:", error);
+      // Content completed - check if there's a quiz
+      if (hasQuiz) {
+        // Navigate to course quiz page
+        setLocation(`/course-quiz/${courseId}/${moduleId}`);
+      } else {
+        // No quiz, complete module directly
+        if (user && courseId && moduleId) {
+          try {
+            await completeModuleMutation.mutateAsync({
+              courseId,
+              moduleId
+            });
+            // Record activity for streak
+            await recordActivityMutation.mutateAsync({ lessonsCompleted: 1 });
+          } catch (error) {
+            console.error("Failed to save progress:", error);
+          }
         }
+        // Navigate back to course detail
+        setLocation(`/course/${courseId}`);
       }
-      // Navigate back to course detail
-      setLocation(`/course/${courseId}`);
     }
   };
 
@@ -201,7 +210,7 @@ export default function LessonContent() {
             onClick={handleContinue}
             className="flex-1 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition-colors"
           >
-            {currentPageIndex < totalPages - 1 ? "Continue" : "Complete"}
+            {currentPageIndex < totalPages - 1 ? "Continue" : (hasQuiz ? "Take Quiz" : "Complete")}
           </button>
         </div>
         
