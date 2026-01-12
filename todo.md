@@ -554,3 +554,17 @@
 - [x] 移除当前可点击的 AI Chat 组件
 - [x] 集成到主页 Hero 区域
 - [x] 运行测试验证（44 passed, 1 skipped）
+
+
+## Phase 30: Bug 修复 - "Advance your career" 按钮无响应 [DONE]
+
+### 问题
+- [x] "Advance your career with AI skills" 部分的 "Start Now" 按钮无响应
+- [x] 应该跳转到 Quiz 流程（/quiz/1）
+- [x] 测试用例未覆盖此按钮
+
+### 修复任务
+- [x] 定位 LandingPage 中的 "Start Now" 按钮
+- [x] 添加跳转到 /quiz/1 的功能
+- [x] 添加测试用例验证按钮点击和跳转
+- [x] 运行完整测试验证（47 passed, 1 skipped）

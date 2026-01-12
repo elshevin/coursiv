@@ -196,9 +196,11 @@ export default function LandingPage() {
               <p className="text-xl text-[#24234C]/80 mb-10">
                 Learn practical skills that top professionals use to work smarter and stay ahead.
               </p>
-              <Button className="h-12 px-8 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-lg">
-                Start Now
-              </Button>
+              <Link href="/quiz/1">
+                <Button className="h-12 px-8 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-lg">
+                  Start Now
+                </Button>
+              </Link>
             </div>
             <div className="flex-1 relative h-[400px] lg:h-[500px] w-full bg-gradient-to-br from-[#F0F2F5] to-white flex items-center justify-center overflow-hidden">
               {/* Abstract representation of career growth/network */}
