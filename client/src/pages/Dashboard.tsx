@@ -226,7 +226,7 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 { id: 'chatgpt', title: 'ChatGPT Mastery', lessons: 24, duration: '4h 30m', icon: '🤖', progress: 65 },
-                { id: 'dalle', title: 'DALL-E Creative', lessons: 18, duration: '3h 15m', icon: '🎨', progress: 30 },
+                { id: 'dall-e', title: 'DALL-E Creative', lessons: 18, duration: '3h 15m', icon: '🎨', progress: 30 },
                 { id: 'midjourney', title: 'Midjourney Pro', lessons: 20, duration: '3h 45m', icon: '🖼️', progress: 0 },
                 { id: 'claude', title: 'Claude Assistant', lessons: 16, duration: '2h 50m', icon: '🧠', progress: 0 },
                 { id: 'copilot', title: 'GitHub Copilot', lessons: 14, duration: '2h 30m', icon: '💻', progress: 0 },

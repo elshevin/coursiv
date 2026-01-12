@@ -313,9 +313,11 @@ export default function LandingPage() {
             <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-10 leading-[1.4]">
               Complete your courses and receive a verified certificate to showcase your skills. Add it to your LinkedIn profile or resume to stand out.
             </p>
-            <Button className="h-[60px] px-10 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-[20px] font-medium">
-              Get Certified Today
-            </Button>
+            <Link href="/quiz/1">
+              <Button className="h-[60px] px-10 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-[20px] font-medium">
+                Get Certified Today
+              </Button>
+            </Link>
           </div>
           <div className="flex-1">
             <img src="/2-2729.webp" alt="Certificate Preview" className="w-full h-auto rounded-xl shadow-xl border border-[#E2E5E9]" />
@@ -437,9 +439,11 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
-          <Button className="h-[60px] px-10 bg-[#00B67A] hover:bg-[#009e6a] text-white rounded-full text-[20px] font-medium">
-            Join Now
-          </Button>
+          <Link href="/quiz/1">
+            <Button className="h-[60px] px-10 bg-[#00B67A] hover:bg-[#009e6a] text-white rounded-full text-[20px] font-medium">
+              Join Now
+            </Button>
+          </Link>
         </div>
       </section>
       </AnimatedSection>

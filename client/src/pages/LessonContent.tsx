@@ -187,7 +187,7 @@ export default function LessonContent() {
       </div>
 
       {/* Footer */}
-      <div className="sticky bottom-0 bg-white border-t border-gray-200 p-4">
+      <div className="sticky bottom-0 bg-white border-t border-gray-200 p-4 pb-6 z-20">
         <div className="max-w-2xl mx-auto flex gap-3">
           {isTestModeEnabled && (
             <button

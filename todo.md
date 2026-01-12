@@ -568,3 +568,126 @@
 - [x] 添加跳转到 /quiz/1 的功能
 - [x] 添加测试用例验证按钮点击和跳转
 - [x] 运行完整测试验证（47 passed, 1 skipped）
+
+
+## Phase 31: E2E 点击测试与改进方案 [IN PROGRESS]
+
+### 测试任务
+- [ ] 访问原站 Coursiv.io 进行功能对比
+- [ ] 访问本地开发站进行功能测试
+- [ ] 测试主页所有 CTA 按钮（Get Started, Start Now, Join Now, Get Certified Today）
+- [ ] 测试 Quiz 流程的完整交互
+- [ ] 测试其他页面的按钮和链接
+- [ ] 对比视觉效果和动画差异
+
+### 改进方案
+- [ ] 整理功能差异清单
+- [ ] 整理效果差异清单
+- [ ] 生成优先级排序的改进方案
+
+
+## Phase 31: E2E 测试完成 [DONE]
+
+### 测试结果
+- [x] Hero 区域 "Get Started" 按钮：✅ 正常
+- [x] "Advance your career" "Start Now" 按钮：✅ 正常  
+- [x] "Get Certified Today" 按钮：❌ 无响应
+- [x] "Join Now" 按钮：❌ 无响应
+- [x] 浏览器窗口演示：⚠️ 需要实际内容
+
+### 生成的文档
+- [x] E2E_TEST_COMPARISON.md - 详细对比报告
+- [x] IMPROVEMENT_PLAN.md - 优先级排序的改进方案
+
+
+## Phase 32: Mock 课程内容集成 [DONE]
+
+### 任务
+- [x] 检查课程数据结构
+- [x] 设计 Mock 课程数据模型
+- [x] 生成 180+ 页学习内容和 60+ 个 Quiz
+- [x] 创建 mockCourseContent.ts 文件
+- [x] 集成 Mock 数据到应用
+- [x] 测试完整的课程交互流程
+- [x] 生成改进方案报告
+
+### 生成的内容
+- 6 个主要课程
+- 60 个模块
+- 180+ 页学习内容
+- 60+ 个 Quiz 题目
+- 1000+ 行代码
+
+### 测试结果
+- ✅ 课程列表加载正常
+- ✅ 课程详情页正常
+- ✅ 课程内容加载正常
+- ✅ Mock 数据集成成功
+- ✅ 完整交互流程验证通过
+
+
+## Phase 33: E2E 流程对比与 Bug 修复 [IN PROGRESS]
+
+### 需求变更
+- [ ] AI Tools、音频播放、Blog 用 "Coming Soon" 代替
+- [ ] 注册前引导流程对比原站，做到逻辑完全一致
+- [ ] 修复注册后重复进入引导流程的 bug
+- [ ] 修复课程蛇形路径点击响应问题
+
+### E2E 对比任务
+- [ ] 对比原站 Quiz 引导流程（每一步）
+- [ ] 对比本地站 Quiz 引导流程
+- [ ] 测试注册后跳转逻辑
+- [ ] 对比课程蛇形路径交互
+- [ ] 整理所有差异和 bug
+- [ ] 更新迭代需求文档
+
+
+## Phase 34: 迭代实施 V4.0 [IN PROGRESS]
+
+### 阶段 1：核心交互修复
+- [ ] 1.1 修复 Continue 按钮被遮挡问题
+- [ ] 1.2 修复课程 ID 不匹配（Dashboard 链接）
+- [ ] 1.3 修复 "Get Certified Today" 按钮
+- [ ] 1.4 修复 "Join Now" 按钮
+- [ ] 1.5 修复 Blog/Support 导航链接
+- [ ] 1.6 创建 Coming Soon 页面组件
+- [ ] 1.7 添加 Blog/Support Coming Soon 路由
+- [ ] 1.8 替换所有 "建设中" 为 "Coming Soon"
+- [ ] 1.9 阶段 1 测试验证
+
+### 阶段 2：课程 Quiz 功能实现
+- [ ] 2.1 创建 QuizPage 组件
+- [ ] 2.2 实现 Quiz 问题和选项显示
+- [ ] 2.3 实现选项选择和反馈动画
+- [ ] 2.4 实现正确/错误状态显示
+- [ ] 2.5 实现解释说明显示
+- [ ] 2.6 集成到 LessonContent 页面
+- [ ] 2.7 添加锁定模块点击提示
+- [ ] 2.8 添加 "You're here" 标签
+- [ ] 2.9 阶段 2 测试验证
+
+### 阶段 3：Quiz 引导流程重构
+- [ ] 3.1 重构 Quiz 第一步（二选一 + 照片）
+- [ ] 3.2 添加 "28-DAY AI CHALLENGE" 标题
+- [ ] 3.3 调整总步骤为 20 步
+- [ ] 3.4 修改进度显示位置和格式
+- [ ] 3.5 添加中间鼓励页
+- [ ] 3.6 添加底部法律链接
+- [ ] 3.7 修复注册后跳转逻辑
+- [ ] 3.8 阶段 3 测试验证
+
+
+## Phase 34: 迭代实施 V4.0 - 阶段 1 核心交互修复 [DONE]
+
+### 已完成
+- [x] 修复 Continue 按钮被遮挡问题（增加 z-index 和 padding）
+- [x] 修复课程 ID 不匹配（dalle → dall-e）
+- [x] 修复 "Get Certified Today" 按钮（添加 Link 跳转到 Quiz）
+- [x] 修复 "Join Now" 按钮（添加 Link 跳转到 Quiz）
+- [x] 修复 Blog/Support 导航链接（改为 Link 组件）
+- [x] 创建 Coming Soon 页面组件
+- [x] 添加 Blog/Support Coming Soon 路由
+- [x] 修复 QuizContent 测试（更新测试数据匹配 mock）
+- [x] 测试通过（47 passed, 1 skipped）
+- [x] 浏览器验证通过

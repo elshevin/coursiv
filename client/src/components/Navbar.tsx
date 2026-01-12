@@ -46,8 +46,8 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-8 text-sm font-medium">
           <Link href="/" className="hover:text-[#5A4CFF] transition-colors">Home</Link>
-          <a href="#" className="hover:text-[#5A4CFF] transition-colors">Blog</a>
-          <a href="#" className="hover:text-[#5A4CFF] transition-colors">Support Center</a>
+          <Link href="/blog" className="hover:text-[#5A4CFF] transition-colors">Blog</Link>
+          <Link href="/support" className="hover:text-[#5A4CFF] transition-colors">Support Center</Link>
         </div>
         
         <div className="flex items-center gap-4">

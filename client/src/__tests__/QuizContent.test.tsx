@@ -64,7 +64,7 @@ describe('QuizContent Component', () => {
     render(<QuizContent />);
     
     // Should show the quiz question
-    expect(screen.getByText('What does LLM stand for?')).toBeInTheDocument();
+    expect(screen.getByText('Which of these is the best ChatGPT prompt?')).toBeInTheDocument();
   });
 
   it('displays Quiz badge', () => {
@@ -78,10 +78,10 @@ describe('QuizContent Component', () => {
     render(<QuizContent />);
     
     // Should show all 4 options
-    expect(screen.getByText('Large Language Model')).toBeInTheDocument();
-    expect(screen.getByText('Linear Learning Machine')).toBeInTheDocument();
-    expect(screen.getByText('Language Logic Module')).toBeInTheDocument();
-    expect(screen.getByText('Learning Language Method')).toBeInTheDocument();
+    expect(screen.getByText('Write something')).toBeInTheDocument();
+    expect(screen.getByText(/Write a professional email/)).toBeInTheDocument();
+    expect(screen.getByText('ChatGPT write')).toBeInTheDocument();
+    expect(screen.getByText('Help me')).toBeInTheDocument();
   });
 
   it('has Check Answer button initially disabled', () => {
@@ -96,7 +96,7 @@ describe('QuizContent Component', () => {
     render(<QuizContent />);
     
     // Click an option
-    const optionA = screen.getByText('Large Language Model');
+    const optionA = screen.getByText('Write something');
     fireEvent.click(optionA);
     
     // Check Answer button should be enabled
@@ -107,8 +107,8 @@ describe('QuizContent Component', () => {
   it('shows correct feedback when correct answer is selected', async () => {
     render(<QuizContent />);
     
-    // Select correct answer (A - Large Language Model)
-    const correctOption = screen.getByText('Large Language Model');
+    // Select correct answer (B - Write a professional email)
+    const correctOption = screen.getByText(/Write a professional email/);
     fireEvent.click(correctOption);
     
     // Click Check Answer
@@ -124,8 +124,8 @@ describe('QuizContent Component', () => {
   it('shows incorrect feedback when wrong answer is selected', async () => {
     render(<QuizContent />);
     
-    // Select wrong answer (B - Linear Learning Machine)
-    const wrongOption = screen.getByText('Linear Learning Machine');
+    // Select wrong answer (A - Write something)
+    const wrongOption = screen.getByText('Write something');
     fireEvent.click(wrongOption);
     
     // Click Check Answer
@@ -142,7 +142,7 @@ describe('QuizContent Component', () => {
     render(<QuizContent />);
     
     // Select an option
-    const option = screen.getByText('Large Language Model');
+    const option = screen.getByText('Write something');
     fireEvent.click(option);
     
     // Click Check Answer
@@ -158,8 +158,8 @@ describe('QuizContent Component', () => {
   it('displays explanation after answering', async () => {
     render(<QuizContent />);
     
-    // Select an option
-    const option = screen.getByText('Large Language Model');
+    // Select an option - the correct answer
+    const option = screen.getByText(/Write a professional email to a client/);
     fireEvent.click(option);
     
     // Click Check Answer
@@ -168,7 +168,7 @@ describe('QuizContent Component', () => {
     
     // Should show explanation
     await waitFor(() => {
-      expect(screen.getByText(/LLM stands for Large Language Model/)).toBeInTheDocument();
+      expect(screen.getByText(/The best prompts are specific/)).toBeInTheDocument();
     });
   });
 });

@@ -1,7 +1,9 @@
 // Course Content Mock Data
 // This file contains the actual lesson content for each module
+// Now using complete mock content for testing
 
 import { ContentPage, QuizQuestion } from './courseData';
+import { completeMockContent, completeMockQuizzes } from './mockCourseContent';
 
 // Content for each module - keyed by module ID
 export const moduleContent: Record<string, ContentPage[]> = {
@@ -363,12 +365,15 @@ export const moduleQuizzes: Record<string, QuizQuestion> = {
 
 // Helper function to get content for a module
 export function getModuleContent(moduleId: string): ContentPage[] {
+  // First try to get from mock content (complete)
+  if (completeMockContent[moduleId]) {
+    return completeMockContent[moduleId];
+  }
+  // Fall back to original content
   return moduleContent[moduleId] || [
     {
       text: `**Coming Soon**
-
 This lesson content is being prepared. Check back soon for the full content!
-
 In the meantime, explore other lessons in this course.`,
       image: '🚧'
     }
@@ -377,5 +382,10 @@ In the meantime, explore other lessons in this course.`,
 
 // Helper function to get quiz for a module
 export function getModuleQuiz(moduleId: string): QuizQuestion | null {
+  // First try to get from mock quizzes (complete)
+  if (completeMockQuizzes[moduleId]) {
+    return completeMockQuizzes[moduleId];
+  }
+  // Fall back to original quizzes
   return moduleQuizzes[moduleId] || null;
 }
