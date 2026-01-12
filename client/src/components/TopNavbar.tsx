@@ -11,6 +11,7 @@ import {
   X
 } from "lucide-react";
 import { StreakDetailModal } from "./StreakDetailModal";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface TopNavbarProps {
   currentStreak?: number;
@@ -33,12 +34,13 @@ export function TopNavbar({
   const [location] = useLocation();
   const [isStreakModalOpen, setIsStreakModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme } = useTheme();
 
   const currentTab = location.split('/')[2] || 'home';
 
   return (
     <>
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-30" data-testid="top-navbar">
+      <nav className={`sticky top-0 z-30 border-b transition-colors ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`} data-testid="top-navbar">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -118,7 +120,7 @@ export function TopNavbar({
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 bg-white">
+          <div className={`md:hidden border-t transition-colors ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
             <div className="px-4 py-3 space-y-1">
               {navItems.map((item) => {
                 const Icon = item.icon;

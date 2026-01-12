@@ -78,14 +78,14 @@ export default function Dashboard() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB]">
+      <div className={`min-h-screen flex items-center justify-center transition-colors ${theme === 'dark' ? 'bg-gray-900' : 'bg-[#F9FAFB]'}`}>
         <div className="animate-spin w-8 h-8 border-4 border-[#5A4CFF] border-t-transparent rounded-full"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB]">
+    <div className={`min-h-screen transition-colors ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-[#F9FAFB]'}`}>
       {/* Top Navigation */}
       <TopNavbar currentStreak={5} longestStreak={12} />
 
