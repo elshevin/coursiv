@@ -487,3 +487,14 @@
 - 🟡 中等差异: 12 项
 - 🟢 小差异: 2 项
 - 已生成完整对比文档: INTERACTION_COMPARISON_FINAL.md
+
+
+## Phase 28: 修复 Streak Challenge 进度条 [DONE]
+
+### 任务
+- [x] 在 Streak 详情弹窗添加 Streak Challenge 进度条
+- [x] 显示 3 天挑战进度
+- [x] 显示 7 天挑战进度
+- [x] 显示 14 天挑战进度
+- [x] 根据当前连续天数显示完成状态
+- [x] E2E 测试验证

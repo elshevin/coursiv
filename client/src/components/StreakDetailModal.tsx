@@ -77,6 +77,23 @@ export function StreakDetailModal({
     return diffDays >= 0 && diffDays < currentStreak;
   };
 
+  // Calculate current challenge target (3, 7, or 14)
+  const getCurrentChallengeTarget = (): number => {
+    if (currentStreak < 3) return 3;
+    if (currentStreak < 7) return 7;
+    return 14;
+  };
+
+  const challengeTarget = getCurrentChallengeTarget();
+  const progressPercentage = Math.min((currentStreak / 14) * 100, 100);
+
+  // Milestone positions (as percentage of total width)
+  const milestones = [
+    { day: 3, position: (3 / 14) * 100 },
+    { day: 7, position: (7 / 14) * 100 },
+    { day: 14, position: 100 },
+  ];
+
   return (
     <>
       {/* Backdrop */}
@@ -88,83 +105,145 @@ export function StreakDetailModal({
       {/* Modal */}
       <div
         ref={modalRef}
-        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[90%] max-w-md"
+        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[90%] max-w-md max-h-[90vh] overflow-y-auto"
         data-testid="streak-detail-modal"
       >
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
           {/* Header */}
-          <div className="relative bg-gradient-to-r from-orange-500 to-red-500 p-6 text-white text-center">
+          <div className="relative p-6 text-center">
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 hover:bg-white/20 rounded-full transition-colors"
+              className="absolute top-4 left-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
               data-testid="streak-modal-close"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 text-gray-500" />
             </button>
 
-            <div className="flex justify-center mb-2">
-              <div className="relative">
-                <Flame className="w-16 h-16 text-yellow-300 animate-pulse" />
-                <span
-                  className="absolute inset-0 flex items-center justify-center font-bold text-2xl text-white"
-                  style={{ textShadow: "0 2px 4px rgba(0,0,0,0.3)" }}
-                  data-testid="streak-current-count"
-                >
-                  {currentStreak}
-                </span>
+            <h2 className="text-lg font-semibold text-gray-800 mb-6">Streak details</h2>
+
+            {/* Streak count display */}
+            <div className="bg-gray-50 rounded-2xl p-6 mb-6">
+              <div className="flex items-center justify-between">
+                <div className="text-left">
+                  <span className="text-5xl font-light text-gray-300">{currentStreak}</span>
+                  <p className="text-gray-600 mt-1">day streak!</p>
+                </div>
+                <Flame className="w-16 h-16 text-gray-300" />
               </div>
             </div>
-            <h2 className="text-xl font-bold">day streak</h2>
+
+            {/* Streak Challenge Progress Bar */}
+            <div className="bg-white border border-gray-200 rounded-xl p-4 mb-6" data-testid="streak-challenge-progress">
+              <div className="flex items-center justify-between mb-3">
+                <span className="font-semibold text-gray-800">Streak Challenge</span>
+                <span className="text-sm text-gray-500">Day {currentStreak} of {challengeTarget}</span>
+              </div>
+              
+              {/* Progress bar with milestones */}
+              <div className="relative">
+                {/* Background bar */}
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  {/* Progress fill */}
+                  <div
+                    className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-500"
+                    style={{ width: `${progressPercentage}%` }}
+                  />
+                </div>
+                
+                {/* Milestone markers */}
+                <div className="absolute top-0 left-0 w-full h-2 flex items-center">
+                  {milestones.map((milestone) => (
+                    <div
+                      key={milestone.day}
+                      className="absolute transform -translate-x-1/2"
+                      style={{ left: `${milestone.position}%` }}
+                    >
+                      {/* Milestone dot on the bar */}
+                      <div
+                        className={`w-3 h-3 rounded-full border-2 ${
+                          currentStreak >= milestone.day
+                            ? "bg-purple-500 border-purple-500"
+                            : "bg-white border-gray-300"
+                        }`}
+                      />
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Milestone labels below the bar */}
+                <div className="relative mt-3">
+                  {milestones.map((milestone) => (
+                    <div
+                      key={milestone.day}
+                      className="absolute transform -translate-x-1/2"
+                      style={{ left: `${milestone.position}%` }}
+                    >
+                      <span
+                        className={`inline-flex items-center justify-center w-7 h-7 text-xs font-medium rounded border ${
+                          currentStreak >= milestone.day
+                            ? "bg-purple-100 border-purple-300 text-purple-700"
+                            : "bg-white border-gray-300 text-gray-500"
+                        }`}
+                      >
+                        {milestone.day}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Stats */}
-          <div className="p-6 border-b border-gray-100">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase mb-4">Streak Challenge</h3>
+          {/* Streak Details Stats */}
+          <div className="px-6 pb-4">
+            <h3 className="font-semibold text-gray-800 mb-4">Streak details</h3>
             
-            {/* Progress bar */}
-            <div className="mb-4">
-              <div className="flex justify-between text-sm mb-2">
-                <span className="text-gray-600">Progress</span>
-                <span className="text-gray-800 font-medium">Day {currentStreak} of 7</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div
-                  className="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full transition-all duration-500"
-                  style={{ width: `${Math.min((currentStreak / 7) * 100, 100)}%` }}
-                />
-              </div>
-            </div>
-
-            {/* Stats grid */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-orange-50 rounded-xl p-4 text-center">
-                <div className="flex items-center justify-center gap-2 mb-1">
-                  <Target className="w-5 h-5 text-orange-500" />
-                  <span className="text-2xl font-bold text-gray-800" data-testid="streak-current-count">
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <p className="text-sm text-gray-500 mb-1">Current streak</p>
+                <div className="flex items-center gap-2">
+                  <span className="w-5 h-5 rounded-full bg-gray-200 flex items-center justify-center">
+                    <span className="text-xs">🎯</span>
+                  </span>
+                  <span className="text-xl font-semibold text-gray-800" data-testid="streak-current-count">
                     {currentStreak}
                   </span>
                 </div>
-                <p className="text-xs text-gray-500">Current streak</p>
               </div>
-              <div className="bg-purple-50 rounded-xl p-4 text-center">
-                <div className="flex items-center justify-center gap-2 mb-1">
-                  <Trophy className="w-5 h-5 text-purple-500" />
-                  <span className="text-2xl font-bold text-gray-800" data-testid="streak-longest-count">
-                    {longestStreak}
-                  </span>
-                </div>
-                <p className="text-xs text-gray-500">Longest streak</p>
+              <div>
+                <p className="text-sm text-gray-500 mb-1">Longest streak</p>
+                <span className="text-xl font-semibold text-gray-800" data-testid="streak-longest-count">
+                  {longestStreak}
+                </span>
               </div>
+            </div>
+
+            {/* Motivation message */}
+            <div className="bg-gray-50 rounded-xl p-4 mb-4">
+              <p className="text-gray-600 text-sm">
+                Finish <span className="font-semibold text-blue-600">1 lesson</span> to begin your streak
+              </p>
             </div>
           </div>
 
           {/* Calendar */}
-          <div className="p-6" data-testid="streak-calendar">
+          <div className="px-6 pb-6" data-testid="streak-calendar">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-gray-800 flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-gray-500" />
+              <h3 className="font-semibold text-gray-800">
                 {monthNames[currentMonth]} {currentYear}
               </h3>
+              <div className="flex gap-2">
+                <button className="p-1 hover:bg-gray-100 rounded">
+                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button className="p-1 hover:bg-gray-100 rounded">
+                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
             </div>
 
             {/* Day names */}
@@ -182,37 +261,19 @@ export function StreakDetailModal({
                 <div
                   key={index}
                   className={`
-                    aspect-square flex items-center justify-center text-sm rounded-lg
+                    aspect-square flex items-center justify-center text-sm rounded-full
                     ${!day ? "" : isCompleted(day) 
-                      ? "bg-orange-500 text-white font-medium" 
+                      ? "bg-purple-500 text-white font-medium" 
                       : day === today.getDate() 
-                        ? "bg-purple-100 text-purple-700 font-medium"
+                        ? "bg-purple-100 text-purple-700 font-medium border-2 border-purple-300"
                         : "text-gray-600 hover:bg-gray-100"
                     }
                   `}
                 >
-                  {day && (
-                    <>
-                      {isCompleted(day) ? (
-                        <Flame className="w-4 h-4" />
-                      ) : (
-                        day
-                      )}
-                    </>
-                  )}
+                  {day || ""}
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Footer */}
-          <div className="px-6 pb-6">
-            <button
-              onClick={onClose}
-              className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold py-3 rounded-xl transition-colors"
-            >
-              Keep the streak going! 🔥
-            </button>
           </div>
         </div>
       </div>
