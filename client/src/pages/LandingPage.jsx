@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/accordion";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import AnimatedSection from "@/components/AnimatedSection";
-import AIChatDemo from "@/components/AIChatDemo";
+import BrowserWindowAnimation from "@/components/BrowserWindowAnimation";
 import CountUp from "@/components/CountUp";
 
 export default function LandingPage() {
@@ -61,9 +61,9 @@ export default function LandingPage() {
             </div>
             
             <div className="flex-1 relative w-full max-w-[600px] flex justify-center lg:justify-end">
-              {/* AI Chat Demo */}
+              {/* Browser Window Animation */}
               <div className="relative hidden lg:block">
-                <AIChatDemo />
+                <BrowserWindowAnimation />
               </div>
               {/* Mobile: Phone Mockup */}
               <div className="relative w-[300px] lg:hidden">
