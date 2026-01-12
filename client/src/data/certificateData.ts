@@ -5,6 +5,9 @@ export interface Certificate {
   courseId: string;
   description: string;
   image: string;
+  icon: string;
+  progress: number;
+  unlocked: boolean;
   requiredLessons: number;
 }
 
@@ -16,6 +19,9 @@ export const certificateData: Certificate[] = [
     courseId: 'chatgpt',
     description: 'Completed the ChatGPT Mastery course',
     image: '/cert-chatgpt.webp',
+    icon: '🤖',
+    progress: 65,
+    unlocked: false,
     requiredLessons: 16
   },
   {
@@ -24,6 +30,9 @@ export const certificateData: Certificate[] = [
     courseId: 'ai-business',
     description: 'Completed the AI for Business course',
     image: '/cert-ai-business.webp',
+    icon: '💼',
+    progress: 30,
+    unlocked: false,
     requiredLessons: 18
   },
   {
@@ -32,6 +41,9 @@ export const certificateData: Certificate[] = [
     courseId: 'prompt-engineering',
     description: 'Completed the Prompt Engineering course',
     image: '/cert-prompt.webp',
+    icon: '✨',
+    progress: 0,
+    unlocked: false,
     requiredLessons: 12
   },
   {
@@ -40,6 +52,9 @@ export const certificateData: Certificate[] = [
     courseId: 'ai-reinvention-2026',
     description: 'Completed the 28-Day AI Reinvention Challenge',
     image: '/cert-ai-reinvention.webp',
+    icon: '🚀',
+    progress: 43,
+    unlocked: false,
     requiredLessons: 28
   },
   {
@@ -48,6 +63,9 @@ export const certificateData: Certificate[] = [
     courseId: 'junior-ai-challenge',
     description: 'Completed the Junior AI Challenge',
     image: '/cert-junior.webp',
+    icon: '🌟',
+    progress: 11,
+    unlocked: false,
     requiredLessons: 28
   },
   {
@@ -56,6 +74,9 @@ export const certificateData: Certificate[] = [
     courseId: 'ai-side-gigs',
     description: 'Completed the 14-Day AI Side Gigs Challenge',
     image: '/cert-side-gigs.webp',
+    icon: '💰',
+    progress: 0,
+    unlocked: false,
     requiredLessons: 14
   },
   {
@@ -64,6 +85,9 @@ export const certificateData: Certificate[] = [
     courseId: 'no-code-challenge',
     description: 'Completed the No Code Challenge',
     image: '/cert-no-code.webp',
+    icon: '🛠️',
+    progress: 0,
+    unlocked: false,
     requiredLessons: 14
   },
   {
@@ -72,6 +96,9 @@ export const certificateData: Certificate[] = [
     courseId: 'deepseek',
     description: 'Completed the DeepSeek course',
     image: '/cert-deepseek.webp',
+    icon: '🧠',
+    progress: 100,
+    unlocked: true,
     requiredLessons: 10
   },
   {
@@ -80,6 +107,9 @@ export const certificateData: Certificate[] = [
     courseId: 'claude',
     description: 'Completed the Claude AI course',
     image: '/cert-claude.webp',
+    icon: '💬',
+    progress: 0,
+    unlocked: false,
     requiredLessons: 12
   }
 ];

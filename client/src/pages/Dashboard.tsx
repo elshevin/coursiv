@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useParams, Link, useLocation } from "wouter";
 import { useEmailAuth } from "@/hooks/useEmailAuth";
 import { useTestMode } from "@/contexts/TestModeContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { WeeklyStreaks } from "@/components/WeeklyStreaks";
+import { TopNavbar } from "@/components/TopNavbar";
+import { StreakDetailModal } from "@/components/StreakDetailModal";
 import { 
   Home, 
   BookOpen, 
@@ -13,18 +16,21 @@ import {
   Sparkles, 
   User, 
   LogOut,
-  Play,
   Clock,
-  Star,
-  ChevronRight,
   Flame,
   Target,
   Zap,
   Settings,
   FlaskConical,
   Lock,
-  HelpCircle
+  HelpCircle,
+  ChevronRight,
+  Moon,
+  Sun
 } from "lucide-react";
+
+import { challengeData } from '@/data/challengeData';
+import { certificateData } from '@/data/certificateData';
 
 // Mock data for dashboard
 const mockCourses = [
@@ -32,9 +38,6 @@ const mockCourses = [
   { id: 2, title: 'AI for Business', progress: 30, totalLessons: 18, completedLessons: 5, image: '/2-2458.webp' },
   { id: 3, title: 'Prompt Engineering', progress: 0, totalLessons: 12, completedLessons: 0, image: '/2-323.webp' },
 ];
-
-import { challengeData } from '@/data/challengeData';
-import { certificateData } from '@/data/certificateData';
 
 const mockChallenges = [
   { id: 'ai-reinvention-2026', title: '28-Day AI Challenge', day: 12, totalDays: 28, streak: 5 },
@@ -48,20 +51,16 @@ const mockAITools = [
   { id: 4, name: 'Data Analyzer', description: 'Analyze your data', icon: '📊' },
 ];
 
-const sidebarItems = [
-  { id: 'home', label: 'Home', icon: Home, path: '/dashboard' },
-  { id: 'guides', label: 'Guides', icon: BookOpen, path: '/dashboard/guides' },
-  { id: 'challenges', label: 'Challenges', icon: Trophy, path: '/dashboard/challenges' },
-  { id: 'ai-tools', label: 'AI Tools', icon: Sparkles, path: '/dashboard/ai-tools' },
-  { id: 'profile', label: 'Profile', icon: User, path: '/dashboard/profile' },
-];
-
 export default function Dashboard() {
   const params = useParams();
   const [, setLocation] = useLocation();
   const { user, logout, isAuthenticated, isLoading } = useEmailAuth();
   const { isTestModeEnabled, isTestModeAllowed, toggleTestMode } = useTestMode();
+  const { theme, toggleTheme } = useTheme();
   const currentTab = params.tab || 'home';
+  
+  // Streak modal state
+  const [isStreakModalOpen, setIsStreakModalOpen] = useState(false);
 
   const handleLogout = async () => {
     await logout();
@@ -86,63 +85,15 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-[#E2E5E9] flex flex-col">
-        <div className="p-6 border-b border-[#E2E5E9]">
-          <Link href="/">
-            <img src="/2-332.svg" alt="Coursiv" className="h-8 cursor-pointer" />
-          </Link>
-        </div>
-        
-        <nav className="flex-1 p-4">
-          <ul className="space-y-1">
-            {sidebarItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = currentTab === item.id || (currentTab === 'home' && item.id === 'home' && !params.tab);
-              return (
-                <li key={item.id}>
-                  <Link href={item.path}>
-                    <a className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
-                      isActive 
-                        ? 'bg-[#5A4CFF] text-white' 
-                        : 'text-[#24234C]/70 hover:bg-[#F0F2F5]'
-                    }`}>
-                      <Icon className="w-5 h-5" />
-                      <span className="font-medium">{item.label}</span>
-                    </a>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-        
-        <div className="p-4 border-t border-[#E2E5E9]">
-          <div className="flex items-center gap-3 px-4 py-3 mb-2">
-            <div className="w-10 h-10 rounded-full bg-[#5A4CFF]/10 flex items-center justify-center">
-              <User className="w-5 h-5 text-[#5A4CFF]" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="font-medium text-[#24234C] truncate">{displayName}</p>
-              <p className="text-xs text-[#24234C]/50">{user?.email}</p>
-            </div>
-          </div>
-          <button 
-            onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 w-full text-red-500 hover:bg-red-50 rounded-xl transition-colors"
-          >
-            <LogOut className="w-5 h-5" />
-            <span className="font-medium">Log out</span>
-          </button>
-        </div>
-      </aside>
+    <div className="min-h-screen bg-[#F9FAFB]">
+      {/* Top Navigation */}
+      <TopNavbar currentStreak={5} longestStreak={12} />
 
       {/* Main Content */}
-      <main className="flex-1 p-8 overflow-auto">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Home Tab */}
         {(currentTab === 'home' || !currentTab) && (
-          <div className="max-w-[1200px] mx-auto">
+          <div data-testid="home-page">
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-[#24234C] mb-2">
                 Welcome back, {displayName}! 👋
@@ -150,14 +101,18 @@ export default function Dashboard() {
               <p className="text-[#24234C]/60">Continue your AI learning journey</p>
             </div>
 
-            {/* Weekly Streaks */}
-            <div className="mb-8">
+            {/* Weekly Streaks - Clickable */}
+            <div 
+              className="mb-8 cursor-pointer" 
+              onClick={() => setIsStreakModalOpen(true)}
+              data-testid="weekly-streaks-card"
+            >
               <WeeklyStreaks />
             </div>
 
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <Card className="border-[#E2E5E9]">
+              <Card className="border-[#E2E5E9] hover-lift">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-[#5A4CFF]/10 flex items-center justify-center">
@@ -171,7 +126,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
               
-              <Card className="border-[#E2E5E9]">
+              <Card className="border-[#E2E5E9] hover-lift">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
@@ -185,7 +140,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
               
-              <Card className="border-[#E2E5E9]">
+              <Card className="border-[#E2E5E9] hover-lift">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center">
@@ -211,7 +166,7 @@ export default function Dashboard() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {mockCourses.map((course) => (
-                  <Card key={course.id} className="border-[#E2E5E9] overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+                  <Card key={course.id} className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer" data-testid="course-card-chatgpt">
                     <div className="h-32 bg-gradient-to-br from-[#5A4CFF]/20 to-[#5A4CFF]/5 flex items-center justify-center">
                       <BookOpen className="w-12 h-12 text-[#5A4CFF]/40" />
                     </div>
@@ -239,13 +194,13 @@ export default function Dashboard() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {mockChallenges.map((challenge) => (
-                  <Card key={challenge.id} className="border-[#E2E5E9]">
+                  <Card key={challenge.id} className="border-[#E2E5E9] hover-lift">
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="font-semibold text-[#24234C]">{challenge.title}</h3>
                         <div className="flex items-center gap-1 text-amber-500">
                           <Flame className="w-4 h-4" />
-                          <span className="text-sm font-medium">{challenge.streak}</span>
+                          <span className="font-medium">{challenge.streak}</span>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-3">
@@ -262,26 +217,49 @@ export default function Dashboard() {
 
         {/* Guides Tab */}
         {currentTab === 'guides' && (
-          <div className="max-w-[1200px] mx-auto">
-            <h1 className="text-3xl font-bold text-[#24234C] mb-8">Learning Guides</h1>
+          <div data-testid="guides-page">
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-[#24234C] mb-2">Guides</h1>
+              <p className="text-[#24234C]/60">Master AI tools with our comprehensive guides</p>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {mockCourses.map((course) => (
-                <Card key={course.id} className="border-[#E2E5E9] overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
-                  <div className="h-40 bg-gradient-to-br from-[#5A4CFF]/20 to-[#5A4CFF]/5 flex items-center justify-center">
-                    <BookOpen className="w-16 h-16 text-[#5A4CFF]/40" />
-                  </div>
-                  <CardContent className="p-5">
-                    <h3 className="font-semibold text-lg text-[#24234C] mb-2">{course.title}</h3>
-                    <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-4">
-                      <Clock className="w-4 h-4" />
-                      <span>{course.totalLessons} lessons</span>
+              {[
+                { id: 'chatgpt', title: 'ChatGPT Mastery', lessons: 24, duration: '4h 30m', icon: '🤖', progress: 65 },
+                { id: 'dalle', title: 'DALL-E Creative', lessons: 18, duration: '3h 15m', icon: '🎨', progress: 30 },
+                { id: 'midjourney', title: 'Midjourney Pro', lessons: 20, duration: '3h 45m', icon: '🖼️', progress: 0 },
+                { id: 'claude', title: 'Claude Assistant', lessons: 16, duration: '2h 50m', icon: '🧠', progress: 0 },
+                { id: 'copilot', title: 'GitHub Copilot', lessons: 14, duration: '2h 30m', icon: '💻', progress: 0 },
+                { id: 'gemini', title: 'Google Gemini', lessons: 12, duration: '2h 15m', icon: '✨', progress: 0 },
+              ].map((guide) => (
+                <Link key={guide.id} href={`/course/${guide.id}`}>
+                  <Card className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer h-full">
+                    <div className="h-32 bg-gradient-to-br from-[#5A4CFF]/20 to-[#5A4CFF]/5 flex items-center justify-center">
+                      <span className="text-5xl">{guide.icon}</span>
                     </div>
-                    <Progress value={course.progress} className="h-2 mb-4" />
-                    <Button className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0]">
-                      {course.progress > 0 ? 'Continue' : 'Start Learning'}
-                    </Button>
-                  </CardContent>
-                </Card>
+                    <CardContent className="p-4">
+                      <h3 className="font-semibold text-[#24234C] mb-2">{guide.title}</h3>
+                      <div className="flex items-center gap-4 text-sm text-[#24234C]/60 mb-3">
+                        <span>{guide.lessons} lessons</span>
+                        <span>•</span>
+                        <span>{guide.duration}</span>
+                      </div>
+                      {guide.progress > 0 ? (
+                        <div>
+                          <div className="flex justify-between text-xs mb-1">
+                            <span className="text-[#24234C]/60">Progress</span>
+                            <span className="font-medium text-[#5A4CFF]">{guide.progress}%</span>
+                          </div>
+                          <Progress value={guide.progress} className="h-2" />
+                        </div>
+                      ) : (
+                        <Button className="w-full bg-[#5A4CFF] hover:bg-[#4A3CDF] hover-scale" data-testid="continue-learning-btn">
+                          Start Learning
+                        </Button>
+                      )}
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
             </div>
           </div>
@@ -289,66 +267,55 @@ export default function Dashboard() {
 
         {/* Challenges Tab */}
         {currentTab === 'challenges' && (
-          <div className="max-w-[1200px] mx-auto">
-            <div className="flex items-center justify-between mb-8">
-              <h1 className="text-3xl font-bold text-[#24234C]">Challenges</h1>
-              <div className="flex gap-2">
-                <Button variant="outline" className="border-[#5A4CFF] text-[#5A4CFF]">All</Button>
-                <Button variant="ghost" className="text-[#24234C]/60">Completed</Button>
-              </div>
+          <div data-testid="challenges-page">
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-[#24234C] mb-2">Challenges</h1>
+              <p className="text-[#24234C]/60">Push yourself with our AI challenges</p>
             </div>
-            
+
+            {/* Filter Tabs */}
+            <div className="flex gap-2 mb-6">
+              <Button variant="default" className="bg-[#5A4CFF]">All</Button>
+              <Button variant="outline">Completed</Button>
+            </div>
+
             {/* My Challenges */}
-            {mockChallenges.length > 0 && (
-              <div className="mb-8">
-                <h2 className="text-xl font-bold text-[#24234C] mb-4">My Challenges</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {mockChallenges.map((challenge) => (
-                    <Link key={challenge.id} href={`/challenge/${challenge.id}`}>
-                      <Card className="border-[#E2E5E9] hover:shadow-lg transition-shadow cursor-pointer">
-                        <CardContent className="p-6">
-                          <div className="flex items-center justify-between mb-4">
-                            <h3 className="font-semibold text-xl text-[#24234C]">{challenge.title}</h3>
-                            <div className="flex items-center gap-1 text-amber-500 bg-amber-50 px-3 py-1 rounded-full">
-                              <Flame className="w-4 h-4" />
-                              <span className="text-sm font-medium">{challenge.streak} day streak</span>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-4">
-                            <span>Day {challenge.day} of {challenge.totalDays}</span>
-                          </div>
-                          <Progress value={(challenge.day / challenge.totalDays) * 100} className="h-3 mb-4" />
-                          <Button className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0]">
-                            Continue Challenge
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {/* All Challenges */}
-            <div>
-              <h2 className="text-xl font-bold text-[#24234C] mb-4">All Challenges</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {challengeData.map((challenge) => (
+            <div className="mb-8">
+              <h2 className="text-xl font-bold text-[#24234C] mb-4">My challenges</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {challengeData.slice(0, 2).map((challenge) => (
                   <Link key={challenge.id} href={`/challenge/${challenge.id}`}>
-                    <Card className="border-[#E2E5E9] hover:shadow-lg transition-shadow cursor-pointer h-full">
-                      <div className="h-32 bg-gradient-to-br from-[#5A4CFF]/20 to-[#5A4CFF]/5 flex items-center justify-center">
-                        <Trophy className="w-12 h-12 text-[#5A4CFF]/40" />
+                    <Card className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer">
+                      <div className="h-40 bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center relative">
+                        <span className="text-6xl">{challenge.icon}</span>
+                        <div className="absolute bottom-3 left-3 bg-white/90 px-2 py-1 rounded text-xs font-medium">
+                          Day {challenge.currentDay} of {challenge.totalDays}
+                        </div>
                       </div>
                       <CardContent className="p-4">
-                        <h3 className="font-semibold text-[#24234C] mb-2 line-clamp-2">{challenge.title}</h3>
-                        <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-2">
-                          <span>{challenge.totalDays} days</span>
-                          <span>•</span>
-                          <span>{challenge.difficulty}</span>
-                        </div>
-                        <span className="text-xs px-2 py-1 bg-[#F0F2F5] text-[#24234C]/60 rounded">
-                          {challenge.category}
-                        </span>
+                        <h3 className="font-semibold text-[#24234C] mb-1">{challenge.title}</h3>
+                        <p className="text-sm text-[#24234C]/60 mb-3">{challenge.difficulty} • {challenge.totalDays} days</p>
+                        <Progress value={(challenge.currentDay / challenge.totalDays) * 100} className="h-2" />
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* All Challenges */}
+            <div>
+              <h2 className="text-xl font-bold text-[#24234C] mb-4">All challenges</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {challengeData.map((challenge) => (
+                  <Link key={challenge.id} href={`/challenge/${challenge.id}`}>
+                    <Card className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer">
+                      <div className="h-32 bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center">
+                        <span className="text-5xl">{challenge.icon}</span>
+                      </div>
+                      <CardContent className="p-4">
+                        <h3 className="font-semibold text-[#24234C] mb-1">{challenge.title}</h3>
+                        <p className="text-sm text-[#24234C]/60">{challenge.difficulty} • {challenge.totalDays} days</p>
                       </CardContent>
                     </Card>
                   </Link>
@@ -360,31 +327,26 @@ export default function Dashboard() {
 
         {/* AI Tools Tab */}
         {currentTab === 'ai-tools' && (
-          <div className="max-w-[800px] mx-auto text-center py-16">
-            <div className="mb-8">
-              <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-[#5A4CFF]/10 flex items-center justify-center">
-                <Sparkles className="w-12 h-12 text-[#5A4CFF]" />
-              </div>
+          <div className="text-center py-16" data-testid="ai-tools-page">
+            <div className="max-w-2xl mx-auto">
+              <Sparkles className="w-16 h-16 text-[#5A4CFF] mx-auto mb-6" />
               <h1 className="text-4xl font-bold text-[#24234C] mb-4">AI Tools</h1>
-              <p className="text-2xl text-[#5A4CFF] font-semibold mb-4">Coming Soon</p>
-              <p className="text-[#24234C]/60 max-w-md mx-auto">
-                We're building powerful AI tools to help you work smarter. 
+              <p className="text-xl text-[#5A4CFF] font-semibold mb-4">Coming Soon</p>
+              <p className="text-[#24234C]/60 mb-8">
+                We're building powerful AI tools to supercharge your productivity. 
                 Stay tuned for AI Writer, Image Generator, Code Assistant, and more!
               </p>
-            </div>
-            
-            {/* Preview of upcoming tools */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-              {mockAITools.map((tool) => (
-                <div key={tool.id} className="p-4 bg-white/50 border border-[#E2E5E9] rounded-xl opacity-60">
-                  <div className="text-3xl mb-2">{tool.icon}</div>
-                  <p className="text-sm font-medium text-[#24234C]/60">{tool.name}</p>
-                </div>
-              ))}
-            </div>
-            
-            <div className="mt-12">
-              <Button disabled className="bg-[#5A4CFF]/50 text-white cursor-not-allowed">
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                {mockAITools.map((tool) => (
+                  <div key={tool.id} className="bg-white rounded-xl p-4 border border-[#E2E5E9] opacity-60">
+                    <span className="text-3xl mb-2 block">{tool.icon}</span>
+                    <h3 className="font-medium text-[#24234C] text-sm">{tool.name}</h3>
+                  </div>
+                ))}
+              </div>
+              
+              <Button disabled className="bg-[#5A4CFF]/50 cursor-not-allowed">
                 Notify Me When Available
               </Button>
             </div>
@@ -393,149 +355,167 @@ export default function Dashboard() {
 
         {/* Profile Tab */}
         {currentTab === 'profile' && (
-          <div className="max-w-[800px] mx-auto">
-            <h1 className="text-3xl font-bold text-[#24234C] mb-8">Profile</h1>
-            
-            {/* User Info Card */}
-            <Card className="border-[#E2E5E9] mb-6">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-6 mb-8">
-                  <div className="w-20 h-20 rounded-full bg-[#5A4CFF]/10 flex items-center justify-center">
-                    <User className="w-10 h-10 text-[#5A4CFF]" />
+          <div data-testid="profile-page">
+            <div className="max-w-2xl mx-auto">
+              {/* User Info */}
+              <div className="bg-white rounded-2xl p-6 border border-[#E2E5E9] mb-6">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#5A4CFF] to-purple-400 flex items-center justify-center">
+                    <User className="w-10 h-10 text-white" />
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold text-[#24234C]">{displayName}</h2>
                     <p className="text-[#24234C]/60">{user?.email}</p>
                   </div>
                 </div>
-                
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between py-3 border-b border-[#E2E5E9]">
-                    <span className="text-[#24234C]/60">Member since</span>
-                    <span className="font-medium text-[#24234C]">
-                      {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Today'}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between py-3 border-b border-[#E2E5E9]">
-                    <span className="text-[#24234C]/60">Courses enrolled</span>
-                    <span className="font-medium text-[#24234C]">3</span>
-                  </div>
-                  <div className="flex items-center justify-between py-3 border-b border-[#E2E5E9]">
-                    <span className="text-[#24234C]/60">Lessons completed</span>
-                    <span className="font-medium text-[#24234C]">21</span>
-                  </div>
-                  <div className="flex items-center justify-between py-3">
-                    <span className="text-[#24234C]/60">Total XP</span>
-                    <span className="font-medium text-[#24234C]">1,250</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Quick Actions */}
-            <div className="grid grid-cols-3 gap-4 mb-6">
-              <button className="flex flex-col items-center gap-2 p-4 bg-white border border-[#E2E5E9] rounded-xl hover:shadow-md transition-shadow">
-                <BookOpen className="w-6 h-6 text-[#5A4CFF]" />
-                <span className="text-sm font-medium text-[#24234C]">Prompts Library</span>
-                <span className="text-xs text-[#24234C]/40">Coming Soon</span>
-              </button>
-              <button className="flex flex-col items-center gap-2 p-4 bg-white border border-[#E2E5E9] rounded-xl hover:shadow-md transition-shadow">
-                <HelpCircle className="w-6 h-6 text-[#5A4CFF]" />
-                <span className="text-sm font-medium text-[#24234C]">Help</span>
-              </button>
-              <button className="flex flex-col items-center gap-2 p-4 bg-white border border-[#E2E5E9] rounded-xl hover:shadow-md transition-shadow">
-                <Settings className="w-6 h-6 text-[#5A4CFF]" />
-                <span className="text-sm font-medium text-[#24234C]">Settings</span>
-              </button>
-            </div>
-            
-            {/* Certificates Section */}
-            <div className="mb-6">
-              <h2 className="text-xl font-bold text-[#24234C] mb-4">My Certificates</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {certificateData.map((cert) => {
-                  // Mock progress - in real app, this would come from user data
-                  const mockProgress = cert.courseId === 'chatgpt' ? 13 : cert.courseId === 'ai-business' ? 30 : 0;
-                  const isUnlocked = mockProgress >= 100;
-                  
-                  return (
-                    <Card 
-                      key={cert.id} 
-                      className={`border-[#E2E5E9] overflow-hidden transition-all ${
-                        isUnlocked ? 'hover:shadow-lg cursor-pointer' : 'opacity-70'
-                      }`}
-                    >
-                      <div className={`h-24 flex items-center justify-center ${
-                        isUnlocked 
-                          ? 'bg-gradient-to-br from-amber-100 to-amber-50' 
-                          : 'bg-gradient-to-br from-gray-100 to-gray-50'
-                      }`}>
-                        {isUnlocked ? (
-                          <Trophy className="w-10 h-10 text-amber-500" />
-                        ) : (
-                          <Lock className="w-8 h-8 text-[#24234C]/30" />
-                        )}
-                      </div>
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold text-[#24234C] mb-1 text-sm">{cert.title}</h3>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs text-[#24234C]/60">
-                            {isUnlocked ? 'Completed' : `${mockProgress}% complete`}
-                          </span>
-                        </div>
-                        <Progress value={mockProgress} className="h-1.5" />
-                      </CardContent>
-                    </Card>
-                  );
-                })}
               </div>
-            </div>
 
-            {/* Developer Options Card - Only show if test mode is allowed */}
-            {isTestModeAllowed && (
-              <Card className="border-[#E2E5E9] border-dashed">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg flex items-center gap-2 text-[#24234C]/70">
-                    <Settings className="w-5 h-5" />
-                    Developer Options
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-2">
-                  <div className="flex items-center justify-between py-3">
-                    <div className="flex items-center gap-3">
-                      <FlaskConical className="w-5 h-5 text-amber-500" />
-                      <div>
-                        <p className="font-medium text-[#24234C]">Test Mode</p>
-                        <p className="text-xs text-[#24234C]/50">Enable testing features for development</p>
+              {/* Quick Actions */}
+              <div className="bg-white rounded-2xl border border-[#E2E5E9] mb-6 overflow-hidden">
+                <Link href="/prompts">
+                  <div 
+                    className="w-full flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors border-b border-[#E2E5E9]"
+                    data-testid="prompts-library-link"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center">
+                      <BookOpen className="w-5 h-5 text-purple-600" />
+                    </div>
+                    <div className="flex-1 text-left">
+                      <p className="font-medium text-[#24234C]">Prompts Library</p>
+                      <p className="text-sm text-[#24234C]/60">Browse AI prompts</p>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-[#24234C]/40" />
+                  </div>
+                </Link>
+                
+                <button 
+                  className="w-full flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors border-b border-[#E2E5E9]"
+                  data-testid="help-link"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center">
+                    <HelpCircle className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <div className="flex-1 text-left">
+                    <p className="font-medium text-[#24234C]">Help</p>
+                    <p className="text-sm text-[#24234C]/60">Get support</p>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-[#24234C]/40" />
+                </button>
+                
+                <Link href="/settings">
+                  <div 
+                    className="w-full flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors border-b border-[#E2E5E9]"
+                    data-testid="settings-link"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center">
+                      <Settings className="w-5 h-5 text-gray-600" />
+                    </div>
+                    <div className="flex-1 text-left">
+                      <p className="font-medium text-[#24234C] dark:text-white">Settings</p>
+                      <p className="text-sm text-[#24234C]/60 dark:text-white/60">Account settings</p>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-[#24234C]/40 dark:text-white/40" />
+                  </div>
+                </Link>
+                
+                {/* Dark Mode Toggle */}
+                <div 
+                  className="w-full flex items-center gap-4 p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                  data-testid="dark-mode-toggle-container"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center">
+                    {theme === 'dark' ? (
+                      <Moon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                    ) : (
+                      <Sun className="w-5 h-5 text-indigo-600" />
+                    )}
+                  </div>
+                  <div className="flex-1 text-left">
+                    <p className="font-medium text-[#24234C] dark:text-white">Dark Mode</p>
+                    <p className="text-sm text-[#24234C]/60 dark:text-white/60">{theme === 'dark' ? 'On' : 'Off'}</p>
+                  </div>
+                  <button
+                    onClick={toggleTheme}
+                    data-testid="dark-mode-toggle"
+                    className={`relative w-12 h-6 rounded-full transition-colors ${theme === 'dark' ? 'bg-indigo-600' : 'bg-gray-300'}`}
+                  >
+                    <span className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${theme === 'dark' ? 'left-7' : 'left-1'}`} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Certificates */}
+              <div className="bg-white rounded-2xl p-6 border border-[#E2E5E9] mb-6">
+                <h3 className="text-lg font-bold text-[#24234C] mb-4">My Certificates</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {certificateData.map((cert) => (
+                    <Link key={cert.id} href={`/course/${cert.courseId}`}>
+                      <div 
+                        className={`p-4 rounded-xl border ${cert.unlocked ? 'border-green-200 bg-green-50' : 'border-gray-200 bg-gray-50'} hover-lift cursor-pointer`}
+                        data-testid={`certificate-card-${cert.courseId}`}
+                      >
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="text-2xl">{cert.icon}</span>
+                          <div className="flex-1">
+                            <p className="font-medium text-[#24234C] text-sm">{cert.title}</p>
+                            <p className="text-xs text-[#24234C]/60">{cert.progress}% complete</p>
+                          </div>
+                          {cert.unlocked ? (
+                            <Trophy className="w-5 h-5 text-green-500" />
+                          ) : (
+                            <Lock className="w-5 h-5 text-gray-400" />
+                          )}
+                        </div>
+                        <Progress value={cert.progress} className="h-1.5" />
                       </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Developer Options */}
+              {isTestModeAllowed && (
+                <div className="bg-white rounded-2xl p-6 border border-[#E2E5E9] mb-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <FlaskConical className="w-5 h-5 text-purple-600" />
+                    <h3 className="text-lg font-bold text-[#24234C]">Developer Options</h3>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-medium text-[#24234C]">Test Mode</p>
+                      <p className="text-sm text-[#24234C]/60">Unlock all content for testing</p>
                     </div>
                     <button
                       onClick={toggleTestMode}
-                      className={`relative w-12 h-6 rounded-full transition-colors ${
-                        isTestModeEnabled ? 'bg-amber-500' : 'bg-[#E2E5E9]'
-                      }`}
+                      className={`relative w-12 h-6 rounded-full transition-colors ${isTestModeEnabled ? 'bg-purple-600' : 'bg-gray-300'}`}
                     >
-                      <span
-                        className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${
-                          isTestModeEnabled ? 'translate-x-7' : 'translate-x-1'
-                        }`}
-                      />
+                      <span className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${isTestModeEnabled ? 'left-7' : 'left-1'}`} />
                     </button>
                   </div>
-                  
-                  {isTestModeEnabled && (
-                    <div className="mt-4 p-3 bg-amber-50 rounded-lg border border-amber-200">
-                      <p className="text-sm text-amber-800">
-                        <strong>Test Mode Active:</strong> Streaks won't reset, progress thresholds are lowered, and some features behave differently.
-                      </p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )}
+                </div>
+              )}
+
+              {/* Logout */}
+              <button 
+                onClick={handleLogout}
+                className="w-full flex items-center justify-center gap-2 p-4 bg-red-50 text-red-600 rounded-xl hover:bg-red-100 transition-colors font-medium"
+              >
+                <LogOut className="w-5 h-5" />
+                <span>Log out</span>
+              </button>
+            </div>
           </div>
         )}
       </main>
+
+      {/* Streak Detail Modal */}
+      <StreakDetailModal
+        isOpen={isStreakModalOpen}
+        onClose={() => setIsStreakModalOpen(false)}
+        currentStreak={5}
+        longestStreak={12}
+        streakDays={[true, true, true, true, true, false, false]}
+      />
     </div>
   );
 }

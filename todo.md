@@ -282,3 +282,97 @@
 - [x] Iteration 7: 挑战系统
 - [x] Iteration 8: 证书系统
 - [x] Iteration 9: AI Tools Coming Soon + Profile 完善
+
+
+## Phase 22: Iteration 10 - 核心交互改进 [DONE]
+
+### 蛇形路径布局
+- [x] 课程详情页改为蛇形路径布局 (SnakePath.tsx)
+- [x] 模块图标交替左右排列
+- [x] SVG 曲线连接各模块
+
+### 模块预览弹窗
+- [x] 点击模块显示预览弹窗 (ModulePreviewPopover.tsx)
+- [x] 弹窗包含标题、描述、Read/Listen 按钮
+- [x] 点击弹窗外区域关闭 (Escape 键)
+
+### Streak 详情弹窗
+- [x] Weekly Streaks 卡片可点击
+- [x] 点击打开 Streak 详情弹窗 (StreakDetailModal.tsx)
+- [x] 弹窗显示当前连续天数、最长连续、日历视图
+
+### 顶部水平导航
+- [x] Dashboard 导航改为顶部水平布局 (TopNavbar.tsx)
+- [x] 导航包含 Logo、Home、Guides、Challenges、AI Tools、火焰图标、Profile
+- [x] 火焰图标点击打开 Streak 弹窗
+
+### E2E 测试
+- [x] 浏览器 E2E 测试通过
+- [x] 所有单元测试通过 (44 passed, 1 skipped)
+
+
+## Phase 23: Iteration 11 - 交互完善 [DONE]
+
+### 课程切换下拉
+- [x] 课程详情页顶部添加课程名称下拉 (CourseDropdown.tsx)
+- [x] 点击下拉展开横向课程选择器
+- [x] 当前课程蓝色边框高亮
+- [x] 点击其他课程切换路径视图
+
+### 深色模式
+- [x] Profile 页面添加深色模式开关
+- [x] 点击开关整站颜色即时切换 (ThemeContext)
+- [x] 深色模式偏好保存到 localStorage
+
+### hover 效果
+- [x] 证书卡片点击跳转到对应课程 (Dashboard.tsx)
+- [x] 所有卡片添加 hover 上浮效果 (hover-lift class)
+- [x] 所有按钮添加 hover 放大效果 (hover-scale class)
+
+### E2E 测试
+- [x] 浏览器 E2E 测试通过
+- [x] 所有单元测试通过
+
+
+## Phase 24: Iteration 12 - 视觉一致性 [DONE]
+
+### Hero 动态演示
+- [x] Landing Page Hero 区域添加 AI 聊天演示动画 (AIChatDemo.tsx)
+- [x] 打字机效果显示用户问题
+- [x] 逐字显示 AI 回复
+
+### 引言轮播
+- [x] Testimonials 区域自动轮播 (已有 TestimonialsCarousel.jsx)
+- [x] 左右箭头手动切换
+- [x] 指示点和自动播放状态
+
+### 数字滚动动画
+- [x] 用户数 "1,461,394+" 数字滚动动画 (CountUp.tsx)
+- [x] 视口可见时触发动画
+
+### E2E 测试
+- [x] 浏览器 E2E 测试通过
+- [x] 所有单元测试通过
+
+
+## Phase 25: Iteration 13 - 增强功能 [DONE]
+
+### Prompts Library
+- [x] 创建 Prompts Library 页面 (PromptsLibrary.tsx)
+- [x] 显示分类提示词列表 (8个提示词模板)
+- [x] 搜索和筛选功能 (All/Writing/Coding/Business/Creative/Chat)
+
+### Settings 页面
+- [x] 创建 Settings 页面 (Settings.tsx)
+- [x] 账户设置选项 (Email/Password)
+- [x] 通知设置选项 (Email/Push/Marketing)
+- [x] 深色模式切换
+- [x] 隐私安全选项
+
+### Quiz 重试
+- [x] Quiz 答错后显示 "Try Again" 按钮
+- [x] 点击后重置答案状态
+
+### E2E 测试
+- [x] 浏览器 E2E 测试通过
+- [x] 所有单元测试通过

@@ -1,9 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation, Link } from "wouter";
-import { courses, Course, CourseModule, CourseLevel } from "../../../shared/courseData";
+import { courses, Course, CourseModule } from "../../../shared/courseData";
 import { trpc } from "@/lib/trpc";
 import { useEmailAuth } from "../hooks/useEmailAuth";
 import { useTestMode } from "../contexts/TestModeContext";
+import { SnakePath } from "@/components/SnakePath";
+import { ModulePreviewPopover } from "@/components/ModulePreviewPopover";
+import { toast } from "sonner";
+import CourseDropdown from "@/components/CourseDropdown";
+
+type ModuleStatus = "completed" | "current" | "locked" | "available";
 
 export default function CourseDetail() {
   const params = useParams<{ courseId: string }>();
@@ -16,13 +22,17 @@ export default function CourseDetail() {
   const [completedModules, setCompletedModules] = useState<string[]>([]);
   const [currentModuleId, setCurrentModuleId] = useState<string | null>(null);
   
+  // Popover state
+  const [selectedModule, setSelectedModule] = useState<{
+    module: CourseModule;
+    status: ModuleStatus;
+  } | null>(null);
+  
   // Fetch course progress
-  const { data: progressData, refetch: refetchProgress } = trpc.courses.getProgress.useQuery(
+  const { data: progressData } = trpc.courses.getProgress.useQuery(
     { courseId: courseId || "" },
     { enabled: !!courseId && !!user }
   );
-  
-  const completeModuleMutation = trpc.courses.completeModule.useMutation();
 
   useEffect(() => {
     if (courseId) {
@@ -33,7 +43,6 @@ export default function CourseDetail() {
 
   useEffect(() => {
     if (progressData) {
-      // Parse completedModules from JSON string if needed
       const modules = progressData.completedModules 
         ? (typeof progressData.completedModules === 'string' 
             ? JSON.parse(progressData.completedModules) 
@@ -63,37 +72,27 @@ export default function CourseDetail() {
   const completedCount = completedModules.length;
   const progressPercent = totalModules > 0 ? Math.round((completedCount / totalModules) * 100) : 0;
 
-  const handleStartModule = async (moduleId: string, moduleType: string) => {
-    if (moduleType === 'quiz') {
-      setLocation(`/course-quiz/${courseId}/${moduleId}`);
+  const handleModuleClick = (module: CourseModule, status: ModuleStatus) => {
+    if (status === "locked") return;
+    setSelectedModule({ module, status });
+  };
+
+  const handleRead = () => {
+    if (!selectedModule) return;
+    const { module } = selectedModule;
+    
+    if (module.type === "quiz") {
+      setLocation(`/course-quiz/${courseId}/${module.id}`);
     } else {
-      setLocation(`/lesson/${courseId}/${moduleId}`);
+      setLocation(`/lesson/${courseId}/${module.id}`);
     }
+    setSelectedModule(null);
   };
 
-  const isModuleLocked = (module: CourseModule, levelIndex: number, moduleIndex: number): boolean => {
-    if (isTestModeEnabled) return false; // In test mode, all modules are unlocked
-    if (levelIndex === 0 && moduleIndex === 0) return false; // First module is always unlocked
-    
-    // Get all previous modules
-    const allPreviousModules: CourseModule[] = [];
-    for (let i = 0; i <= levelIndex; i++) {
-      const level = course.levels[i];
-      const modulesToAdd = i === levelIndex 
-        ? level.modules.slice(0, moduleIndex) 
-        : level.modules;
-      allPreviousModules.push(...modulesToAdd);
-    }
-    
-    // Check if all previous modules are completed
-    return allPreviousModules.some(m => !completedModules.includes(m.id));
-  };
-
-  const getModuleStatus = (module: CourseModule, levelIndex: number, moduleIndex: number): "completed" | "current" | "locked" | "available" => {
-    if (completedModules.includes(module.id)) return "completed";
-    if (isModuleLocked(module, levelIndex, moduleIndex)) return "locked";
-    if (currentModuleId === module.id) return "current";
-    return "available";
+  const handleListen = () => {
+    toast.info("Audio feature coming soon!", {
+      description: "We're working on adding audio lessons.",
+    });
   };
 
   return (
@@ -111,8 +110,8 @@ export default function CourseDetail() {
               </svg>
             </button>
             <div className="flex-1">
-              <h1 className="text-xl font-bold text-gray-800">{course.title}</h1>
-              <p className="text-sm text-gray-500">{course.totalLessons} lessons • {course.totalDuration}</p>
+              <CourseDropdown currentCourseId={courseId || ''} currentCourseTitle={course.title} />
+              <p className="text-sm text-gray-500 mt-1">{course.totalLessons} lessons • {course.totalDuration}</p>
             </div>
           </div>
         </div>
@@ -162,93 +161,31 @@ export default function CourseDetail() {
           </div>
         </div>
 
-        {/* Learning Path by Levels */}
+        {/* Snake Path Learning Path */}
         <div className="bg-white rounded-2xl p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-800 mb-6">Learning Path</h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-2">Learning Path</h2>
+          <p className="text-sm text-gray-500 mb-6">Click on a lesson to start learning</p>
           
-          {course.levels.map((level, levelIndex) => (
-            <div key={level.id} className="mb-8 last:mb-0">
-              {/* Level Header */}
-              <div className="flex items-center gap-3 mb-4">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                  level.unlocked || isTestModeEnabled ? 'bg-purple-100' : 'bg-gray-200'
-                }`}>
-                  <span className={`font-bold ${level.unlocked || isTestModeEnabled ? 'text-purple-600' : 'text-gray-500'}`}>
-                    {levelIndex + 1}
-                  </span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-800">{level.title}</h3>
-                  <p className="text-sm text-gray-500">{level.description}</p>
-                </div>
-              </div>
-              
-              {/* Modules in this level */}
-              <div className="relative ml-5 pl-5 border-l-2 border-gray-200">
-                <div className="space-y-3">
-                  {level.modules.map((module, moduleIndex) => {
-                    const status = getModuleStatus(module, levelIndex, moduleIndex);
-                    
-                    return (
-                      <div key={module.id} className="relative flex items-start gap-3">
-                        {/* Node */}
-                        <div className={`absolute -left-[27px] w-6 h-6 rounded-full flex items-center justify-center ${
-                          status === "completed" ? "bg-green-500" :
-                          status === "current" ? "bg-purple-500" :
-                          status === "locked" ? "bg-gray-300" :
-                          "bg-purple-100"
-                        }`}>
-                          {status === "completed" ? (
-                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                          ) : status === "locked" ? (
-                            <svg className="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                            </svg>
-                          ) : (
-                            <span className={`text-xs font-bold ${status === "current" ? "text-white" : "text-purple-600"}`}>
-                              {moduleIndex + 1}
-                            </span>
-                          )}
-                        </div>
-                        
-                        {/* Content */}
-                        <div className={`flex-1 bg-gray-50 rounded-lg p-3 ${status === "locked" ? "opacity-60" : ""}`}>
-                          <div className="flex items-center justify-between">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2">
-                                <h4 className="font-medium text-gray-800 text-sm">{module.title}</h4>
-                                {module.type === 'quiz' && (
-                                  <span className="px-2 py-0.5 bg-yellow-100 text-yellow-700 text-xs rounded-full">Quiz</span>
-                                )}
-                              </div>
-                              <p className="text-xs text-gray-500 mt-0.5">{module.duration}</p>
-                            </div>
-                            
-                            {status !== "locked" && (
-                              <button
-                                onClick={() => handleStartModule(module.id, module.type)}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                                  status === "completed"
-                                    ? "bg-green-100 text-green-700 hover:bg-green-200"
-                                    : "bg-purple-600 text-white hover:bg-purple-700"
-                                }`}
-                              >
-                                {status === "completed" ? "Review" : status === "current" ? "Continue" : "Start"}
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          ))}
+          <SnakePath
+            levels={course.levels}
+            completedModules={completedModules}
+            currentModuleId={currentModuleId}
+            isTestModeEnabled={isTestModeEnabled}
+            onModuleClick={handleModuleClick}
+          />
         </div>
       </div>
+
+      {/* Module Preview Popover */}
+      {selectedModule && (
+        <ModulePreviewPopover
+          module={selectedModule.module}
+          status={selectedModule.status as "completed" | "current" | "available"}
+          onClose={() => setSelectedModule(null)}
+          onRead={handleRead}
+          onListen={handleListen}
+        />
+      )}
     </div>
   );
 }

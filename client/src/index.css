@@ -189,3 +189,34 @@
     }
   }
 }
+
+/* Hover Effects */
+@layer components {
+  /* Card hover lift effect */
+  .hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Button hover scale effect */
+  .hover-scale {
+    transition: transform 0.15s ease;
+  }
+  
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Button hover glow effect */
+  .hover-glow {
+    transition: box-shadow 0.2s ease;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(90, 76, 255, 0.4);
+  }
+}

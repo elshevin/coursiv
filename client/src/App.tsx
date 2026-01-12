@@ -15,6 +15,8 @@ import CourseDetail from "./pages/CourseDetail";
 import LessonContent from "./pages/LessonContent";
 import QuizContent from "./pages/QuizContent";
 import ChallengeDetail from "./pages/ChallengeDetail";
+import PromptsLibrary from "./pages/PromptsLibrary";
+import Settings from "./pages/Settings";
 
 function Router() {
   return (
@@ -28,6 +30,8 @@ function Router() {
       <Route path={"/lesson/:courseId/:moduleId"} component={LessonContent} />
       <Route path={"/course-quiz/:courseId/:moduleId"} component={QuizContent} />
       <Route path={"/challenge/:challengeId"} component={ChallengeDetail} />
+      <Route path={"/prompts"} component={PromptsLibrary} />
+      <Route path={"/settings"} component={Settings} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
@@ -40,6 +44,7 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider
         defaultTheme="light"
+        switchable={true}
       >
         <TestModeProvider>
           <TooltipProvider>

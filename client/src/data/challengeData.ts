@@ -18,6 +18,8 @@ export interface Challenge {
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
   category: string;
   image: string;
+  icon: string;
+  currentDay: number;
   tasks: ChallengeTask[];
 }
 
@@ -31,6 +33,8 @@ export const challengeData: Challenge[] = [
     difficulty: 'Beginner',
     category: 'AI Fundamentals',
     image: '/challenge-ai-reinvention.webp',
+    icon: '🚀',
+    currentDay: 12,
     tasks: [
       { id: 'air-d1', day: 1, title: 'Introduction to DeepSeek', description: 'Learn the basics of DeepSeek AI', duration: '15 min', type: 'lesson', courseId: 'deepseek', moduleId: 'deepseek-1-1' },
       { id: 'air-d2', day: 2, title: 'ChatGPT Fundamentals', description: 'Master ChatGPT basics', duration: '20 min', type: 'lesson', courseId: 'chatgpt', moduleId: 'chatgpt-1-1' },
@@ -70,6 +74,8 @@ export const challengeData: Challenge[] = [
     difficulty: 'Beginner',
     category: 'Getting Started',
     image: '/challenge-junior.webp',
+    icon: '🌟',
+    currentDay: 3,
     tasks: [
       { id: 'jac-d1', day: 1, title: 'What is AI?', description: 'Introduction to artificial intelligence', duration: '10 min', type: 'lesson' },
       { id: 'jac-d2', day: 2, title: 'ChatGPT Basics', description: 'Your first ChatGPT conversation', duration: '15 min', type: 'lesson', courseId: 'chatgpt', moduleId: 'chatgpt-1-1' },
@@ -109,6 +115,8 @@ export const challengeData: Challenge[] = [
     difficulty: 'Intermediate',
     category: 'Business',
     image: '/challenge-side-gigs.webp',
+    icon: '💰',
+    currentDay: 0,
     tasks: [
       { id: 'asg-d1', day: 1, title: 'Freelancing with AI', description: 'Introduction to AI freelancing', duration: '20 min', type: 'lesson' },
       { id: 'asg-d2', day: 2, title: 'AI Writing Services', description: 'Offer AI-powered writing', duration: '25 min', type: 'lesson' },
@@ -134,6 +142,8 @@ export const challengeData: Challenge[] = [
     difficulty: 'Beginner',
     category: 'Development',
     image: '/challenge-no-code.webp',
+    icon: '🛠️',
+    currentDay: 0,
     tasks: [
       { id: 'ncc-d1', day: 1, title: 'Intro to No-Code', description: 'What is no-code development', duration: '15 min', type: 'lesson' },
       { id: 'ncc-d2', day: 2, title: 'No-Code Tools Overview', description: 'Explore popular no-code tools', duration: '20 min', type: 'lesson' },

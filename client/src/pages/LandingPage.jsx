@@ -18,6 +18,8 @@ import {
 } from "@/components/ui/accordion";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import AnimatedSection from "@/components/AnimatedSection";
+import AIChatDemo from "@/components/AIChatDemo";
+import CountUp from "@/components/CountUp";
 
 export default function LandingPage() {
   return (
@@ -33,7 +35,7 @@ export default function LandingPage() {
             <div className="flex-1 max-w-[600px] z-10">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F0F2F5] text-xs font-medium mb-6">
                 <span className="w-2 h-2 rounded-full bg-[#5A4CFF]"></span>
-                Master AI
+                <CountUp end={1461394} suffix="+" /> people joined
               </div>
               <h1 className="text-[40px] lg:text-[80px] font-bold leading-[1.1] mb-6 tracking-[-2px]">
                 Become the <br/>
@@ -59,18 +61,13 @@ export default function LandingPage() {
             </div>
             
             <div className="flex-1 relative w-full max-w-[600px] flex justify-center lg:justify-end">
-              {/* Phone Mockups */}
-              <div className="relative w-[300px] lg:w-[360px]">
+              {/* AI Chat Demo */}
+              <div className="relative hidden lg:block">
+                <AIChatDemo />
+              </div>
+              {/* Mobile: Phone Mockup */}
+              <div className="relative w-[300px] lg:hidden">
                 <img src="/2-323.webp" alt="App Interface" className="w-full h-auto drop-shadow-2xl rounded-[32px]" />
-                <div className="absolute -left-12 bottom-20 bg-white p-4 rounded-2xl shadow-xl max-w-[200px] hidden md:block animate-in fade-in slide-in-from-bottom-4 duration-1000">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-[#E0E7FF] flex items-center justify-center text-[#5A4CFF]">
-                      AI
-                    </div>
-                    <div className="text-sm font-bold">AI Assistant</div>
-                  </div>
-                  <div className="text-xs text-gray-500">How can I help you today?</div>
-                </div>
               </div>
             </div>
           </div>

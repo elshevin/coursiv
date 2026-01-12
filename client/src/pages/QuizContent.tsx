@@ -243,12 +243,26 @@ export default function QuizContent() {
               Check Answer
             </button>
           ) : (
-            <button
-              onClick={handleContinue}
-              className="flex-1 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition-colors"
-            >
-              Continue
-            </button>
+            <>
+              {!isCorrect && (
+                <button
+                  onClick={() => {
+                    setSelectedOption(null);
+                    setShowResult(false);
+                    setIsCorrect(false);
+                  }}
+                  className="px-6 py-3 border-2 border-purple-600 text-purple-600 rounded-xl font-semibold hover:bg-purple-50 transition-colors"
+                >
+                  Try Again
+                </button>
+              )}
+              <button
+                onClick={handleContinue}
+                className="flex-1 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition-colors"
+              >
+                Continue
+              </button>
+            </>
           )}
         </div>
       </div>
