@@ -854,3 +854,93 @@
 - [ ] 生成完整差异对比文档
 - [ ] 标注优先级（P0/P1/P2）
 - [ ] 提供改进建议
+
+
+## Phase 33: 完全复刻 Coursiv 课程进度系统 [IN PROGRESS]
+
+### 迭代 1：数据库 + API
+- [ ] 简化 userCourseProgress 表结构
+- [ ] 创建 GET /api/course-progress/:courseId API
+- [ ] 创建 POST /api/course-progress/:courseId/complete-module API
+- [ ] E2E 测试：迭代 1
+
+### 迭代 2：进度显示
+- [ ] 课程路径页显示进度百分比
+- [ ] 已完成模块显示绿色背景 + 勾选图标
+- [ ] 当前模块显示蓝色背景
+- [ ] 未开始模块显示灰色背景
+- [ ] E2E 测试：迭代 2
+
+### 迭代 3：退出确认弹窗
+- [ ] 创建 ExitConfirmModal 组件
+- [ ] 点击关闭按钮显示弹窗
+- [ ] "Keep Learning" 和 "End Session" 按钮
+- [ ] E2E 测试：迭代 3
+
+### 迭代 4：Quiz 改为嵌入式卡片 [DONE]
+- [x] 创建 QuizCard 嵌入式组件（更新 QuizOption + QuizFeedback）
+- [x] 紫色圆点选中状态
+- [x] 绿色/红色左边框反馈
+- [x] E2E 测试：迭代 4（10 tests passed）
+
+### 迭代 5：Playground 改为嵌入式卡片 [DONE]
+- [x] 创建 PlaygroundCard 嵌入式组件（更新 PromptEditor + OptionPicker + SuccessFeedback）
+- [x] 填空交互正常（紫色左边框）
+- [x] 成功反馈显示图片（绿色左边框）
+- [x] E2E 测试：迭代 5（13 tests passed）
+
+### 迭代 6：页面切换动画 + 样式优化 [DONE]
+- [x] 页面切换淡入淡出动画（PageTransition 组件）
+- [x] 样式与 Coursiv 一致
+- [x] E2E 测试：迭代 6（8 tests passed）
+
+### 迭代 7：集成测试 + 最终验收 [DONE]
+- [x] 完整流程测试（32 integration tests）
+- [x] 进度保存和显示测试
+- [x] 响应式布局测试
+- [x] E2E 测试：迭代 7（118 tests passed, 1 skipped）
+
+
+## Phase 33: 完全复刻 Coursiv 课程进度系统 [IN PROGRESS]
+
+### 迭代 1：数据库 + API [DONE - 已存在]
+- [x] 简化 userCourseProgress 表结构
+- [x] 创建 GET /api/course-progress/:courseId API
+- [x] 创建 POST /api/course-progress/:courseId/complete-module API
+- [x] E2E 测试：迭代 1
+
+### 迭代 2：进度显示 [DONE - 已存在]
+- [x] 课程路径页显示进度百分比
+- [x] 已完成模块显示绿色背景 + 勾选图标
+- [x] 当前模块显示紫色背景
+- [x] 未开始模块显示灰色背景
+- [x] E2E 测试：迭代 2
+
+### 迭代 3：退出确认弹窗 [DONE]
+- [x] 创建 ExitConfirmModal 组件（Coursiv 风格）
+- [x] 点击关闭按钮显示弹窗
+- [x] "Keep Learning" 和 "End Session" 按钮
+- [x] E2E 测试：迭代 3（8 tests passed）
+
+### 迭代 4：Quiz 改为嵌入式卡片 [DONE]
+- [x] 创建 QuizCard 嵌入式组件（更新 QuizOption + QuizFeedback）
+- [x] 紫色圆点选中状态
+- [x] 绿色/红色左边框反馈
+- [x] E2E 测试：迭代 4（10 tests passed）
+
+### 迭代 5：Playground 改为嵌入式卡片 [DONE]
+- [x] 创建 PlaygroundCard 嵌入式组件（更新 PromptEditor + OptionPicker + SuccessFeedback）
+- [x] 填空交互正常（紫色左边框）
+- [x] 成功反馈显示图片（绿色左边框）
+- [x] E2E 测试：迭代 5（13 tests passed）
+
+### 迭代 6：页面切换动画 + 样式优化 [DONE]
+- [x] 页面切换淡入淡出动画（PageTransition 组件）
+- [x] 样式与 Coursiv 一致
+- [x] E2E 测试：迭代 6（8 tests passed）
+
+### 迭代 7：集成测试 + 最终验收 [DONE]
+- [x] 完整流程测试（32 integration tests）
+- [x] 进度保存和显示测试
+- [x] 响应式布局测试
+- [x] E2E 测试：迭代 7（118 tests passed, 1 skipped）

@@ -5,6 +5,8 @@ import { getModuleContent, getModuleQuiz } from "../../../shared/courseContent";
 import { useEmailAuth } from "../hooks/useEmailAuth";
 import { useTestMode } from "../contexts/TestModeContext";
 import { trpc } from "../lib/trpc";
+import { ExitConfirmModal } from "../components/ExitConfirmModal";
+import { PageTransition } from "../components/PageTransition";
 
 export default function LessonContent() {
   const params = useParams<{ courseId: string; moduleId: string }>();
@@ -167,26 +169,28 @@ export default function LessonContent() {
             {module.title}
           </h1>
           
-          {/* Page content */}
-          {currentContent && (
-            <div className="space-y-6">
-              {currentContent.image && (
-                <div className="w-full h-48 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center">
-                  <div className="text-6xl">{currentContent.image}</div>
+          {/* Page content with transition animation */}
+          <PageTransition pageKey={currentPageIndex}>
+            {currentContent && (
+              <div className="space-y-6">
+                {currentContent.image && (
+                  <div className="w-full h-48 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center">
+                    <div className="text-6xl">{currentContent.image}</div>
+                  </div>
+                )}
+                
+                <div className="prose prose-lg max-w-none">
+                  {currentContent.text.split('\n\n').map((paragraph, index) => (
+                    <p key={index} className="text-gray-700 leading-relaxed mb-4">
+                      {paragraph.split('**').map((part, i) => 
+                        i % 2 === 1 ? <strong key={i}>{part}</strong> : part
+                      )}
+                    </p>
+                  ))}
                 </div>
-              )}
-              
-              <div className="prose prose-lg max-w-none">
-                {currentContent.text.split('\n\n').map((paragraph, index) => (
-                  <p key={index} className="text-gray-700 leading-relaxed mb-4">
-                    {paragraph.split('**').map((part, i) => 
-                      i % 2 === 1 ? <strong key={i}>{part}</strong> : part
-                    )}
-                  </p>
-                ))}
               </div>
-            </div>
-          )}
+            )}
+          </PageTransition>
           
           {/* Page indicator */}
           <div className="text-center text-sm text-gray-500 mt-8">
@@ -224,31 +228,12 @@ export default function LessonContent() {
         </div>
       </div>
 
-      {/* Exit Modal */}
-      {showExitModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-6 max-w-sm w-full">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Wait, don't go!</h2>
-            <p className="text-gray-600 mb-6">
-              Your progress will be saved, but you're so close to completing this lesson!
-            </p>
-            <div className="flex gap-3">
-              <button
-                onClick={handleCancelExit}
-                className="flex-1 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition-colors"
-              >
-                Keep Learning
-              </button>
-              <button
-                onClick={handleConfirmExit}
-                className="flex-1 py-3 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-colors"
-              >
-                End Session
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Exit Confirmation Modal */}
+      <ExitConfirmModal
+        isOpen={showExitModal}
+        onKeepLearning={handleCancelExit}
+        onEndSession={handleConfirmExit}
+      />
     </div>
   );
 }
