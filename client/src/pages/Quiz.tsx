@@ -2,32 +2,67 @@ import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useLocation, useParams } from "wouter";
-import { ChevronLeft, Loader2, Eye, EyeOff } from "lucide-react";
+import { ChevronLeft, Loader2, Eye, EyeOff, Check, Star, TrendingUp, Brain, Target, Clock } from "lucide-react";
 import { useEmailAuth } from "@/hooks/useEmailAuth";
 import { useDemoAuth } from "@/hooks/useDemoAuth";
 
-// Mock Quiz Data - 22 steps based on Figma design
-const quizSteps = [
+// Quiz step types
+type QuizStepType = 
+  | 'identity' 
+  | 'social-proof' 
+  | 'question' 
+  | 'multi-select'
+  | 'motivation' 
+  | 'ai-profile' 
+  | 'personal-plan' 
+  | 'loading' 
+  | 'register';
+
+interface QuizOption {
+  id: string;
+  label: string;
+  icon?: string;
+  description?: string;
+}
+
+interface QuizStep {
+  id: number;
+  type: QuizStepType;
+  question?: string;
+  title?: string;
+  subtitle?: string;
+  options?: QuizOption[];
+  stats?: { value: string; label: string }[];
+  motivationContent?: {
+    headline: string;
+    subtext: string;
+    source?: string;
+    image?: string;
+  };
+}
+
+// Coursiv-style Quiz Data - 24 steps with motivation pages
+const quizSteps: QuizStep[] = [
   {
     id: 1,
     type: 'identity',
     question: "Who are you?",
     subtitle: "Select the option that best describes you",
     options: [
-      { id: 'employee', label: 'Employee', icon: '💼', description: 'Working for a company' },
-      { id: 'freelancer', label: 'Freelancer', icon: '🎯', description: 'Self-employed professional' },
-      { id: 'business', label: 'Business owner', icon: '🏢', description: 'Running my own business' },
-      { id: 'student', label: 'Student', icon: '📚', description: 'Currently studying' },
-      { id: 'other', label: 'Other', icon: '✨', description: 'Something else' },
+      { id: 'employee', label: 'I work for a company', icon: '💼' },
+      { id: 'freelancer', label: 'I am a freelancer', icon: '🎯' },
+      { id: 'business', label: 'I run my own business', icon: '🏢' },
+      { id: 'student', label: 'I am a student', icon: '📚' },
+      { id: 'other', label: 'Other', icon: '✨' },
     ]
   },
   {
     id: 2,
     type: 'social-proof',
-    title: "Join 2M+ learners",
-    subtitle: "People just like you are already mastering AI with Coursiv",
+    title: "700,000+ people",
+    subtitle: "have chosen Coursiv to master AI skills",
     stats: [
-      { value: '2M+', label: 'Active learners' },
+      { value: '700K+', label: 'Active learners' },
       { value: '4.8', label: 'App Store rating' },
       { value: '50+', label: 'AI courses' },
     ]
@@ -37,212 +72,286 @@ const quizSteps = [
     type: 'question',
     question: "What's your age?",
     options: [
-      { id: '18-24', label: '18-24' },
-      { id: '25-34', label: '25-34' },
-      { id: '35-44', label: '35-44' },
-      { id: '45-54', label: '45-54' },
-      { id: '55+', label: '55+' },
+      { id: '18-24', label: '18-24', icon: '🌱' },
+      { id: '25-34', label: '25-34', icon: '🚀' },
+      { id: '35-44', label: '35-44', icon: '💪' },
+      { id: '45-54', label: '45-54', icon: '🎯' },
+      { id: '55+', label: '55+', icon: '🌟' },
     ]
   },
   {
     id: 4,
     type: 'question',
-    question: "What's your current experience with AI?",
+    question: "What's your main goal?",
     options: [
-      { id: 'none', label: "I'm completely new to AI" },
-      { id: 'basic', label: "I've tried some AI tools" },
-      { id: 'intermediate', label: "I use AI regularly" },
-      { id: 'advanced', label: "I'm an AI expert" },
+      { id: 'career', label: 'Professional growth', icon: '📈' },
+      { id: 'personal', label: 'Personal development', icon: '🌱' },
+      { id: 'fun', label: 'Just for fun', icon: '🎮' },
     ]
   },
   {
     id: 5,
     type: 'question',
-    question: "What's your main goal with AI?",
+    question: "How often do you use AI tools?",
     options: [
-      { id: 'career', label: 'Advance my career' },
-      { id: 'productivity', label: 'Boost productivity' },
-      { id: 'business', label: 'Grow my business' },
-      { id: 'curiosity', label: 'Just curious about AI' },
+      { id: 'never', label: 'Never', icon: '🆕' },
+      { id: 'sometimes', label: 'Sometimes', icon: '🔄' },
+      { id: 'often', label: 'Often', icon: '⚡' },
+      { id: 'daily', label: 'Daily', icon: '🔥' },
     ]
   },
   {
     id: 6,
     type: 'question',
-    question: "Which AI area interests you most?",
+    question: "How would you rate your writing skills?",
     options: [
-      { id: 'chatgpt', label: 'ChatGPT & Language AI' },
-      { id: 'image', label: 'Image Generation (DALL-E, Midjourney)' },
-      { id: 'automation', label: 'Workflow Automation' },
-      { id: 'data', label: 'Data Analysis' },
-      { id: 'all', label: 'All of the above' },
+      { id: 'struggle', label: 'I struggle sometimes', icon: '😅' },
+      { id: 'okay', label: 'They are okay', icon: '👍' },
+      { id: 'good', label: 'Pretty good', icon: '✨' },
+      { id: 'excellent', label: 'Excellent', icon: '🌟' },
     ]
   },
   {
     id: 7,
     type: 'question',
-    question: "How much time can you dedicate to learning?",
+    question: "How often do you procrastinate?",
     options: [
-      { id: '5min', label: '5 minutes a day' },
-      { id: '15min', label: '15 minutes a day' },
-      { id: '30min', label: '30 minutes a day' },
-      { id: '1hour', label: '1 hour or more' },
+      { id: 'never', label: 'Never', icon: '🎯' },
+      { id: 'rarely', label: 'Rarely', icon: '👍' },
+      { id: 'sometimes', label: 'Sometimes', icon: '😅' },
+      { id: 'often', label: 'Often', icon: '😰' },
     ]
   },
   {
     id: 8,
-    type: 'question',
-    question: "What's your preferred learning style?",
-    options: [
-      { id: 'video', label: 'Video lessons' },
-      { id: 'reading', label: 'Reading guides' },
-      { id: 'interactive', label: 'Interactive exercises' },
-      { id: 'mixed', label: 'Mix of everything' },
-    ]
+    type: 'motivation',
+    title: "Great news!",
+    subtitle: "You're already ahead of most people",
+    motivationContent: {
+      headline: "Coursiv helps you stay on track",
+      subtext: "Our bite-sized lessons and daily reminders help you build consistent learning habits, even with a busy schedule.",
+      image: "/images/motivation-1.jpg"
+    }
   },
   {
     id: 9,
     type: 'question',
-    question: "Have you used ChatGPT before?",
+    question: "Have you ever used AI-generated content?",
     options: [
-      { id: 'never', label: 'Never' },
-      { id: 'few', label: 'A few times' },
-      { id: 'regular', label: 'Regularly' },
-      { id: 'daily', label: 'Daily' },
+      { id: 'yes-often', label: 'Yes, I use it often', icon: '🚀' },
+      { id: 'yes-sometimes', label: 'Yes, but I still want to learn', icon: '📚' },
+      { id: 'not-really', label: 'Not really', icon: '🤔' },
     ]
   },
   {
     id: 10,
     type: 'question',
-    question: "What challenges do you face with AI?",
+    question: "Do you have any AI-related experience?",
     options: [
-      { id: 'prompts', label: "Don't know how to write good prompts" },
-      { id: 'tools', label: "Don't know which tools to use" },
-      { id: 'time', label: "Don't have time to learn" },
-      { id: 'overwhelmed', label: 'Too much information' },
+      { id: 'yes', label: 'Yes', icon: '✅' },
+      { id: 'some', label: 'Some', icon: '📊' },
+      { id: 'no', label: 'No', icon: '🆕' },
     ]
   },
   {
     id: 11,
     type: 'question',
-    question: "What industry do you work in?",
+    question: "What's your current AI skill level?",
     options: [
-      { id: 'tech', label: 'Technology' },
-      { id: 'marketing', label: 'Marketing' },
-      { id: 'finance', label: 'Finance' },
-      { id: 'healthcare', label: 'Healthcare' },
-      { id: 'education', label: 'Education' },
-      { id: 'other', label: 'Other' },
+      { id: 'beginner', label: 'Beginner', icon: '🌱' },
+      { id: 'intermediate', label: 'Intermediate', icon: '📈' },
+      { id: 'advanced', label: 'Advanced', icon: '🚀' },
     ]
   },
   {
     id: 12,
     type: 'question',
-    question: "Do you want to use AI for work tasks?",
+    question: "Have you ever used ChatGPT?",
     options: [
-      { id: 'yes', label: 'Yes, definitely' },
-      { id: 'maybe', label: 'Maybe, if it helps' },
-      { id: 'personal', label: 'Mostly for personal use' },
+      { id: 'daily', label: 'Yes, I use it daily', icon: '🤖' },
+      { id: 'few-times', label: 'Yes, I used it few times', icon: '👋' },
+      { id: 'afraid', label: "I'm afraid to use it", icon: '😰' },
+      { id: 'not-familiar', label: 'I am not familiar with ChatGPT', icon: '🤔' },
     ]
   },
   {
     id: 13,
-    type: 'question',
-    question: "What would make you feel successful?",
+    type: 'multi-select',
+    question: "What other AI tools are you already familiar with?",
+    subtitle: "Choose all that apply",
     options: [
-      { id: 'promotion', label: 'Getting a promotion' },
-      { id: 'efficiency', label: 'Working more efficiently' },
-      { id: 'income', label: 'Increasing my income' },
-      { id: 'skills', label: 'Learning new skills' },
+      { id: 'new', label: "I'm new to AI tools", icon: '🆕' },
+      { id: 'midjourney', label: 'Midjourney', icon: '🎨' },
+      { id: 'gemini', label: 'Google Gemini', icon: '💎' },
+      { id: 'dalle', label: 'DALL-E', icon: '🖼️' },
+      { id: 'copilot', label: 'Copilot', icon: '👨‍✈️' },
+      { id: 'claude', label: 'Claude', icon: '🤖' },
     ]
   },
   {
     id: 14,
     type: 'question',
-    question: "How do you prefer to learn new things?",
+    question: "Are you afraid to be replaced by AI?",
     options: [
-      { id: 'structured', label: 'Structured courses' },
-      { id: 'explore', label: 'Self-exploration' },
-      { id: 'mentor', label: 'With a mentor' },
-      { id: 'community', label: 'In a community' },
+      { id: 'all-time', label: 'Yes, all the time', icon: '😰' },
+      { id: 'sometimes', label: 'Yes, sometimes', icon: '😟' },
+      { id: 'no', label: 'No, because I know how to use it', icon: '😎' },
+      { id: 'never-thought', label: 'I never thought about it', icon: '🤔' },
     ]
   },
   {
     id: 15,
-    type: 'question',
-    question: "What's your biggest motivation?",
-    options: [
-      { id: 'career', label: 'Career growth' },
-      { id: 'money', label: 'Making more money' },
-      { id: 'relevance', label: 'Staying relevant' },
-      { id: 'curiosity', label: 'Personal curiosity' },
-    ]
+    type: 'motivation',
+    title: "There is nothing to worry about",
+    motivationContent: {
+      headline: "AI Won't Replace You",
+      subtext: "According to Harvard Business Review \"AI Won't Replace Humans — But Humans With AI Will Replace Humans Without AI\". By mastering AI right now you are never going to be worried about being replaced by AI anymore.",
+      source: "Harvard Business Review",
+      image: "/images/motivation-2.jpg"
+    }
   },
   {
     id: 16,
     type: 'question',
-    question: "When do you usually have time to learn?",
+    question: "What income range aligns with your current career goals?",
     options: [
-      { id: 'morning', label: 'Morning' },
-      { id: 'lunch', label: 'Lunch break' },
-      { id: 'evening', label: 'Evening' },
-      { id: 'weekend', label: 'Weekends' },
+      { id: '50-100k', label: '$50,000 - $100,000', icon: '💵' },
+      { id: '100-300k', label: '$100,000 - $300,000', icon: '💰' },
+      { id: '300k+', label: 'More than $300,000', icon: '🤑' },
     ]
   },
   {
     id: 17,
     type: 'question',
-    question: "Do you have a specific AI project in mind?",
+    question: "Have you considered how AI skills could impact your career?",
     options: [
-      { id: 'yes', label: 'Yes, I have a project' },
-      { id: 'ideas', label: 'I have some ideas' },
-      { id: 'no', label: 'Not yet' },
+      { id: 'heard', label: "Yes, I've heard of it", icon: '👂' },
+      { id: 'curious', label: "I'm curious", icon: '🤔' },
+      { id: 'news', label: 'No, this is news to me', icon: '📰' },
     ]
   },
   {
     id: 18,
     type: 'question',
-    question: "How important is certification to you?",
+    question: "Are you comfortable with learning new skills or techniques?",
     options: [
-      { id: 'very', label: 'Very important' },
-      { id: 'somewhat', label: 'Somewhat important' },
-      { id: 'not', label: 'Not important' },
+      { id: 'yes', label: 'Yes', icon: '👍' },
+      { id: 'no', label: 'No', icon: '👎' },
+      { id: 'not-sure', label: 'Hm, not sure', icon: '🤷' },
     ]
   },
   {
     id: 19,
     type: 'question',
-    question: "Would you recommend AI learning to others?",
+    question: "Rate your readiness to master AI",
     options: [
-      { id: 'yes', label: 'Yes, definitely' },
-      { id: 'maybe', label: 'Maybe' },
-      { id: 'depends', label: 'Depends on the person' },
+      { id: 'all-set', label: 'All set', icon: '😎' },
+      { id: 'ready', label: 'Ready', icon: '😊' },
+      { id: 'somewhat', label: 'Somewhat Ready', icon: '🤔' },
+      { id: 'not-ready', label: 'Not Ready', icon: '😅' },
     ]
   },
   {
     id: 20,
     type: 'question',
-    question: "What's holding you back from learning AI?",
+    question: "Do you find it easy to maintain your focus?",
     options: [
-      { id: 'time', label: 'Lack of time' },
-      { id: 'resources', label: 'Lack of resources' },
-      { id: 'motivation', label: 'Lack of motivation' },
-      { id: 'nothing', label: 'Nothing, I\'m ready!' },
+      { id: 'easy', label: 'Yes, I can easily stay focused', icon: '🎯' },
+      { id: 'mostly', label: 'Mostly, but I sometimes get distracted', icon: '😊' },
+      { id: 'struggle', label: 'I often struggle', icon: '😅' },
+      { id: 'procrastinate', label: 'No, I frequently procrastinate', icon: '😰' },
     ]
   },
   {
     id: 21,
-    type: 'loading',
-    title: "Creating your personalized plan...",
-    subtitle: "Based on your answers, we're building the perfect learning path for you"
+    type: 'ai-profile',
+    title: "Here's Your AI Experience Profile",
   },
   {
     id: 22,
+    type: 'question',
+    question: "How much time are you ready to spend to achieve your goal?",
+    options: [
+      { id: '5min', label: '5 min/day', icon: '⏱️' },
+      { id: '10min', label: '10 min/day', icon: '⏰' },
+      { id: '15min', label: '15 min/day', icon: '🕐' },
+      { id: '20min', label: '20 min/day', icon: '🔥' },
+    ]
+  },
+  {
+    id: 23,
+    type: 'personal-plan',
+    title: "Your Personal AI Challenge",
+    subtitle: "We expect you to gain necessary skills of"
+  },
+  {
+    id: 24,
+    type: 'loading',
+    title: "Creating your AI challenge...",
+    subtitle: "Based on your answers, we're building the perfect learning path for you"
+  },
+  {
+    id: 25,
     type: 'register',
-    title: "Almost there!",
-    subtitle: "Create your account to save your personalized learning plan"
+    title: "Enter your email to get your Personal AI Challenge!",
+    subtitle: "We respect your privacy and are committed to protecting your personal data."
   },
 ];
+
+// Calculate AI Profile based on answers
+function calculateAIProfile(answers: Record<number, string | string[]>) {
+  let motivation = 'High';
+  let potential = 'High';
+  let focus = 'High';
+  let aiKnowledge = 'Low';
+  let readinessScore = 50;
+
+  // AI Knowledge based on experience questions
+  const aiExperience = answers[10] as string;
+  const chatgptUsage = answers[12] as string;
+  const skillLevel = answers[11] as string;
+  
+  if (skillLevel === 'advanced' || chatgptUsage === 'daily') {
+    aiKnowledge = 'High';
+    readinessScore += 20;
+  } else if (skillLevel === 'intermediate' || chatgptUsage === 'few-times') {
+    aiKnowledge = 'Moderate';
+    readinessScore += 10;
+  }
+
+  // Focus based on procrastination and focus questions
+  const procrastination = answers[7] as string;
+  const focusAbility = answers[20] as string;
+  
+  if (procrastination === 'often' || focusAbility === 'procrastinate') {
+    focus = 'Limited';
+    readinessScore -= 10;
+  } else if (procrastination === 'sometimes' || focusAbility === 'struggle') {
+    focus = 'Moderate';
+  }
+
+  // Motivation based on goals
+  const mainGoal = answers[4] as string;
+  if (mainGoal === 'career') {
+    motivation = 'High';
+    readinessScore += 10;
+  }
+
+  // Readiness
+  const readiness = answers[19] as string;
+  if (readiness === 'all-set' || readiness === 'ready') {
+    readinessScore += 15;
+  }
+
+  return {
+    motivation,
+    potential,
+    focus,
+    aiKnowledge,
+    readinessScore: Math.min(Math.max(readinessScore, 20), 95),
+    readinessLabel: readinessScore >= 70 ? 'Perfect' : readinessScore >= 50 ? 'Good' : 'Moderate'
+  };
+}
 
 export default function Quiz() {
   const params = useParams();
@@ -251,12 +360,14 @@ export default function Quiz() {
   const { demoUser, isLoading: authLoading } = useDemoAuth();
   
   const currentStep = parseInt(params.step || '1');
-  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [answers, setAnswers] = useState<Record<number, string | string[]>>({});
+  const [multiSelectAnswers, setMultiSelectAnswers] = useState<string[]>([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   const step = quizSteps[currentStep - 1];
   const progress = (currentStep / quizSteps.length) * 100;
@@ -268,13 +379,28 @@ export default function Quiz() {
     }
   }, [demoUser, authLoading, setLocation]);
 
+  // Auto-advance for loading step with progress animation
   useEffect(() => {
-    // Auto-advance for loading step
     if (step?.type === 'loading') {
+      setLoadingProgress(0);
+      const progressInterval = setInterval(() => {
+        setLoadingProgress(prev => {
+          if (prev >= 100) {
+            clearInterval(progressInterval);
+            return 100;
+          }
+          return prev + 2;
+        });
+      }, 60);
+
       const timer = setTimeout(() => {
         setLocation(`/quiz/${currentStep + 1}`);
-      }, 3000);
-      return () => clearTimeout(timer);
+      }, 3500);
+
+      return () => {
+        clearTimeout(timer);
+        clearInterval(progressInterval);
+      };
     }
   }, [currentStep, step?.type, setLocation]);
 
@@ -286,6 +412,23 @@ export default function Quiz() {
       setTimeout(() => {
         setLocation(`/quiz/${currentStep + 1}`);
       }, 300);
+    }
+  };
+
+  const handleMultiSelectToggle = (optionId: string) => {
+    setMultiSelectAnswers(prev => {
+      if (prev.includes(optionId)) {
+        return prev.filter(id => id !== optionId);
+      }
+      return [...prev, optionId];
+    });
+  };
+
+  const handleMultiSelectContinue = () => {
+    setAnswers(prev => ({ ...prev, [currentStep]: multiSelectAnswers }));
+    setMultiSelectAnswers([]);
+    if (currentStep < quizSteps.length) {
+      setLocation(`/quiz/${currentStep + 1}`);
     }
   };
 
@@ -304,10 +447,9 @@ export default function Quiz() {
     setIsLoading(true);
 
     try {
-      // Convert answers to string record for storage
       const quizAnswers: Record<string, string> = {};
       Object.entries(answers).forEach(([key, value]) => {
-        quizAnswers[`step_${key}`] = value;
+        quizAnswers[`step_${key}`] = Array.isArray(value) ? value.join(',') : value;
       });
 
       await register(email, password, email.split('@')[0], quizAnswers);
@@ -330,6 +472,8 @@ export default function Quiz() {
     return null;
   }
 
+  const aiProfile = calculateAIProfile(answers);
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
@@ -340,28 +484,29 @@ export default function Quiz() {
             className="flex items-center gap-2 text-[#24234C]/60 hover:text-[#24234C] transition-colors"
           >
             <ChevronLeft className="w-5 h-5" />
-            <span className="text-sm">Back</span>
           </button>
           
           <img src="/2-332.svg" alt="Coursiv" className="h-6" />
           
-          <div className="w-16" /> {/* Spacer for centering */}
+          <div className="text-sm text-[#24234C]/40">
+            {currentStep} / {quizSteps.length}
+          </div>
         </div>
       </header>
 
       {/* Progress Bar */}
-      <div className="w-full px-4 py-3">
-        <div className="max-w-[800px] mx-auto">
-          <Progress value={progress} className="h-2" />
-          <p className="text-xs text-[#24234C]/40 mt-2 text-center">
-            Step {currentStep} of {quizSteps.length}
-          </p>
+      {step.type !== 'loading' && step.type !== 'ai-profile' && step.type !== 'personal-plan' && (
+        <div className="w-full px-4 py-3">
+          <div className="max-w-[800px] mx-auto">
+            <Progress value={progress} className="h-2" />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Content */}
       <main className="flex-1 flex items-center justify-center px-4 py-8">
         <div className="w-full max-w-[600px]">
+          
           {/* Identity Selection */}
           {step.type === 'identity' && (
             <div className="text-center">
@@ -384,11 +529,8 @@ export default function Quiz() {
                     }`}
                   >
                     <div className="flex items-center gap-4">
-                      {'icon' in option && <span className="text-3xl">{option.icon}</span>}
-                      <div>
-                        <div className="font-semibold text-[#24234C]">{option.label}</div>
-                        {'description' in option && <div className="text-sm text-[#24234C]/60">{option.description}</div>}
-                      </div>
+                      <span className="text-3xl">{option.icon}</span>
+                      <span className="font-semibold text-[#24234C]">{option.label}</span>
                     </div>
                   </button>
                 ))}
@@ -399,27 +541,30 @@ export default function Quiz() {
           {/* Social Proof */}
           {step.type === 'social-proof' && (
             <div className="text-center">
-              <h1 className="text-3xl lg:text-4xl font-bold text-[#24234C] mb-3">
+              <div className="text-5xl lg:text-6xl font-bold text-[#5A4CFF] mb-2">
                 {step.title}
-              </h1>
-              <p className="text-lg text-[#24234C]/60 mb-10">
+              </div>
+              <p className="text-xl text-[#24234C]/60 mb-10">
                 {step.subtitle}
               </p>
               
-              <div className="grid grid-cols-3 gap-6 mb-10">
-                {step.stats?.map((stat, index) => (
-                  <div key={index} className="text-center">
-                    <div className="text-4xl font-bold text-[#5A4CFF]">{stat.value}</div>
-                    <div className="text-sm text-[#24234C]/60">{stat.label}</div>
-                  </div>
-                ))}
+              {/* Trustpilot-style rating */}
+              <div className="bg-gray-50 rounded-2xl p-6 mb-8">
+                <div className="flex items-center justify-center gap-1 mb-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star key={star} className="w-6 h-6 fill-green-500 text-green-500" />
+                  ))}
+                </div>
+                <p className="text-sm text-[#24234C]/60">
+                  "The experience is topnotch" - Featured reviews from Trustpilot
+                </p>
               </div>
               
               <Button 
                 onClick={handleContinue}
-                className="h-14 px-12 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-lg font-medium"
+                className="h-14 px-12 bg-[#FFD84D] hover:bg-[#FFCE1F] text-[#24234C] rounded-full text-lg font-medium"
               >
-                Continue
+                CONTINUE
               </Button>
             </div>
           )}
@@ -436,12 +581,13 @@ export default function Quiz() {
                   <button
                     key={option.id}
                     onClick={() => handleOptionSelect(option.id)}
-                    className={`w-full p-4 rounded-xl border-2 text-center transition-all duration-200 hover:border-[#5A4CFF] hover:shadow-md ${
+                    className={`w-full p-4 rounded-xl border-2 text-left transition-all duration-200 hover:border-[#5A4CFF] hover:shadow-md flex items-center gap-4 ${
                       answers[currentStep] === option.id 
                         ? 'border-[#5A4CFF] bg-[#5A4CFF]/5' 
                         : 'border-[#E2E5E9]'
                     }`}
                   >
+                    {option.icon && <span className="text-2xl">{option.icon}</span>}
                     <span className="font-medium text-[#24234C]">{option.label}</span>
                   </button>
                 ))}
@@ -449,29 +595,267 @@ export default function Quiz() {
             </div>
           )}
 
+          {/* Multi-Select Question */}
+          {step.type === 'multi-select' && (
+            <div className="text-center">
+              <h1 className="text-2xl lg:text-3xl font-bold text-[#24234C] mb-2">
+                {step.question}
+              </h1>
+              <p className="text-[#24234C]/60 mb-8">{step.subtitle}</p>
+              
+              <div className="grid grid-cols-2 gap-3 mb-8">
+                {step.options?.map((option) => (
+                  <button
+                    key={option.id}
+                    onClick={() => handleMultiSelectToggle(option.id)}
+                    className={`p-4 rounded-xl border-2 text-left transition-all duration-200 hover:border-[#5A4CFF] flex items-center gap-3 ${
+                      multiSelectAnswers.includes(option.id)
+                        ? 'border-[#5A4CFF] bg-[#5A4CFF]/5' 
+                        : 'border-[#E2E5E9]'
+                    }`}
+                  >
+                    {option.icon && <span className="text-xl">{option.icon}</span>}
+                    <span className="font-medium text-[#24234C] text-sm">{option.label}</span>
+                    {multiSelectAnswers.includes(option.id) && (
+                      <Check className="w-5 h-5 text-[#5A4CFF] ml-auto" />
+                    )}
+                  </button>
+                ))}
+              </div>
+              
+              <Button 
+                onClick={handleMultiSelectContinue}
+                className="h-14 px-12 bg-[#FFD84D] hover:bg-[#FFCE1F] text-[#24234C] rounded-full text-lg font-medium"
+              >
+                NEXT STEP
+              </Button>
+            </div>
+          )}
+
+          {/* Motivation Page */}
+          {step.type === 'motivation' && (
+            <div className="text-center">
+              <h1 className="text-3xl lg:text-4xl font-bold text-[#5A4CFF] mb-6">
+                {step.title}
+              </h1>
+              
+              <div className="bg-gray-50 rounded-2xl p-8 mb-8">
+                <h2 className="text-xl font-bold text-[#24234C] mb-4">
+                  {step.motivationContent?.headline}
+                </h2>
+                <p className="text-[#24234C]/70 leading-relaxed">
+                  {step.motivationContent?.subtext}
+                </p>
+                {step.motivationContent?.source && (
+                  <p className="text-sm text-[#5A4CFF] mt-4 font-medium">
+                    — {step.motivationContent.source}
+                  </p>
+                )}
+              </div>
+              
+              <Button 
+                onClick={handleContinue}
+                className="h-14 px-12 bg-[#FFD84D] hover:bg-[#FFCE1F] text-[#24234C] rounded-full text-lg font-medium"
+              >
+                CONTINUE
+              </Button>
+            </div>
+          )}
+
+          {/* AI Profile Page */}
+          {step.type === 'ai-profile' && (
+            <div className="text-center">
+              <h1 className="text-2xl lg:text-3xl font-bold text-[#24234C] mb-8">
+                {step.title}
+              </h1>
+              
+              <div className="bg-white rounded-2xl border-2 border-[#E2E5E9] p-6 mb-8">
+                {/* Readiness Score */}
+                <div className="mb-6">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="font-semibold text-[#24234C]">Readiness score</span>
+                    <span className="text-sm text-[#24234C]/60">Result: {aiProfile.readinessLabel}</span>
+                  </div>
+                  <div className="relative h-3 bg-gradient-to-r from-red-400 via-yellow-400 to-green-400 rounded-full">
+                    <div 
+                      className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-[#5A4CFF] rounded-full shadow-md transition-all duration-500"
+                      style={{ left: `${aiProfile.readinessScore}%`, transform: 'translate(-50%, -50%)' }}
+                    />
+                  </div>
+                  <div className="flex justify-between text-xs text-[#24234C]/40 mt-1">
+                    <span>LOW</span>
+                    <span>INTERMEDIATE</span>
+                    <span>HIGH</span>
+                  </div>
+                </div>
+
+                {/* Success Message */}
+                <div className="bg-[#5A4CFF]/5 rounded-xl p-4 mb-6">
+                  <div className="flex items-start gap-3">
+                    <span className="text-2xl">👍</span>
+                    <div className="text-left">
+                      <p className="font-semibold text-[#24234C]">Impressive score to succeed in AI</p>
+                      <p className="text-sm text-[#24234C]/60 mt-1">
+                        A recent study by PwC in 2024 revealed that professionals in AI-related roles earn, on average, 25% more than their peers.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Profile Metrics */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                    <TrendingUp className="w-5 h-5 text-green-500" />
+                    <div className="text-left">
+                      <p className="text-xs text-[#24234C]/40">Motivation</p>
+                      <p className="font-semibold text-[#24234C]">{aiProfile.motivation}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                    <Star className="w-5 h-5 text-yellow-500" />
+                    <div className="text-left">
+                      <p className="text-xs text-[#24234C]/40">Potential</p>
+                      <p className="font-semibold text-[#24234C]">{aiProfile.potential}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                    <Target className="w-5 h-5 text-blue-500" />
+                    <div className="text-left">
+                      <p className="text-xs text-[#24234C]/40">Focus</p>
+                      <p className="font-semibold text-[#24234C]">{aiProfile.focus}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                    <Brain className="w-5 h-5 text-purple-500" />
+                    <div className="text-left">
+                      <p className="text-xs text-[#24234C]/40">AI Knowledge</p>
+                      <p className="font-semibold text-[#24234C]">{aiProfile.aiKnowledge}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <Button 
+                onClick={handleContinue}
+                className="h-14 px-12 bg-[#FFD84D] hover:bg-[#FFCE1F] text-[#24234C] rounded-full text-lg font-medium"
+              >
+                CONTINUE
+              </Button>
+            </div>
+          )}
+
+          {/* Personal Plan Page */}
+          {step.type === 'personal-plan' && (
+            <div className="text-center">
+              <h1 className="text-2xl lg:text-3xl font-bold text-[#5A4CFF] mb-2">
+                {step.title}
+              </h1>
+              <p className="text-[#24234C]/60 mb-4">{step.subtitle}</p>
+              
+              <div className="text-xl font-bold text-[#24234C] underline decoration-[#5A4CFF] decoration-2 underline-offset-4 mb-8">
+                AI Confident by {new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+              </div>
+
+              {/* Progress Chart */}
+              <div className="bg-white rounded-2xl border-2 border-[#E2E5E9] p-6 mb-8">
+                <div className="flex items-end justify-between h-40 gap-4">
+                  {['Jan', 'Feb', 'Mar', 'Apr'].map((month, index) => (
+                    <div key={month} className="flex-1 flex flex-col items-center">
+                      <div 
+                        className={`w-full rounded-t-lg transition-all duration-500 ${
+                          index === 0 ? 'bg-red-400 h-1/4' :
+                          index === 1 ? 'bg-yellow-400 h-2/4' :
+                          'bg-green-400 h-full'
+                        }`}
+                      />
+                      <span className="text-xs text-[#24234C]/40 mt-2">{month}</span>
+                      {index === 0 && (
+                        <span className="text-xs bg-[#24234C] text-white px-2 py-1 rounded mt-1">Beginner</span>
+                      )}
+                      {index === 2 && (
+                        <span className="text-xs bg-[#5A4CFF] text-white px-2 py-1 rounded mt-1">AI Master</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-[#24234C]/40 mt-4">Individual results may vary.</p>
+              </div>
+              
+              <Button 
+                onClick={handleContinue}
+                className="h-14 px-12 bg-[#FFD84D] hover:bg-[#FFCE1F] text-[#24234C] rounded-full text-lg font-medium"
+              >
+                CONTINUE
+              </Button>
+            </div>
+          )}
+
           {/* Loading */}
           {step.type === 'loading' && (
             <div className="text-center">
-              <div className="w-20 h-20 mx-auto mb-8 relative">
-                <div className="absolute inset-0 border-4 border-[#E2E5E9] rounded-full"></div>
-                <div className="absolute inset-0 border-4 border-[#5A4CFF] rounded-full border-t-transparent animate-spin"></div>
+              {/* Circular Progress */}
+              <div className="relative w-32 h-32 mx-auto mb-8">
+                <svg className="w-full h-full transform -rotate-90">
+                  <circle
+                    cx="64"
+                    cy="64"
+                    r="56"
+                    stroke="#E2E5E9"
+                    strokeWidth="8"
+                    fill="none"
+                  />
+                  <circle
+                    cx="64"
+                    cy="64"
+                    r="56"
+                    stroke="#5A4CFF"
+                    strokeWidth="8"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeDasharray={`${2 * Math.PI * 56}`}
+                    strokeDashoffset={`${2 * Math.PI * 56 * (1 - loadingProgress / 100)}`}
+                    className="transition-all duration-100"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-2xl font-bold text-[#24234C]">{loadingProgress}%</span>
+                </div>
               </div>
-              <h1 className="text-2xl lg:text-3xl font-bold text-[#24234C] mb-3">
+              
+              <h1 className="text-xl lg:text-2xl font-bold text-[#24234C] mb-3">
                 {step.title}
               </h1>
-              <p className="text-lg text-[#24234C]/60">
-                {step.subtitle}
-              </p>
+              
+              {/* Social Proof during loading */}
+              <div className="mt-8">
+                <p className="text-4xl font-bold text-[#5A4CFF] mb-2">700,000+ people</p>
+                <p className="text-[#24234C]/60">have chosen Coursiv</p>
+              </div>
+
+              {/* Trustpilot Review */}
+              <div className="bg-gray-50 rounded-2xl p-6 mt-8 max-w-md mx-auto">
+                <div className="flex items-center justify-center gap-1 mb-3">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star key={star} className="w-5 h-5 fill-green-500 text-green-500" />
+                  ))}
+                </div>
+                <p className="font-semibold text-[#24234C] mb-2">The experience is topnotch</p>
+                <p className="text-sm text-[#24234C]/60">
+                  "Excellent service, clear communication, and a real commitment to quality made my experience outstanding."
+                </p>
+                <p className="text-xs text-[#24234C]/40 mt-3">Featured reviews from Trustpilot.</p>
+              </div>
             </div>
           )}
 
           {/* Registration */}
           {step.type === 'register' && (
             <div className="text-center">
-              <h1 className="text-2xl lg:text-3xl font-bold text-[#24234C] mb-3">
-                {step.title}
+              <h1 className="text-xl lg:text-2xl font-bold text-[#24234C] mb-2">
+                Enter your email to get your{' '}
+                <span className="text-[#5A4CFF]">Personal AI Challenge!</span>
               </h1>
-              <p className="text-lg text-[#24234C]/60 mb-8">
+              <p className="text-sm text-[#24234C]/60 mb-8">
                 {step.subtitle}
               </p>
               
@@ -482,13 +866,18 @@ export default function Quiz() {
                   </div>
                 )}
 
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="w-full h-14 px-6 rounded-xl border-2 border-[#E2E5E9] focus:border-[#5A4CFF] focus:outline-none text-lg"
-                />
+                <div className="relative">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email"
+                    className="w-full h-14 px-6 pl-12 rounded-xl border-2 border-dashed border-orange-300 focus:border-[#5A4CFF] focus:border-solid focus:outline-none text-lg bg-white"
+                  />
+                  <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#24234C]/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
 
                 <div className="relative">
                   <input
@@ -506,6 +895,13 @@ export default function Quiz() {
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
                 </div>
+
+                <p className="text-xs text-[#24234C]/40 flex items-start gap-2">
+                  <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  We respect your privacy and are committed to protecting your personal data. Your data will be processed in accordance with our Privacy Policy.
+                </p>
                 
                 <Button 
                   onClick={handleRegisterSubmit}
@@ -515,13 +911,9 @@ export default function Quiz() {
                   {isLoading ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
                   ) : (
-                    'Create Account'
+                    'CONTINUE'
                   )}
                 </Button>
-                
-                <p className="text-xs text-[#24234C]/40">
-                  By continuing, you agree to our Terms of Service and Privacy Policy
-                </p>
 
                 <div className="pt-4 border-t border-[#E2E5E9]">
                   <p className="text-sm text-[#24234C]/60">
