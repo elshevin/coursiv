@@ -4,6 +4,7 @@ import { Progress } from "@/components/ui/progress";
 import { useLocation, useParams } from "wouter";
 import { ChevronLeft, Loader2, Eye, EyeOff } from "lucide-react";
 import { useEmailAuth } from "@/hooks/useEmailAuth";
+import { useDemoAuth } from "@/hooks/useDemoAuth";
 
 // Mock Quiz Data - 22 steps based on Figma design
 const quizSteps = [
@@ -247,6 +248,7 @@ export default function Quiz() {
   const params = useParams();
   const [, setLocation] = useLocation();
   const { register } = useEmailAuth();
+  const { demoUser, isLoading: authLoading } = useDemoAuth();
   
   const currentStep = parseInt(params.step || '1');
   const [answers, setAnswers] = useState<Record<number, string>>({});
@@ -258,6 +260,13 @@ export default function Quiz() {
 
   const step = quizSteps[currentStep - 1];
   const progress = (currentStep / quizSteps.length) * 100;
+
+  // Redirect to dashboard if user is already logged in
+  useEffect(() => {
+    if (!authLoading && demoUser) {
+      setLocation('/dashboard');
+    }
+  }, [demoUser, authLoading, setLocation]);
 
   useEffect(() => {
     // Auto-advance for loading step

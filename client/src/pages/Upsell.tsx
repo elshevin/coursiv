@@ -67,7 +67,7 @@ export default function Upsell() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#5A4CFF]/5 to-white">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="w-full px-4 py-4 border-b border-[#E2E5E9] bg-white">
         <div className="max-w-[1200px] mx-auto flex items-center justify-between">

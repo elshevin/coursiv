@@ -346,6 +346,11 @@ export default function LandingPage() {
                   <span className="text-sm font-medium">AI Masters</span>
                 </div>
               </div>
+              <Link href="/quiz/1">
+                <Button className="mt-6 h-[50px] px-8 bg-white hover:bg-gray-100 text-[#5A4CFF] rounded-full text-[16px] font-medium">
+                  Join Our Challenge
+                </Button>
+              </Link>
             </div>
             <div className="flex-1 flex justify-center">
               <div className="bg-white rounded-2xl p-6 shadow-2xl max-w-[300px]">
