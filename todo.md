@@ -957,3 +957,66 @@
 - [x] E2E 测试验证完整流程 (25 步)
 - [x] 118 个测试全部通过
 
+
+## Phase 35: Quiz 四个关键界面对齐 [IN PROGRESS]
+
+### 迭代 1：加载页面
+- [ ] 创建 LoadingPage 组件（进度圆环 0-100%）
+- [ ] 添加 "Creating your AI challenge..." 文字
+- [ ] 添加 "700,000+ people have chosen Coursiv"
+- [ ] 添加 Trustpilot 评价卡片（绿色五星 + 用户评价）
+- [ ] 自动跳转到下一步
+
+### 迭代 2：刮刮卡页面
+- [ ] 创建 ScratchCard 组件（Canvas 刮刮效果）
+- [ ] 添加 "Scratch & Save" 标题和说明
+- [ ] 刮开后显示 50% OFF
+- [ ] 添加 "Wooo hooo!" 成功弹窗
+- [ ] "CLAIM MY DISCOUNT" 按钮跳转
+
+### 迭代 3：个性化课程页面改进
+- [ ] 添加 "Your readiness level" + "It's Perfect!" 标签
+- [ ] 改为 4 周格式（Week 1-4）
+- [ ] 添加成长曲线 SVG 动画
+- [ ] 修改标题为 "Your 4-week Personal AI Challenge is ready!"
+
+### 迭代 4：付款页面步骤指示器
+- [ ] 添加顶部 4 步指示器
+- [ ] 当前步骤高亮显示
+
+### 迭代 5：E2E 测试
+- [ ] 完整流程 E2E 测试
+- [ ] 所有测试通过
+
+
+
+## Phase 35: Quiz 四个关键界面对齐 [DONE]
+
+### 迭代 1：加载页面 [DONE]
+- [x] 创建 LoadingPage 组件（进度圆环 0-100%）
+- [x] 添加 "Creating your AI challenge..." 文字
+- [x] 添加 "700,000+ people have chosen Coursiv"
+- [x] 添加 Trustpilot 评价卡片（绿色五星 + 用户评价）
+- [x] 自动跳转到下一步
+
+### 迭代 2：刮刮卡页面 [DONE]
+- [x] 创建 ScratchCard 组件（Canvas 刮刮效果）
+- [x] 添加 "Scratch & Save" 标题和说明
+- [x] 刮开后显示 50% OFF
+- [x] 添加 "Wooo hooo!" 成功弹窗
+- [x] "CLAIM MY DISCOUNT" 按钮跳转
+
+### 迭代 3：个性化课程页面改进 [DONE]
+- [x] 添加 "Your readiness level" + "It's Perfect!" 标签
+- [x] 改为 4 周格式（Week 1-4）
+- [x] 添加成长曲线 SVG 动画
+- [x] 修改标题为 "Your 4-week Personal AI Challenge is ready!"
+
+### 迭代 4：付款页面步骤指示器 [DONE]
+- [x] 添加顶部 4 步指示器
+- [x] 当前步骤高亮显示
+
+### 迭代 5：E2E 测试 [DONE]
+- [x] 完整流程 E2E 测试
+- [x] 所有测试通过（118 tests passed）
+

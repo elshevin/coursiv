@@ -81,6 +81,42 @@ export default function Upsell() {
         </div>
       </header>
 
+      {/* Step Indicator */}
+      <div className="bg-gray-50 py-4 px-4 border-b border-[#E2E5E9]">
+        <div className="max-w-[600px] mx-auto">
+          <div className="flex items-center justify-between">
+            {[
+              { step: 1, label: 'Get Plan', icon: '📋' },
+              { step: 2, label: 'Create Account', icon: '👤' },
+              { step: 3, label: 'Get Discount', icon: '🎁' },
+              { step: 4, label: 'Start Learning', icon: '🚀' },
+            ].map((item, index) => (
+              <div key={item.step} className="flex items-center">
+                <div className="flex flex-col items-center">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg ${
+                    item.step <= 3 
+                      ? 'bg-[#5A4CFF] text-white' 
+                      : 'bg-gray-200 text-gray-500'
+                  }`}>
+                    {item.step <= 2 ? '✓' : item.icon}
+                  </div>
+                  <span className={`text-xs mt-1 ${
+                    item.step <= 3 ? 'text-[#5A4CFF] font-medium' : 'text-gray-400'
+                  }`}>
+                    {item.label}
+                  </span>
+                </div>
+                {index < 3 && (
+                  <div className={`w-12 h-0.5 mx-2 ${
+                    item.step < 3 ? 'bg-[#5A4CFF]' : 'bg-gray-200'
+                  }`} />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Countdown Banner */}
       <div className="bg-[#5A4CFF] text-white py-3 px-4">
         <div className="max-w-[1200px] mx-auto flex items-center justify-center gap-3">

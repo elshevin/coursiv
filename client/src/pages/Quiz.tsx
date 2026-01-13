@@ -5,6 +5,7 @@ import { useLocation, useParams } from "wouter";
 import { ChevronLeft, Loader2, Eye, EyeOff, Check, Star, TrendingUp, Brain, Target, Clock } from "lucide-react";
 import { useEmailAuth } from "@/hooks/useEmailAuth";
 import { useDemoAuth } from "@/hooks/useDemoAuth";
+import { ScratchCardPage } from "@/components/ScratchCardPage";
 
 // Quiz step types
 type QuizStepType = 
@@ -16,6 +17,7 @@ type QuizStepType =
   | 'ai-profile' 
   | 'personal-plan' 
   | 'loading' 
+  | 'scratch-card'
   | 'register';
 
 interface QuizOption {
@@ -292,6 +294,12 @@ const quizSteps: QuizStep[] = [
   },
   {
     id: 25,
+    type: 'scratch-card',
+    title: "Scratch & Save on your 28-Day AI Challenge!",
+    subtitle: "Boost your skills and master AI. Get your gift with us 🎁"
+  },
+  {
+    id: 26,
     type: 'register',
     title: "Enter your email to get your Personal AI Challenge!",
     subtitle: "We respect your privacy and are committed to protecting your personal data."
@@ -747,46 +755,86 @@ export default function Quiz() {
           {/* Personal Plan Page */}
           {step.type === 'personal-plan' && (
             <div className="text-center">
-              <h1 className="text-2xl lg:text-3xl font-bold text-[#5A4CFF] mb-2">
-                {step.title}
-              </h1>
-              <p className="text-[#24234C]/60 mb-4">{step.subtitle}</p>
-              
-              <div className="text-xl font-bold text-[#24234C] underline decoration-[#5A4CFF] decoration-2 underline-offset-4 mb-8">
-                AI Confident by {new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+              {/* Readiness Level Badge */}
+              <div className="flex items-center justify-center gap-2 mb-6">
+                <span className="text-[#24234C]/60">Your readiness level</span>
+                <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  It's Perfect!
+                </span>
               </div>
 
-              {/* Progress Chart */}
-              <div className="bg-white rounded-2xl border-2 border-[#E2E5E9] p-6 mb-8">
-                <div className="flex items-end justify-between h-40 gap-4">
-                  {['Jan', 'Feb', 'Mar', 'Apr'].map((month, index) => (
-                    <div key={month} className="flex-1 flex flex-col items-center">
-                      <div 
-                        className={`w-full rounded-t-lg transition-all duration-500 ${
-                          index === 0 ? 'bg-red-400 h-1/4' :
-                          index === 1 ? 'bg-yellow-400 h-2/4' :
-                          'bg-green-400 h-full'
-                        }`}
-                      />
-                      <span className="text-xs text-[#24234C]/40 mt-2">{month}</span>
-                      {index === 0 && (
-                        <span className="text-xs bg-[#24234C] text-white px-2 py-1 rounded mt-1">Beginner</span>
-                      )}
-                      {index === 2 && (
-                        <span className="text-xs bg-[#5A4CFF] text-white px-2 py-1 rounded mt-1">AI Master</span>
-                      )}
-                    </div>
-                  ))}
+              {/* 4-Week Growth Curve */}
+              <div className="bg-white rounded-2xl border-2 border-[#E2E5E9] p-6 mb-6">
+                <div className="relative h-48">
+                  {/* SVG Growth Curve */}
+                  <svg className="w-full h-full" viewBox="0 0 400 160" preserveAspectRatio="none">
+                    {/* Grid lines */}
+                    <line x1="0" y1="140" x2="400" y2="140" stroke="#E5E7EB" strokeWidth="1" />
+                    
+                    {/* Animated growth curve */}
+                    <defs>
+                      <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#EF4444" />
+                        <stop offset="33%" stopColor="#F59E0B" />
+                        <stop offset="66%" stopColor="#10B981" />
+                        <stop offset="100%" stopColor="#5A4CFF" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M 20 130 Q 100 120 150 100 Q 200 80 250 50 Q 300 25 380 15"
+                      fill="none"
+                      stroke="url(#curveGradient)"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      className="animate-drawPath"
+                    />
+                    
+                    {/* Week markers */}
+                    {[0, 1, 2, 3].map((week) => (
+                      <g key={week}>
+                        <circle
+                          cx={20 + week * 120}
+                          cy={week === 0 ? 130 : week === 1 ? 100 : week === 2 ? 50 : 15}
+                          r="6"
+                          fill={week === 0 ? '#EF4444' : week === 1 ? '#F59E0B' : week === 2 ? '#10B981' : '#5A4CFF'}
+                          className="animate-pulse"
+                        />
+                      </g>
+                    ))}
+                  </svg>
+                  
+                  {/* Week labels */}
+                  <div className="absolute bottom-0 left-0 right-0 flex justify-between px-2">
+                    {['Week 1', 'Week 2', 'Week 3', 'Week 4'].map((week, index) => (
+                      <span key={week} className="text-xs text-[#24234C]/40">{week}</span>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-xs text-[#24234C]/40 mt-4">Individual results may vary.</p>
+                <p className="text-xs text-[#24234C]/40 mt-4">Results will be influenced by your consistency and commitment</p>
               </div>
+
+              {/* Title */}
+              <h1 className="text-xl lg:text-2xl font-bold text-[#24234C] mb-6">
+                Your 4-week Personal AI Challenge is ready!
+              </h1>
               
               <Button 
                 onClick={handleContinue}
-                className="h-14 px-12 bg-[#FFD84D] hover:bg-[#FFCE1F] text-[#24234C] rounded-full text-lg font-medium"
+                className="h-14 px-12 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-lg font-medium"
               >
                 CONTINUE
               </Button>
+
+              <style>{`
+                @keyframes drawPath {
+                  from { stroke-dashoffset: 500; }
+                  to { stroke-dashoffset: 0; }
+                }
+                .animate-drawPath {
+                  stroke-dasharray: 500;
+                  animation: drawPath 2s ease-out forwards;
+                }
+              `}</style>
             </div>
           )}
 
@@ -846,6 +894,11 @@ export default function Quiz() {
                 <p className="text-xs text-[#24234C]/40 mt-3">Featured reviews from Trustpilot.</p>
               </div>
             </div>
+          )}
+
+          {/* Scratch Card */}
+          {step.type === 'scratch-card' && (
+            <ScratchCardPage onComplete={handleContinue} />
           )}
 
           {/* Registration */}
