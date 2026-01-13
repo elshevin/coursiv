@@ -18,6 +18,7 @@ import ChallengeDetail from "./pages/ChallengeDetail";
 import PromptsLibrary from "./pages/PromptsLibrary";
 import Settings from "./pages/Settings";
 import { BlogComingSoon, SupportComingSoon } from "./pages/ComingSoon";
+import CourseViewerTest from "./pages/CourseViewerTest";
 
 function Router() {
   return (
@@ -35,6 +36,7 @@ function Router() {
       <Route path={"/settings"} component={Settings} />
       <Route path={"/blog"} component={BlogComingSoon} />
       <Route path={"/support"} component={SupportComingSoon} />
+      <Route path={"/course-viewer-test"} component={CourseViewerTest} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

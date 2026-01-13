@@ -713,3 +713,71 @@
 ### P3 可选增强
 - [ ] 更新用户数显示
 - [ ] 实现蛇形路径连接线
+
+
+## Phase 29: 修复 E2E 差异问题 [DONE]
+
+### P0 阻塞性问题
+- [x] 注册后重复进入 Quiz 的 Bug - 已修复（添加登录检查）
+- [x] "Join Our Challenge" 按钮无响应 - 已修复（添加按钮到 28-Day Challenge 区域）
+- [x] Upsell 页面背景颜色问题 - 已修复（改为白色背景）
+
+
+## Phase 30: E2E 验证与 Playground 功能研究 [IN PROGRESS]
+- [ ] 完整 E2E 测试我们网站的所有交互
+- [ ] 深度体验 Coursiv 课程内部（选择题、Playground 题目等）
+- [ ] 分析 Coursiv 的 Playground 交互设计
+- [ ] 讨论并设计 Playground 功能实现方案
+
+
+## Phase 31: 课程内容系统实现（Coursiv 风格）[IN PROGRESS]
+
+### 迭代 1：基础框架 + 文本页 [DONE]
+- [x] 创建 CourseViewer 主容器组件
+- [x] 创建 PageHeader 组件（进度条 + 关闭按钮）
+- [x] 创建 IntroPage 组件（标题 + 描述 + 插图）
+- [x] 创建 TextPage 组件（标题 + 多段文本 + 加粗支持）
+- [x] 创建 ContinueButton 组件
+- [x] 实现页面切换逻辑
+- [x] 创建测试课程数据
+- [x] E2E 测试：迭代 1
+
+### 迭代 2：Quiz 单选题 [DONE]
+- [x] 创建 QuizSinglePage 组件
+- [x] 创建 QuizOption 选项组件
+- [x] 创建 QuizFeedback 反馈组件
+- [x] 创建 HintButton 提示组件
+- [x] 实现 Submit 按钮状态管理
+- [x] E2E 测试：迭代 2
+
+### 迭代 3：Playground 基础 [DONE]
+- [x] 创建 PlaygroundPage 主容器
+- [x] 创建 PromptEditor 组件
+- [x] 创建 PromptBlank 空白占位符组件
+- [x] 创建 OptionPicker 选项组件
+- [x] 实现选项点击填入空白逻辑
+- [x] 实现退格删除逻辑
+- [x] 实现 Check 按钮状态管理
+- [x] E2E 测试：迭代 3
+
+### 迭代 4：Playground 验证 [DONE]
+- [x] AI 生成 3-5 张结果图片 (使用占位图片)
+- [x] 创建 ResultDisplay 组件
+- [x] 创建 SuccessFeedback 组件
+- [x] 实现答案验证逻辑
+- [x] E2E 测试：迭代 4
+
+### 迭代 5：动效 + 样式
+- [ ] 添加选项填入动画
+- [ ] 添加图片显示动画
+- [ ] 添加成功反馈滑入动画
+- [ ] 添加页面切换过渡动画
+- [ ] 响应式布局适配
+- [ ] E2E 测试：迭代 5
+
+### 迭代 6：集成测试
+- [ ] 集成到现有课程系统
+- [ ] 路由配置
+- [ ] 完整流程测试
+- [ ] 错误处理
+- [ ] 最终验收
