@@ -781,3 +781,76 @@
 - [ ] 完整流程测试
 - [ ] 错误处理
 - [ ] 最终验收
+
+
+## Phase 31: 课程内容系统实现（Coursiv 风格）[DONE]
+
+### 迭代 1：基础框架 + 文本页 [DONE]
+- [x] 创建 CourseViewer 主容器组件
+- [x] 创建 PageHeader 组件（进度条 + 关闭按钮）
+- [x] 创建 IntroPage 组件（标题 + 描述 + 插图）
+- [x] 创建 TextPage 组件（标题 + 多段文本 + 加粗支持）
+- [x] 创建 ContinueButton 组件
+- [x] 实现页面切换逻辑
+- [x] 创建测试课程数据
+- [x] E2E 测试：迭代 1
+
+### 迭代 2：Quiz 单选题 [DONE]
+- [x] 创建 QuizSinglePage 组件
+- [x] 创建 QuizOption 选项组件
+- [x] 创建 QuizFeedback 反馈组件
+- [x] 创建 HintButton 提示组件
+- [x] 实现 Submit 按钮状态管理
+- [x] E2E 测试：迭代 2
+
+### 迭代 3：Playground 基础 [DONE]
+- [x] 创建 PlaygroundPage 主容器
+- [x] 创建 PromptEditor 组件
+- [x] 创建 PromptBlank 空白占位符组件
+- [x] 创建 OptionPicker 选项组件
+- [x] 实现选项点击填入空白逻辑
+- [x] 实现退格删除逻辑
+- [x] 实现 Check 按钮状态管理
+- [x] E2E 测试：迭代 3
+
+### 迭代 4：Playground 验证 [DONE]
+- [x] AI 生成 5 张结果图片
+- [x] 创建 ResultDisplay 组件
+- [x] 创建 SuccessFeedback 组件
+- [x] 实现答案验证逻辑
+- [x] E2E 测试：迭代 4
+
+### 迭代 5：动效 + 样式完善 [DONE]
+- [x] 选项填入动画
+- [x] 图片显示动画
+- [x] 成功反馈滑入动画
+- [x] 响应式布局适配
+- [x] E2E 测试：迭代 5
+
+### 迭代 6：集成测试 [DONE]
+- [x] Dashboard → Guides → 课程详情 → 课程内容完整流程
+- [x] Quiz 单选题完整流程
+- [x] Playground 填空练习完整流程
+- [x] E2E 测试：迭代 6
+
+
+## Phase 32: 课程内流程 E2E 对比测试 [IN PROGRESS]
+
+### 我们的网站测试
+- [ ] 课程列表 → 课程详情流程
+- [ ] 课程内容页面（IntroPage、TextPage）
+- [ ] Quiz 单选题流程
+- [ ] Playground 填空练习流程
+- [ ] 课程进度显示和保存
+
+### Coursiv 网站测试
+- [ ] 课程列表 → 课程详情流程
+- [ ] 课程内容页面
+- [ ] Quiz 流程
+- [ ] Playground 流程
+- [ ] 课程进度显示
+
+### 差异文档
+- [ ] 生成完整差异对比文档
+- [ ] 标注优先级（P0/P1/P2）
+- [ ] 提供改进建议
