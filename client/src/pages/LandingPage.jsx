@@ -20,6 +20,7 @@ import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrowserWindowAnimation from "@/components/BrowserWindowAnimation";
 import CountUp from "@/components/CountUp";
+import { ChevronRight } from "lucide-react";
 
 export default function LandingPage() {
   return (
@@ -31,26 +32,41 @@ export default function LandingPage() {
           <Navbar />
 
           {/* Hero Content */}
-          <div className="flex flex-col lg:flex-row items-center justify-between px-6 lg:px-20 py-12 lg:py-20 gap-12">
-            <div className="flex-1 max-w-[600px] z-10">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F0F2F5] text-xs font-medium mb-6">
-                <span className="w-2 h-2 rounded-full bg-[#5A4CFF]"></span>
-                <CountUp end={1461394} suffix="+" /> people joined
+          <div className="flex flex-col lg:flex-row items-center justify-between px-6 lg:px-16 py-10 lg:py-16 gap-10">
+            <div className="flex-1 max-w-[520px] z-10">
+              {/* AI Coursiv Tag */}
+              <div className="inline-flex items-center gap-2 mb-5">
+                <span className="text-[#5A4CFF] text-sm font-medium">AI</span>
+                <span className="text-[#24234C] text-sm">Coursiv</span>
+                <ChevronRight className="w-4 h-4 text-[#5A4CFF]" />
               </div>
-              <h1 className="text-[40px] lg:text-[80px] font-bold leading-[1.1] mb-6 tracking-[-2px]">
+              
+              <h1 className="text-[36px] lg:text-[56px] font-bold leading-[1.15] mb-4 tracking-[-1px]">
                 Become the <br/>
                 <span className="text-[#5A4CFF]">Master of AI</span>
               </h1>
-              <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-10 max-w-[480px] leading-[1.4]">
-                Learn AI skills to advance your career and stay competitive in the digital age.
+              <p className="text-base lg:text-lg text-[#24234C]/70 mb-6 max-w-[420px] leading-[1.5]">
+                Learn AI skills to advance your career and stay competitive
               </p>
               <Link href="/quiz/1">
-                <Button className="h-[60px] px-10 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-[20px] font-medium shadow-lg shadow-[#5A4CFF]/20">
-                  Get Started
+                <Button className="h-12 px-6 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-base font-medium flex items-center gap-1">
+                  Start Now
+                  <ChevronRight className="w-4 h-4" />
                 </Button>
               </Link>
               
-
+              {/* User avatars and count */}
+              <div className="mt-6 flex items-center gap-3">
+                <div className="flex -space-x-2">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-white"></div>
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-white"></div>
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-green-600 border-2 border-white"></div>
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 border-2 border-white"></div>
+                </div>
+                <span className="text-sm text-[#24234C]/70">
+                  More than <CountUp end={1468169} suffix="+" className="font-medium text-[#24234C]" /> people joined
+                </span>
+              </div>
             </div>
             
             <div className="flex-1 relative w-full max-w-[600px] flex justify-center lg:justify-end">

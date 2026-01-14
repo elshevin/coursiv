@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { useDemoAuth } from "@/hooks/useDemoAuth";
 import { Link } from "wouter";
-import { Loader2, LogOut, User, Menu, X } from "lucide-react";
+import { Loader2, LogOut, User, Menu, X, ChevronRight } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,22 +36,22 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
 
   return (
     <div className="relative">
-      <div className="flex justify-between items-center px-4 py-4 lg:px-[60px] lg:py-6">
+      <div className="flex justify-between items-center px-6 py-4 lg:px-12 lg:py-5">
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center">
           <Link href="/">
-            <img src="/logo.png" alt="Coursiv Logo" className="h-8 w-auto cursor-pointer" />
+            <img src="/logo.png" alt="Coursiv" className="h-7 w-auto cursor-pointer" />
           </Link>
         </div>
         
         {/* Desktop Navigation - Hidden as requested */}
-        {/* <div className="hidden lg:flex items-center gap-8 text-sm font-medium">
+        {/* <div className="hidden lg:flex items-center gap-8 text-sm font-medium text-[#24234C]">
           <Link href="/" className="hover:text-[#5A4CFF] transition-colors">Home</Link>
           <Link href="/blog" className="hover:text-[#5A4CFF] transition-colors">Blog</Link>
           <Link href="/support" className="hover:text-[#5A4CFF] transition-colors">Support Center</Link>
         </div> */}
         
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {/* Mobile Menu Button */}
           <button 
             className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -59,16 +59,16 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
             aria-label="Toggle mobile menu"
           >
             {mobileMenuOpen ? (
-              <X className="w-6 h-6 text-[#24234C]" />
+              <X className="w-5 h-5 text-[#24234C]" />
             ) : (
-              <Menu className="w-6 h-6 text-[#24234C]" />
+              <Menu className="w-5 h-5 text-[#24234C]" />
             )}
           </button>
           
           {/* Desktop Auth Buttons - Login and Start Now */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2">
             {isLoading ? (
-              <Button disabled className="bg-[#5A4CFF] text-white rounded-full px-6">
+              <Button disabled className="bg-[#5A4CFF] text-white rounded-full px-5 h-10">
                 <Loader2 className="w-4 h-4 animate-spin" />
               </Button>
             ) : isAuthenticated && demoUser ? (
@@ -76,7 +76,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                 <DropdownMenuTrigger asChild>
                   <Button 
                     variant="outline" 
-                    className="rounded-full px-4 border-[#5A4CFF] text-[#5A4CFF] hover:bg-[#5A4CFF]/10"
+                    className="rounded-full px-4 h-10 border-[#5A4CFF] text-[#5A4CFF] hover:bg-[#5A4CFF]/10"
                   >
                     <User className="w-4 h-4 mr-2" />
                     {demoUser.displayName || demoUser.username}
@@ -109,19 +109,20 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                   onClick={handleLogin}
                   disabled={isLoggingIn}
                   variant="ghost"
-                  className="text-[#24234C] hover:text-[#5A4CFF] hover:bg-transparent font-medium"
+                  className="text-[#24234C] hover:text-[#5A4CFF] hover:bg-transparent text-sm font-medium h-10 px-4"
                 >
                   {isLoggingIn ? (
                     <Loader2 className="w-4 h-4 animate-spin mr-2" />
                   ) : null}
                   Login
                 </Button>
-                {/* Start Now Button - Highlighted */}
+                {/* Start Now Button - Highlighted with arrow */}
                 <Link href="/quiz">
                   <Button 
-                    className="bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full px-6 font-semibold shadow-lg shadow-[#5A4CFF]/30"
+                    className="bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full px-5 h-10 text-sm font-medium flex items-center gap-1"
                   >
                     Start Now
+                    <ChevronRight className="w-4 h-4" />
                   </Button>
                 </Link>
               </>
@@ -136,7 +137,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
           <div className="flex flex-col p-4 gap-4">
             <div className="border-t border-[#E2E5E9] pt-4 mt-2">
               {isLoading ? (
-                <Button disabled className="w-full bg-[#5A4CFF] text-white rounded-full">
+                <Button disabled className="w-full bg-[#5A4CFF] text-white rounded-full h-10">
                   <Loader2 className="w-4 h-4 animate-spin" />
                 </Button>
               ) : isAuthenticated && demoUser ? (
@@ -177,7 +178,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                     }}
                     disabled={isLoggingIn}
                     variant="outline"
-                    className="w-full border-[#5A4CFF] text-[#5A4CFF] rounded-full"
+                    className="w-full border-[#5A4CFF] text-[#5A4CFF] rounded-full h-10"
                   >
                     {isLoggingIn ? (
                       <Loader2 className="w-4 h-4 animate-spin mr-2" />
@@ -186,9 +187,10 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                   </Button>
                   <Link href="/quiz" onClick={() => setMobileMenuOpen(false)}>
                     <Button 
-                      className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full font-semibold"
+                      className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full h-10 font-medium flex items-center justify-center gap-1"
                     >
                       Start Now
+                      <ChevronRight className="w-4 h-4" />
                     </Button>
                   </Link>
                 </div>
