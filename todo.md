@@ -1020,3 +1020,64 @@
 - [x] 完整流程 E2E 测试
 - [x] 所有测试通过（118 tests passed）
 
+
+## Phase 36: Playground 集成到课程 [IN PROGRESS]
+- [ ] E2E 体验 Coursiv 课程内容结构
+- [ ] 分析 lesson/quiz/playground 分布比例
+- [ ] 在课程数据中添加 practice 模块
+- [ ] 关联 Playground 练习数据到 practice 模块
+- [ ] E2E 测试验证 Playground 功能
+
+
+## Phase 37: 课程内容对齐 Coursiv [IN PROGRESS]
+
+### 迭代 1：理解 Coursiv 课程结构
+- [ ] E2E 体验 Coursiv 完整课程内容
+- [ ] 记录 quiz/playground 在课程中的密度和位置
+- [ ] 记录 continue 按钮的交互逻辑（向下展开 vs 页面切换）
+- [ ] 记录 quiz/playground 嵌入课程的方式
+
+### 迭代 2：生成一致的模拟数据
+- [ ] 根据 Coursiv 密度生成课程模拟数据
+- [ ] 在课程中合理位置添加 quiz 和 playground
+
+### 迭代 3：对齐 Continue 效果
+- [ ] 修改 continue 为向下展开而非页面切换
+- [ ] 实现内容逐步展开的滚动效果
+
+### 迭代 4：对齐 Quiz/Playground 效果
+- [ ] 对齐正确答案状态效果
+- [ ] 对齐错误答案状态效果
+- [ ] 对齐提示状态效果
+
+### 迭代 5：修复 Markdown 渲染
+- [ ] 检查当前 Markdown 渲染问题
+- [ ] 修复 Markdown 渲染组件
+- [ ] 确保所有格式正确显示
+
+### 迭代 6：E2E 测试
+- [ ] 完整流程 E2E 测试
+- [ ] 所有测试通过
+
+
+
+## Phase 37: 课程内容对齐 Coursiv [DONE]
+
+### 完成情况
+- [x] E2E 体验 Coursiv 课程内容
+- [x] 记录 quiz/playground 密度和交互逻辑
+- [x] 创建 CoursivLessonViewer 组件（向下展开模式）
+- [x] 创建 MarkdownRenderer 组件
+- [x] 生成 Coursiv 风格的课程数据
+- [x] Playground 卡片效果对齐
+- [x] Feedback 调查卡片
+- [x] Discovery 知识点卡片
+- [x] E2E 测试通过（118 tests）
+
+### 关键实现
+1. **Continue 向下展开**：点击 Continue 在同一页面展开新内容，而非页面切换
+2. **Playground 卡片**：填空题 + 选项按钮 + Check/Skip 按钮
+3. **Feedback 调查**：Yes/No 选项 + Submit 按钮
+4. **Discovery 卡片**：黄色背景 + 💡 图标 + 知识点总结
+5. **Markdown 渲染**：支持粗体、斜体、代码、链接、列表、标题、引用、代码块
+

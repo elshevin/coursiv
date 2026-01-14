@@ -13,6 +13,7 @@ import Upsell from "./pages/Upsell";
 import Login from "./pages/Login";
 import CourseDetail from "./pages/CourseDetail";
 import LessonContent from "./pages/LessonContent";
+import LessonContentV2 from "./pages/LessonContentV2";
 import QuizContent from "./pages/QuizContent";
 import ChallengeDetail from "./pages/ChallengeDetail";
 import PromptsLibrary from "./pages/PromptsLibrary";
@@ -29,7 +30,8 @@ function Router() {
       <Route path={"/dashboard/:tab?"} component={Dashboard} />
       <Route path={"/upsell"} component={Upsell} />
       <Route path={"/course/:courseId"} component={CourseDetail} />
-      <Route path={"/lesson/:courseId/:moduleId"} component={LessonContent} />
+      <Route path={"/lesson/:courseId/:moduleId"} component={LessonContentV2} />
+      <Route path={"/lesson-old/:courseId/:moduleId"} component={LessonContent} />
       <Route path={"/course-quiz/:courseId/:moduleId"} component={QuizContent} />
       <Route path={"/challenge/:challengeId"} component={ChallengeDetail} />
       <Route path={"/prompts"} component={PromptsLibrary} />
