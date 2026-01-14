@@ -40,7 +40,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
         {/* Logo */}
         <div className="flex items-center gap-2">
           <Link href="/">
-            <img src="/logo.png" alt="AI Master Logo" className="h-10 w-auto cursor-pointer" />
+            <img src="/logo.png" alt="Coursiv Logo" className="h-8 w-auto cursor-pointer" />
           </Link>
         </div>
         

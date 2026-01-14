@@ -50,14 +50,7 @@ export default function LandingPage() {
                 </Button>
               </Link>
               
-              <div className="mt-8 flex items-center gap-4">
-                <a href="#" className="transition-transform hover:scale-105">
-                  <img src="/app-store-badge.webp" alt="Download on App Store" className="h-12 w-auto object-contain" />
-                </a>
-                <a href="#" className="transition-transform hover:scale-105">
-                  <img src="/google-play-badge.png" alt="Get it on Google Play" className="h-12 w-auto object-contain" />
-                </a>
-              </div>
+
             </div>
             
             <div className="flex-1 relative w-full max-w-[600px] flex justify-center lg:justify-end">
