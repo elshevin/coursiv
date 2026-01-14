@@ -37,22 +37,21 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
   return (
     <div className="relative">
       <div className="flex justify-between items-center px-4 py-4 lg:px-[60px] lg:py-6">
+        {/* Logo */}
         <div className="flex items-center gap-2">
           <Link href="/">
-            <img src="/2-332.svg" alt="Coursiv Logo" className="h-8 cursor-pointer" />
+            <img src="/logo.png" alt="AI Master Logo" className="h-10 w-auto cursor-pointer" />
           </Link>
         </div>
         
-        {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center gap-8 text-sm font-medium">
+        {/* Desktop Navigation - Hidden as requested */}
+        {/* <div className="hidden lg:flex items-center gap-8 text-sm font-medium">
           <Link href="/" className="hover:text-[#5A4CFF] transition-colors">Home</Link>
           <Link href="/blog" className="hover:text-[#5A4CFF] transition-colors">Blog</Link>
           <Link href="/support" className="hover:text-[#5A4CFF] transition-colors">Support Center</Link>
-        </div>
+        </div> */}
         
         <div className="flex items-center gap-4">
-          <span className="text-sm font-medium hidden sm:block">EN</span>
-          
           {/* Mobile Menu Button */}
           <button 
             className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -66,8 +65,8 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
             )}
           </button>
           
-          {/* Desktop Auth Buttons */}
-          <div className="hidden lg:block">
+          {/* Desktop Auth Buttons - Login and Start Now */}
+          <div className="hidden lg:flex items-center gap-3">
             {isLoading ? (
               <Button disabled className="bg-[#5A4CFF] text-white rounded-full px-6">
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -104,16 +103,28 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button 
-                onClick={handleLogin}
-                disabled={isLoggingIn}
-                className="bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full px-6"
-              >
-                {isLoggingIn ? (
-                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                ) : null}
-                Log in
-              </Button>
+              <>
+                {/* Login Button */}
+                <Button 
+                  onClick={handleLogin}
+                  disabled={isLoggingIn}
+                  variant="ghost"
+                  className="text-[#24234C] hover:text-[#5A4CFF] hover:bg-transparent font-medium"
+                >
+                  {isLoggingIn ? (
+                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  ) : null}
+                  Login
+                </Button>
+                {/* Start Now Button - Highlighted */}
+                <Link href="/quiz">
+                  <Button 
+                    className="bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full px-6 font-semibold shadow-lg shadow-[#5A4CFF]/30"
+                  >
+                    Start Now
+                  </Button>
+                </Link>
+              </>
             )}
           </div>
         </div>
@@ -123,28 +134,6 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
       {mobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-t border-[#E2E5E9] shadow-lg z-50 animate-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col p-4 gap-4">
-            <Link 
-              href="/" 
-              className="py-3 px-4 hover:bg-gray-50 rounded-lg transition-colors font-medium"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <a 
-              href="#" 
-              className="py-3 px-4 hover:bg-gray-50 rounded-lg transition-colors font-medium"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Blog
-            </a>
-            <a 
-              href="#" 
-              className="py-3 px-4 hover:bg-gray-50 rounded-lg transition-colors font-medium"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Support Center
-            </a>
-            
             <div className="border-t border-[#E2E5E9] pt-4 mt-2">
               {isLoading ? (
                 <Button disabled className="w-full bg-[#5A4CFF] text-white rounded-full">
@@ -180,19 +169,29 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                   </button>
                 </div>
               ) : (
-                <Button 
-                  onClick={() => {
-                    handleLogin();
-                    setMobileMenuOpen(false);
-                  }}
-                  disabled={isLoggingIn}
-                  className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full"
-                >
-                  {isLoggingIn ? (
-                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                  ) : null}
-                  Log in
-                </Button>
+                <div className="flex flex-col gap-3">
+                  <Button 
+                    onClick={() => {
+                      handleLogin();
+                      setMobileMenuOpen(false);
+                    }}
+                    disabled={isLoggingIn}
+                    variant="outline"
+                    className="w-full border-[#5A4CFF] text-[#5A4CFF] rounded-full"
+                  >
+                    {isLoggingIn ? (
+                      <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                    ) : null}
+                    Login
+                  </Button>
+                  <Link href="/quiz" onClick={() => setMobileMenuOpen(false)}>
+                    <Button 
+                      className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full font-semibold"
+                    >
+                      Start Now
+                    </Button>
+                  </Link>
+                </div>
               )}
             </div>
           </div>
