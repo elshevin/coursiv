@@ -8,8 +8,9 @@ export interface TextBlock {
   type: 'text';
   content: {
     title?: string;
-    paragraphs: string[];  // Supports markdown
-    image?: string;        // Emoji or image URL
+    icon?: string;          // Emoji icon for the section
+    paragraphs: string[];   // Supports markdown
+    image?: string;         // Image URL
   };
 }
 
@@ -30,7 +31,12 @@ export interface PlaygroundBlock {
     options: string[];
     correctAnswers: Record<string, string>;
     resultImage?: string;
+    hint: string;  // Required: hint text shown when user clicks "Show Hint"
     successFeedback: {
+      title: string;
+      message: string;
+    };
+    errorFeedback: {  // Required: feedback shown when user selects wrong answer
       title: string;
       message: string;
     };
@@ -45,6 +51,7 @@ export interface QuizBlock {
     options: string[];
     correctIndex: number;
     explanation: string;
+    hint: string;  // Required: hint text shown when user clicks "Show Hint"
   };
 }
 
@@ -74,21 +81,26 @@ export type ContentBlock = TextBlock | PlaygroundBlock | QuizBlock | DiscoveryBl
 // Lesson with Coursiv-style content
 export interface CoursivLesson {
   id: string;
+  courseId: string;
   title: string;
+  subtitle?: string;
   blocks: ContentBlock[];
 }
 
 // Helper to create text block
 export function createTextBlock(
+  title: string,
+  icon: string,
   paragraphs: string[],
-  options?: { title?: string; image?: string }
+  image?: string
 ): TextBlock {
   return {
     type: 'text',
     content: {
-      title: options?.title,
+      title,
+      icon,
       paragraphs,
-      image: options?.image,
+      image,
     },
   };
 }
@@ -101,7 +113,9 @@ export function createPlaygroundBlock(
   promptTemplate: PlaygroundBlock['content']['promptTemplate'],
   options: string[],
   correctAnswers: Record<string, string>,
+  hint: string,
   successFeedback: { title: string; message: string },
+  errorFeedback: { title: string; message: string },
   resultImage?: string
 ): PlaygroundBlock {
   return {
@@ -113,8 +127,10 @@ export function createPlaygroundBlock(
       promptTemplate,
       options,
       correctAnswers,
+      hint,
       resultImage,
       successFeedback,
+      errorFeedback,
     },
   };
 }
@@ -124,7 +140,8 @@ export function createQuizBlock(
   question: string,
   options: string[],
   correctIndex: number,
-  explanation: string
+  explanation: string,
+  hint: string
 ): QuizBlock {
   return {
     type: 'quiz',
@@ -133,6 +150,7 @@ export function createQuizBlock(
       options,
       correctIndex,
       explanation,
+      hint,
     },
   };
 }

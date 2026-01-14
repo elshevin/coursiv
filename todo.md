@@ -1081,3 +1081,58 @@
 4. **Discovery 卡片**：黄色背景 + 💡 图标 + 知识点总结
 5. **Markdown 渲染**：支持粗体、斜体、代码、链接、列表、标题、引用、代码块
 
+
+
+## Phase 38: Playground/Quiz 完善 + 全课程数据生成 [IN PROGRESS]
+
+### 迭代 1：更新数据格式
+- [ ] hint 字段改为必填
+- [ ] errorFeedback 字段改为必填
+- [ ] 更新类型定义
+- [ ] 更新工厂函数
+
+### 迭代 2：生成所有课程数据
+- [ ] ChatGPT Mastery 完整数据
+- [ ] DALL-E Mastery 完整数据
+- [ ] Midjourney Mastery 完整数据
+- [ ] Stable Diffusion 完整数据
+- [ ] Claude AI 完整数据
+- [ ] Google Gemini 完整数据
+
+### 迭代 3：实现错误反馈 UI
+- [ ] Playground 错误答案红色边框
+- [ ] Quiz 错误答案红色边框
+- [ ] 显示正确答案提示
+
+### 迭代 4：实现 Hint 提示功能
+- [ ] 添加 Show Hint 按钮
+- [ ] 点击显示提示内容
+- [ ] 提示样式设计
+
+### 迭代 5：更新指引文档
+- [ ] 更新 COURSE_DATA_GENERATION_GUIDE.md
+
+### 迭代 6：测试验证
+- [ ] E2E 测试所有功能
+- [ ] 提交到 GitHub
+
+
+
+## Phase 39: E2E 测试 + 部署文档 [IN PROGRESS]
+
+### 迭代 1：E2E 测试
+- [ ] 测试课程功能（课程列表、课程详情、课程内容）
+- [ ] 测试 Playground 功能（填空、Check、Skip、Hint、错误反馈）
+- [ ] 测试 Quiz 功能（选择、提交、Hint、错误反馈）
+- [ ] 测试成就功能（成就列表、成就解锁）
+- [ ] 修复发现的问题
+
+### 迭代 2：部署文档
+- [ ] 创建一键部署文档（DEPLOYMENT_GUIDE.md）
+- [ ] 列出所有必需的环境变量
+- [ ] 说明部署步骤
+
+### 迭代 3：提交 GitHub
+- [ ] 更新模拟课程生成文档
+- [ ] 提交所有文档到 GitHub
+

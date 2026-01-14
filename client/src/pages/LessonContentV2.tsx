@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation } from "wouter";
 import { courses, CourseModule } from "../../../shared/courseData";
-import { getCoursivLesson } from "../../../shared/coursivLessonData";
+import { getLesson } from "../../../shared/allCourseData";
 import { getModuleContent, getModuleQuiz } from "../../../shared/courseContent";
 import { useEmailAuth } from "../hooks/useEmailAuth";
 import { useTestMode } from "../contexts/TestModeContext";
@@ -45,7 +45,7 @@ export default function LessonContentV2() {
   useEffect(() => {
     if (moduleId) {
       // First try to get Coursiv-style lesson data
-      const coursivLesson = getCoursivLesson(moduleId);
+      const coursivLesson = getLesson(moduleId);
       
       if (coursivLesson) {
         // Use Coursiv-style blocks directly
@@ -55,10 +55,12 @@ export default function LessonContentV2() {
         const oldContent = getModuleContent(moduleId);
         const quiz = getModuleQuiz(moduleId);
         
-        const convertedBlocks: ContentBlock[] = oldContent.map(page => 
+        const convertedBlocks: ContentBlock[] = oldContent.map((page, index) => 
           createTextBlock(
+            `Section ${index + 1}`,
+            '📖',
             page.text.split('\n\n'),
-            { image: page.image }
+            page.image
           )
         );
         
@@ -69,7 +71,8 @@ export default function LessonContentV2() {
               quiz.question,
               quiz.options,
               quiz.correctIndex,
-              quiz.explanation
+              quiz.explanation,
+              'Think carefully about the question before selecting your answer.'
             )
           );
         }

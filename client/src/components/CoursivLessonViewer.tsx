@@ -237,6 +237,7 @@ function PlaygroundBlockComponent({
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({});
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [showHint, setShowHint] = useState(false);
 
   const blanks = block.content.promptTemplate.filter(p => p.type === 'blank') as Array<{ type: 'blank'; label: string }>;
   const allBlanksSelected = blanks.every(b => selectedAnswers[b.label]);
@@ -349,6 +350,17 @@ function PlaygroundBlockComponent({
         </div>
       )}
       
+      {/* Hint */}
+      {showHint && !showResult && (
+        <div className="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg mb-4">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-blue-600">💡</span>
+            <span className="font-semibold text-blue-800">Hint</span>
+          </div>
+          <p className="text-blue-700 text-sm">{block.content.hint}</p>
+        </div>
+      )}
+      
       {/* Result feedback */}
       {showResult && (
         <div className={`border-l-4 p-4 rounded-r-lg mb-4 ${
@@ -359,12 +371,18 @@ function PlaygroundBlockComponent({
               {isCorrect ? '✓' : '✗'}
             </span>
             <span className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
-              {isCorrect ? block.content.successFeedback.title : 'Try again'}
+              {isCorrect ? block.content.successFeedback.title : block.content.errorFeedback.title}
             </span>
           </div>
           <p className={`text-sm ${isCorrect ? 'text-green-700' : 'text-red-700'}`}>
-            {isCorrect ? block.content.successFeedback.message : 'Some answers are incorrect. Try again!'}
+            {isCorrect ? block.content.successFeedback.message : block.content.errorFeedback.message}
           </p>
+          {!isCorrect && (
+            <p className="text-sm text-red-600 mt-2">
+              <span className="font-medium">Correct answer: </span>
+              {Object.values(block.content.correctAnswers).join(', ')}
+            </p>
+          )}
         </div>
       )}
       
@@ -382,6 +400,15 @@ function PlaygroundBlockComponent({
               }`}
             >
               Check
+            </button>
+            <button
+              onClick={() => setShowHint(true)}
+              disabled={showHint}
+              className={`px-4 py-3 transition-colors ${
+                showHint ? 'text-gray-400 cursor-not-allowed' : 'text-blue-600 hover:text-blue-700'
+              }`}
+            >
+              {showHint ? 'Hint shown' : 'Show hint'}
             </button>
             <button
               onClick={handleSkip}
@@ -415,6 +442,7 @@ function QuizBlockComponent({
 }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const [showHint, setShowHint] = useState(false);
 
   const handleSubmit = () => {
     if (selectedIndex !== null) {
@@ -493,19 +521,41 @@ function QuizBlockComponent({
         </div>
       )}
       
-      {/* Submit button */}
+      {/* Hint */}
+      {showHint && !showResult && (
+        <div className="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg mb-4">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-blue-600">💡</span>
+            <span className="font-semibold text-blue-800">Hint</span>
+          </div>
+          <p className="text-blue-700 text-sm">{block.content.hint}</p>
+        </div>
+      )}
+      
+      {/* Buttons */}
       {!showResult && (
-        <button
-          onClick={handleSubmit}
-          disabled={selectedIndex === null}
-          className={`w-full py-3 rounded-xl font-semibold transition-colors ${
-            selectedIndex !== null
-              ? 'bg-purple-600 text-white hover:bg-purple-700'
-              : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-          }`}
-        >
-          Submit
-        </button>
+        <div className="flex gap-3">
+          <button
+            onClick={handleSubmit}
+            disabled={selectedIndex === null}
+            className={`flex-1 py-3 rounded-xl font-semibold transition-colors ${
+              selectedIndex !== null
+                ? 'bg-purple-600 text-white hover:bg-purple-700'
+                : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+            }`}
+          >
+            Submit
+          </button>
+          <button
+            onClick={() => setShowHint(true)}
+            disabled={showHint}
+            className={`px-4 py-3 transition-colors ${
+              showHint ? 'text-gray-400 cursor-not-allowed' : 'text-blue-600 hover:text-blue-700'
+            }`}
+          >
+            {showHint ? 'Hint shown' : 'Show hint'}
+          </button>
+        </div>
       )}
     </div>
   );

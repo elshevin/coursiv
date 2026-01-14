@@ -6,13 +6,13 @@
 
 ## 1. 数据文件位置
 
-所有课程数据存放在 `shared/coursivLessonData.ts` 文件中。
+所有课程数据存放在 `shared/allCourseData.ts` 文件中。
 
 ```
 coursiv-landing/
 ├── shared/
 │   ├── courseContentTypes.ts    # 类型定义和工厂函数
-│   └── coursivLessonData.ts     # 课程数据（在此添加新课程）
+│   └── allCourseData.ts         # 课程数据（在此添加新课程）
 ```
 
 ---
@@ -94,7 +94,6 @@ createTextBlock(
 ---
 
 ### 4.2 Playground Block（填空练习）
-
 用于交互式填空练习，用户选择选项填入空白处。
 
 ```typescript
@@ -109,6 +108,11 @@ createPlaygroundBlock(
   options: string[],              // 可选选项列表
   correctAnswers: Record<string, string>,  // 正确答案映射
   successFeedback: {              // 成功反馈
+    title: string;
+    message: string;
+  },
+  hint: string,                   // 提示文本（必填）
+  errorFeedback: {                // 错误反馈（必填）
     title: string;
     message: string;
   }
@@ -137,7 +141,9 @@ createPlaygroundBlock(
   ],
   ['order a pizza', 'cook pasta', 'find a restaurant'],
   { action: 'order a pizza' },
-  { title: 'Great!', message: 'You just sent your first prompt to ChatGPT!' }
+  { title: 'Great!', message: 'You just sent your first prompt to ChatGPT!' },
+  'Think about what simple task you might ask for help with at dinnertime.',
+  { title: 'Not quite!', message: 'Try thinking about a common dinner-related request.' }
 )
 ```
 
@@ -167,7 +173,8 @@ createQuizBlock(
   question: string,               // 问题文本
   options: string[],              // 选项数组
   correctIndex: number,           // 正确答案索引（从 0 开始）
-  explanation: string             // 答案解释
+  explanation: string,            // 答案解释
+  hint: string                    // 提示文本（必填）
 )
 ```
 
@@ -182,7 +189,8 @@ createQuizBlock(
     'It made a lucky guess',
   ],
   1,  // 正确答案是第 2 个选项（索引 1）
-  'ChatGPT retained the NYC and vegetarian context from earlier. This is conversation memory in action.'
+  'ChatGPT retained the NYC and vegetarian context from earlier. This is conversation memory in action.',
+  'Think about how ChatGPT maintains context within a conversation.'
 )
 ```
 
@@ -431,7 +439,7 @@ export const exampleLesson: CoursivLesson = {
 
 ## 7. 如何添加新课程
 
-### 步骤 1：在 `coursivLessonData.ts` 中添加新课程
+### 步骤 1：在 `allCourseData.ts` 中添加新课程
 
 ```typescript
 // 在文件末尾添加新课程
