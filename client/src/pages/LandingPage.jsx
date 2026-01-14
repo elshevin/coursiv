@@ -26,14 +26,14 @@ export default function LandingPage() {
   return (
     <div className="w-full min-h-screen bg-white font-sans text-[#24234C] overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative w-full max-w-[1655px] mx-auto pt-4 pb-9 lg:pb-[80px] px-2 lg:px-0">
-        <div className="relative w-full rounded-[16px] border border-[#E2E5E9] overflow-hidden bg-white">
+      <section className="relative w-full">
+        <div className="relative w-full bg-white">
           {/* Navbar with Demo Login */}
           <Navbar />
 
-          {/* Hero Content */}
-          <div className="flex flex-col lg:flex-row items-center justify-between px-6 lg:px-16 py-10 lg:py-16 gap-10">
-            <div className="flex-1 max-w-[520px] z-10">
+          {/* Hero Content - 参考 coursiv.io 的布局，使用更大的 padding 使内容更居中 */}
+          <div className="flex flex-col lg:flex-row items-center justify-between px-6 lg:px-[100px] xl:px-[147px] py-12 lg:py-[80px] gap-10 max-w-[1400px] mx-auto">
+            <div className="flex-1 max-w-[560px] z-10">
               {/* AI Coursiv Tag */}
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="text-[#5A4CFF] text-sm font-medium">AI</span>
@@ -41,15 +41,15 @@ export default function LandingPage() {
                 <ChevronRight className="w-4 h-4 text-[#5A4CFF]" />
               </div>
               
-              <h1 className="text-[36px] lg:text-[56px] font-bold leading-[1.15] mb-4 tracking-[-1px]">
+              <h1 className="text-[40px] lg:text-[64px] font-medium leading-[1] mb-5 tracking-normal">
                 Become the <br/>
                 <span className="text-[#5A4CFF]">Master of AI</span>
               </h1>
-              <p className="text-base lg:text-lg text-[#24234C]/70 mb-6 max-w-[420px] leading-[1.5]">
+              <p className="text-base lg:text-lg text-[#24234C]/70 mb-8 max-w-[450px] leading-[1.6]">
                 Learn AI skills to advance your career and stay competitive
               </p>
               <Link href="/quiz/1">
-                <Button className="h-12 px-6 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-base font-medium flex items-center gap-1">
+                <Button className="h-[52px] px-8 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-base font-medium flex items-center gap-1">
                   Start Now
                   <ChevronRight className="w-4 h-4" />
                 </Button>

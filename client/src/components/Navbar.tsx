@@ -36,11 +36,11 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
 
   return (
     <div className="relative">
-      <div className="flex justify-between items-center px-6 py-4 lg:px-12 lg:py-5">
-        {/* Logo */}
+      <div className="flex justify-between items-center px-6 py-5 lg:px-[60px] lg:py-6">
+        {/* Logo - 增大尺寸 */}
         <div className="flex items-center">
           <Link href="/">
-            <img src="/logo.png" alt="Coursiv" className="h-7 w-auto cursor-pointer" />
+            <img src="/logo.png" alt="Coursiv" className="h-10 lg:h-12 w-auto cursor-pointer" />
           </Link>
         </div>
         
@@ -66,9 +66,9 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
           </button>
           
           {/* Desktop Auth Buttons - Login and Start Now */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-3">
             {isLoading ? (
-              <Button disabled className="bg-[#5A4CFF] text-white rounded-full px-5 h-10">
+              <Button disabled className="bg-[#5A4CFF] text-white rounded-full px-6 h-11">
                 <Loader2 className="w-4 h-4 animate-spin" />
               </Button>
             ) : isAuthenticated && demoUser ? (
@@ -76,7 +76,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                 <DropdownMenuTrigger asChild>
                   <Button 
                     variant="outline" 
-                    className="rounded-full px-4 h-10 border-[#5A4CFF] text-[#5A4CFF] hover:bg-[#5A4CFF]/10"
+                    className="rounded-full px-5 h-11 border-[#5A4CFF] text-[#5A4CFF] hover:bg-[#5A4CFF]/10"
                   >
                     <User className="w-4 h-4 mr-2" />
                     {demoUser.displayName || demoUser.username}
@@ -109,7 +109,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                   onClick={handleLogin}
                   disabled={isLoggingIn}
                   variant="ghost"
-                  className="text-[#24234C] hover:text-[#5A4CFF] hover:bg-transparent text-sm font-medium h-10 px-4"
+                  className="text-[#24234C] hover:text-[#5A4CFF] hover:bg-transparent text-sm font-medium h-11 px-5"
                 >
                   {isLoggingIn ? (
                     <Loader2 className="w-4 h-4 animate-spin mr-2" />
@@ -119,7 +119,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                 {/* Start Now Button - Highlighted with arrow */}
                 <Link href="/quiz">
                   <Button 
-                    className="bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full px-5 h-10 text-sm font-medium flex items-center gap-1"
+                    className="bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full px-6 h-11 text-sm font-medium flex items-center gap-1"
                   >
                     Start Now
                     <ChevronRight className="w-4 h-4" />
@@ -137,7 +137,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
           <div className="flex flex-col p-4 gap-4">
             <div className="border-t border-[#E2E5E9] pt-4 mt-2">
               {isLoading ? (
-                <Button disabled className="w-full bg-[#5A4CFF] text-white rounded-full h-10">
+                <Button disabled className="w-full bg-[#5A4CFF] text-white rounded-full h-11">
                   <Loader2 className="w-4 h-4 animate-spin" />
                 </Button>
               ) : isAuthenticated && demoUser ? (
@@ -178,7 +178,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                     }}
                     disabled={isLoggingIn}
                     variant="outline"
-                    className="w-full border-[#5A4CFF] text-[#5A4CFF] rounded-full h-10"
+                    className="w-full border-[#5A4CFF] text-[#5A4CFF] rounded-full h-11"
                   >
                     {isLoggingIn ? (
                       <Loader2 className="w-4 h-4 animate-spin mr-2" />
@@ -187,7 +187,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                   </Button>
                   <Link href="/quiz" onClick={() => setMobileMenuOpen(false)}>
                     <Button 
-                      className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full h-10 font-medium flex items-center justify-center gap-1"
+                      className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full h-11 font-medium flex items-center justify-center gap-1"
                     >
                       Start Now
                       <ChevronRight className="w-4 h-4" />
