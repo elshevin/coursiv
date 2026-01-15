@@ -32,7 +32,7 @@ export default function LandingPage() {
           <Navbar />
 
           {/* Hero Content - 参考 coursiv.io 的布局，使用更大的 padding 使内容更居中 */}
-          <div className="flex flex-col lg:flex-row items-center justify-between px-6 lg:px-[100px] xl:px-[147px] py-12 lg:py-[80px] gap-10 max-w-[1400px] mx-auto">
+          <div className="flex flex-col lg:flex-row items-start justify-between px-6 lg:px-[100px] xl:px-[147px] py-8 lg:py-[50px] gap-10 max-w-[1400px] mx-auto">
             <div className="flex-1 max-w-[560px] z-10">
               {/* AI Coursiv Tag */}
               <div className="inline-flex items-center gap-2 mb-5">
@@ -69,9 +69,9 @@ export default function LandingPage() {
               </div>
             </div>
             
-            <div className="flex-1 relative w-full max-w-[600px] flex justify-center lg:justify-end">
+            <div className="flex-1 relative w-full max-w-[480px] flex justify-center lg:justify-end">
               {/* Browser Window Animation */}
-              <div className="relative hidden lg:block">
+              <div className="relative hidden lg:block transform scale-[0.85] origin-top-right">
                 <BrowserWindowAnimation />
               </div>
               {/* Mobile: Phone Mockup */}
