@@ -95,8 +95,8 @@ Start your AI journey today! 🎯
   }, []);
 
   return (
-    <div className="w-full max-w-[600px] mx-auto">
-      {/* Browser Window - 加宽为 PC 风格 */}
+    <div className="w-[520px] flex-shrink-0">
+      {/* Browser Window - 固定宽度 PC 风格 */}
       <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
         {/* Browser Top Bar */}
         <div className="bg-gradient-to-r from-[#5A4CFF] to-[#6B5DFF] px-6 py-3 flex items-center gap-3">

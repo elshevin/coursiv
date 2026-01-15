@@ -36,7 +36,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
 
   return (
     <div className="relative">
-      <div className="flex justify-between items-center px-6 py-5 lg:px-[60px] lg:py-6">
+      <div className="flex justify-between items-center px-6 py-5 lg:px-[100px] xl:px-[147px] lg:py-6 max-w-[1400px] mx-auto">
         {/* Logo - 增大尺寸 */}
         <div className="flex items-center">
           <Link href="/">
