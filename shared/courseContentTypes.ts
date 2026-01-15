@@ -14,7 +14,15 @@ export interface TextBlock {
   };
 }
 
-// Playground content block (fill-in-the-blank exercise)
+// Blank definition for Playground (Coursiv-style)
+export interface PlaygroundBlank {
+  id: string;              // Unique identifier for the blank (e.g., 'blank1', 'blank2')
+  placeholder: string;     // Placeholder text shown in gray (e.g., 'design source')
+  correctAnswer: string;   // The correct answer for this blank
+}
+
+// Playground content block (fill-in-the-blank exercise) - Coursiv-style
+// Supports multiple blanks with option consumption mechanism
 export interface PlaygroundBlock {
   type: 'playground';
   content: {
@@ -24,22 +32,32 @@ export interface PlaygroundBlock {
       name: string;
       icon: string;
     };
-    promptTemplate: Array<
-      | { type: 'text'; content: string }
-      | { type: 'blank'; label: string }
-    >;
+    // Template string with [blankId] placeholders, e.g., "Convert this [blank1] into [blank2]"
+    promptTemplate: string;
+    // Array of blanks with their placeholders and correct answers
+    blanks: PlaygroundBlank[];
+    // All available options (will be consumed as user selects)
     options: string[];
-    correctAnswers: Record<string, string>;
+    // Image shown on completion
     resultImage?: string;
-    hint: string;  // Required: hint text shown when user clicks "Show Hint"
+    // Pro tip shown on completion
+    proTip?: string;
+    // Hint text shown when user clicks "Show Hint"
+    hint: string;
+    // Success feedback (shown when all answers are correct)
     successFeedback: {
       title: string;
       message: string;
     };
-    errorFeedback: {  // Required: feedback shown when user selects wrong answer
+    // Error feedback (shown when any answer is wrong)
+    errorFeedback: {
       title: string;
       message: string;
     };
+    // Simulated AI response shown after user completes the fill-in-the-blank
+    // This mimics how ChatGPT/AI would respond to the completed prompt
+    // Supports Markdown formatting
+    aiResponse?: string;
   };
 }
 
@@ -105,18 +123,20 @@ export function createTextBlock(
   };
 }
 
-// Helper to create playground block
+// Helper to create playground block (Coursiv-style with multiple blanks)
 export function createPlaygroundBlock(
   title: string,
   description: string,
   aiTool: { name: string; icon: string },
-  promptTemplate: PlaygroundBlock['content']['promptTemplate'],
+  promptTemplate: string,
+  blanks: PlaygroundBlank[],
   options: string[],
-  correctAnswers: Record<string, string>,
   hint: string,
   successFeedback: { title: string; message: string },
   errorFeedback: { title: string; message: string },
-  resultImage?: string
+  resultImage?: string,
+  proTip?: string,
+  aiResponse?: string
 ): PlaygroundBlock {
   return {
     type: 'playground',
@@ -125,12 +145,14 @@ export function createPlaygroundBlock(
       description,
       aiTool,
       promptTemplate,
+      blanks,
       options,
-      correctAnswers,
       hint,
       resultImage,
+      proTip,
       successFeedback,
       errorFeedback,
+      aiResponse,
     },
   };
 }

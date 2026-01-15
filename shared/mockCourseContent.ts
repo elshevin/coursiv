@@ -22,7 +22,7 @@ ChatGPT runs on something called a **Large Language Model (LLM)**. It sounds com
 Let's sort out how it works.
 
 Basically, an LLM is like a super-smart librarian who has read every book, article, and webpage, capable of understanding and generating human-like text.`,
-      image: '🧠'
+      image: '/images/course/thinking.png'
     },
     {
       text: `**Why "Large"?**
@@ -32,7 +32,7 @@ Because LLMs are trained on **massive amounts of data**.
 As a result, by learning patterns and structures in language, they can create coherent and contextually appropriate responses.
 
 Think of it like learning a language by reading millions of books - you start to understand not just words, but context, tone, and meaning.`,
-      image: '📚'
+      image: '/images/course/learning.png'
     },
     {
       text: `**How ChatGPT Thinks**
@@ -44,7 +44,7 @@ When you type a message, ChatGPT:
 3. **Generates** a response based on patterns it learned
 
 It doesn't "think" like humans, but it's incredibly good at producing helpful, relevant text.`,
-      image: '💭'
+      image: '/images/course/thinking.png'
     }
   ],
   
@@ -57,7 +57,7 @@ A prompt is simply the text you type to ChatGPT. It's how you communicate what y
 **Good prompts lead to good responses.**
 
 Let's start with something simple: "Write a haiku about coding."`,
-      image: '✍️'
+      image: '/images/course/practice.png'
     },
     {
       text: `**The Anatomy of a Good Prompt**
@@ -69,7 +69,7 @@ Great prompts usually include:
 • **Format** - How should the response look?
 
 Example: "Write a 3-paragraph email to my boss explaining why I need Friday off. Keep it professional but friendly."`,
-      image: '📝'
+      image: '/images/course/quiz.png'
     },
     {
       text: `**Practice Time!**
@@ -81,7 +81,7 @@ Try these starter prompts:
 3. "Help me write a [type of content] about [topic]"
 
 The more specific you are, the better results you'll get!`,
-      image: '🎯'
+      image: '/images/course/practice.png'
     }
   ],
   
@@ -92,7 +92,7 @@ The more specific you are, the better results you'll get!`,
 ChatGPT's responses aren't always perfect. Learning to evaluate and refine them is a key skill.
 
 **Remember:** ChatGPT is a tool, not an oracle. Always verify important information.`,
-      image: '🔍'
+      image: '/images/course/thinking.png'
     },
     {
       text: `**When Responses Miss the Mark**
@@ -104,7 +104,7 @@ If the response isn't what you wanted:
 • **Ask for alternatives** - "Can you try a different approach?"
 
 ChatGPT learns from the conversation, so keep refining!`,
-      image: '🔄'
+      image: '/images/course/practice.png'
     },
     {
       text: `**Quality Checks**
@@ -117,7 +117,7 @@ Always ask yourself:
 4. Are there any obvious errors?
 
 If something seems off, ask ChatGPT to revise or try a different approach.`,
-      image: '✅'
+      image: '/images/course/success.png'
     }
   ],
   
@@ -130,7 +130,7 @@ Give ChatGPT a role to play. This helps it understand the context and tone you w
 Example: "You are a professional copywriter. Write an engaging product description for a new coffee maker."
 
 This technique works because ChatGPT adapts its response based on the role.`,
-      image: '🎭'
+      image: '/images/course/learning.png'
     },
     {
       text: `**Technique 2: Breaking Down Complex Tasks**
@@ -141,7 +141,7 @@ Instead of asking for everything at once, break it into steps.
 ✅ Good: "First, list 5 target audience segments for a fitness app"
 
 Then ask follow-up questions about each segment.`,
-      image: '🔗'
+      image: '/images/course/thinking.png'
     },
     {
       text: `**Technique 3: Providing Examples**
@@ -151,7 +151,7 @@ Show ChatGPT what you want by providing examples.
 Example: "Write product descriptions in this style: [example 1] [example 2]"
 
 ChatGPT will learn your preferred style and apply it.`,
-      image: '📋'
+      image: '/images/course/learning.png'
     }
   ],
   
@@ -169,7 +169,7 @@ DALL-E is an AI system that creates images from text descriptions. It's like hav
 1. You describe an image in words
 2. DALL-E understands your description
 3. It generates a unique image matching your description`,
-      image: '🎨'
+      image: '/images/course/practice.png'
     },
     {
       text: `**Why DALL-E is Powerful**
@@ -180,7 +180,7 @@ DALL-E is an AI system that creates images from text descriptions. It's like hav
 • **Versatility** - Works for any style or subject
 
 Whether you need professional graphics, creative art, or product mockups, DALL-E can help.`,
-      image: '⚡'
+      image: '/images/course/success.png'
     },
     {
       text: `**Real-World Applications**
@@ -193,7 +193,7 @@ Whether you need professional graphics, creative art, or product mockups, DALL-E
 - Concept art for games and films
 
 The possibilities are endless!`,
-      image: '🚀'
+      image: '/images/course/success.png'
     }
   ],
   
@@ -209,7 +209,7 @@ Creating your first DALL-E image is simple:
 4. **Refine** if needed
 
 Let's try a simple example: "A cozy coffee shop with warm lighting and wooden furniture"`,
-      image: '☕'
+      image: '/images/course/learning.png'
     },
     {
       text: `**Understanding the Generation Process**
@@ -222,7 +222,7 @@ When you submit a prompt, DALL-E:
 4. **Displays** the results
 
 You typically get 4 variations to choose from.`,
-      image: '🔄'
+      image: '/images/course/practice.png'
     },
     {
       text: `**Tips for Your First Image**
@@ -233,7 +233,7 @@ You typically get 4 variations to choose from.`,
 • Specify any important details
 
 Example: "A serene mountain landscape at sunset, oil painting style, warm golden light"`,
-      image: '💡'
+      image: '/images/course/thinking.png'
     }
   ],
   
@@ -248,7 +248,7 @@ Image generation prompts are different from text prompts. They need to be visual
 2. **Style** - What art style?
 3. **Mood** - What feeling?
 4. **Details** - What specifics matter?`,
-      image: '🎯'
+      image: '/images/course/practice.png'
     },
     {
       text: `**Example Prompts**
@@ -260,7 +260,7 @@ Image generation prompts are different from text prompts. They need to be visual
 ✅ Good: "A modern glass skyscraper at night, neon lights reflecting, cyberpunk style, dramatic lighting"
 
 The more details, the better the result!`,
-      image: '📸'
+      image: '/images/course/practice.png'
     }
   ],
   
@@ -279,7 +279,7 @@ Midjourney is an AI image generation tool that creates stunning artwork from tex
 - Known for artistic, high-quality images
 - Strong community features
 - Excellent for creative professionals`,
-      image: '🎨'
+      image: '/images/course/practice.png'
     },
     {
       text: `**Why Choose Midjourney?**
@@ -289,7 +289,7 @@ Midjourney is an AI image generation tool that creates stunning artwork from tex
 • **Customization** - Extensive parameters for control
 • **Speed** - Fast image generation
 • **Versatility** - Great for all art styles`,
-      image: '⭐'
+      image: '/images/course/success.png'
     }
   ],
   
@@ -305,7 +305,7 @@ To use Midjourney, you need Discord:
 4. **Start creating!**
 
 Discord is free and easy to set up.`,
-      image: '💻'
+      image: '/images/course/practice.png'
     },
     {
       text: `**Navigating the Midjourney Server**
@@ -318,7 +318,7 @@ The Midjourney Discord has:
 - **Private channels** - For your creations
 
 Start in #newbies to practice without overwhelming the main channels.`,
-      image: '🗂️'
+      image: '/images/course/quiz.png'
     }
   ],
   
@@ -333,7 +333,7 @@ The most important Midjourney command is:
 Example: "/imagine a majestic eagle flying over mountains"
 
 That's it! Type the command, add your description, and Midjourney creates 4 variations.`,
-      image: '⚡'
+      image: '/images/course/success.png'
     },
     {
       text: `**Understanding the Output**
@@ -346,7 +346,7 @@ After you use /imagine, Midjourney shows:
 
 U = Upscale (make bigger and better)
 V = Variations (create similar images)`,
-      image: '🖼️'
+      image: '/images/course/practice.png'
     }
   ],
   
@@ -365,7 +365,7 @@ Claude is an AI assistant made by Anthropic. It's known for being helpful, harml
 - Good at analysis and writing
 - Transparent about limitations
 - Focuses on safety`,
-      image: '🤖'
+      image: '/images/course/practice.png'
     },
     {
       text: `**Claude's Strengths**
@@ -377,7 +377,7 @@ Claude excels at:
 • **Reasoning** - Working through problems
 • **Coding** - Debugging and explaining code
 • **Research** - Synthesizing information`,
-      image: '💪'
+      image: '/images/course/success.png'
     }
   ],
   
@@ -393,7 +393,7 @@ Using Claude is straightforward:
 4. **Claude responds**
 
 You can have multi-turn conversations where Claude remembers context.`,
-      image: '💬'
+      image: '/images/course/thinking.png'
     },
     {
       text: `**Effective Prompts for Claude**
@@ -406,7 +406,7 @@ Claude works best with:
 • **Examples** - Show what you want
 
 Example: "Explain machine learning in 3 paragraphs for someone with no technical background"`,
-      image: '✍️'
+      image: '/images/course/practice.png'
     }
   ],
   
@@ -422,7 +422,7 @@ Claude is excellent at analyzing:
 • **Text** - Evaluate tone and clarity
 
 Just paste your content and ask Claude to analyze it.`,
-      image: '🔍'
+      image: '/images/course/thinking.png'
     },
     {
       text: `**Example Analysis Prompts**
@@ -436,7 +436,7 @@ Just paste your content and ask Claude to analyze it.`,
 "What are the main themes in this text?"
 
 Claude provides detailed, thoughtful analysis.`,
-      image: '📊'
+      image: '/images/course/quiz.png'
     }
   ],
   
@@ -455,7 +455,7 @@ Gemini is Google's multimodal AI model. It can understand and generate text, ima
 - Image understanding
 - Code generation
 - Multimodal reasoning`,
-      image: '✨'
+      image: '/images/course/success.png'
     },
     {
       text: `**Why Gemini is Special**
@@ -464,7 +464,7 @@ Gemini is Google's multimodal AI model. It can understand and generate text, ima
 • **Integration** - Connects with Google services
 • **Performance** - Fast and efficient
 • **Accessibility** - Available through various interfaces`,
-      image: '🚀'
+      image: '/images/course/success.png'
     }
   ],
   
@@ -480,7 +480,7 @@ Gemini can generate:
 • **Ideas** - Brainstorming and creative suggestions
 
 Just describe what you need, and Gemini creates it.`,
-      image: '✍️'
+      image: '/images/course/practice.png'
     },
     {
       text: `**Example Prompts**
@@ -494,7 +494,7 @@ Just describe what you need, and Gemini creates it.`,
 "Create a product description for a new smartphone"
 
 Gemini handles all these tasks effectively.`,
-      image: '💡'
+      image: '/images/course/thinking.png'
     }
   ],
   
@@ -509,7 +509,7 @@ Gemini can analyze images and answer questions about them.
 - Answer questions about image content
 - Extract text from images
 - Analyze visual elements`,
-      image: '🖼️'
+      image: '/images/course/practice.png'
     },
     {
       text: `**Using Image Analysis**
@@ -523,7 +523,7 @@ To use Gemini's image capabilities:
 Example: "What's in this image?" or "Extract all text from this screenshot"
 
 Perfect for research, documentation, and analysis.`,
-      image: '📸'
+      image: '/images/course/practice.png'
     }
   ],
   
@@ -542,7 +542,7 @@ Perplexity is an AI-powered search engine that provides sourced answers to your 
 2. Perplexity searches the web
 3. It synthesizes information from sources
 4. Provides a comprehensive answer with citations`,
-      image: '🔍'
+      image: '/images/course/thinking.png'
     },
     {
       text: `**Why Use Perplexity?**
@@ -551,7 +551,7 @@ Perplexity is an AI-powered search engine that provides sourced answers to your 
 • **Current information** - Access to recent web data
 • **Comprehensive** - Synthesizes multiple sources
 • **Conversational** - Ask follow-up questions`,
-      image: '📚'
+      image: '/images/course/learning.png'
     }
   ],
   
@@ -568,7 +568,7 @@ Perplexity works best with:
 Example: "What are the latest developments in quantum computing in 2024?"
 
 Perplexity will search and synthesize current information.`,
-      image: '❓'
+      image: '/images/course/quiz.png'
     },
     {
       text: `**Understanding the Results**
@@ -581,7 +581,7 @@ Perplexity shows:
 4. **Web results** - Additional resources
 
 You can verify information by checking the sources.`,
-      image: '✅'
+      image: '/images/course/success.png'
     }
   ],
 };
@@ -834,7 +834,7 @@ export function getCompleteMockContent(moduleId: string): ContentPage[] {
       text: `**Module Content**
 
 This module content is available. Click "Continue" to proceed through the lesson.`,
-      image: '📚'
+      image: '/images/course/learning.png'
     }
   ];
 }

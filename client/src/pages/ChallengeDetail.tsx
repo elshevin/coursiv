@@ -56,12 +56,9 @@ export default function ChallengeDetail() {
   const completedCount = completedTasks.size;
   const progressPercent = Math.round((completedCount / challenge.totalDays) * 100);
   
-  // Check if a day is unlocked (previous day completed or it's day 1)
+  // All days are unlocked - users can freely choose any task
   const isDayUnlocked = (day: number) => {
-    if (day === 1) return true;
-    if (isTestModeEnabled) return true;
-    const prevTask = challenge.tasks.find(t => t.day === day - 1);
-    return prevTask ? completedTasks.has(prevTask.id) : false;
+    return true;
   };
 
   const handleCompleteTask = (taskId: string) => {

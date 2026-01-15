@@ -274,4 +274,48 @@ createPlaygroundBlock(
 
 ---
 
-*文档版本：v2.0 | 更新日期：2026-01-14*
+## 附录：图片字段使用指南
+
+课程内容中的 `image` 字段支持两种格式：
+
+### 1. 图片路径（推荐）
+
+使用图片路径可以显示更精美的插图：
+
+```typescript
+{
+  text: `**标题**\n\n内容文本...`,
+  image: '/images/course/learning.png'  // 图片路径
+}
+```
+
+**可用的通用插图：**
+
+| 图片路径 | 用途 |
+|----------|------|
+| `/images/course/learning.png` | 学习/阅读相关内容 |
+| `/images/course/thinking.png` | 思考/分析相关内容 |
+| `/images/course/practice.png` | 实践/练习相关内容 |
+| `/images/course/quiz.png` | 测验/检查相关内容 |
+| `/images/course/success.png` | 成功/完成相关内容 |
+
+### 2. Emoji 字符（备用）
+
+如果没有合适的图片，也可以使用 emoji：
+
+```typescript
+{
+  text: `**标题**\n\n内容文本...`,
+  image: '🎭'  // Emoji 字符
+}
+```
+
+### 渲染逻辑
+
+组件会自动检测 `image` 字段的格式：
+- 如果以 `/` 或 `http` 开头，或包含 `.png`、`.jpg`、`.svg`，则作为图片路径渲染
+- 否则作为文本/emoji 直接显示
+
+---
+
+*文档版本：v2.1 | 更新日期：2026-01-15*

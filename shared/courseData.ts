@@ -462,6 +462,43 @@ export const courses: Course[] = [
         ]
       }
     ]
+  },
+  {
+    id: 'deepseek',
+    title: 'DeepSeek',
+    subtitle: 'Advanced AI reasoning',
+    description: 'Master DeepSeek AI for complex reasoning, coding, and analysis tasks. Learn its unique capabilities and best practices.',
+    icon: '🧠',
+    color: '#6366F1',
+    totalLessons: 10,
+    totalDuration: '1h 30min',
+    category: 'ai-tools',
+    levels: [
+      {
+        id: 'deepseek-beginner',
+        title: 'Beginner',
+        description: 'Introduction to DeepSeek',
+        unlocked: true,
+        modules: [
+          { id: 'deepseek-1-1', title: 'Introduction to DeepSeek', description: 'Learn the basics of DeepSeek AI', duration: '6 min', type: 'lesson' },
+          { id: 'deepseek-1-2', title: 'Basic Prompting', description: 'Effective communication with DeepSeek', duration: '8 min', type: 'lesson' },
+          { id: 'deepseek-1-3', title: 'Reasoning Tasks', description: 'Using DeepSeek for complex reasoning', duration: '10 min', type: 'lesson' },
+          { id: 'deepseek-1-quiz', title: 'Beginner Quiz', description: 'Test your knowledge', duration: '5 min', type: 'quiz' },
+        ]
+      },
+      {
+        id: 'deepseek-intermediate',
+        title: 'Intermediate',
+        description: 'Advanced DeepSeek usage',
+        unlocked: false,
+        modules: [
+          { id: 'deepseek-2-1', title: 'Code Generation', description: 'Programming with DeepSeek', duration: '12 min', type: 'lesson' },
+          { id: 'deepseek-2-2', title: 'Mathematical Reasoning', description: 'Solving math problems', duration: '10 min', type: 'lesson' },
+          { id: 'deepseek-2-3', title: 'Document Analysis', description: 'Analyzing complex documents', duration: '12 min', type: 'lesson' },
+          { id: 'deepseek-2-quiz', title: 'Intermediate Quiz', description: 'Test your skills', duration: '6 min', type: 'quiz' },
+        ]
+      }
+    ]
   }
 ];
 

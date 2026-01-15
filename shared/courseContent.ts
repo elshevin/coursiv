@@ -4,6 +4,7 @@
 
 import { ContentPage, QuizQuestion } from './courseData';
 import { completeMockContent, completeMockQuizzes } from './mockCourseContent';
+import { allCourseContent, allQuizzes } from './allCourseContent';
 
 // Content for each module - keyed by module ID
 export const moduleContent: Record<string, ContentPage[]> = {
@@ -365,9 +366,13 @@ export const moduleQuizzes: Record<string, QuizQuestion> = {
 
 // Helper function to get content for a module
 export function getModuleContent(moduleId: string): ContentPage[] {
-  // First try to get from mock content (complete)
+  // First try to get from complete mock content
   if (completeMockContent[moduleId]) {
     return completeMockContent[moduleId];
+  }
+  // Then try all course content (new comprehensive content)
+  if (allCourseContent[moduleId]) {
+    return allCourseContent[moduleId];
   }
   // Fall back to original content
   return moduleContent[moduleId] || [
@@ -385,6 +390,10 @@ export function getModuleQuiz(moduleId: string): QuizQuestion | null {
   // First try to get from mock quizzes (complete)
   if (completeMockQuizzes[moduleId]) {
     return completeMockQuizzes[moduleId];
+  }
+  // Then try all quizzes (new comprehensive quizzes)
+  if (allQuizzes[moduleId]) {
+    return allQuizzes[moduleId];
   }
   // Fall back to original quizzes
   return moduleQuizzes[moduleId] || null;

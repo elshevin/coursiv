@@ -202,13 +202,26 @@ function BlockRenderer({ block, blockIndex, isCompleted, onComplete }: BlockRend
   }
 }
 
+// Helper function to check if a string is an image path
+function isImagePath(str: string): boolean {
+  return str.startsWith('/') || str.startsWith('http') || str.includes('.png') || str.includes('.jpg') || str.includes('.svg');
+}
+
 // Text Block Component
 function TextBlockComponent({ block }: { block: TextBlock }) {
   return (
     <div className="space-y-4">
       {block.content.image && (
-        <div className="w-full h-48 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center">
-          <div className="text-6xl">{block.content.image}</div>
+        <div className="w-full h-48 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center overflow-hidden">
+          {isImagePath(block.content.image) ? (
+            <img 
+              src={block.content.image} 
+              alt="Course illustration" 
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="text-6xl">{block.content.image}</div>
+          )}
         </div>
       )}
       {block.content.title && (
@@ -400,6 +413,19 @@ function PlaygroundBlockComponent({
           </button>
         </div>
         
+        {/* Simulated AI Response */}
+        {block.content.aiResponse && (
+          <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+            <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-200">
+              <span className="text-xl">{block.content.aiTool.icon}</span>
+              <span className="font-medium text-gray-700">{block.content.aiTool.name}</span>
+            </div>
+            <div className="prose prose-sm max-w-none text-gray-700">
+              <MarkdownRenderer content={block.content.aiResponse} />
+            </div>
+          </div>
+        )}
+        
         {/* Pro Tip */}
         {block.content.proTip && (
           <div className="bg-gray-100 rounded-xl p-4">
@@ -539,6 +565,19 @@ function PlaygroundBlockComponent({
               <p className="text-gray-600 mb-4">
                 Correct answer: {blanks.map(b => b.correctAnswer).join(', ')}
               </p>
+            )}
+            
+            {/* Simulated AI Response - shown when correct */}
+            {isCorrect && block.content.aiResponse && (
+              <div className="mb-4 bg-gray-50 rounded-xl p-4 border border-gray-200">
+                <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-200">
+                  <span className="text-xl">{block.content.aiTool.icon}</span>
+                  <span className="font-medium text-gray-700">{block.content.aiTool.name}</span>
+                </div>
+                <div className="prose prose-sm max-w-none text-gray-700">
+                  <MarkdownRenderer content={block.content.aiResponse} />
+                </div>
+              </div>
             )}
             
             {/* Action button */}
