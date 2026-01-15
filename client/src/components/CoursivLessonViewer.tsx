@@ -9,6 +9,7 @@ import {
   QuizBlock,
   DiscoveryBlock,
   FeedbackBlock,
+  PlaygroundBlank,
 } from '../../../shared/courseContentTypes';
 import { MarkdownRenderer } from './MarkdownRenderer';
 
@@ -224,7 +225,47 @@ function TextBlockComponent({ block }: { block: TextBlock }) {
   );
 }
 
-// Playground Block Component
+// Parse prompt template string to extract text and blank parts
+function parsePromptTemplate(template: string, blanks: PlaygroundBlank[]): Array<{ type: 'text' | 'blank'; content?: string; blank?: PlaygroundBlank }> {
+  const parts: Array<{ type: 'text' | 'blank'; content?: string; blank?: PlaygroundBlank }> = [];
+  let remaining = template;
+  
+  // Create a map of blank IDs to blank objects
+  const blankMap = new Map(blanks.map(b => [b.id, b]));
+  
+  // Find all [blankId] patterns
+  const regex = /\[([^\]]+)\]/g;
+  let lastIndex = 0;
+  let match;
+  
+  while ((match = regex.exec(template)) !== null) {
+    // Add text before this blank
+    if (match.index > lastIndex) {
+      parts.push({ type: 'text', content: template.slice(lastIndex, match.index) });
+    }
+    
+    // Add the blank
+    const blankId = match[1];
+    const blank = blankMap.get(blankId);
+    if (blank) {
+      parts.push({ type: 'blank', blank });
+    } else {
+      // If no matching blank found, treat as text
+      parts.push({ type: 'text', content: match[0] });
+    }
+    
+    lastIndex = regex.lastIndex;
+  }
+  
+  // Add remaining text
+  if (lastIndex < template.length) {
+    parts.push({ type: 'text', content: template.slice(lastIndex) });
+  }
+  
+  return parts;
+}
+
+// Playground Block Component - Coursiv-style with multiple blanks and option consumption
 function PlaygroundBlockComponent({
   block,
   isCompleted,
@@ -235,24 +276,68 @@ function PlaygroundBlockComponent({
   onComplete: () => void;
 }) {
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({});
+  const [activeBlankIndex, setActiveBlankIndex] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [taskCompleted, setTaskCompleted] = useState(false);
 
-  const blanks = block.content.promptTemplate.filter(p => p.type === 'blank') as Array<{ type: 'blank'; label: string }>;
-  const allBlanksSelected = blanks.every(b => selectedAnswers[b.label]);
+  const blanks = block.content.blanks;
+  const allBlanksSelected = blanks.every(b => selectedAnswers[b.id]);
+  
+  // Parse the template string
+  const templateParts = parsePromptTemplate(block.content.promptTemplate, blanks);
+
+  // Get available options (not yet selected)
+  const usedOptions = new Set(Object.values(selectedAnswers));
+  const availableOptions = block.content.options.filter(opt => !usedOptions.has(opt));
 
   const handleOptionClick = (option: string) => {
-    // Find the first unfilled blank
-    const unfilledBlank = blanks.find(b => !selectedAnswers[b.label]);
-    if (unfilledBlank) {
-      setSelectedAnswers(prev => ({ ...prev, [unfilledBlank.label]: option }));
+    if (activeBlankIndex >= blanks.length) return;
+    
+    const currentBlank = blanks[activeBlankIndex];
+    setSelectedAnswers(prev => ({ ...prev, [currentBlank.id]: option }));
+    
+    // Move to next unfilled blank
+    const nextUnfilledIndex = blanks.findIndex((b, i) => i > activeBlankIndex && !selectedAnswers[b.id]);
+    if (nextUnfilledIndex !== -1) {
+      setActiveBlankIndex(nextUnfilledIndex);
+    } else {
+      // All blanks filled, stay at last
+      setActiveBlankIndex(blanks.length);
+    }
+  };
+
+  const handleBlankClick = (blankIndex: number) => {
+    if (!showResult) {
+      setActiveBlankIndex(blankIndex);
+    }
+  };
+
+  const handleBackspace = () => {
+    // Find the last filled blank
+    let lastFilledIndex = -1;
+    for (let i = blanks.length - 1; i >= 0; i--) {
+      if (selectedAnswers[blanks[i].id]) {
+        lastFilledIndex = i;
+        break;
+      }
+    }
+    
+    if (lastFilledIndex >= 0) {
+      const blankId = blanks[lastFilledIndex].id;
+      setSelectedAnswers(prev => {
+        const newAnswers = { ...prev };
+        delete newAnswers[blankId];
+        return newAnswers;
+      });
+      setActiveBlankIndex(lastFilledIndex);
     }
   };
 
   const handleCheck = () => {
     const correct = blanks.every(
-      b => selectedAnswers[b.label] === block.content.correctAnswers[b.label]
+      b => selectedAnswers[b.id] === b.correctAnswer
     );
     setIsCorrect(correct);
     setShowResult(true);
@@ -265,38 +350,73 @@ function PlaygroundBlockComponent({
     onComplete();
   };
 
-  const handleReset = () => {
+  const handleTryAgain = () => {
     setSelectedAnswers({});
+    setActiveBlankIndex(0);
     setShowResult(false);
     setIsCorrect(false);
   };
 
-  if (isCompleted && showResult) {
+  const handleContinue = () => {
+    setTaskCompleted(true);
+  };
+
+  const handleRepeatTask = () => {
+    setSelectedAnswers({});
+    setActiveBlankIndex(0);
+    setShowResult(false);
+    setIsCorrect(false);
+    setTaskCompleted(false);
+  };
+
+  // Task completed state (Coursiv-style)
+  if (taskCompleted || (isCompleted && showResult && isCorrect)) {
     return (
-      <div className="bg-white border border-gray-200 rounded-xl p-6">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-sm text-gray-500">Task completed</span>
-        </div>
-        <h3 className="font-semibold text-gray-900 mb-2">{block.content.title}</h3>
-        <p className="text-gray-600 text-sm mb-4">{block.content.description}</p>
-        
-        {/* Success feedback */}
-        <div className="border-l-4 border-green-500 bg-green-50 p-4 rounded-r-lg">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-green-600">✓</span>
-            <span className="font-semibold text-green-800">{block.content.successFeedback.title}</span>
+      <div className="space-y-4">
+        {/* Result image */}
+        {block.content.resultImage && (
+          <div className="w-full h-48 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-xl flex items-center justify-center overflow-hidden">
+            <div className="text-6xl">🚀</div>
           </div>
-          <p className="text-green-700 text-sm">{block.content.successFeedback.message}</p>
+        )}
+        
+        <div className="bg-white border border-gray-200 rounded-xl p-6">
+          {/* Task completed badge */}
+          <div className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium mb-4">
+            <span>✓</span>
+            <span>Task completed</span>
+          </div>
+          
+          <h3 className="font-semibold text-gray-900 mb-2">{block.content.title}</h3>
+          <p className="text-gray-600 text-sm mb-4">{block.content.description}</p>
+          
+          {/* Repeat task button */}
+          <button
+            onClick={handleRepeatTask}
+            className="w-full py-3 border-2 border-purple-300 text-purple-600 rounded-xl font-semibold hover:bg-purple-50 transition-colors flex items-center justify-center gap-2"
+          >
+            <span>↻</span>
+            <span>Repeat task</span>
+          </button>
         </div>
+        
+        {/* Pro Tip */}
+        {block.content.proTip && (
+          <div className="bg-gray-100 rounded-xl p-4">
+            <p className="font-semibold text-gray-900 mb-1">Pro Tip</p>
+            <p className="text-gray-600 text-sm">{block.content.proTip}</p>
+          </div>
+        )}
       </div>
     );
   }
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-6">
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-2xl">{block.content.aiTool.icon}</span>
-        <span className="text-sm font-medium text-gray-600">{block.content.aiTool.name}</span>
+      {/* AI Tool header */}
+      <div className="bg-gray-50 rounded-lg px-4 py-2 mb-4 inline-flex items-center gap-2">
+        <span className="text-xl">{block.content.aiTool.icon}</span>
+        <span className="text-sm font-medium text-gray-700">{block.content.aiTool.name}</span>
       </div>
       
       <h3 className="font-semibold text-gray-900 mb-2">{block.content.title}</h3>
@@ -304,49 +424,79 @@ function PlaygroundBlockComponent({
       
       {/* Prompt template with blanks */}
       <div className="bg-gray-50 rounded-lg p-4 mb-4">
-        <div className="flex flex-wrap items-center gap-1">
-          {block.content.promptTemplate.map((part, index) => {
+        <div className="flex flex-wrap items-center gap-1 leading-relaxed">
+          {templateParts.map((part, index) => {
             if (part.type === 'text') {
               return <span key={index} className="text-gray-700">{part.content}</span>;
-            } else {
-              const value = selectedAnswers[part.label];
+            } else if (part.blank) {
+              const blankIndex = blanks.findIndex(b => b.id === part.blank!.id);
+              const value = selectedAnswers[part.blank.id];
+              const isActive = blankIndex === activeBlankIndex && !showResult;
+              
               return (
-                <span
+                <button
                   key={index}
-                  className={`inline-flex items-center px-3 py-1 rounded-lg border-2 min-w-[100px] ${
+                  onClick={() => handleBlankClick(blankIndex)}
+                  disabled={showResult}
+                  className={`inline-flex items-center px-3 py-1 rounded-lg border-2 min-w-[80px] transition-all ${
                     value
-                      ? 'border-purple-500 bg-purple-50 text-purple-700'
-                      : 'border-dashed border-gray-300 bg-white text-gray-400'
+                      ? isActive
+                        ? 'border-purple-500 bg-purple-50 text-purple-700 border-l-4'
+                        : 'border-gray-300 bg-white text-gray-700'
+                      : isActive
+                        ? 'border-purple-500 border-l-4 bg-purple-50 text-purple-400'
+                        : 'border-dashed border-gray-300 bg-white text-gray-400'
                   }`}
                 >
-                  {value || part.label}
-                </span>
+                  {value || part.blank.placeholder}
+                </button>
               );
             }
+            return null;
           })}
         </div>
       </div>
       
-      {/* Options */}
+      {/* Options - only show when not showing result */}
       {!showResult && (
-        <div className="flex flex-wrap gap-2 mb-4">
-          {block.content.options.map((option, index) => {
-            const isUsed = Object.values(selectedAnswers).includes(option);
-            return (
+        <div className="bg-gray-50 rounded-xl p-4 mb-4">
+          <div className="flex flex-wrap gap-2 mb-4">
+            {availableOptions.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleOptionClick(option)}
-                disabled={isUsed}
-                className={`px-4 py-2 rounded-full border transition-colors ${
-                  isUsed
-                    ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed'
-                    : 'border-purple-300 bg-white text-purple-700 hover:bg-purple-50'
-                }`}
+                className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 transition-colors"
               >
                 {option}
               </button>
-            );
-          })}
+            ))}
+          </div>
+          
+          {/* Check and Backspace buttons */}
+          <div className="flex gap-3">
+            <button
+              onClick={handleCheck}
+              disabled={!allBlanksSelected}
+              className={`flex-1 py-3 rounded-xl font-semibold transition-colors ${
+                allBlanksSelected
+                  ? 'bg-purple-600 text-white hover:bg-purple-700'
+                  : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+              }`}
+            >
+              Check
+            </button>
+            <button
+              onClick={handleBackspace}
+              disabled={Object.keys(selectedAnswers).length === 0}
+              className={`px-4 py-3 rounded-xl border transition-colors ${
+                Object.keys(selectedAnswers).length > 0
+                  ? 'border-gray-300 text-gray-600 hover:bg-gray-50'
+                  : 'border-gray-200 text-gray-400 cursor-not-allowed'
+              }`}
+            >
+              ⌫
+            </button>
+          </div>
         </div>
       )}
       
@@ -363,69 +513,74 @@ function PlaygroundBlockComponent({
       
       {/* Result feedback */}
       {showResult && (
-        <div className={`border-l-4 p-4 rounded-r-lg mb-4 ${
-          isCorrect ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'
-        }`}>
-          <div className="flex items-center gap-2 mb-1">
-            <span className={isCorrect ? 'text-green-600' : 'text-red-600'}>
-              {isCorrect ? '✓' : '✗'}
-            </span>
-            <span className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
-              {isCorrect ? block.content.successFeedback.title : block.content.errorFeedback.title}
-            </span>
+        <div className="mb-4">
+          <div className={`border-t-4 ${isCorrect ? 'border-green-500' : 'border-red-500'}`} />
+          <div className={`p-4 ${isCorrect ? 'bg-white' : 'bg-white'}`}>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <span className={`text-xl ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
+                  {isCorrect ? '✓' : '✗'}
+                </span>
+                <span className={`font-bold text-lg ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+                  {isCorrect ? block.content.successFeedback.title : 'Incorrect'}
+                </span>
+              </div>
+              {/* Report button */}
+              <button className="p-2 text-gray-400 hover:text-gray-600">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+                </svg>
+              </button>
+            </div>
+            
+            {isCorrect ? (
+              <p className="text-gray-600 mb-4">{block.content.successFeedback.message}</p>
+            ) : (
+              <p className="text-gray-600 mb-4">
+                Correct answer: {blanks.map(b => b.correctAnswer).join(', ')}
+              </p>
+            )}
+            
+            {/* Action button */}
+            {isCorrect ? (
+              <button
+                onClick={handleContinue}
+                className="w-full py-3 bg-green-500 text-white rounded-xl font-semibold hover:bg-green-600 transition-colors"
+              >
+                Continue
+              </button>
+            ) : (
+              <button
+                onClick={handleTryAgain}
+                className="w-full py-3 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 transition-colors"
+              >
+                Try again
+              </button>
+            )}
           </div>
-          <p className={`text-sm ${isCorrect ? 'text-green-700' : 'text-red-700'}`}>
-            {isCorrect ? block.content.successFeedback.message : block.content.errorFeedback.message}
-          </p>
-          {!isCorrect && (
-            <p className="text-sm text-red-600 mt-2">
-              <span className="font-medium">Correct answer: </span>
-              {Object.values(block.content.correctAnswers).join(', ')}
-            </p>
-          )}
         </div>
       )}
       
-      {/* Buttons */}
-      <div className="flex gap-3">
-        {!showResult ? (
-          <>
-            <button
-              onClick={handleCheck}
-              disabled={!allBlanksSelected}
-              className={`flex-1 py-3 rounded-xl font-semibold transition-colors ${
-                allBlanksSelected
-                  ? 'bg-purple-600 text-white hover:bg-purple-700'
-                  : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-              }`}
-            >
-              Check
-            </button>
-            <button
-              onClick={() => setShowHint(true)}
-              disabled={showHint}
-              className={`px-4 py-3 transition-colors ${
-                showHint ? 'text-gray-400 cursor-not-allowed' : 'text-blue-600 hover:text-blue-700'
-              }`}
-            >
-              {showHint ? 'Hint shown' : 'Show hint'}
-            </button>
-            <button
-              onClick={handleSkip}
-              className="px-4 py-3 text-gray-500 hover:text-gray-700 transition-colors"
-            >
-              Skip practice
-            </button>
-          </>
-        ) : !isCorrect ? (
+      {/* Bottom buttons - only show when not showing result */}
+      {!showResult && (
+        <div className="flex gap-3 mt-4">
           <button
-            onClick={handleReset}
-            className="flex-1 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition-colors"
+            onClick={() => setShowHint(true)}
+            disabled={showHint}
+            className={`px-4 py-2 text-sm transition-colors ${
+              showHint ? 'text-gray-400 cursor-not-allowed' : 'text-blue-600 hover:text-blue-700'
+            }`}
           >
-            Try Again
+            {showHint ? 'Hint shown' : 'Show hint'}
           </button>
-        ) : null}
-      </div>
+          <button
+            onClick={handleSkip}
+            className="px-4 py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            Skip practice
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -453,73 +608,49 @@ function QuizBlockComponent({
 
   const isCorrect = selectedIndex === block.content.correctIndex;
 
+  if (isCompleted && showResult) {
+    return (
+      <div className="bg-white border border-gray-200 rounded-xl p-6">
+        <div className="flex items-center gap-2 mb-2">
+          <span className={`text-sm ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
+            {isCorrect ? '✓ Correct!' : '✗ Incorrect'}
+          </span>
+        </div>
+        <h3 className="font-semibold text-gray-900 mb-4">{block.content.question}</h3>
+        <div className="bg-gray-50 rounded-lg p-4">
+          <p className="text-gray-700">{block.content.explanation}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-6">
       <h3 className="font-semibold text-gray-900 mb-4">{block.content.question}</h3>
       
       {/* Options */}
       <div className="space-y-3 mb-4">
-        {block.content.options.map((option, index) => {
-          const isSelected = selectedIndex === index;
-          const isCorrectOption = index === block.content.correctIndex;
-          
-          let optionStyle = 'border-gray-200 hover:border-purple-300';
-          if (showResult) {
-            if (isCorrectOption) {
-              optionStyle = 'border-green-500 bg-green-50';
-            } else if (isSelected && !isCorrectOption) {
-              optionStyle = 'border-red-500 bg-red-50';
-            }
-          } else if (isSelected) {
-            optionStyle = 'border-purple-500 bg-purple-50';
-          }
-          
-          return (
-            <button
-              key={index}
-              onClick={() => !showResult && setSelectedIndex(index)}
-              disabled={showResult}
-              className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-colors text-left ${optionStyle}`}
-            >
-              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                showResult && isCorrectOption
-                  ? 'border-green-500 bg-green-500'
-                  : showResult && isSelected && !isCorrectOption
-                  ? 'border-red-500 bg-red-500'
-                  : isSelected
-                  ? 'border-purple-500 bg-purple-500'
-                  : 'border-gray-300'
-              }`}>
-                {(showResult && isCorrectOption) || (showResult && isSelected) || isSelected ? (
-                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                ) : null}
-              </div>
-              <span className="text-gray-700">{option}</span>
-            </button>
-          );
-        })}
+        {block.content.options.map((option, index) => (
+          <button
+            key={index}
+            onClick={() => setSelectedIndex(index)}
+            disabled={showResult}
+            className={`w-full p-4 rounded-xl border-2 text-left transition-colors ${
+              selectedIndex === index
+                ? showResult
+                  ? index === block.content.correctIndex
+                    ? 'border-green-500 bg-green-50'
+                    : 'border-red-500 bg-red-50'
+                  : 'border-purple-500 bg-purple-50'
+                : showResult && index === block.content.correctIndex
+                  ? 'border-green-500 bg-green-50'
+                  : 'border-gray-200 hover:border-gray-300'
+            }`}
+          >
+            {option}
+          </button>
+        ))}
       </div>
-      
-      {/* Result feedback */}
-      {showResult && (
-        <div className={`border-l-4 p-4 rounded-r-lg mb-4 ${
-          isCorrect ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'
-        }`}>
-          <div className="flex items-center gap-2 mb-1">
-            <span className={isCorrect ? 'text-green-600' : 'text-red-600'}>
-              {isCorrect ? '✓' : '✗'}
-            </span>
-            <span className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
-              {isCorrect ? 'Correct answer' : 'Incorrect'}
-            </span>
-          </div>
-          <p className={`text-sm ${isCorrect ? 'text-green-700' : 'text-red-700'}`}>
-            {block.content.explanation}
-          </p>
-        </div>
-      )}
       
       {/* Hint */}
       {showHint && !showResult && (
@@ -529,6 +660,25 @@ function QuizBlockComponent({
             <span className="font-semibold text-blue-800">Hint</span>
           </div>
           <p className="text-blue-700 text-sm">{block.content.hint}</p>
+        </div>
+      )}
+      
+      {/* Result explanation */}
+      {showResult && (
+        <div className={`border-l-4 p-4 rounded-r-lg mb-4 ${
+          isCorrect ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'
+        }`}>
+          <div className="flex items-center gap-2 mb-1">
+            <span className={isCorrect ? 'text-green-600' : 'text-red-600'}>
+              {isCorrect ? '✓' : '✗'}
+            </span>
+            <span className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+              {isCorrect ? 'Correct!' : 'Incorrect'}
+            </span>
+          </div>
+          <p className={`text-sm ${isCorrect ? 'text-green-700' : 'text-red-700'}`}>
+            {block.content.explanation}
+          </p>
         </div>
       )}
       
@@ -563,16 +713,16 @@ function QuizBlockComponent({
 
 // Discovery Block Component
 function DiscoveryBlockComponent({ block }: { block: DiscoveryBlock }) {
-  const ordinals = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
-  const ordinal = ordinals[block.content.number - 1] || `#${block.content.number}`;
-  
   return (
-    <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
-      <div className="flex items-center gap-2 mb-2">
-        <span className="text-2xl">💡</span>
-        <span className="font-semibold text-yellow-800">{ordinal} Discovery</span>
+    <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-xl p-6">
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+          {block.content.number}
+        </div>
+        <span className="text-purple-600 font-semibold text-sm uppercase tracking-wide">Discovery</span>
       </div>
-      <p className="text-yellow-900">{block.content.message}</p>
+      <h3 className="font-bold text-gray-900 mb-2">{block.content.title}</h3>
+      <p className="text-gray-700">{block.content.message}</p>
     </div>
   );
 }
@@ -588,65 +738,48 @@ function FeedbackBlockComponent({
   onComplete: () => void;
 }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [showResult, setShowResult] = useState(false);
 
-  const handleSubmit = () => {
-    if (selectedIndex !== null) {
-      setShowResult(true);
-      onComplete();
-    }
+  const handleSelect = (index: number) => {
+    setSelectedIndex(index);
+    onComplete();
   };
 
-  const isCorrect = selectedIndex === block.content.correctIndex;
-
-  if (isCompleted && showResult) {
+  if (isCompleted) {
     return (
-      <div className={`border-l-4 p-4 rounded-r-lg ${
-        isCorrect ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'
-      }`}>
-        <div className="flex items-center gap-2">
-          <span className={isCorrect ? 'text-green-600' : 'text-red-600'}>
-            {isCorrect ? '✓' : '✗'}
-          </span>
-          <span className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
-            {isCorrect ? 'Thanks for your feedback!' : 'Noted!'}
-          </span>
+      <div className="bg-gray-50 rounded-xl p-6">
+        <p className="text-gray-600 text-sm mb-3">{block.content.question}</p>
+        <div className="flex gap-2">
+          {block.content.options.map((option, index) => (
+            <span
+              key={index}
+              className={`px-4 py-2 rounded-full text-sm ${
+                selectedIndex === index
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-gray-200 text-gray-500'
+              }`}
+            >
+              {option}
+            </span>
+          ))}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
-      <p className="font-medium text-gray-900 mb-4">{block.content.question}</p>
-      
-      <div className="flex gap-3 mb-4">
+    <div className="bg-gray-50 rounded-xl p-6">
+      <p className="text-gray-600 text-sm mb-3">{block.content.question}</p>
+      <div className="flex gap-2">
         {block.content.options.map((option, index) => (
           <button
             key={index}
-            onClick={() => setSelectedIndex(index)}
-            className={`flex-1 py-2 px-4 rounded-lg border-2 transition-colors ${
-              selectedIndex === index
-                ? 'border-purple-500 bg-purple-50 text-purple-700'
-                : 'border-gray-200 hover:border-purple-300'
-            }`}
+            onClick={() => handleSelect(index)}
+            className="px-4 py-2 rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition-colors text-sm"
           >
             {option}
           </button>
         ))}
       </div>
-      
-      <button
-        onClick={handleSubmit}
-        disabled={selectedIndex === null}
-        className={`w-full py-2 rounded-lg font-medium transition-colors ${
-          selectedIndex !== null
-            ? 'bg-purple-600 text-white hover:bg-purple-700'
-            : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-        }`}
-      >
-        Submit
-      </button>
     </div>
   );
 }

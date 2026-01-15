@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation } from "wouter";
 import { courses, CourseModule } from "../../../shared/courseData";
-import { getLesson } from "../../../shared/allCourseData";
+import { getLessonById } from "../../../shared/allCourseData";
 import { getModuleContent, getModuleQuiz } from "../../../shared/courseContent";
 import { useEmailAuth } from "../hooks/useEmailAuth";
 import { useTestMode } from "../contexts/TestModeContext";
@@ -45,7 +45,7 @@ export default function LessonContentV2() {
   useEffect(() => {
     if (moduleId) {
       // First try to get Coursiv-style lesson data
-      const coursivLesson = getLesson(moduleId);
+      const coursivLesson = getLessonById(moduleId);
       
       if (coursivLesson) {
         // Use Coursiv-style blocks directly

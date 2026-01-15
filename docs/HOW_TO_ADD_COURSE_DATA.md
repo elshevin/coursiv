@@ -1,249 +1,277 @@
 # 课程数据添加指南
 
-本文档分为两部分：**教师篇**和**工程师篇**。
+本文档为教师和工程师提供添加新课程数据的完整流程。
 
 ---
 
-# 第一部分：教师篇
+## 第一部分：教师篇
 
-## 你需要做什么？
+教师负责编写课程内容，只需将以下 Prompt 发送给 AI（如 ChatGPT 或 Claude），AI 会生成标准格式的 JSON 数据。
 
-用 AI（如 ChatGPT、Claude）生成课程数据，然后把生成的内容发给工程师。
-
-## 如何生成课程数据？
-
-### 步骤 1：复制下面的 Prompt 给 AI
+### 给 AI 的 Prompt
 
 ```
-请帮我生成一个 AI 课程模块的数据，格式要求如下：
+请为我生成一个 AI 工具课程模块的数据，格式如下：
 
 课程信息：
-- 课程名称：[填写课程名，如 ChatGPT 基础]
-- 模块 ID：[填写，如 chatgpt-1-1]
-- 模块标题：[填写，如 什么是 ChatGPT]
+- 课程ID：[填写，如 chatgpt]
+- 模块ID：[填写，如 chatgpt-1-1]
+- 模块标题：[填写]
+- 模块副标题：[填写]
 
 内容要求：
-1. 包含 10-15 个内容块
-2. 内容块类型包括：文本(text)、填空练习(playground)、单选测验(quiz)、知识点(discovery)、反馈(feedback)
-3. 比例：每 2-3 个文本块后放 1 个填空练习，每 4-5 个填空练习后放 1 个测验
-4. 每个填空练习必须有 hint（提示）和 errorFeedback（错误反馈）
-5. 每个测验必须有 hint（提示）和 explanation（解释）
+- 包含 2-3 个文本块（教学内容）
+- 每 2-3 个文本块后有 1 个填空练习（Playground）
+- 每个 Playground 后有 1 个反馈问卷和 1 个知识发现卡片
+- 最后有 1 个选择题测验（Quiz）
 
-请按照以下 JSON 格式输出：
+填空练习格式（重要）：
+- 模板句子用 [blankId] 标记填空位置，如："I'm a [role]. Help me [task]."
+- 每个空需要：id、placeholder（占位符文字）、correctAnswer（正确答案）
+- options 数组包含所有可选答案（正确答案 + 干扰项）
+- 选项数量 = 填空数量 + 2-3 个干扰项
 
+请输出 JSON 格式，包含以下结构：
 {
-  "id": "模块ID，如 chatgpt-1-1",
-  "courseId": "课程ID，如 chatgpt",
+  "id": "模块ID",
+  "courseId": "课程ID", 
   "title": "模块标题",
-  "subtitle": "副标题（可选）",
+  "subtitle": "模块副标题",
   "blocks": [
-    {
-      "type": "text",
-      "title": "标题",
-      "icon": "emoji图标，如 🧠",
-      "paragraphs": ["段落1", "段落2（支持 **粗体** 和列表）"]
-    },
-    {
-      "type": "playground",
-      "title": "练习标题",
-      "description": "练习说明",
-      "aiTool": { "name": "ChatGPT", "icon": "💬" },
-      "promptTemplate": "Help me [action] for dinner tonight.",
-      "blanks": [
-        { "label": "action", "correctAnswer": "order a pizza", "options": ["order a pizza", "错误选项1", "错误选项2"] }
-      ],
-      "hint": "提示文字",
-      "successFeedback": { "title": "成功标题", "message": "成功说明" },
-      "errorFeedback": { "title": "错误标题", "message": "错误说明" }
-    },
-    {
-      "type": "quiz",
-      "question": "问题",
-      "options": ["选项A", "选项B", "选项C", "选项D"],
-      "correctIndex": 0,
-      "hint": "提示",
-      "explanation": "答案解释"
-    },
-    {
-      "type": "discovery",
-      "number": 1,
-      "title": "知识点标题",
-      "message": "知识点内容"
-    },
-    {
-      "type": "feedback",
-      "question": "这个内容对你有帮助吗？",
-      "options": ["Yes", "Somewhat", "No"],
-      "correctIndex": 0
-    }
+    // 内容块数组
   ]
 }
-
-Playground 填空格式说明：
-- promptTemplate 中用 [label] 标记填空位置，如 "Help me [action] for dinner"
-- blanks 数组中每个对象的 label 必须与 promptTemplate 中的 [label] 对应
-- 每个填空提供 3-4 个选项，包含一个正确答案
 ```
 
-### 步骤 2：把 AI 生成的 JSON 发给工程师
+### JSON 格式示例
 
-直接复制 AI 输出的 JSON 内容，发给工程师即可。
-
----
-
-## 示例：一个完整的课程模块 JSON
+以下是一个完整的课程模块 JSON 示例，包含各种内容块类型：
 
 ```json
 {
   "id": "chatgpt-1-1",
   "courseId": "chatgpt",
-  "title": "什么是 ChatGPT",
-  "subtitle": "了解 ChatGPT 的基本原理",
+  "title": "ChatGPT 入门",
+  "subtitle": "了解 ChatGPT 的基本概念",
   "blocks": [
     {
       "type": "text",
-      "title": "欢迎学习 ChatGPT",
+      "title": "什么是 ChatGPT？",
       "icon": "🧠",
       "paragraphs": [
         "ChatGPT 是由 OpenAI 开发的 AI 语言模型。",
-        "它可以理解和生成人类语言，帮助你完成各种任务。"
+        "它能够理解和生成类似人类的文本。"
       ]
     },
     {
       "type": "text",
-      "title": "ChatGPT 能做什么",
-      "icon": "✨",
+      "title": "它是如何工作的？",
+      "icon": "⚙️",
       "paragraphs": [
-        "ChatGPT 可以帮助你：",
-        "• **回答问题** - 解答各种疑问",
-        "• **写文章** - 帮你起草邮件、报告",
-        "• **翻译语言** - 多语言互译",
-        "• **编写代码** - 辅助编程"
+        "ChatGPT 使用 **transformers** 技术处理文本。",
+        "它根据训练数据预测最可能的下一个词。"
       ]
     },
     {
       "type": "playground",
-      "title": "练习：写一个简单的提示词",
-      "description": "完成下面的提示词，让 ChatGPT 帮你写一封邮件",
+      "title": "你的第一个提示词",
+      "description": "向 ChatGPT 发送一个简单的问题。",
       "aiTool": { "name": "ChatGPT", "icon": "💬" },
-      "promptTemplate": "请帮我写一封 [tone] 的邮件给我的 [recipient]。",
+      "promptTemplate": "Help me [action] for dinner tonight.",
       "blanks": [
-        { "label": "tone", "correctAnswer": "正式", "options": ["正式", "随意", "搞笑"] },
-        { "label": "recipient", "correctAnswer": "老板", "options": ["老板", "朋友", "陌生人"] }
+        { "id": "action", "placeholder": "action", "correctAnswer": "order a pizza" }
       ],
-      "hint": "想想你需要什么语气和收件人",
-      "successFeedback": { "title": "太棒了！", "message": "你已经学会了如何写基本的提示词！" },
-      "errorFeedback": { "title": "再试一次", "message": "好的提示词应该明确说明语气和对象" }
+      "options": ["order a pizza", "cook pasta", "find a restaurant"],
+      "hint": "想想你希望 ChatGPT 帮你做什么。",
+      "successFeedback": { "title": "太棒了！", "message": "你已经发送了第一个提示词！" },
+      "errorFeedback": { "title": "不太对", "message": "试试选择更具体的动作。" },
+      "resultImage": "/images/chatgpt-result.png",
+      "proTip": "给 ChatGPT 清晰、具体的指令效果最好！"
     },
     {
       "type": "feedback",
-      "question": "这个练习对你有帮助吗？",
-      "options": ["Yes", "Somewhat", "No"],
-      "correctIndex": 0
+      "question": "这个练习有帮助吗？",
+      "options": ["有帮助", "一般", "没帮助"]
     },
     {
       "type": "discovery",
       "number": 1,
-      "title": "小技巧",
-      "message": "提示词越具体，ChatGPT 的回答就越准确！"
+      "title": "第一个发现",
+      "content": "提供越多上下文，ChatGPT 的回答就越好！"
+    },
+    {
+      "type": "text",
+      "title": "添加上下文",
+      "icon": "📝",
+      "paragraphs": [
+        "ChatGPT 会记住对话中的上下文。",
+        "你可以引用之前的消息来构建对话。"
+      ]
+    },
+    {
+      "type": "playground",
+      "title": "多填空练习",
+      "description": "通过添加角色和目标让请求更具体。",
+      "aiTool": { "name": "ChatGPT", "icon": "💬" },
+      "promptTemplate": "I'm a [role]. Help me [task] for my [audience].",
+      "blanks": [
+        { "id": "role", "placeholder": "role", "correctAnswer": "software engineer" },
+        { "id": "task", "placeholder": "task", "correctAnswer": "write documentation" },
+        { "id": "audience", "placeholder": "audience", "correctAnswer": "team members" }
+      ],
+      "options": [
+        "software engineer", "write documentation", "team members",
+        "marketing manager", "create a presentation", "clients"
+      ],
+      "hint": "添加角色、任务和受众可以帮助 ChatGPT 更好地理解你的需求。",
+      "successFeedback": { "title": "Amazing!", "message": "你的方法完全正确！" },
+      "errorFeedback": { "title": "Incorrect", "message": "想想你是谁、需要什么、谁会阅读。" },
+      "resultImage": "/images/context-result.png",
+      "proTip": "提供越多上下文（角色、目标、受众），回答就越有针对性。"
+    },
+    {
+      "type": "feedback",
+      "question": "添加上下文的概念清楚吗？",
+      "options": ["清楚", "一般", "不清楚"]
+    },
+    {
+      "type": "discovery",
+      "number": 2,
+      "title": "上下文是关键",
+      "content": "角色 + 目标 + 受众 = 更好的回答"
     },
     {
       "type": "quiz",
-      "question": "ChatGPT 是由哪家公司开发的？",
-      "options": ["Google", "OpenAI", "Microsoft", "Apple"],
+      "question": "获得 ChatGPT 准确回答的最佳方式是什么？",
+      "options": [
+        "问很短的问题",
+        "提供清晰的上下文和具体的指令",
+        "使用技术术语",
+        "一次问多个问题"
+      ],
       "correctIndex": 1,
-      "hint": "回想一下课程开头的介绍",
-      "explanation": "ChatGPT 是由 OpenAI 公司开发的，于 2022 年 11 月发布。"
+      "explanation": "提供清晰的上下文和具体的指令可以帮助 ChatGPT 更好地理解你的需求。",
+      "hint": "想想什么能帮助任何助手（人类或 AI）给你更好的答案。"
     }
   ]
 }
 ```
 
+### 填空练习（Playground）详细说明
+
+填空练习是课程的核心交互组件，需要特别注意以下几点：
+
+| 字段 | 说明 | 示例 |
+|------|------|------|
+| `promptTemplate` | 模板句子，用 `[blankId]` 标记填空位置 | `"I'm a [role]. Help me [task]."` |
+| `blanks` | 填空定义数组，每个空一个对象 | 见下方 |
+| `options` | 所有可选答案，包括正确答案和干扰项 | `["answer1", "answer2", "wrong1"]` |
+| `hint` | 提示文字，帮助用户思考 | `"想想你的角色是什么"` |
+| `successFeedback` | 正确时显示的反馈 | `{ "title": "Amazing!", "message": "..." }` |
+| `errorFeedback` | 错误时显示的反馈 | `{ "title": "Incorrect", "message": "..." }` |
+| `resultImage` | 完成后显示的图片路径 | `"/images/result.png"` |
+| `proTip` | 完成后显示的小贴士 | `"记住这个技巧..."` |
+
+每个 blank 对象的结构：
+
+| 字段 | 说明 | 示例 |
+|------|------|------|
+| `id` | 唯一标识符，与模板中的 `[blankId]` 对应 | `"role"` |
+| `placeholder` | 未填写时显示的占位符文字 | `"role"` |
+| `correctAnswer` | 正确答案，必须在 options 中存在 | `"software engineer"` |
+
 ---
 
-# 第二部分：工程师篇
+## 第二部分：工程师篇
 
-## 你需要做什么？
-
-拿到教师提供的 JSON 数据后，用 Manus 将其集成到系统中。
-
-## 如何用 Manus 集成课程数据？
+工程师负责将教师提供的 JSON 数据集成到系统中。
 
 ### 给 Manus 的 Prompt
 
 ```
-请帮我把以下课程数据集成到项目中：
+请将以下课程数据集成到 coursiv-landing 项目中：
 
-1. 打开文件 shared/allCourseData.ts
-2. 将下面的 JSON 数据转换为 TypeScript 格式，使用工厂函数：
-   - createTextBlock(title, icon, paragraphs)
-   - createPlaygroundBlock(title, description, aiTool, promptTemplate, options, correctAnswers, hint, successFeedback, errorFeedback)
-   - createQuizBlock(question, options, correctIndex, explanation, hint)
-   - createDiscoveryBlock(number, title, message)
-   - createFeedbackBlock(question, options, correctIndex)
-3. 注意 Playground 的 promptTemplate 需要转换为数组格式：
-   - "Help me [action] for dinner" 转换为：
-   - [{ type: 'text', content: 'Help me ' }, { type: 'blank', label: 'action' }, { type: 'text', content: ' for dinner' }]
-4. correctAnswers 格式为 { label: answer }，如 { action: 'order a pizza' }
-5. 在 allCoursivLessons 对象中注册新课程
-6. 测试确保页面正常显示
+1. 将 JSON 数据转换为 TypeScript 代码，添加到 shared/allCourseData.ts
+2. 使用工厂函数：createTextBlock, createPlaygroundBlock, createQuizBlock, createDiscoveryBlock, createFeedbackBlock
+3. 在 allCoursivLessons 对象中注册新课程
+4. 运行测试确保没有错误
+5. 提交到 GitHub
 
 课程数据：
 [粘贴教师提供的 JSON]
 ```
 
-### Playground 转换示例
+### 代码转换示例
 
 教师提供的 JSON：
+
 ```json
 {
   "type": "playground",
-  "promptTemplate": "请帮我写一封 [tone] 的邮件给我的 [recipient]。",
+  "title": "多填空练习",
+  "description": "通过添加角色和目标让请求更具体。",
+  "aiTool": { "name": "ChatGPT", "icon": "💬" },
+  "promptTemplate": "I'm a [role]. Help me [task] for my [audience].",
   "blanks": [
-    { "label": "tone", "correctAnswer": "正式", "options": ["正式", "随意", "搞笑"] },
-    { "label": "recipient", "correctAnswer": "老板", "options": ["老板", "朋友", "陌生人"] }
-  ]
+    { "id": "role", "placeholder": "role", "correctAnswer": "software engineer" },
+    { "id": "task", "placeholder": "task", "correctAnswer": "write documentation" },
+    { "id": "audience", "placeholder": "audience", "correctAnswer": "team members" }
+  ],
+  "options": ["software engineer", "write documentation", "team members", "marketing manager", "create a presentation", "clients"],
+  "hint": "添加角色、任务和受众可以帮助 ChatGPT 更好地理解你的需求。",
+  "successFeedback": { "title": "Amazing!", "message": "你的方法完全正确！" },
+  "errorFeedback": { "title": "Incorrect", "message": "想想你是谁、需要什么、谁会阅读。" },
+  "resultImage": "/images/context-result.png",
+  "proTip": "提供越多上下文（角色、目标、受众），回答就越有针对性。"
 }
 ```
 
-转换后的 TypeScript：
+转换后的 TypeScript 代码：
+
 ```typescript
 createPlaygroundBlock(
-  '练习：写一个简单的提示词',
-  '完成下面的提示词，让 ChatGPT 帮你写一封邮件',
+  '多填空练习',
+  '通过添加角色和目标让请求更具体。',
   { name: 'ChatGPT', icon: '💬' },
+  "I'm a [role]. Help me [task] for my [audience].",
   [
-    { type: 'text', content: '请帮我写一封 ' },
-    { type: 'blank', label: 'tone' },
-    { type: 'text', content: ' 的邮件给我的 ' },
-    { type: 'blank', label: 'recipient' },
-    { type: 'text', content: '。' },
+    { id: 'role', placeholder: 'role', correctAnswer: 'software engineer' },
+    { id: 'task', placeholder: 'task', correctAnswer: 'write documentation' },
+    { id: 'audience', placeholder: 'audience', correctAnswer: 'team members' }
   ],
-  ['正式', '随意', '搞笑', '老板', '朋友', '陌生人'],  // 所有选项合并
-  { tone: '正式', recipient: '老板' },  // 正确答案映射
-  '想想你需要什么语气和收件人',
-  { title: '太棒了！', message: '你已经学会了如何写基本的提示词！' },
-  { title: '再试一次', message: '好的提示词应该明确说明语气和对象' }
+  ['software engineer', 'write documentation', 'team members', 'marketing manager', 'create a presentation', 'clients'],
+  '添加角色、任务和受众可以帮助 ChatGPT 更好地理解你的需求。',
+  { title: 'Amazing!', message: '你的方法完全正确！' },
+  { title: 'Incorrect', message: '想想你是谁、需要什么、谁会阅读。' },
+  '/images/context-result.png',
+  '提供越多上下文（角色、目标、受众），回答就越有针对性。'
 )
 ```
 
+### 集成检查清单
+
+完成集成后，请确认以下事项：
+
+- [ ] 课程数据已添加到 `shared/allCourseData.ts`
+- [ ] 新课程已在 `allCoursivLessons` 对象中注册
+- [ ] 所有 `correctAnswer` 都存在于对应的 `options` 数组中
+- [ ] `promptTemplate` 中的 `[blankId]` 与 `blanks` 数组中的 `id` 一一对应
+- [ ] 运行 `pnpm test` 所有测试通过
+- [ ] 在浏览器中测试新课程页面
+- [ ] 提交代码到 GitHub
+
 ---
 
-## 快速检查清单
+## 附录：内容块类型速查表
 
-集成完成后确认：
-
-- [ ] 新课程出现在 `allCoursivLessons` 对象中
-- [ ] 访问 `/lesson/{courseId}/{moduleId}` 页面正常显示
-- [ ] Playground 填空和选项正常工作
-- [ ] 所有测试通过（`pnpm test`）
+| 类型 | 用途 | 必填字段 |
+|------|------|----------|
+| `text` | 教学文本内容 | title, icon, paragraphs |
+| `playground` | 填空练习 | title, description, aiTool, promptTemplate, blanks, options, hint, successFeedback, errorFeedback, resultImage, proTip |
+| `quiz` | 选择题测验 | question, options, correctIndex, explanation, hint |
+| `discovery` | 知识发现卡片 | number, title, content |
+| `feedback` | 用户反馈问卷 | question, options |
 
 ---
 
-## 相关文件位置
-
-| 文件 | 说明 |
-|------|------|
-| `shared/allCourseData.ts` | 所有课程数据 |
-| `shared/courseContentTypes.ts` | 类型定义和工厂函数 |
-| `COURSE_DATA_GENERATION_GUIDE.md` | 详细格式规范（高级参考） |
+*文档版本：v2.0 | 更新日期：2026-01-14*
