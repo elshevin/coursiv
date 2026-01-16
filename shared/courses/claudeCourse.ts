@@ -58,7 +58,7 @@ export const claudeLesson1_1: CoursivLesson = {
       'Claude excels at nuanced, thoughtful analysis.',
       { title: 'Great start!', message: "You've engaged Claude's analytical strengths!" },
       { title: 'Try again', message: 'Ask for analysis that leverages Claude\'s thoughtfulness.' },
-      undefined,
+      '/images/course/thinking.png',
       'Claude is particularly strong at nuanced analysis and considering multiple viewpoints.',
       `Thank you for this thoughtful request. I'd be happy to help you analyze this complex topic while considering multiple perspectives.
 
@@ -146,7 +146,7 @@ export const claudeLesson1_2: CoursivLesson = {
       'Context helps Claude provide more relevant, tailored responses.',
       { title: 'Clear communication!', message: "You've provided excellent context!" },
       { title: 'Try again', message: 'Include more context about your situation.' },
-      undefined,
+      '/images/course/practice.png',
       'The more context you provide, the more tailored Claude\'s response will be.',
       `I understand you're a product manager preparing for a mobile app launch with budget constraints. I'd be happy to review your launch checklist with that context in mind.
 
@@ -231,7 +231,7 @@ export const claudeLesson1_3: CoursivLesson = {
       'Specify the type of analysis, subject, focus, and desired output format.',
       { title: 'Analytical!', message: "You've structured an effective analysis request!" },
       { title: 'Try again', message: 'Be more specific about what kind of analysis you need.' },
-      undefined,
+      '/images/course/thinking.png',
       'Specifying the analysis type and output format helps Claude deliver exactly what you need.',
       `I'll perform a comparative analysis of the two business strategies, focusing on risk and reward.
 
@@ -392,7 +392,7 @@ export const claudeLesson2_1: CoursivLesson = {
       'Break down your analysis into primary and secondary tasks.',
       { title: 'Document master!', message: "You've structured an effective document analysis!" },
       { title: 'Try again', message: 'Be specific about what you want from the document.' },
-      undefined,
+      '/images/course/learning.png',
       'Claude can hold entire documents in context and answer questions about any part.',
       `I've analyzed your 50-page research report. Here's my comprehensive analysis:
 
@@ -491,7 +491,7 @@ export const claudeLesson2_2: CoursivLesson = {
       'Specify the code type and what aspects you want reviewed.',
       { title: 'Code review ready!', message: "You've structured an effective code review request!" },
       { title: 'Try again', message: 'Be specific about what aspects of the code to review.' },
-      undefined,
+      '/images/course/practice.png',
       'Claude can review entire codebases and understand how components interact.',
       `I've reviewed your Python API code. Here's my comprehensive analysis:
 
@@ -612,7 +612,7 @@ export const claudeLesson2_3: CoursivLesson = {
       'Specify your research topic, task, approach, and purpose.',
       { title: 'Research ready!', message: "You've structured an effective research request!" },
       { title: 'Try again', message: 'Be more specific about your research needs.' },
-      undefined,
+      '/images/course/learning.png',
       'Claude can synthesize information across multiple sources and identify patterns.',
       `I'll help you synthesize the main arguments in AI ethics in healthcare by comparing different frameworks for your literature review.
 
@@ -773,7 +773,7 @@ export const claudeLesson3_1: CoursivLesson = {
       'The API requires model, messages, and max_tokens at minimum.',
       { title: 'API ready!', message: "You understand Claude API structure!" },
       { title: 'Try again', message: 'Think about the essential API parameters.' },
-      undefined,
+      '/images/course/practice.png',
       'The Messages API is the primary way to interact with Claude programmatically.',
       `Excellent! Here's a complete guide to Claude API integration:
 
@@ -885,7 +885,7 @@ export const claudeLesson3_2: CoursivLesson = {
       'Consider the use case, benefits, and necessary safeguards.',
       { title: 'Enterprise ready!', message: "You've planned a thoughtful implementation!" },
       { title: 'Try again', message: 'Include safeguards alongside benefits.' },
-      undefined,
+      '/images/course/thinking.png',
       'Enterprise implementations should balance efficiency gains with appropriate human oversight.',
       `Excellent implementation plan! Here's a detailed roadmap for your legal team:
 

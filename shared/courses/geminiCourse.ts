@@ -57,7 +57,7 @@ export const geminiLesson1_1: CoursivLesson = {
       'Gemini excels at structured tasks and organization.',
       { title: 'Great start!', message: "You've engaged Gemini effectively!" },
       { title: 'Try again', message: 'Be specific about your task and desired format.' },
-      undefined,
+      '/images/course/practice.png',
       'Gemini works well with structured requests that specify the desired output format.',
       `I'd be happy to help you plan your week! Let me create a structured schedule based on your priorities.
 
@@ -146,7 +146,7 @@ export const geminiLesson1_2: CoursivLesson = {
       'Specify content type, topic, audience, and tone for best results.',
       { title: 'Content created!', message: "You've generated great content with Gemini!" },
       { title: 'Try again', message: 'Be more specific about your content needs.' },
-      undefined,
+      '/images/course/learning.png',
       'Always specify your audience and tone for more targeted content.',
       `Here's a friendly, practical blog post for remote workers:
 
@@ -256,7 +256,7 @@ export const geminiLesson1_3: CoursivLesson = {
       'Be specific about what you want Gemini to analyze in the image.',
       { title: 'Image analysis ready!', message: "You understand multimodal prompting!" },
       { title: 'Try again', message: 'Specify what aspect of the image to focus on.' },
-      undefined,
+      '/images/course/thinking.png',
       'Gemini can analyze images for objects, text, data, and contextual information.',
       `I'll analyze the image systematically, focusing on the main subject and providing a detailed list.
 
@@ -414,7 +414,7 @@ export const geminiLesson2_1: CoursivLesson = {
       'Specify language, task, requirements, and documentation needs.',
       { title: 'Code generated!', message: "You've learned to request code from Gemini!" },
       { title: 'Try again', message: 'Be specific about language and requirements.' },
-      undefined,
+      '/images/course/practice.png',
       'Always specify error handling and documentation requirements for production-ready code.',
       `Here's a Python function that validates email addresses with error handling and docstrings:
 
@@ -557,7 +557,7 @@ export const geminiLesson2_2: CoursivLesson = {
       'Specify the data type, what to look for, and what kind of output you need.',
       { title: 'Data analyzed!', message: "You've learned to request data analysis!" },
       { title: 'Try again', message: 'Be specific about what patterns to identify.' },
-      undefined,
+      '/images/course/thinking.png',
       'Gemini can identify trends, patterns, and generate actionable insights from data.',
       `I'll analyze your sales data to identify trends, patterns, and provide actionable insights.
 
@@ -674,7 +674,7 @@ export const geminiLesson2_3: CoursivLesson = {
       'Gemini is available across Google Workspace for different tasks.',
       { title: 'Integration expert!', message: "You understand Gemini's Google integration!" },
       { title: 'Try again', message: 'Think about what Gemini can do in each app.' },
-      undefined,
+      '/images/course/success.png',
       'Gemini in Workspace lets you use AI without leaving your workflow.',
       `Here's how to maximize Gemini across Google Workspace:
 
