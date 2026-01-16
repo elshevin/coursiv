@@ -145,7 +145,7 @@ export const perplexityLesson1_2: CoursivLesson = {
         { id: 'mode', placeholder: 'mode', correctAnswer: 'Academic Focus' },
         { id: 'benefit', placeholder: 'benefit', correctAnswer: 'searches scholarly sources and papers' }
       ],
-      ['academic research', 'Academic Focus', 'searches scholarly sources and papers', 'quick fact-checking', 'Quick Search', 'provides fast answers from reliable sources'],
+      ['academic research', 'Academic Focus', 'searches scholarly sources and papers'],
       'Different modes are optimized for different types of queries.',
       { title: 'Mode selected!', message: "You understand Perplexity search modes!" },
       { title: 'Try again', message: 'Match the mode to your research needs.' },
@@ -259,7 +259,7 @@ export const perplexityLesson1_3: CoursivLesson = {
         { id: 'factor2', placeholder: 'factor 2', correctAnswer: 'the date of publication' },
         { id: 'factor3', placeholder: 'factor 3', correctAnswer: 'author credentials' }
       ],
-      ['the publication\'s reputation', 'the date of publication', 'author credentials', 'domain authority', 'citation count', 'peer review status'],
+      ["the publication's reputation", 'the date of publication', 'author credentials'],
       'Multiple factors determine source reliability.',
       { title: 'Source evaluator!', message: "You know how to assess sources!" },
       { title: 'Try again', message: 'Consider what makes a source trustworthy.' },
@@ -533,7 +533,7 @@ export const perplexityLesson2_2: CoursivLesson = {
         { id: 'benefit1', placeholder: 'benefit 1', correctAnswer: 'keep all related queries together' },
         { id: 'benefit2', placeholder: 'benefit 2', correctAnswer: 'share findings with my team' }
       ],
-      ['market research', 'keep all related queries together', 'share findings with my team', 'thesis research', 'build on previous findings', 'maintain context across sessions'],
+      ['market research', 'keep all related queries together', 'share findings with my team'],
       'Collections help maintain context and organization.',
       { title: 'Organized!', message: "You understand Collections!" },
       { title: 'Try again', message: 'Think about the benefits of organized research.' },
@@ -652,7 +652,7 @@ export const perplexityLesson2_3: CoursivLesson = {
         { id: 'method', placeholder: 'method', correctAnswer: 'sending HTTP requests' },
         { id: 'use_case', placeholder: 'use case', correctAnswer: 'building research automation tools' }
       ],
-      ['perform AI-powered searches', 'sending HTTP requests', 'building research automation tools', 'get cited answers', 'using the REST API', 'creating intelligent chatbots'],
+      ['perform AI-powered searches', 'sending HTTP requests', 'building research automation tools'],
       'The API enables programmatic access to Perplexity\'s capabilities.',
       { title: 'API ready!', message: "You understand the Perplexity API!" },
       { title: 'Try again', message: 'Think about what the API enables.' },

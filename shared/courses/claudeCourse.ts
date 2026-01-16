@@ -54,7 +54,7 @@ export const claudeLesson1_1: CoursivLesson = {
         { id: 'consideration', placeholder: 'consideration', correctAnswer: 'multiple perspectives' },
         { id: 'output_type', placeholder: 'output type', correctAnswer: 'a balanced analysis' }
       ],
-      ['analyzing this complex topic', 'multiple perspectives', 'a balanced analysis', 'writing a report', 'the target audience', 'clear recommendations'],
+      ['analyzing this complex topic', 'multiple perspectives', 'a balanced analysis'],
       'Claude excels at nuanced, thoughtful analysis.',
       { title: 'Great start!', message: "You've engaged Claude's analytical strengths!" },
       { title: 'Try again', message: 'Ask for analysis that leverages Claude\'s thoughtfulness.' },
@@ -142,7 +142,7 @@ export const claudeLesson1_2: CoursivLesson = {
         { id: 'task', placeholder: 'task', correctAnswer: 'review my launch checklist' },
         { id: 'constraint', placeholder: 'constraint', correctAnswer: 'our limited budget' }
       ],
-      ['product manager', 'a mobile app launch', 'review my launch checklist', 'our limited budget', 'researcher', 'a literature review', 'summarize key findings', 'academic standards'],
+      ['product manager', 'a mobile app launch', 'review my launch checklist', 'our limited budget'],
       'Context helps Claude provide more relevant, tailored responses.',
       { title: 'Clear communication!', message: "You've provided excellent context!" },
       { title: 'Try again', message: 'Include more context about your situation.' },
@@ -227,7 +227,7 @@ export const claudeLesson1_3: CoursivLesson = {
         { id: 'focus_area', placeholder: 'focus area', correctAnswer: 'risk and reward' },
         { id: 'format', placeholder: 'format', correctAnswer: 'a structured comparison table' }
       ],
-      ['comparative', 'these two business strategies', 'risk and reward', 'a structured comparison table', 'critical', 'this research paper', 'methodology and conclusions', 'bullet points with explanations'],
+      ['comparative', 'these two business strategies', 'risk and reward', 'a structured comparison table'],
       'Specify the type of analysis, subject, focus, and desired output format.',
       { title: 'Analytical!', message: "You've structured an effective analysis request!" },
       { title: 'Try again', message: 'Be more specific about what kind of analysis you need.' },
@@ -487,7 +487,7 @@ export const claudeLesson2_2: CoursivLesson = {
         { id: 'focus2', placeholder: 'focus 2', correctAnswer: 'error handling' },
         { id: 'improvement_area', placeholder: 'improvement area', correctAnswer: 'performance optimization' }
       ],
-      ['Python API', 'security vulnerabilities', 'error handling', 'performance optimization', 'React component', 'state management', 'accessibility', 'code organization'],
+      ['Python API', 'security vulnerabilities', 'error handling', 'performance optimization'],
       'Specify the code type and what aspects you want reviewed.',
       { title: 'Code review ready!', message: "You've structured an effective code review request!" },
       { title: 'Try again', message: 'Be specific about what aspects of the code to review.' },
@@ -769,7 +769,7 @@ export const claudeLesson3_1: CoursivLesson = {
         { id: 'component2', placeholder: 'component 2', correctAnswer: 'messages array' },
         { id: 'component3', placeholder: 'component 3', correctAnswer: 'max_tokens' }
       ],
-      ['model version', 'messages array', 'max_tokens', 'API key', 'system prompt', 'temperature'],
+      ['model version', 'messages array', 'max_tokens'],
       'The API requires model, messages, and max_tokens at minimum.',
       { title: 'API ready!', message: "You understand Claude API structure!" },
       { title: 'Try again', message: 'Think about the essential API parameters.' },
@@ -881,7 +881,7 @@ export const claudeLesson3_2: CoursivLesson = {
         { id: 'benefit', placeholder: 'benefit', correctAnswer: 'review speed by 60%' },
         { id: 'safeguard', placeholder: 'safeguard', correctAnswer: 'human oversight on final decisions' }
       ],
-      ['legal team', 'review contracts for key terms', 'review speed by 60%', 'human oversight on final decisions', 'HR department', 'answer employee policy questions', 'response time by 80%', 'data privacy compliance'],
+      ['legal team', 'review contracts for key terms', 'review speed by 60%', 'human oversight on final decisions'],
       'Consider the use case, benefits, and necessary safeguards.',
       { title: 'Enterprise ready!', message: "You've planned a thoughtful implementation!" },
       { title: 'Try again', message: 'Include safeguards alongside benefits.' },

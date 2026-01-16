@@ -144,6 +144,12 @@ export function CoursivLessonViewer({
                 isCompleted={completedBlocks.has(index)}
                 onComplete={() => handleBlockComplete(index)}
                 onOpenPlayground={() => setOpenPlaygroundIndex(index)}
+                onSkip={() => {
+                  handleBlockComplete(index);
+                  if (visibleBlockCount < blocks.length) {
+                    setVisibleBlockCount(prev => prev + 1);
+                  }
+                }}
               />
             </div>
           ))}
@@ -203,14 +209,15 @@ interface BlockRendererProps {
   isCompleted: boolean;
   onComplete: () => void;
   onOpenPlayground?: () => void;
+  onSkip?: () => void;
 }
 
-function BlockRenderer({ block, blockIndex, isCompleted, onComplete, onOpenPlayground }: BlockRendererProps) {
+function BlockRenderer({ block, blockIndex, isCompleted, onComplete, onOpenPlayground, onSkip }: BlockRendererProps) {
   switch (block.type) {
     case 'text':
       return <TextBlockComponent block={block} />;
     case 'playground':
-      return <PlaygroundBlockComponent block={block} isCompleted={isCompleted} onComplete={onComplete} onOpenPlayground={onOpenPlayground} />;
+      return <PlaygroundBlockComponent block={block} isCompleted={isCompleted} onComplete={onComplete} onOpenPlayground={onOpenPlayground} onSkip={onSkip} />;
     case 'quiz':
       return <QuizBlockComponent block={block} isCompleted={isCompleted} onComplete={onComplete} />;
     case 'discovery':
@@ -304,11 +311,13 @@ function PlaygroundBlockComponent({
   isCompleted,
   onComplete,
   onOpenPlayground,
+  onSkip,
 }: {
   block: PlaygroundBlock;
   isCompleted: boolean;
   onComplete: () => void;
   onOpenPlayground?: () => void;
+  onSkip?: () => void;
 }) {
   // If completed, show completed state
   if (isCompleted) {
@@ -402,7 +411,7 @@ function PlaygroundBlockComponent({
       
       {/* Skip practice option */}
       <button
-        onClick={onComplete}
+        onClick={onSkip}
         className="w-full py-3 text-purple-600 font-medium hover:bg-purple-50 rounded-xl transition-colors flex items-center justify-center gap-1"
       >
         Skip practice

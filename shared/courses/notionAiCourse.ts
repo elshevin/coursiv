@@ -53,7 +53,7 @@ export const notionAiLesson1_1: CoursivLesson = {
         { id: 'action', placeholder: 'action', correctAnswer: 'describe what I need' },
         { id: 'result', placeholder: 'result', correctAnswer: 'get AI-generated content' }
       ],
-      ['press Space or type /ai', 'describe what I need', 'get AI-generated content', 'select text', 'click Ask AI', 'improve my writing'],
+      ['press Space or type /ai', 'describe what I need', 'get AI-generated content'],
       'Notion AI is accessible from anywhere in your workspace.',
       { title: 'Great start!', message: "You know how to invoke Notion AI!" },
       { title: 'Try again', message: 'Think about how to access Notion AI.' },
@@ -693,7 +693,7 @@ export const notionAiLesson2_3: CoursivLesson = {
         { id: 'property_type', placeholder: 'property type', correctAnswer: 'summaries' },
         { id: 'action', placeholder: 'action', correctAnswer: 'summarizes the page content automatically' }
       ],
-      ['summaries', 'summarizes the page content automatically', 'tags', 'extracts relevant keywords from content'],
+      ['summaries', 'summarizes the page content automatically'],
       'AI properties can automate repetitive tasks.',
       { title: 'Database AI ready!', message: "You understand AI in databases!" },
       { title: 'Try again', message: 'Think about automating content generation.' },

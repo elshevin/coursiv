@@ -50,7 +50,7 @@ export const chatgptLesson1_1: CoursivLesson = {
       [
         { id: 'action', placeholder: 'action', correctAnswer: 'order a pizza' }
       ],
-      ['order a pizza', 'cook pasta', 'find a restaurant'],
+      ['order a pizza'],
       'Think about what action you want ChatGPT to help you with. The most direct request usually works best.',
       { title: 'Great!', message: "You've sent your first prompt to ChatGPT!" },
       { title: 'Incorrect', message: 'Try choosing a more specific action.' },
@@ -118,7 +118,7 @@ export const chatgptLesson1_2: CoursivLesson = {
         { id: 'task', placeholder: 'task', correctAnswer: 'summarize this article' },
         { id: 'format', placeholder: 'format', correctAnswer: 'bullet point' }
       ],
-      ['student', 'summarize this article', 'bullet point', 'teacher', 'write an essay', 'paragraph'],
+      ['student', 'summarize this article', 'bullet point'],
       'Think about who you are, what you need, and how you want the output formatted.',
       { title: 'Perfect!', message: "You've created a well-structured prompt!" },
       { title: 'Try Again', message: 'Make sure each part of the prompt makes sense together.' },
@@ -183,7 +183,7 @@ export const chatgptLesson1_3: CoursivLesson = {
         { id: 'modifier', placeholder: 'modifier', correctAnswer: 'shorter' },
         { id: 'addition', placeholder: 'addition', correctAnswer: 'examples' }
       ],
-      ['shorter', 'examples', 'longer', 'more detail', 'bullet points', 'references'],
+      ['shorter', 'examples'],
       'Think about what would make the response more useful for you.',
       { title: 'Excellent!', message: "You've learned to refine AI responses!" },
       { title: 'Not quite', message: 'Try different combinations to improve the response.' },
@@ -251,7 +251,7 @@ export const chatgptLesson1_4: CoursivLesson = {
         { id: 'task', placeholder: 'task', correctAnswer: 'create a budget' },
         { id: 'consideration', placeholder: 'consideration', correctAnswer: 'my income level' }
       ],
-      ['financial advisor', 'create a budget', 'my income level', 'chef', 'plan a menu', 'dietary restrictions'],
+      ['financial advisor', 'create a budget', 'my income level'],
       'Choose a role that matches the expertise you need for your task.',
       { title: 'Well done!', message: "You've mastered role assignment!" },
       { title: 'Try again', message: 'Make sure the role matches the task you need help with.' },
@@ -398,7 +398,7 @@ export const chatgptLesson2_1: CoursivLesson = {
         { id: 'style', placeholder: 'style', correctAnswer: 'friendly and practical' },
         { id: 'task', placeholder: 'task', correctAnswer: 'improving my app design' }
       ],
-      ['UX designer', '8 years of experience', 'friendly and practical', 'improving my app design', 'data scientist', '5 years in startups', 'technical and detailed', 'analyzing my data'],
+      ['UX designer', '8 years of experience', 'friendly and practical', 'improving my app design'],
       'Think about what expertise you need and how you want the expert to communicate.',
       { title: 'Excellent!', message: "You've created a detailed expert persona!" },
       { title: 'Try again', message: 'Make sure all parts of the persona work together.' },
@@ -468,7 +468,7 @@ export const chatgptLesson2_2: CoursivLesson = {
         { id: 'approach', placeholder: 'approach', correctAnswer: 'break this down step by step' },
         { id: 'verification', placeholder: 'verification', correctAnswer: 'show your reasoning' }
       ],
-      ['calculate my monthly expenses', 'break this down step by step', 'show your reasoning', 'plan a trip', 'list all considerations', 'explain each choice'],
+      ['calculate my monthly expenses', 'break this down step by step', 'show your reasoning'],
       'Think about how to structure a complex problem into manageable steps.',
       { title: 'Perfect!', message: "You've mastered Chain of Thought prompting!" },
       { title: 'Not quite', message: 'Try using step-by-step language in your prompt.' },
@@ -627,7 +627,7 @@ export const chatgptLesson2_4: CoursivLesson = {
         { id: 'summary', placeholder: 'summary', correctAnswer: 'we agreed on the budget and timeline' },
         { id: 'next_topic', placeholder: 'next topic', correctAnswer: 'the implementation plan' }
       ],
-      ['summarize our discussion', 'we agreed on the budget and timeline', 'the implementation plan', 'recap the key points', 'the main requirements are X, Y, Z', 'the technical approach'],
+      ['summarize our discussion', 'we agreed on the budget and timeline', 'the implementation plan'],
       'Periodically summarizing helps maintain context in long conversations.',
       { title: 'Excellent!', message: "You've learned to manage conversation context!" },
       { title: 'Try again', message: 'Try summarizing before moving to new topics.' },
@@ -709,7 +709,7 @@ export const chatgptLesson2_5: CoursivLesson = {
         { id: 'tone', placeholder: 'tone', correctAnswer: 'friendly and encouraging' },
         { id: 'audience', placeholder: 'audience', correctAnswer: 'busy professionals' }
       ],
-      ['blog post introduction', 'productivity tips', 'friendly and encouraging', 'busy professionals', 'email newsletter', 'industry trends', 'professional and informative', 'business executives'],
+      ['blog post introduction', 'productivity tips', 'friendly and encouraging', 'busy professionals'],
       'Specify the content type, topic, tone, and audience for best results.',
       { title: 'Well done!', message: "You've created professional content with ChatGPT!" },
       { title: 'Try again', message: 'Be more specific about your content requirements.' },
@@ -861,7 +861,7 @@ export const chatgptLesson3_1: CoursivLesson = {
         { id: 'component2', placeholder: 'component 2', correctAnswer: 'temperature parameter' },
         { id: 'component3', placeholder: 'component 3', correctAnswer: 'messages array' }
       ],
-      ['model name', 'temperature parameter', 'messages array', 'endpoint URL', 'API key', 'response format'],
+      ['model name', 'temperature parameter', 'messages array'],
       'Think about the essential components of an API request.',
       { title: 'Correct!', message: "You understand API request structure!" },
       { title: 'Not quite', message: 'Review the key components of API calls.' },
@@ -947,7 +947,7 @@ export const chatgptLesson3_2: CoursivLesson = {
         { id: 'behavior', placeholder: 'behavior', correctAnswer: 'include code comments' },
         { id: 'constraint', placeholder: 'constraint', correctAnswer: 'lengthy explanations' }
       ],
-      ['software developer', 'concise code examples', 'include code comments', 'lengthy explanations', 'marketing manager', 'data-driven insights', 'cite sources', 'technical jargon'],
+      ['software developer', 'concise code examples', 'include code comments', 'lengthy explanations'],
       'Think about what information would help ChatGPT serve you better consistently.',
       { title: 'Perfect!', message: "You've created effective custom instructions!" },
       { title: 'Try again', message: 'Make sure your instructions are specific and actionable.' },
@@ -1026,7 +1026,7 @@ export const chatgptLesson3_3: CoursivLesson = {
         { id: 'capability', placeholder: 'capability', correctAnswer: 'analyze a CSV file' },
         { id: 'outcome', placeholder: 'outcome', correctAnswer: 'visualize the data trends' }
       ],
-      ['Code Interpreter', 'analyze a CSV file', 'visualize the data trends', 'Web Browsing', 'find current news', 'get up-to-date information'],
+      ['Code Interpreter', 'analyze a CSV file', 'visualize the data trends'],
       'Match the plugin to the specific capability you need.',
       { title: 'Great choice!', message: "You've selected the right plugin for the task!" },
       { title: 'Try again', message: 'Think about which plugin provides the capability you need.' },
@@ -1119,7 +1119,7 @@ export const chatgptLesson3_4: CoursivLesson = {
         { id: 'benefit', placeholder: 'benefit', correctAnswer: 'hours of writing time' },
         { id: 'outcome', placeholder: 'outcome', correctAnswer: 'response consistency' }
       ],
-      ['customer service', 'draft response templates', 'hours of writing time', 'response consistency', 'marketing', 'generate content ideas', 'creative brainstorming time', 'campaign diversity'],
+      ['customer service', 'draft response templates', 'hours of writing time', 'response consistency'],
       'Think about repetitive tasks in your organization that could benefit from AI assistance.',
       { title: 'Excellent!', message: "You've identified a valuable business application!" },
       { title: 'Try again', message: 'Focus on specific, measurable benefits.' },

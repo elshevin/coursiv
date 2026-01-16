@@ -53,7 +53,7 @@ export const geminiLesson1_1: CoursivLesson = {
         { id: 'approach', placeholder: 'approach', correctAnswer: 'considering my priorities' },
         { id: 'format', placeholder: 'format', correctAnswer: 'a structured schedule' }
       ],
-      ['plan my week', 'considering my priorities', 'a structured schedule', 'learn a new topic', 'breaking it into steps', 'bullet points'],
+      ['plan my week', 'considering my priorities', 'a structured schedule'],
       'Gemini excels at structured tasks and organization.',
       { title: 'Great start!', message: "You've engaged Gemini effectively!" },
       { title: 'Try again', message: 'Be specific about your task and desired format.' },
@@ -142,7 +142,7 @@ export const geminiLesson1_2: CoursivLesson = {
         { id: 'audience', placeholder: 'audience', correctAnswer: 'remote workers' },
         { id: 'tone', placeholder: 'tone', correctAnswer: 'friendly and practical' }
       ],
-      ['blog post', 'productivity tips', 'remote workers', 'friendly and practical', 'email', 'project update', 'stakeholders', 'professional and concise'],
+      ['blog post', 'productivity tips', 'remote workers', 'friendly and practical'],
       'Specify content type, topic, audience, and tone for best results.',
       { title: 'Content created!', message: "You've generated great content with Gemini!" },
       { title: 'Try again', message: 'Be more specific about your content needs.' },
@@ -252,7 +252,7 @@ export const geminiLesson1_3: CoursivLesson = {
         { id: 'focus_area', placeholder: 'focus area', correctAnswer: 'the main subject' },
         { id: 'output_type', placeholder: 'output type', correctAnswer: 'a detailed list' }
       ],
-      ['identify all the objects', 'the main subject', 'a detailed list', 'extract the text', 'any numbers or data', 'structured information'],
+      ['identify all the objects', 'the main subject', 'a detailed list'],
       'Be specific about what you want Gemini to analyze in the image.',
       { title: 'Image analysis ready!', message: "You understand multimodal prompting!" },
       { title: 'Try again', message: 'Specify what aspect of the image to focus on.' },
@@ -410,7 +410,7 @@ export const geminiLesson2_1: CoursivLesson = {
         { id: 'requirement', placeholder: 'requirement', correctAnswer: 'error handling' },
         { id: 'documentation', placeholder: 'documentation', correctAnswer: 'docstrings' }
       ],
-      ['Python', 'validates email addresses', 'error handling', 'docstrings', 'JavaScript', 'fetches API data', 'async/await', 'JSDoc comments'],
+      ['Python', 'validates email addresses', 'error handling', 'docstrings'],
       'Specify language, task, requirements, and documentation needs.',
       { title: 'Code generated!', message: "You've learned to request code from Gemini!" },
       { title: 'Try again', message: 'Be specific about language and requirements.' },
@@ -553,7 +553,7 @@ export const geminiLesson2_2: CoursivLesson = {
         { id: 'analysis_focus', placeholder: 'analysis focus', correctAnswer: 'trends and patterns' },
         { id: 'recommendation_type', placeholder: 'recommendation type', correctAnswer: 'actionable insights' }
       ],
-      ['sales', 'trends and patterns', 'actionable insights', 'customer feedback', 'sentiment and themes', 'improvement areas'],
+      ['sales', 'trends and patterns', 'actionable insights'],
       'Specify the data type, what to look for, and what kind of output you need.',
       { title: 'Data analyzed!', message: "You've learned to request data analysis!" },
       { title: 'Try again', message: 'Be specific about what patterns to identify.' },
@@ -670,7 +670,7 @@ export const geminiLesson2_3: CoursivLesson = {
         { id: 'task', placeholder: 'task', correctAnswer: 'draft and edit content' },
         { id: 'benefit', placeholder: 'benefit', correctAnswer: 'write faster and more effectively' }
       ],
-      ['Google Docs', 'draft and edit content', 'write faster and more effectively', 'Google Sheets', 'analyze data and create formulas', 'make data-driven decisions'],
+      ['Google Docs', 'draft and edit content', 'write faster and more effectively'],
       'Gemini is available across Google Workspace for different tasks.',
       { title: 'Integration expert!', message: "You understand Gemini's Google integration!" },
       { title: 'Try again', message: 'Think about what Gemini can do in each app.' },

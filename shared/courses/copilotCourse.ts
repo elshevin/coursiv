@@ -54,7 +54,7 @@ export const copilotLesson1_1: CoursivLesson = {
         { id: 'action', placeholder: 'action', correctAnswer: 'suggest code completions' },
         { id: 'context', placeholder: 'context', correctAnswer: 'the surrounding code and intent' }
       ],
-      ['function name or comment', 'suggest code completions', 'the surrounding code and intent', 'variable declaration', 'offer type suggestions', 'previous patterns'],
+      ['function name or comment', 'suggest code completions', 'the surrounding code and intent'],
       'Copilot uses context to understand what you\'re trying to do.',
       { title: 'Great start!', message: "You understand how Copilot works!" },
       { title: 'Try again', message: 'Think about what triggers Copilot suggestions.' },
@@ -150,7 +150,7 @@ export const copilotLesson1_2: CoursivLesson = {
         { id: 'step2', placeholder: 'step 2', correctAnswer: 'install the extension' },
         { id: 'step3', placeholder: 'step 3', correctAnswer: 'sign in with GitHub' }
       ],
-      ['get a Copilot subscription', 'install the extension', 'sign in with GitHub', 'open your editor', 'search for Copilot', 'authorize the connection'],
+      ['get a Copilot subscription', 'install the extension', 'sign in with GitHub'],
       'The setup process is straightforward in most editors.',
       { title: 'Setup ready!', message: "You know how to install Copilot!" },
       { title: 'Try again', message: 'Think about the logical order of setup steps.' },
@@ -257,7 +257,7 @@ export const copilotLesson1_3: CoursivLesson = {
         { id: 'task', placeholder: 'task', correctAnswer: 'validates an email address' },
         { id: 'comment', placeholder: 'comment', correctAnswer: 'function to validate email address format' }
       ],
-      ['validates an email address', 'function to validate email address format', 'sorts an array', 'function to sort array in ascending order'],
+      ['validates an email address', 'function to validate email address format'],
       'Clear, descriptive comments lead to better suggestions.',
       { title: 'Great prompting!', message: "You know how to trigger good suggestions!" },
       { title: 'Try again', message: 'Be specific and descriptive in your comment.' },
@@ -528,7 +528,7 @@ export const copilotLesson2_2: CoursivLesson = {
         { id: 'function_type', placeholder: 'function type', correctAnswer: 'a validation function' },
         { id: 'test_comment', placeholder: 'test comment', correctAnswer: 'test cases for validateEmail including edge cases' }
       ],
-      ['a validation function', 'test cases for validateEmail including edge cases', 'an API handler', 'unit tests for getUserById with mocking'],
+      ['a validation function', 'test cases for validateEmail including edge cases'],
       'Mention edge cases to get more comprehensive tests.',
       { title: 'Test generation ready!', message: "You know how to generate tests!" },
       { title: 'Try again', message: 'Be specific about what to test and edge cases.' },
@@ -647,7 +647,7 @@ export const copilotLesson2_3: CoursivLesson = {
         { id: 'trigger', placeholder: 'trigger', correctAnswer: '/** or """' },
         { id: 'doc_type', placeholder: 'doc type', correctAnswer: 'a complete docstring' }
       ],
-      ['function', '/** or """', 'a complete docstring', 'class', '// or #', 'inline comments'],
+      ['function', '/** or ', 'a complete docstring'],
       'Documentation triggers vary by language.',
       { title: 'Doc generation ready!', message: "You know how to generate documentation!" },
       { title: 'Try again', message: 'Think about documentation syntax for your language.' },
@@ -825,7 +825,7 @@ export const copilotLesson3_1: CoursivLesson = {
       [
         { id: 'question', placeholder: 'question', correctAnswer: 'where is user authentication handled?' }
       ],
-      ['where is user authentication handled?', 'how is the database connection configured?', 'what API endpoints exist?'],
+      ['where is user authentication handled?'],
       '@workspace gives Copilot access to your entire project.',
       { title: 'Workspace ready!', message: "You understand workspace context!" },
       { title: 'Try again', message: 'Use @workspace for project-wide questions.' },
@@ -928,7 +928,7 @@ export const copilotLesson3_2: CoursivLesson = {
         { id: 'action', placeholder: 'action', correctAnswer: 'create a copilot-instructions.md file' },
         { id: 'specification', placeholder: 'specification', correctAnswer: 'my team\'s coding standards' }
       ],
-      ['consistent code style', 'create a copilot-instructions.md file', 'my team\'s coding standards', 'TypeScript preferences', 'set custom instructions in settings', 'type definitions and patterns'],
+      ['consistent code style', 'create a copilot-instructions.md file', "my team's coding standards"],
       'Custom instructions help maintain consistency.',
       { title: 'Customization ready!', message: "You know how to personalize Copilot!" },
       { title: 'Try again', message: 'Think about how to communicate preferences to Copilot.' },
@@ -1048,7 +1048,7 @@ export const copilotLesson3_3: CoursivLesson = {
         { id: 'benefit', placeholder: 'benefit', correctAnswer: 'IP protection' },
         { id: 'mechanism', placeholder: 'mechanism', correctAnswer: 'blocking suggestions matching public code' }
       ],
-      ['code referencing filter', 'IP protection', 'blocking suggestions matching public code', 'audit logs', 'compliance tracking', 'recording all Copilot interactions'],
+      ['code referencing filter', 'IP protection', 'blocking suggestions matching public code'],
       'Enterprise features focus on security and compliance.',
       { title: 'Enterprise ready!', message: "You understand enterprise Copilot!" },
       { title: 'Try again', message: 'Think about organizational security needs.' },
