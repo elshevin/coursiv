@@ -351,8 +351,9 @@ export async function updateCourseProgress(
   userId: number,
   userType: string,
   courseId: string,
-  moduleId: string
-): Promise<void> {
+  completedModulesArray: string[],
+  nextModuleId?: string
+): Promise<any> {
   const now = new Date().toISOString();
   let progress = await getUserCourseProgress(userId, userType, courseId);
 
@@ -361,26 +362,20 @@ export async function updateCourseProgress(
       userId,
       userType,
       courseId,
-      completedModules: JSON.stringify([moduleId]),
-      currentModuleId: moduleId,
+      completedModules: JSON.stringify(completedModulesArray),
+      currentModuleId: nextModuleId || completedModulesArray[completedModulesArray.length - 1],
       startedAt: now,
       lastAccessedAt: now,
     }).run();
   } else {
-    const completedModules: string[] = progress.completedModules 
-      ? JSON.parse(progress.completedModules) 
-      : [];
-    
-    if (!completedModules.includes(moduleId)) {
-      completedModules.push(moduleId);
-    }
-
     db.update(schema.userCourseProgress).set({
-      completedModules: JSON.stringify(completedModules),
-      currentModuleId: moduleId,
+      completedModules: JSON.stringify(completedModulesArray),
+      currentModuleId: nextModuleId || completedModulesArray[completedModulesArray.length - 1],
       lastAccessedAt: now,
     }).where(eq(schema.userCourseProgress.id, progress.id)).run();
   }
+  
+  return await getUserCourseProgress(userId, userType, courseId);
 }
 
 export async function markCourseCompleted(

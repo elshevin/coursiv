@@ -156,20 +156,41 @@ export function CoursivLessonViewer({
         </div>
       </div>
 
-      {/* Footer - Continue button */}
+      {/* Footer - Continue button and Skip practice */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 pb-6 z-20">
-        <div className="max-w-2xl mx-auto">
-          <button
-            onClick={handleContinue}
-            disabled={!canContinue}
-            className={`w-full py-3 rounded-xl font-semibold transition-colors ${
-              canContinue
-                ? 'bg-purple-600 text-white hover:bg-purple-700'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
-          >
-            {isLastBlock ? 'Complete' : 'Continue'}
-          </button>
+        <div className="max-w-2xl mx-auto space-y-2">
+          {/* Show Skip practice button when current block is playground and not completed */}
+          {currentBlock?.type === 'playground' && !isCurrentBlockCompleted && (
+            <button
+              onClick={() => {
+                handleBlockComplete(currentBlockIndex);
+                if (visibleBlockCount < blocks.length) {
+                  setVisibleBlockCount(prev => prev + 1);
+                }
+              }}
+              className="w-full py-3 text-purple-600 font-medium hover:bg-purple-50 rounded-xl transition-colors flex items-center justify-center gap-1"
+            >
+              Skip practice
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
+          
+          {/* Continue button - only show when can continue (not playground or playground completed) */}
+          {(canContinue || currentBlock?.type !== 'playground') && (
+            <button
+              onClick={handleContinue}
+              disabled={!canContinue}
+              className={`w-full py-3 rounded-xl font-semibold transition-colors ${
+                canContinue
+                  ? 'bg-purple-600 text-white hover:bg-purple-700'
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
+            >
+              {isLastBlock ? 'Complete' : 'Continue'}
+            </button>
+          )}
         </div>
       </div>
 
@@ -409,16 +430,7 @@ function PlaygroundBlockComponent({
         </button>
       </div>
       
-      {/* Skip practice option */}
-      <button
-        onClick={onSkip}
-        className="w-full py-3 text-purple-600 font-medium hover:bg-purple-50 rounded-xl transition-colors flex items-center justify-center gap-1"
-      >
-        Skip practice
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
+
     </div>
   );
 }

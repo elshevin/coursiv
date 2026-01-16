@@ -25,6 +25,7 @@ export default function LessonContentV2() {
   const [blocks, setBlocks] = useState<ContentBlock[]>([]);
   const [showCompletionPage, setShowCompletionPage] = useState(false);
   const [nextModuleTitle, setNextModuleTitle] = useState<string | null>(null);
+  const [nextModuleId, setNextModuleId] = useState<string | null>(null);
   
   const completeModuleMutation = trpc.courses.completeModule.useMutation();
   const recordActivityMutation = trpc.streaks.recordActivity.useMutation();
@@ -86,7 +87,7 @@ export default function LessonContentV2() {
     }
   }, [moduleId]);
 
-  // Find next module title for completion page
+  // Find next module title and ID for completion page
   useEffect(() => {
     if (courseId && moduleId) {
       const foundCourse = courses.find(c => c.id === courseId);
@@ -97,6 +98,7 @@ export default function LessonContentV2() {
           for (const mod of level.modules) {
             if (foundCurrentModule) {
               setNextModuleTitle(mod.title);
+              setNextModuleId(mod.id);
               return;
             }
             if (mod.id === moduleId) {
@@ -105,6 +107,7 @@ export default function LessonContentV2() {
           }
         }
         setNextModuleTitle(null);
+        setNextModuleId(null);
       }
     }
   }, [courseId, moduleId]);
@@ -114,7 +117,8 @@ export default function LessonContentV2() {
       try {
         await completeModuleMutation.mutateAsync({
           courseId,
-          moduleId
+          moduleId,
+          nextModuleId: nextModuleId || undefined
         });
         // Record activity for streak
         await recordActivityMutation.mutateAsync({ lessonsCompleted: 1 });
@@ -189,20 +193,12 @@ export default function LessonContentV2() {
           </div>
         </div>
         
-        {/* Continue button */}
+        {/* Continue button - only one button, returns to course detail */}
         <button
           onClick={handleContinueToCourse}
           className="w-full max-w-sm py-4 bg-white text-purple-600 rounded-xl font-semibold hover:bg-purple-50 transition-colors shadow-lg"
         >
-          Continue to Course
-        </button>
-        
-        {/* Optional: Go to Dashboard */}
-        <button
-          onClick={() => setLocation('/dashboard')}
-          className="mt-3 text-purple-200 hover:text-white transition-colors"
-        >
-          Go to Dashboard
+          Continue
         </button>
       </div>
     );

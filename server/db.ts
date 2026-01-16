@@ -525,11 +525,12 @@ export async function updateCourseProgress(
   userId: number,
   userType: string,
   courseId: string,
-  moduleId: string
-): Promise<void> {
+  completedModulesArray: string[],
+  nextModuleId?: string
+): Promise<any> {
   if (USE_SQLITE) {
     const sqlite = await ensureSqlite();
-    return sqlite.updateCourseProgress(userId, userType, courseId, moduleId);
+    return sqlite.updateCourseProgress(userId, userType, courseId, completedModulesArray, nextModuleId);
   }
 
   const db = await getDb();
@@ -543,24 +544,18 @@ export async function updateCourseProgress(
       userId,
       userType,
       courseId,
-      completedModules: JSON.stringify([moduleId]),
-      currentModuleId: moduleId,
+      completedModules: JSON.stringify(completedModulesArray),
+      currentModuleId: nextModuleId || completedModulesArray[completedModulesArray.length - 1],
     });
   } else {
-    // Update existing progress
-    const completedModules: string[] = progress.completedModules 
-      ? JSON.parse(progress.completedModules) 
-      : [];
-    
-    if (!completedModules.includes(moduleId)) {
-      completedModules.push(moduleId);
-    }
-
+    // Update existing progress with new completed modules and next module
     await db.update(userCourseProgress).set({
-      completedModules: JSON.stringify(completedModules),
-      currentModuleId: moduleId,
+      completedModules: JSON.stringify(completedModulesArray),
+      currentModuleId: nextModuleId || completedModulesArray[completedModulesArray.length - 1],
     }).where(eq(userCourseProgress.id, progress.id));
   }
+  
+  return await getUserCourseProgress(userId, userType, courseId);
 }
 
 export async function markCourseCompleted(
