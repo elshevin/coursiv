@@ -31,13 +31,8 @@ import {
 
 import { challengeData } from '@/data/challengeData';
 import { certificateData } from '@/data/certificateData';
-
-// Mock data for dashboard
-const mockCourses = [
-  { id: 1, title: 'ChatGPT Mastery', slug: 'chatgpt', progress: 65, totalLessons: 24, completedLessons: 16, image: '/images/course/covers/chatgpt-cover.png' },
-  { id: 2, title: 'DALL-E Creative', slug: 'dall-e', progress: 30, totalLessons: 18, completedLessons: 5, image: '/images/course/covers/dalle-cover.png' },
-  { id: 3, title: 'Midjourney Pro', slug: 'midjourney', progress: 0, totalLessons: 12, completedLessons: 0, image: '/images/course/covers/midjourney-cover.png' },
-];
+import { trpc } from "@/lib/trpc";
+import { courses } from "../../../shared/courseData";
 
 const mockChallenges = [
   { id: 'ai-reinvention-2026', title: '28-Day AI Challenge', day: 12, totalDays: 28, streak: 5 },
@@ -61,6 +56,48 @@ export default function Dashboard() {
   
   // Streak modal state
   const [isStreakModalOpen, setIsStreakModalOpen] = useState(false);
+
+  // Fetch all course progress from backend
+  const { data: allProgressData } = trpc.courses.getAllProgress.useQuery(undefined, {
+    enabled: isAuthenticated,
+  });
+
+  // Calculate real progress for each course
+  const getCoursesWithProgress = () => {
+    return courses.map(course => {
+      const allModules = course.levels.flatMap(level => level.modules);
+      const totalModules = allModules.length;
+      
+      // Find progress for this course
+      const courseProgress = allProgressData?.find(p => p.courseId === course.id);
+      let completedModules: string[] = [];
+      
+      if (courseProgress?.completedModules) {
+        completedModules = typeof courseProgress.completedModules === 'string'
+          ? JSON.parse(courseProgress.completedModules)
+          : courseProgress.completedModules;
+      }
+      
+      const completedCount = completedModules.length;
+      const progressPercent = totalModules > 0 ? Math.round((completedCount / totalModules) * 100) : 0;
+      
+      return {
+        id: course.id,
+        title: course.title,
+        slug: course.id,
+        progress: progressPercent,
+        totalLessons: totalModules,
+        completedLessons: completedCount,
+        image: `/images/course/covers/${course.id}-cover.png`,
+        duration: course.totalDuration,
+      };
+    });
+  };
+
+  const coursesWithProgress = getCoursesWithProgress();
+  
+  // Filter courses that have progress > 0 for "Continue Learning" section
+  const inProgressCourses = coursesWithProgress.filter(c => c.progress > 0 && c.progress < 100).slice(0, 3);
 
   const handleLogout = async () => {
     await logout();
@@ -162,34 +199,36 @@ export default function Dashboard() {
             </div>
 
             {/* Continue Learning */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold text-[#24234C]">Continue Learning</h2>
-                <Link href="/dashboard/guides">
-                  <a className="text-[#5A4CFF] text-sm font-medium hover:underline">View all</a>
-                </Link>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {mockCourses.map((course) => (
-                  <Link key={course.id} href={`/course/${course.slug}`}>
-                    <Card className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer" data-testid={`course-card-${course.slug}`}>
-                      <div className="h-32 overflow-hidden">
-                        <img src={course.image} alt={course.title} className="w-full h-full object-cover" />
-                      </div>
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold text-[#24234C] mb-2">{course.title}</h3>
-                        <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-3">
-                          <Clock className="w-4 h-4" />
-                          <span>{course.completedLessons}/{course.totalLessons} lessons</span>
-                        </div>
-                        <Progress value={course.progress} className="h-2" />
-                      </CardContent>
-                    </Card>
+            {inProgressCourses.length > 0 && (
+              <div className="mb-8">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold text-[#24234C]">Continue Learning</h2>
+                  <Link href="/dashboard/guides">
+                    <a className="text-[#5A4CFF] text-sm font-medium hover:underline">View all</a>
                   </Link>
-                ))}
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {inProgressCourses.map((course) => (
+                    <Link key={course.id} href={`/course/${course.slug}`}>
+                      <Card className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer" data-testid={`course-card-${course.slug}`}>
+                        <div className="h-32 overflow-hidden">
+                          <img src={course.image} alt={course.title} className="w-full h-full object-cover" />
+                        </div>
+                        <CardContent className="p-4">
+                          <h3 className="font-semibold text-[#24234C] mb-2">{course.title}</h3>
+                          <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-3">
+                            <Clock className="w-4 h-4" />
+                            <span>{course.completedLessons}/{course.totalLessons} lessons</span>
+                          </div>
+                          <Progress value={course.progress} className="h-2" />
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Active Challenges */}
             <div>
@@ -234,26 +273,16 @@ export default function Dashboard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                { id: 'chatgpt', title: 'ChatGPT Mastery', lessons: 24, duration: '4h 30m', cover: '/images/course/covers/chatgpt-cover.png', progress: 65 },
-                { id: 'dall-e', title: 'DALL-E Creative', lessons: 18, duration: '3h 15m', cover: '/images/course/covers/dalle-cover.png', progress: 30 },
-                { id: 'midjourney', title: 'Midjourney Pro', lessons: 20, duration: '3h 45m', cover: '/images/course/covers/midjourney-cover.png', progress: 0 },
-                { id: 'claude', title: 'Claude Assistant', lessons: 16, duration: '2h 50m', cover: '/images/course/covers/claude-cover.png', progress: 0 },
-                { id: 'copilot', title: 'GitHub Copilot', lessons: 14, duration: '2h 30m', cover: '/images/course/covers/copilot-cover.png', progress: 0 },
-                { id: 'gemini', title: 'Google Gemini', lessons: 12, duration: '2h 15m', cover: '/images/course/covers/gemini-cover.png', progress: 0 },
-                { id: 'stable-diffusion', title: 'Stable Diffusion', lessons: 14, duration: '2h 45m', cover: '/images/course/covers/stable-diffusion-cover.png', progress: 0 },
-                { id: 'perplexity', title: 'Perplexity AI', lessons: 8, duration: '1h 30m', cover: '/images/course/covers/perplexity-cover.png', progress: 0 },
-                { id: 'notion-ai', title: 'Notion AI', lessons: 8, duration: '1h 30m', cover: '/images/course/covers/notion-cover.png', progress: 0 },
-              ].map((guide) => (
+              {coursesWithProgress.map((guide) => (
                 <Link key={guide.id} href={`/course/${guide.id}`}>
                   <Card className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer h-full">
                     <div className="h-32 overflow-hidden">
-                      <img src={guide.cover} alt={guide.title} className="w-full h-full object-cover" />
+                      <img src={guide.image} alt={guide.title} className="w-full h-full object-cover" />
                     </div>
                     <CardContent className="p-4">
                       <h3 className="font-semibold text-[#24234C] mb-2">{guide.title}</h3>
                       <div className="flex items-center gap-4 text-sm text-[#24234C]/60 mb-3">
-                        <span>{guide.lessons} lessons</span>
+                        <span>{guide.totalLessons} lessons</span>
                         <span>•</span>
                         <span>{guide.duration}</span>
                       </div>
