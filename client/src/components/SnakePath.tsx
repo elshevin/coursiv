@@ -118,6 +118,12 @@ export function SnakePath({
       const prev = nodePositions[i - 1];
       const curr = nodePositions[i];
       
+      // Determine if this connection should be green (completed to completed/current)
+      const prevItem = modulesWithPosition[i - 1];
+      const currItem = modulesWithPosition[i];
+      const isGreenConnection = prevItem?.status === "completed" && 
+        (currItem?.status === "completed" || currItem?.status === "current");
+      
       // Create curved path
       const midY = (prev.y + curr.y) / 2;
       const controlX1 = prev.x;
@@ -129,6 +135,40 @@ export function SnakePath({
     return path;
   };
 
+  // Generate separate paths for green and gray connections
+  const generateColoredPaths = () => {
+    if (nodePositions.length < 2) return { greenPath: "", grayPath: "" };
+    
+    let greenPath = "";
+    let grayPath = "";
+    
+    for (let i = 1; i < nodePositions.length; i++) {
+      const prev = nodePositions[i - 1];
+      const curr = nodePositions[i];
+      
+      const prevItem = modulesWithPosition[i - 1];
+      const currItem = modulesWithPosition[i];
+      const isGreenConnection = prevItem?.status === "completed" && 
+        (currItem?.status === "completed" || currItem?.status === "current");
+      
+      const midY = (prev.y + curr.y) / 2;
+      const controlX1 = prev.x;
+      const controlX2 = curr.x;
+      
+      const segment = `M ${prev.x} ${prev.y} C ${controlX1} ${midY}, ${controlX2} ${midY}, ${curr.x} ${curr.y}`;
+      
+      if (isGreenConnection) {
+        greenPath += segment + " ";
+      } else {
+        grayPath += segment + " ";
+      }
+    }
+    
+    return { greenPath, grayPath };
+  };
+
+  const { greenPath, grayPath } = generateColoredPaths();
+
   return (
     <div ref={containerRef} className="relative py-8 px-4" data-testid="snake-path-container">
       {/* SVG Connection Lines */}
@@ -136,20 +176,21 @@ export function SnakePath({
         className="absolute inset-0 w-full h-full pointer-events-none"
         style={{ zIndex: 0 }}
       >
-        <defs>
-          <linearGradient id="pathGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#8B5CF6" />
-            <stop offset="100%" stopColor="#A78BFA" />
-          </linearGradient>
-        </defs>
+        {/* Gray connections */}
         <path
-          d={generatePath()}
+          d={grayPath}
           fill="none"
-          stroke="url(#pathGradient)"
+          stroke="#E5E7EB"
           strokeWidth="3"
-          strokeDasharray="8 4"
           className="connection-line"
-          opacity="0.5"
+        />
+        {/* Green connections (completed) */}
+        <path
+          d={greenPath}
+          fill="none"
+          stroke="#22C55E"
+          strokeWidth="3"
+          className="connection-line"
         />
       </svg>
 
@@ -164,7 +205,7 @@ export function SnakePath({
             {[0, 1, 2].map((colIndex) => {
               const item = row.find((m) => m.col === colIndex);
               if (!item) {
-                return <div key={colIndex} className="h-20" />;
+                return <div key={colIndex} className="h-24" />;
               }
               return (
                 <ModuleNode
@@ -189,34 +230,51 @@ interface ModuleNodeProps {
 function ModuleNode({ item, onModuleClick }: ModuleNodeProps) {
   const { module, status, globalIndex, col } = item;
   
-  const statusColors = {
-    completed: "bg-green-500 border-green-400 shadow-green-200",
-    current: "bg-purple-500 border-purple-400 shadow-purple-200",
-    available: "bg-white border-purple-300 shadow-purple-100",
-    locked: "bg-gray-100 border-gray-300 shadow-gray-100",
-  };
-
-  const statusIcons = {
-    completed: (
-      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-      </svg>
-    ),
-    current: (
-      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-      </svg>
-    ),
-    available: <span className="text-purple-600 font-bold text-lg">{globalIndex + 1}</span>,
-    locked: (
-      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-      </svg>
-    ),
-  };
-
   // Determine alignment based on column
   const alignClass = col === 0 ? "justify-start" : col === 2 ? "justify-end" : "justify-center";
+
+  // Render different card styles based on status
+  const renderCard = () => {
+    switch (status) {
+      case "completed":
+        return (
+          <div className="w-16 h-16 rounded-xl bg-green-500 flex items-center justify-center shadow-lg shadow-green-200">
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+        );
+      
+      case "current":
+        return (
+          <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex flex-col items-center justify-center shadow-lg shadow-purple-200 border-4 border-white">
+            <span className="text-white font-bold text-sm mb-1">Start</span>
+            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        );
+      
+      case "available":
+        return (
+          <div className="w-16 h-16 rounded-xl bg-purple-100 border-2 border-purple-200 flex items-center justify-center shadow-md hover:shadow-lg hover:border-purple-300 transition-all">
+            <svg className="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+        );
+      
+      case "locked":
+      default:
+        return (
+          <div className="w-16 h-16 rounded-xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-sm">
+            <svg className="w-7 h-7 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+        );
+    }
+  };
 
   return (
     <div className={`flex ${alignClass}`}>
@@ -228,26 +286,20 @@ function ModuleNode({ item, onModuleClick }: ModuleNodeProps) {
         className={`
           group relative flex flex-col items-center
           ${status !== "locked" ? "cursor-pointer" : "cursor-not-allowed"}
+          ${status !== "locked" && status !== "current" ? "hover:scale-105 transition-transform" : ""}
         `}
       >
-        {/* Module Circle */}
-        <div
-          className={`
-            w-14 h-14 rounded-full flex items-center justify-center
-            border-4 shadow-lg transition-all duration-300
-            ${statusColors[status]}
-            ${status !== "locked" ? "group-hover:scale-110 group-hover:shadow-xl" : ""}
-          `}
-        >
-          {statusIcons[status]}
-        </div>
+        {/* Module Card */}
+        {renderCard()}
         
         {/* Module Title */}
         <div className={`
-          mt-2 text-center max-w-[100px]
+          mt-3 text-center max-w-[100px]
           ${status === "locked" ? "opacity-50" : ""}
         `}>
-          <p className="text-xs font-medium text-gray-700 truncate">{module.title}</p>
+          <p className={`text-xs font-medium truncate ${status === "completed" ? "text-green-700" : status === "current" ? "text-purple-700" : "text-gray-700"}`}>
+            {module.title}
+          </p>
           <p className="text-[10px] text-gray-500">{module.duration}</p>
           {module.type === "quiz" && (
             <span className="inline-block mt-1 px-1.5 py-0.5 bg-yellow-100 text-yellow-700 text-[10px] rounded-full">
@@ -276,6 +328,31 @@ function getModuleStatus(
   if (isLocked) return "locked";
   
   if (currentModuleId === module.id) return "current";
+  
+  // If no current module is set, the first unlocked module is current
+  if (!currentModuleId && !isLocked) {
+    // Check if this is the first unlocked module
+    let foundFirstUnlocked = false;
+    for (let i = 0; i <= levelIndex; i++) {
+      const level = levels[i];
+      const modulesToCheck = i === levelIndex 
+        ? level.modules.slice(0, moduleIndex + 1) 
+        : level.modules;
+      
+      for (const m of modulesToCheck) {
+        if (!completedModules.includes(m.id)) {
+          if (m.id === module.id) {
+            foundFirstUnlocked = true;
+          }
+          break;
+        }
+      }
+      if (foundFirstUnlocked) break;
+    }
+    
+    if (foundFirstUnlocked) return "current";
+  }
+  
   return "available";
 }
 

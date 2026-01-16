@@ -29,9 +29,9 @@ export default function CourseDetail() {
   } | null>(null);
   
   // Fetch course progress
-  const { data: progressData } = trpc.courses.getProgress.useQuery(
+  const { data: progressData, refetch: refetchProgress } = trpc.courses.getProgress.useQuery(
     { courseId: courseId || "" },
-    { enabled: !!courseId && !!user }
+    { enabled: !!courseId && !!user, refetchOnWindowFocus: true, refetchOnMount: true }
   );
 
   useEffect(() => {
