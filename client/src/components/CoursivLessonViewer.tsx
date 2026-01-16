@@ -244,7 +244,8 @@ function BlockRenderer({ block, blockIndex, isCompleted, onComplete, onOpenPlayg
     case 'discovery':
       return <DiscoveryBlockComponent block={block} />;
     case 'feedback':
-      return <FeedbackBlockComponent block={block} isCompleted={isCompleted} onComplete={onComplete} />;
+      // Feedback block removed as per user request
+      return null;
     default:
       return null;
   }

@@ -201,6 +201,20 @@ export function PlaygroundPage({ block, onComplete, onBack }: PlaygroundPageProp
               <p className="text-gray-700 pt-1">{getCompletedPrompt()}</p>
             </div>
             
+            {/* Result Image - Show immediately after correct answer */}
+            {isCorrect && block.content.resultImage && !block.content.showImageOnStart && (
+              <div className="w-full rounded-xl overflow-hidden border border-gray-200 mb-4">
+                <img 
+                  src={block.content.resultImage} 
+                  alt="AI Generated Result" 
+                  className="w-full h-auto object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/images/course/success.png';
+                  }}
+                />
+              </div>
+            )}
+            
             {/* AI Response */}
             {isCorrect && block.content.aiResponse && (
               <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
