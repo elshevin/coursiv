@@ -217,7 +217,7 @@ export function PlaygroundPage({ block, onComplete, onBack }: PlaygroundPageProp
       </div>
 
       {/* Bottom action area */}
-      <div className="px-4 py-4 border-t border-gray-100 bg-gray-50">
+      <div className="px-4 py-4 pb-16 border-t border-gray-100 bg-gray-50">
         {!showResult ? (
           <>
             {/* Options */}
