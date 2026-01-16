@@ -37,11 +37,11 @@ export function CoursivLessonViewer({
   const currentBlockIndex = visibleBlockCount - 1;
   const currentBlock = blocks[currentBlockIndex];
 
-  // Check if current block requires interaction (playground, quiz, feedback)
+  // Check if current block requires interaction (playground, quiz)
+  // Note: feedback is optional and does not block progression
   const requiresInteraction = currentBlock && 
     (currentBlock.type === 'playground' || 
-     currentBlock.type === 'quiz' || 
-     currentBlock.type === 'feedback');
+     currentBlock.type === 'quiz');
 
   const isCurrentBlockCompleted = completedBlocks.has(currentBlockIndex);
 
@@ -388,8 +388,16 @@ function PlaygroundBlockComponent({
       <div className="space-y-4">
         {/* Result image */}
         {block.content.resultImage && (
-          <div className="w-full h-48 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-xl flex items-center justify-center overflow-hidden">
-            <div className="text-6xl">🚀</div>
+          <div className="w-full rounded-xl overflow-hidden border border-gray-200">
+            <img 
+              src={block.content.resultImage} 
+              alt="AI Generated Result" 
+              className="w-full h-auto object-cover"
+              onError={(e) => {
+                // Fallback to placeholder if image fails to load
+                (e.target as HTMLImageElement).src = '/images/course/success.png';
+              }}
+            />
           </div>
         )}
         
@@ -807,8 +815,11 @@ function FeedbackBlockComponent({
 
   return (
     <div className="bg-gray-50 rounded-xl p-6">
-      <p className="text-gray-600 text-sm mb-3">{block.content.question}</p>
-      <div className="flex gap-2">
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-gray-600 text-sm">{block.content.question}</p>
+        <span className="text-xs text-gray-400">(optional)</span>
+      </div>
+      <div className="flex flex-wrap gap-2">
         {block.content.options.map((option, index) => (
           <button
             key={index}

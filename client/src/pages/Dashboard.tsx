@@ -70,19 +70,25 @@ export default function Dashboard() {
   // Get display name from user
   const displayName = user?.name || user?.email?.split('@')[0] || 'Learner';
 
-  // Redirect to login if not authenticated
-  if (!isLoading && !isAuthenticated) {
+  // Show loading state while checking authentication
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-[#5A4CFF] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-[#24234C]/60">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Redirect to login if not authenticated (only after loading is complete)
+  if (!isAuthenticated) {
     setLocation('/login');
     return null;
   }
 
-  if (isLoading) {
-    return (
-      <div className={`min-h-screen flex items-center justify-center transition-colors ${theme === 'dark' ? 'bg-gray-900' : 'bg-[#F9FAFB]'}`}>
-        <div className="animate-spin w-8 h-8 border-4 border-[#5A4CFF] border-t-transparent rounded-full"></div>
-      </div>
-    );
-  }
+  
 
   return (
     <div className={`min-h-screen transition-colors ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-[#F9FAFB]'}`}>

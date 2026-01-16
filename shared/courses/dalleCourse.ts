@@ -57,27 +57,8 @@ export const dalleLesson1_1: CoursivLesson = {
       'Think about the style, subject, setting, and lighting you want in your image.',
       { title: 'Beautiful!', message: "You've created your first DALL-E prompt!" },
       { title: 'Try again', message: 'Make sure all elements work together visually.' },
-      undefined,
-      'DALL-E works best with descriptive prompts that include style, subject, and atmosphere.',
-      `🎨 **Image Generation Started...**
-
-Processing your prompt: "A watercolor painting of a cat in a garden, soft lighting"
-
-**Generation Progress:** ✅
-- Analyzing art style: Watercolor - ✅
-- Identifying subject: Cat - ✅
-- Setting environment: Garden - ✅
-- Applying lighting: Soft, diffused
-
-**Result Preview:**
-Your image is being generated! The watercolor style will create soft, flowing edges with gentle color blending. The garden setting adds natural elements like flowers and greenery, while soft lighting creates a peaceful, dreamy atmosphere.
-
-**Tips for Next Time:**
-- Add more details like "orange tabby cat" for specific breeds
-- Try "morning light" or "golden hour" for different moods
-- Include "detailed fur texture" for more realism
-
-Would you like me to generate variations or adjust any parameters?`
+      '/images/course/dalle-cat-garden.png',
+      'DALL-E works best with descriptive prompts that include style, subject, and atmosphere.'
     ),
     createFeedbackBlock(
       'Was this introduction helpful?',
@@ -132,7 +113,7 @@ export const dalleLesson1_2: CoursivLesson = {
       'Layer your description with style, subject, details, and composition.',
       { title: 'Stunning!', message: "You've created a detailed image prompt!" },
       { title: 'Try again', message: 'Make sure each element adds to the visual story.' },
-      undefined,
+      '/images/course/dalle-mountain.png',
       'Layered descriptions with multiple details create more compelling images.',
       `🏔️ **Generating Your Landscape...**
 
@@ -213,7 +194,7 @@ export const dalleLesson1_3: CoursivLesson = {
       'Follow the formula: subject + action + environment + style + lighting + perspective.',
       { title: 'Perfect formula!', message: "You've mastered the prompt structure!" },
       { title: 'Try again', message: 'Make sure to include all elements of the formula.' },
-      undefined,
+      '/images/course/dalle-robot.png',
       'Following a consistent formula helps create predictable, high-quality results.',
       `🤖 **Steampunk Library Scene**
 
@@ -361,7 +342,7 @@ export const dalleLesson2_1: CoursivLesson = {
       'Combine style, technique, and color palette for cohesive results.',
       { title: 'Artistic!', message: "You've mastered style modifiers!" },
       { title: 'Try again', message: 'Make sure style elements complement each other.' },
-      undefined,
+      '/images/course/dalle-sunflower.png',
       'Style modifiers can completely transform the same subject into different artworks.',
       `🌻 **Impressionist Sunflower Field**
 
@@ -447,7 +428,7 @@ export const dalleLesson2_2: CoursivLesson = {
       'Combine composition rules with framing and depth for professional results.',
       { title: 'Well composed!', message: "You understand composition techniques!" },
       { title: 'Try again', message: 'Think about how these elements work together.' },
-      undefined,
+      '/images/course/thinking.png',
       'Composition instructions give you control over the visual structure of your images.',
       `🌳 **Compositional Analysis**
 
@@ -537,7 +518,7 @@ export const dalleLesson2_3: CoursivLesson = {
       'Match lighting type with mood and time of day for cohesive atmosphere.',
       { title: 'Atmospheric!', message: "You've mastered lighting and mood!" },
       { title: 'Try again', message: 'Make sure lighting supports the mood you want.' },
-      undefined,
+      '/images/course/dalle-neon-street.png',
       'Lighting is the key to emotional impact in your images.',
       `🌃 **Noir Street Scene**
 
@@ -626,7 +607,7 @@ export const dalleLesson2_4: CoursivLesson = {
       'Consider what you want to change and what should stay consistent.',
       { title: 'Great edit plan!', message: "You understand image editing concepts!" },
       { title: 'Try again', message: 'Think about maintaining visual consistency.' },
-      undefined,
+      '/images/course/practice.png',
       'Good edits maintain consistency with the original image\'s style and lighting.',
       `✏️ **Edit Plan Analysis**
 
@@ -794,7 +775,7 @@ export const dalleLesson3_1: CoursivLesson = {
       'Use real camera terminology for authentic photorealistic results.',
       { title: 'Professional quality!', message: "You've mastered photorealistic prompts!" },
       { title: 'Try again', message: 'Use more specific photography terminology.' },
-      undefined,
+      '/images/course/dalle-portrait.png',
       'Real camera and lens specifications help DALL-E understand photographic aesthetics.',
       `📸 **Professional Portrait Analysis**
 
@@ -887,7 +868,7 @@ export const dalleLesson3_2: CoursivLesson = {
       'Consider the brand identity and target audience when creating commercial images.',
       { title: 'Marketing ready!', message: "You've created professional commercial content!" },
       { title: 'Try again', message: 'Think about brand consistency and appeal.' },
-      undefined,
+      '/images/course/dalle-product.png',
       'Commercial images need consistent style, clear focus, and brand alignment.',
       `💄 **Commercial Image Analysis**
 

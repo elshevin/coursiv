@@ -21,6 +21,8 @@ export function useEmailAuth() {
   const { data: userData, refetch } = trpc.emailAuth.me.useQuery(undefined, {
     retry: false,
     refetchOnWindowFocus: false,
+    staleTime: 0, // Always refetch on mount
+    cacheTime: 0, // Don't cache the result
   });
 
   const registerMutation = trpc.emailAuth.register.useMutation();
@@ -49,11 +51,13 @@ export function useEmailAuth() {
         quizAnswers,
       });
       setUser(newUser as EmailUser);
+      // Force refetch to ensure cookie is recognized
+      setTimeout(() => refetch(), 100);
       return newUser;
     } catch (error) {
       throw error;
     }
-  }, [registerMutation]);
+  }, [registerMutation, refetch]);
 
   const login = useCallback(async (email: string, password: string) => {
     try {
