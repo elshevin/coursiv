@@ -46,7 +46,7 @@ export const perplexityLesson1_1: CoursivLesson = {
     createPlaygroundBlock(
       'Your First Perplexity Query',
       'Learn how to ask questions effectively.',
-      { name: 'Perplexity', icon: '🔍' },
+      { name: 'Perplexity', icon: '🔍', logo: '/images/ai-tools/perplexity.png' },
       'To research [topic], I should ask: "[question]"',
       [
         { id: 'topic', placeholder: 'topic', correctAnswer: 'recent AI developments' },
@@ -138,7 +138,7 @@ export const perplexityLesson1_2: CoursivLesson = {
     createPlaygroundBlock(
       'Choosing Search Modes',
       'Select the right mode for your query.',
-      { name: 'Perplexity', icon: '🔍' },
+      { name: 'Perplexity', icon: '🔍', logo: '/images/ai-tools/perplexity.png' },
       'For [research_type], I should use [mode] because it [benefit].',
       [
         { id: 'research_type', placeholder: 'research type', correctAnswer: 'academic research' },
@@ -252,7 +252,7 @@ export const perplexityLesson1_3: CoursivLesson = {
     createPlaygroundBlock(
       'Evaluating Sources',
       'Learn to assess source quality.',
-      { name: 'Perplexity', icon: '🔍' },
+      { name: 'Perplexity', icon: '🔍', logo: '/images/ai-tools/perplexity.png' },
       'When evaluating a source, I should check [factor1], [factor2], and [factor3].',
       [
         { id: 'factor1', placeholder: 'factor 1', correctAnswer: 'the publication\'s reputation' },
@@ -418,7 +418,7 @@ export const perplexityLesson2_1: CoursivLesson = {
     createPlaygroundBlock(
       'Crafting Pro Search Queries',
       'Learn to write effective Pro Search queries.',
-      { name: 'Perplexity', icon: '🔍' },
+      { name: 'Perplexity', icon: '🔍', logo: '/images/ai-tools/perplexity.png' },
       'For comprehensive research on [topic], I should ask: "[detailed_question]"',
       [
         { id: 'topic', placeholder: 'topic', correctAnswer: 'renewable energy trends' },
@@ -526,7 +526,7 @@ export const perplexityLesson2_2: CoursivLesson = {
     createPlaygroundBlock(
       'Using Collections',
       'Learn to organize research effectively.',
-      { name: 'Perplexity', icon: '🔍' },
+      { name: 'Perplexity', icon: '🔍', logo: '/images/ai-tools/perplexity.png' },
       'For my [project_type] project, I should create a collection to [benefit1] and [benefit2].',
       [
         { id: 'project_type', placeholder: 'project type', correctAnswer: 'market research' },
@@ -645,7 +645,7 @@ export const perplexityLesson2_3: CoursivLesson = {
     createPlaygroundBlock(
       'Understanding the API',
       'Learn API basics.',
-      { name: 'Perplexity', icon: '🔍' },
+      { name: 'Perplexity', icon: '🔍', logo: '/images/ai-tools/perplexity.png' },
       'The Perplexity API allows me to [capability] by [method] for [use_case].',
       [
         { id: 'capability', placeholder: 'capability', correctAnswer: 'perform AI-powered searches' },

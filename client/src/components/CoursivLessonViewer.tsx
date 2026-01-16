@@ -381,7 +381,15 @@ function PlaygroundBlockComponent({
         {block.content.aiResponse && (
           <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
             <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-200">
-              <span className="text-xl">{block.content.aiTool.icon}</span>
+              {block.content.aiTool.logo ? (
+                <img 
+                  src={block.content.aiTool.logo} 
+                  alt={block.content.aiTool.name}
+                  className="w-6 h-6 object-contain"
+                />
+              ) : (
+                <span className="text-xl">{block.content.aiTool.icon}</span>
+              )}
               <span className="font-medium text-gray-700">{block.content.aiTool.name}</span>
             </div>
             <div className="prose prose-sm max-w-none text-gray-700">
@@ -583,7 +591,15 @@ function LegacyPlaygroundBlockComponent({
         {block.content.aiResponse && (
           <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
             <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-200">
-              <span className="text-xl">{block.content.aiTool.icon}</span>
+              {block.content.aiTool.logo ? (
+                <img 
+                  src={block.content.aiTool.logo} 
+                  alt={block.content.aiTool.name}
+                  className="w-6 h-6 object-contain"
+                />
+              ) : (
+                <span className="text-xl">{block.content.aiTool.icon}</span>
+              )}
               <span className="font-medium text-gray-700">{block.content.aiTool.name}</span>
             </div>
             <div className="prose prose-sm max-w-none text-gray-700">
@@ -621,7 +637,15 @@ function LegacyPlaygroundBlockComponent({
       
       {/* AI Tool header */}
       <div className="bg-gray-50 rounded-lg px-4 py-2 mb-4 inline-flex items-center gap-2">
-        <span className="text-xl">{block.content.aiTool.icon}</span>
+        {block.content.aiTool.logo ? (
+          <img 
+            src={block.content.aiTool.logo} 
+            alt={block.content.aiTool.name}
+            className="w-5 h-5 object-contain"
+          />
+        ) : (
+          <span className="text-xl">{block.content.aiTool.icon}</span>
+        )}
         <span className="text-sm font-medium text-gray-700">{block.content.aiTool.name}</span>
       </div>
       
@@ -751,7 +775,15 @@ function LegacyPlaygroundBlockComponent({
             {isCorrect && block.content.aiResponse && (
               <div className="mb-4 bg-gray-50 rounded-xl p-4 border border-gray-200">
                 <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-200">
-                  <span className="text-xl">{block.content.aiTool.icon}</span>
+                  {block.content.aiTool.logo ? (
+                    <img 
+                      src={block.content.aiTool.logo} 
+                      alt={block.content.aiTool.name}
+                      className="w-6 h-6 object-contain"
+                    />
+                  ) : (
+                    <span className="text-xl">{block.content.aiTool.icon}</span>
+                  )}
                   <span className="font-medium text-gray-700">{block.content.aiTool.name}</span>
                 </div>
                 <div className="prose prose-sm max-w-none text-gray-700">

@@ -46,7 +46,7 @@ export const geminiLesson1_1: CoursivLesson = {
     createPlaygroundBlock(
       'Your First Gemini Prompt',
       'Start a conversation with Gemini.',
-      { name: 'Gemini', icon: '✨' },
+      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.png' },
       'Help me [task] by [approach]. I want the output in [format].',
       [
         { id: 'task', placeholder: 'task', correctAnswer: 'plan my week' },
@@ -134,7 +134,7 @@ export const geminiLesson1_2: CoursivLesson = {
     createPlaygroundBlock(
       'Creating Content',
       'Use Gemini to generate written content.',
-      { name: 'Gemini', icon: '✨' },
+      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.png' },
       'Write a [content_type] about [topic] for [audience]. The tone should be [tone].',
       [
         { id: 'content_type', placeholder: 'content type', correctAnswer: 'blog post' },
@@ -245,7 +245,7 @@ export const geminiLesson1_3: CoursivLesson = {
     createPlaygroundBlock(
       'Working with Images',
       'Learn how to prompt Gemini about images.',
-      { name: 'Gemini', icon: '✨' },
+      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.png' },
       'Looking at this image, please [task]. Focus on [focus_area] and provide [output_type].',
       [
         { id: 'task', placeholder: 'task', correctAnswer: 'identify all the objects' },
@@ -402,7 +402,7 @@ export const geminiLesson2_1: CoursivLesson = {
     createPlaygroundBlock(
       'Generating Code',
       'Ask Gemini to write code for a specific task.',
-      { name: 'Gemini', icon: '✨' },
+      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.png' },
       'Write a [language] function that [task]. Include [requirement] and add [documentation].',
       [
         { id: 'language', placeholder: 'language', correctAnswer: 'Python' },
@@ -546,7 +546,7 @@ export const geminiLesson2_2: CoursivLesson = {
     createPlaygroundBlock(
       'Analyzing Data',
       'Ask Gemini to analyze and interpret data.',
-      { name: 'Gemini', icon: '✨' },
+      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.png' },
       'Analyze this [data_type] data. Identify [analysis_focus] and suggest [recommendation_type].',
       [
         { id: 'data_type', placeholder: 'data type', correctAnswer: 'sales' },
@@ -663,7 +663,7 @@ export const geminiLesson2_3: CoursivLesson = {
     createPlaygroundBlock(
       'Using Gemini in Workspace',
       'Learn how to leverage Gemini across Google tools.',
-      { name: 'Gemini', icon: '✨' },
+      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.png' },
       'In [google_app], I can use Gemini to [task]. This helps me [benefit].',
       [
         { id: 'google_app', placeholder: 'Google app', correctAnswer: 'Google Docs' },

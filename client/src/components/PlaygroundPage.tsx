@@ -155,7 +155,15 @@ export function PlaygroundPage({ block, onComplete, onBack }: PlaygroundPageProp
 
         {/* AI Tool header */}
         <div className="bg-gray-100 rounded-lg px-4 py-3 mb-4 flex items-center gap-2">
-          <span className="text-xl">{block.content.aiTool.icon}</span>
+          {block.content.aiTool.logo ? (
+            <img 
+              src={block.content.aiTool.logo} 
+              alt={block.content.aiTool.name}
+              className="w-6 h-6 object-contain"
+            />
+          ) : (
+            <span className="text-xl">{block.content.aiTool.icon}</span>
+          )}
           <span className="font-medium text-gray-700">{block.content.aiTool.name}</span>
         </div>
 
@@ -219,7 +227,15 @@ export function PlaygroundPage({ block, onComplete, onBack }: PlaygroundPageProp
             {isCorrect && block.content.aiResponse && (
               <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                 <div className="flex items-start gap-3">
-                  <span className="text-xl flex-shrink-0">{block.content.aiTool.icon}</span>
+                  {block.content.aiTool.logo ? (
+                    <img 
+                      src={block.content.aiTool.logo} 
+                      alt={block.content.aiTool.name}
+                      className="w-8 h-8 object-contain flex-shrink-0"
+                    />
+                  ) : (
+                    <span className="text-xl flex-shrink-0">{block.content.aiTool.icon}</span>
+                  )}
                   <div className="prose prose-sm max-w-none text-gray-700">
                     <MarkdownRenderer content={block.content.aiResponse} />
                   </div>

@@ -45,7 +45,7 @@ export const dalleLesson1_1: CoursivLesson = {
     createPlaygroundBlock(
       'Your First Image Prompt',
       'Create a simple image prompt by describing what you want to see.',
-      { name: 'DALL-E', icon: '🎨' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
       'A [style] painting of a [subject] in a [setting] with [lighting] lighting.',
       [
         { id: 'style', placeholder: 'style', correctAnswer: 'watercolor' },
@@ -100,7 +100,7 @@ export const dalleLesson1_2: CoursivLesson = {
     createPlaygroundBlock(
       'Building a Detailed Prompt',
       'Create a more detailed image prompt with multiple elements.',
-      { name: 'DALL-E', icon: '🎨' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
       'A [style] [subject], [detail1], [detail2], [composition].',
       [
         { id: 'style', placeholder: 'style', correctAnswer: 'photorealistic' },
@@ -180,7 +180,7 @@ export const dalleLesson1_3: CoursivLesson = {
     createPlaygroundBlock(
       'Using the Formula',
       'Apply the prompt formula to create a professional image.',
-      { name: 'DALL-E', icon: '🎨' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
       '[subject] [action] in [environment], [style] style, [lighting] lighting, [perspective].',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'a robot' },
@@ -330,7 +330,7 @@ export const dalleLesson2_1: CoursivLesson = {
     createPlaygroundBlock(
       'Applying Style Modifiers',
       'Transform a simple subject with different styles.',
-      { name: 'DALL-E', icon: '🎨' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
       'A [subject] in the style of [style], with [technique] technique, [color_palette] color palette.',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'sunflower field' },
@@ -416,7 +416,7 @@ export const dalleLesson2_2: CoursivLesson = {
     createPlaygroundBlock(
       'Directing Composition',
       'Use composition terms to control image layout.',
-      { name: 'DALL-E', icon: '🎨' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
       'A [subject] with [composition_rule], [framing] framing, [depth] depth of field.',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'lone tree on a hill' },
@@ -506,7 +506,7 @@ export const dalleLesson2_3: CoursivLesson = {
     createPlaygroundBlock(
       'Setting the Mood with Light',
       'Use lighting to create a specific atmosphere.',
-      { name: 'DALL-E', icon: '🎨' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
       'A [subject] with [lighting_type] lighting, [mood] mood, [time] atmosphere.',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'empty street' },
@@ -595,7 +595,7 @@ export const dalleLesson2_4: CoursivLesson = {
     createPlaygroundBlock(
       'Planning an Edit',
       'Describe how you would edit an existing image.',
-      { name: 'DALL-E', icon: '🎨' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
       'Take this image and [edit_type] the [area]. Replace it with [replacement] while maintaining [consistency].',
       [
         { id: 'edit_type', placeholder: 'edit type', correctAnswer: 'inpaint' },
@@ -761,7 +761,7 @@ export const dalleLesson3_1: CoursivLesson = {
     createPlaygroundBlock(
       'Creating Photorealistic Images',
       'Use photography terminology for lifelike results.',
-      { name: 'DALL-E', icon: '🎨' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
       'Professional [subject] photography, shot on [camera], [lens] lens, [aperture] aperture, [lighting], [quality].',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'portrait' },
@@ -855,7 +855,7 @@ export const dalleLesson3_2: CoursivLesson = {
     createPlaygroundBlock(
       'Creating Marketing Content',
       'Design a commercial image for a product.',
-      { name: 'DALL-E', icon: '🎨' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
       'Professional [product_type] advertisement, [setting], [style] aesthetic, [brand_feel], [composition] composition.',
       [
         { id: 'product_type', placeholder: 'product type', correctAnswer: 'skincare product' },

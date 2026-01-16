@@ -31,6 +31,7 @@ export interface PlaygroundBlock {
     aiTool: {
       name: string;
       icon: string;
+      logo?: string;  // Path to the AI tool's logo image
     };
     // Template string with [blankId] placeholders, e.g., "Convert this [blank1] into [blank2]"
     promptTemplate: string;
@@ -129,7 +130,7 @@ export function createTextBlock(
 export function createPlaygroundBlock(
   title: string,
   description: string,
-  aiTool: { name: string; icon: string },
+  aiTool: { name: string; icon: string; logo?: string },
   promptTemplate: string,
   blanks: PlaygroundBlank[],
   options: string[],

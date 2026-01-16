@@ -47,7 +47,7 @@ export const sdLesson1_1: CoursivLesson = {
     createPlaygroundBlock(
       'Your First SD Prompt',
       'Create a basic Stable Diffusion prompt.',
-      { name: 'Stable Diffusion', icon: '🎨' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
       '[subject], [style], [quality], [lighting]',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'a beautiful landscape' },
@@ -146,7 +146,7 @@ export const sdLesson1_2: CoursivLesson = {
     createPlaygroundBlock(
       'Choosing Your Setup',
       'Select the right setup for your needs.',
-      { name: 'Stable Diffusion', icon: '🎨' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
       'For [use_case], I should use [option] because it offers [benefit].',
       [
         { id: 'use_case', placeholder: 'use case', correctAnswer: 'learning and experimentation' },
@@ -245,7 +245,7 @@ export const sdLesson1_3: CoursivLesson = {
     createPlaygroundBlock(
       'Setting Parameters',
       'Learn to configure generation parameters.',
-      { name: 'Stable Diffusion', icon: '🎨' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
       'For [goal], I should set steps to [steps], CFG scale to [cfg], and use [sampler] sampler.',
       [
         { id: 'goal', placeholder: 'goal', correctAnswer: 'high quality detailed images' },
@@ -351,7 +351,7 @@ export const sdLesson1_4: CoursivLesson = {
     createPlaygroundBlock(
       'Using Negative Prompts',
       'Create effective negative prompts.',
-      { name: 'Stable Diffusion', icon: '🎨' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
       'Negative prompt: [quality_issues], [anatomy_issues], [unwanted_elements], [style_issues]',
       [
         { id: 'quality_issues', placeholder: 'quality issues', correctAnswer: 'blurry, low quality' },
@@ -528,7 +528,7 @@ export const sdLesson2_1: CoursivLesson = {
     createPlaygroundBlock(
       'Choosing Models',
       'Select the right model for your needs.',
-      { name: 'Stable Diffusion', icon: '🎨' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
       'For [use_case], I should use [model] because it excels at [strength].',
       [
         { id: 'use_case', placeholder: 'use case', correctAnswer: 'photorealistic portraits' },
@@ -638,7 +638,7 @@ export const sdLesson2_2: CoursivLesson = {
     createPlaygroundBlock(
       'Using LoRAs',
       'Learn to apply LoRAs to your prompts.',
-      { name: 'Stable Diffusion', icon: '🎨' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
       '[subject], [style] <lora:[lora_name]:[weight]>',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'portrait of a woman' },
@@ -751,7 +751,7 @@ export const sdLesson2_3: CoursivLesson = {
     createPlaygroundBlock(
       'Using Img2Img',
       'Configure img2img for different purposes.',
-      { name: 'Stable Diffusion', icon: '🎨' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
       'For [purpose], set denoising strength to [strength]. This will [effect].',
       [
         { id: 'purpose', placeholder: 'purpose', correctAnswer: 'subtle style changes' },
@@ -864,7 +864,7 @@ export const sdLesson2_4: CoursivLesson = {
     createPlaygroundBlock(
       'Using ControlNet',
       'Choose the right ControlNet for your needs.',
-      { name: 'Stable Diffusion', icon: '🎨' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
       'For [goal], I should use [controlnet_type] ControlNet with weight [weight].',
       [
         { id: 'goal', placeholder: 'goal', correctAnswer: 'matching a specific pose' },
@@ -1043,7 +1043,7 @@ export const sdLesson3_1: CoursivLesson = {
     createPlaygroundBlock(
       'Understanding ComfyUI',
       'Learn the basics of node-based workflows.',
-      { name: 'Stable Diffusion', icon: '🎨' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
       'In ComfyUI, [input_node] connects to [process_node] which outputs to [output_node].',
       [
         { id: 'input_node', placeholder: 'input node', correctAnswer: 'Load Checkpoint' },
@@ -1161,7 +1161,7 @@ export const sdLesson3_2: CoursivLesson = {
     createPlaygroundBlock(
       'Planning LoRA Training',
       'Understand the requirements for training.',
-      { name: 'Stable Diffusion', icon: '🎨' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
       'To train a [lora_type] LoRA, I need [requirement1] and [requirement2]. Training takes about [time].',
       [
         { id: 'lora_type', placeholder: 'LoRA type', correctAnswer: 'character' },
@@ -1290,7 +1290,7 @@ export const sdLesson3_3: CoursivLesson = {
     createPlaygroundBlock(
       'Production Planning',
       'Plan a production workflow.',
-      { name: 'Stable Diffusion', icon: '🎨' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
       'For [project_type], I need to [step1], then [step2], and finally [step3].',
       [
         { id: 'project_type', placeholder: 'project type', correctAnswer: 'a product photo series' },

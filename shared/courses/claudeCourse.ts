@@ -47,7 +47,7 @@ export const claudeLesson1_1: CoursivLesson = {
     createPlaygroundBlock(
       'Your First Claude Conversation',
       'Start a thoughtful conversation with Claude.',
-      { name: 'Claude', icon: '🤖' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
       'I need help [task]. Please consider [consideration] and provide [output_type].',
       [
         { id: 'task', placeholder: 'task', correctAnswer: 'analyzing this complex topic' },
@@ -134,7 +134,7 @@ export const claudeLesson1_2: CoursivLesson = {
     createPlaygroundBlock(
       'Crafting Clear Requests',
       'Practice making clear, contextual requests to Claude.',
-      { name: 'Claude', icon: '🤖' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
       'I am a [role] working on [project]. I need you to [task] while keeping in mind [constraint].',
       [
         { id: 'role', placeholder: 'role', correctAnswer: 'product manager' },
@@ -219,7 +219,7 @@ export const claudeLesson1_3: CoursivLesson = {
     createPlaygroundBlock(
       'Requesting Analysis',
       'Ask Claude to perform a specific type of analysis.',
-      { name: 'Claude', icon: '🤖' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
       'Please perform a [analysis_type] analysis of [subject]. Focus on [focus_area] and present findings as [format].',
       [
         { id: 'analysis_type', placeholder: 'analysis type', correctAnswer: 'comparative' },
@@ -380,7 +380,7 @@ export const claudeLesson2_1: CoursivLesson = {
     createPlaygroundBlock(
       'Analyzing Long Documents',
       'Structure a request for long document analysis.',
-      { name: 'Claude', icon: '🤖' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
       'I\'ve uploaded a [document_type]. Please [primary_task] and then [secondary_task]. Focus especially on [focus_area].',
       [
         { id: 'document_type', placeholder: 'document type', correctAnswer: '50-page research report' },
@@ -479,7 +479,7 @@ export const claudeLesson2_2: CoursivLesson = {
     createPlaygroundBlock(
       'Requesting Code Review',
       'Ask Claude to review code with specific focus areas.',
-      { name: 'Claude', icon: '🤖' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
       'Please review this [code_type] code. Focus on [focus1] and [focus2]. Suggest improvements for [improvement_area].',
       [
         { id: 'code_type', placeholder: 'code type', correctAnswer: 'Python API' },
@@ -600,7 +600,7 @@ export const claudeLesson2_3: CoursivLesson = {
     createPlaygroundBlock(
       'Research Assistance',
       'Ask Claude to help with a research task.',
-      { name: 'Claude', icon: '🤖' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
       'I\'m researching [topic]. Please help me [task] by [approach]. I need this for [purpose].',
       [
         { id: 'topic', placeholder: 'topic', correctAnswer: 'AI ethics in healthcare' },
@@ -762,7 +762,7 @@ export const claudeLesson3_1: CoursivLesson = {
     createPlaygroundBlock(
       'Understanding API Calls',
       'Learn the structure of Claude API requests.',
-      { name: 'Claude', icon: '🤖' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
       'To call the Claude API, I need to specify the [component1], provide [component2], and set [component3] for response length.',
       [
         { id: 'component1', placeholder: 'component 1', correctAnswer: 'model version' },
@@ -873,7 +873,7 @@ export const claudeLesson3_2: CoursivLesson = {
     createPlaygroundBlock(
       'Enterprise Implementation',
       'Plan an enterprise Claude implementation.',
-      { name: 'Claude', icon: '🤖' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
       'For our [department], we could implement Claude to [use_case]. This would improve [benefit] while ensuring [safeguard].',
       [
         { id: 'department', placeholder: 'department', correctAnswer: 'legal team' },

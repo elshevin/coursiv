@@ -23,15 +23,16 @@ import {
 export const chatgptLesson1_1: CoursivLesson = {
   id: 'chatgpt-1-1',
   courseId: 'chatgpt',
-  title: "ChatGPT's Brain",
-  subtitle: 'Understanding how ChatGPT thinks',
+  title: "What is ChatGPT?",
+  subtitle: 'Understanding the AI that changed everything',
   blocks: [
     createTextBlock(
-      "What is ChatGPT?",
+      "Meet ChatGPT",
       "🧠",
       [
-        "ChatGPT is an AI language model developed by OpenAI. It's designed to understand and generate human-like text based on the input it receives.",
-        "Think of it as a very sophisticated autocomplete system that has read billions of pages of text and learned patterns in human language.",
+        "ChatGPT is an AI language model developed by OpenAI that launched in November 2022 and quickly became the fastest-growing consumer application in history, reaching 100 million users in just two months.",
+        "At its core, ChatGPT is designed to understand and generate human-like text based on the input it receives. Think of it as a highly sophisticated conversation partner that has read billions of pages of text and learned patterns in human language.",
+        "Unlike traditional search engines that return links, ChatGPT provides direct, conversational answers tailored to your specific questions.",
       ]
     ),
     createTextBlock(
@@ -39,13 +40,36 @@ export const chatgptLesson1_1: CoursivLesson = {
       "⚙️",
       [
         "ChatGPT uses a technology called **transformers** to process and generate text. It doesn't actually \"think\" like humans do - instead, it predicts the most likely next words based on patterns it learned during training.",
-        "When you send a message, ChatGPT analyzes the context and generates a response word by word, always choosing what seems most appropriate based on its training.",
+        "When you send a message, ChatGPT analyzes the context and generates a response word by word, always choosing what seems most appropriate based on its training data.",
+        "The model was trained on a massive dataset of text from the internet, books, and other sources, allowing it to understand context, follow instructions, and generate coherent responses on virtually any topic.",
+      ]
+    ),
+    createTextBlock(
+      "What Can ChatGPT Do?",
+      "💡",
+      [
+        "ChatGPT excels at a wide variety of tasks that involve language:",
+        "**Writing & Editing**: Draft emails, essays, reports, creative stories, and more. It can also proofread and improve your existing text.",
+        "**Learning & Research**: Explain complex topics in simple terms, summarize articles, and help you understand new concepts.",
+        "**Problem Solving**: Brainstorm ideas, analyze problems, and suggest solutions from multiple perspectives.",
+        "**Coding Help**: Write, debug, and explain code in dozens of programming languages.",
+      ]
+    ),
+    createTextBlock(
+      "Important Limitations",
+      "⚠️",
+      [
+        "While ChatGPT is powerful, it's important to understand its limitations:",
+        "**Knowledge Cutoff**: ChatGPT's training data has a cutoff date, so it may not know about very recent events.",
+        "**No Internet Access**: The base version cannot browse the web or access real-time information.",
+        "**Can Make Mistakes**: ChatGPT can sometimes generate incorrect or misleading information with confidence. Always verify important facts.",
+        "**No Memory Between Sessions**: Each conversation starts fresh - ChatGPT doesn't remember previous chats unless you're using specific features.",
       ]
     ),
     createPlaygroundBlock(
       'Your First Prompt',
       'Send a simple question to ChatGPT. Choose the best way to ask for help with dinner.',
-      { name: 'ChatGPT', icon: '💬' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
       'Help me [action] for dinner tonight.',
       [
         { id: 'action', placeholder: 'action', correctAnswer: 'order a pizza' }
@@ -72,15 +96,22 @@ export const chatgptLesson1_1: CoursivLesson = {
 
 Would you like me to help you place an order? Just let me know your preferred toppings and any dietary restrictions!`
     , true),
-    createFeedbackBlock(
-      'Was this exercise helpful?',
-      ['Yes', 'Somewhat', 'No'],
-      0
+    createQuizBlock(
+      'Which of the following is NOT a limitation of ChatGPT?',
+      [
+        'It cannot access the internet in real-time',
+        'It may generate incorrect information',
+        'It cannot understand multiple languages',
+        'It has a knowledge cutoff date'
+      ],
+      2,
+      'ChatGPT actually supports over 50 languages! The other options are real limitations you should be aware of.',
+      'Think about what ChatGPT can and cannot do based on what you learned.'
     ),
     createDiscoveryBlock(
       1,
-      'First Discovery',
-      'ChatGPT is a language model that predicts text based on patterns learned from training data.'
+      'Key Takeaway',
+      'ChatGPT is a powerful language model that can help with writing, learning, and problem-solving, but always verify important information it provides.'
     ),
   ],
 };
@@ -89,29 +120,53 @@ export const chatgptLesson1_2: CoursivLesson = {
   id: 'chatgpt-1-2',
   courseId: 'chatgpt',
   title: 'Creating Your First Prompt',
-  subtitle: 'Learn the basics of prompt writing',
+  subtitle: 'Master the art of talking to AI',
   blocks: [
     createTextBlock(
-      "The Art of Prompting",
+      "What is a Prompt?",
       "✍️",
       [
-        "A **prompt** is simply the text you send to ChatGPT. The quality of your prompt directly affects the quality of the response you'll receive.",
-        "Good prompts are clear, specific, and provide enough context for ChatGPT to understand what you need.",
+        "A **prompt** is simply the text you send to ChatGPT. Think of it as your instruction manual for the AI - the clearer and more detailed your instructions, the better the results.",
+        "The quality of your prompt directly affects the quality of the response you'll receive. A vague prompt gets a vague answer; a specific prompt gets a useful answer.",
+        "Learning to write effective prompts is the single most important skill for getting value from ChatGPT and other AI tools.",
       ]
     ),
     createTextBlock(
-      "Key Elements of a Good Prompt",
+      "The Anatomy of a Good Prompt",
       "🔑",
       [
-        "**1. Be Specific**: Instead of 'Tell me about dogs', try 'Explain the key differences between Golden Retrievers and Labrador Retrievers'.",
-        "**2. Provide Context**: Tell ChatGPT who you are, what you're trying to accomplish, and any constraints you have.",
-        "**3. Set the Format**: If you want a list, bullet points, or a specific structure, ask for it explicitly.",
+        "Every effective prompt contains some combination of these key elements:",
+        "**1. Context**: Background information that helps ChatGPT understand your situation. Example: 'I'm a marketing manager at a small startup...'",
+        "**2. Task**: A clear statement of what you want ChatGPT to do. Example: '...write a product announcement email...'",
+        "**3. Constraints**: Any limitations or requirements. Example: '...that's under 200 words and sounds professional but friendly.'",
+        "**4. Format**: How you want the output structured. Example: 'Include a subject line, greeting, body, and call-to-action.'",
+      ]
+    ),
+    createTextBlock(
+      "Good vs. Bad Prompts",
+      "📊",
+      [
+        "Let's compare some examples to see the difference:",
+        "**Bad**: 'Tell me about dogs' → Too vague, ChatGPT doesn't know what aspect you're interested in.",
+        "**Good**: 'Explain the key differences between Golden Retrievers and Labrador Retrievers in terms of temperament, exercise needs, and grooming requirements.'",
+        "**Bad**: 'Write an email' → No context about purpose, tone, or recipient.",
+        "**Good**: 'Write a professional follow-up email to a potential client I met at a conference yesterday. Keep it brief and suggest a 15-minute call next week.'",
+      ]
+    ),
+    createTextBlock(
+      "Pro Tips for Better Prompts",
+      "💡",
+      [
+        "**Be Specific About Length**: Say 'in 3 paragraphs' or 'in under 100 words' to control output length.",
+        "**Specify the Audience**: 'Explain this to a 10-year-old' vs 'Explain this to a PhD student' will give very different responses.",
+        "**Ask for Multiple Options**: 'Give me 5 different approaches to...' helps you explore possibilities.",
+        "**Use Examples**: 'Write something similar to this example: [your example]' helps ChatGPT understand your style.",
       ]
     ),
     createPlaygroundBlock(
       'Building a Complete Prompt',
       'Create a well-structured prompt by filling in the blanks.',
-      { name: 'ChatGPT', icon: '💬' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
       'I am a [role]. Please help me [task] in a [format] format.',
       [
         { id: 'role', placeholder: 'role', correctAnswer: 'student' },
@@ -138,15 +193,22 @@ export const chatgptLesson1_2: CoursivLesson = {
 
 Just paste the article you'd like me to summarize, and I'll create a clear, organized bullet-point summary for you!`
     , true),
-    createFeedbackBlock(
-      'How clear was this lesson?',
-      ['Very clear', 'Somewhat clear', 'Confusing'],
-      0
+    createQuizBlock(
+      'Which prompt is most likely to get a useful response?',
+      [
+        'Help me with my presentation',
+        'Write something about climate change',
+        'As a high school teacher, create a 5-question quiz about photosynthesis for 10th graders',
+        'Tell me about business'
+      ],
+      2,
+      'This prompt includes context (high school teacher), a specific task (create a quiz), constraints (5 questions, about photosynthesis), and audience (10th graders).',
+      'Look for the prompt that includes the most specific details about context, task, and requirements.'
     ),
     createDiscoveryBlock(
       2,
-      'Prompt Structure',
-      'The best prompts include: your role, the specific task, and the desired output format.'
+      'The Prompt Formula',
+      'Context + Task + Constraints + Format = Great Prompt. The more specific you are, the better results you\'ll get.'
     ),
   ],
 };
@@ -155,29 +217,56 @@ export const chatgptLesson1_3: CoursivLesson = {
   id: 'chatgpt-1-3',
   courseId: 'chatgpt',
   title: 'Understanding Responses',
-  subtitle: 'How to interpret and refine AI responses',
+  subtitle: 'How to interpret, evaluate, and refine AI outputs',
   blocks: [
     createTextBlock(
-      "Reading AI Responses",
+      "Reading AI Responses Critically",
       "📖",
       [
-        "ChatGPT's responses are generated based on patterns in its training data. This means responses can be helpful, but they're not always perfect.",
-        "Learning to evaluate and refine responses is a crucial skill for getting the most out of AI assistants.",
+        "ChatGPT's responses are generated based on patterns in its training data. While often helpful, they're not always perfect or accurate.",
+        "Think of ChatGPT as a knowledgeable assistant who sometimes makes mistakes. Your job is to evaluate the response and determine if it meets your needs.",
+        "Learning to critically evaluate and refine responses is a crucial skill that separates casual users from power users.",
       ]
     ),
     createTextBlock(
-      "When to Ask for Clarification",
-      "🔍",
+      "Signs of a Good Response",
+      "✅",
       [
-        "If a response is too vague, ask ChatGPT to be more specific or provide examples.",
-        "If a response is too long, ask for a shorter summary or the key points only.",
-        "If something seems incorrect, ask ChatGPT to verify or provide sources.",
+        "A good response from ChatGPT typically has these qualities:",
+        "**Relevance**: It directly addresses your question or request.",
+        "**Clarity**: The information is well-organized and easy to understand.",
+        "**Completeness**: It covers all aspects of your request without major gaps.",
+        "**Accuracy**: The facts and logic are correct (always verify important information!).",
+        "**Appropriate Tone**: The style matches what you asked for (formal, casual, technical, etc.).",
+      ]
+    ),
+    createTextBlock(
+      "Common Issues and How to Fix Them",
+      "🛠️",
+      [
+        "**Too Vague?** Ask: 'Can you be more specific about [topic]?' or 'Give me concrete examples.'",
+        "**Too Long?** Ask: 'Summarize this in 3 bullet points' or 'Give me just the key takeaways.'",
+        "**Wrong Tone?** Ask: 'Rewrite this in a more [formal/casual/friendly] tone.'",
+        "**Missing Information?** Ask: 'You didn't mention [topic]. Can you add that?'",
+        "**Seems Wrong?** Ask: 'Can you verify this information?' or 'What's your source for this?'",
+      ]
+    ),
+    createTextBlock(
+      "The Art of Follow-Up Questions",
+      "🔄",
+      [
+        "The conversation doesn't end with the first response. Great results often come from follow-up questions:",
+        "**Drill Down**: 'Tell me more about point #2' - Get deeper into specific areas.",
+        "**Expand**: 'What other options are there?' - Explore alternatives.",
+        "**Clarify**: 'What do you mean by [term]?' - Ensure you understand.",
+        "**Apply**: 'How would this work in my specific situation?' - Make it practical.",
+        "**Challenge**: 'What are the downsides of this approach?' - Get a balanced view.",
       ]
     ),
     createPlaygroundBlock(
       'Refining a Response',
       'Practice asking ChatGPT to improve its response.',
-      { name: 'ChatGPT', icon: '💬' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
       'That was helpful, but can you make it [modifier] and add [addition]?',
       [
         { id: 'modifier', placeholder: 'modifier', correctAnswer: 'shorter' },
@@ -205,15 +294,22 @@ export const chatgptLesson1_3: CoursivLesson = {
 
 Need more examples for any specific use case?`
     , true),
-    createFeedbackBlock(
-      'Did this help you understand response refinement?',
-      ['Yes, very helpful', 'Somewhat helpful', 'Need more practice'],
-      0
+    createQuizBlock(
+      'What should you do if ChatGPT\'s response seems too general?',
+      [
+        'Accept it as is - AI knows best',
+        'Start a completely new conversation',
+        'Ask for more specific details or concrete examples',
+        'Ignore the response and search Google instead'
+      ],
+      2,
+      'Follow-up questions are your best tool! Ask ChatGPT to be more specific, provide examples, or focus on particular aspects of your question.',
+      'Think about how you would ask a colleague to clarify a vague answer.'
     ),
     createDiscoveryBlock(
       3,
       'Iteration is Key',
-      'The best results come from refining your prompts based on the responses you receive.'
+      'The best results come from a conversation, not a single prompt. Don\'t be afraid to ask follow-up questions and refine the response until it meets your needs.'
     ),
   ],
 };
@@ -244,7 +340,7 @@ export const chatgptLesson1_4: CoursivLesson = {
     createPlaygroundBlock(
       'Using Role Assignment',
       'Practice assigning a role to get expert-level responses.',
-      { name: 'ChatGPT', icon: '💬' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
       'Act as a [role] and help me [task]. Consider [consideration].',
       [
         { id: 'role', placeholder: 'role', correctAnswer: 'financial advisor' },
@@ -390,7 +486,7 @@ export const chatgptLesson2_1: CoursivLesson = {
     createPlaygroundBlock(
       'Creating an Expert Persona',
       'Define a detailed role for ChatGPT to assume.',
-      { name: 'ChatGPT', icon: '💬' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
       'You are a [expertise] with [experience]. Your communication style is [style]. Help me with [task].',
       [
         { id: 'expertise', placeholder: 'expertise', correctAnswer: 'UX designer' },
@@ -461,7 +557,7 @@ export const chatgptLesson2_2: CoursivLesson = {
     createPlaygroundBlock(
       'Applying Chain of Thought',
       'Use CoT to solve a complex problem.',
-      { name: 'ChatGPT', icon: '💬' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
       'I need to [task]. Please [approach] and [verification].',
       [
         { id: 'task', placeholder: 'task', correctAnswer: 'calculate my monthly expenses' },
@@ -543,7 +639,7 @@ export const chatgptLesson2_3: CoursivLesson = {
     createPlaygroundBlock(
       'Using Few-Shot Learning',
       'Provide examples to guide ChatGPT\'s output.',
-      { name: 'ChatGPT', icon: '💬' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
       'Here are examples of [content_type]:\n\nExample 1: [example1]\nExample 2: [example2]\n\nNow create a similar one for [topic].',
       [
         { id: 'content_type', placeholder: 'content type', correctAnswer: 'product descriptions' },
@@ -620,7 +716,7 @@ export const chatgptLesson2_4: CoursivLesson = {
     createPlaygroundBlock(
       'Managing Long Conversations',
       'Practice maintaining context in extended discussions.',
-      { name: 'ChatGPT', icon: '💬' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
       'Before we continue, let me [action]: [summary]. Now, regarding [next_topic]...',
       [
         { id: 'action', placeholder: 'action', correctAnswer: 'summarize our discussion' },
@@ -701,7 +797,7 @@ export const chatgptLesson2_5: CoursivLesson = {
     createPlaygroundBlock(
       'Creating Content',
       'Use ChatGPT to write professional content.',
-      { name: 'ChatGPT', icon: '💬' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
       'Write a [content_type] about [topic]. The tone should be [tone] and the target audience is [audience].',
       [
         { id: 'content_type', placeholder: 'content type', correctAnswer: 'blog post introduction' },
@@ -854,7 +950,7 @@ export const chatgptLesson3_1: CoursivLesson = {
     createPlaygroundBlock(
       'Understanding API Calls',
       'Learn the structure of an API request.',
-      { name: 'ChatGPT', icon: '💬' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
       'To make an API call, I need to specify the [component1], set the [component2], and include my [component3].',
       [
         { id: 'component1', placeholder: 'component 1', correctAnswer: 'model name' },
@@ -939,7 +1035,7 @@ export const chatgptLesson3_2: CoursivLesson = {
     createPlaygroundBlock(
       'Creating Custom Instructions',
       'Design effective custom instructions for your needs.',
-      { name: 'ChatGPT', icon: '💬' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
       'About me: I am a [profession] who prefers [preference]. When responding, always [behavior] and avoid [constraint].',
       [
         { id: 'profession', placeholder: 'profession', correctAnswer: 'software developer' },
@@ -1019,7 +1115,7 @@ export const chatgptLesson3_3: CoursivLesson = {
     createPlaygroundBlock(
       'Using Plugins Effectively',
       'Learn when and how to use ChatGPT plugins.',
-      { name: 'ChatGPT', icon: '💬' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
       'For this task, I should use the [plugin] plugin because I need to [capability]. This will help me [outcome].',
       [
         { id: 'plugin', placeholder: 'plugin', correctAnswer: 'Code Interpreter' },
@@ -1111,7 +1207,7 @@ export const chatgptLesson3_4: CoursivLesson = {
     createPlaygroundBlock(
       'Identifying Business Opportunities',
       'Find ChatGPT applications in your organization.',
-      { name: 'ChatGPT', icon: '💬' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
       'In my [department], we could use ChatGPT to [application]. This would save [benefit] and improve [outcome].',
       [
         { id: 'department', placeholder: 'department', correctAnswer: 'customer service' },
