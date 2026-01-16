@@ -58,7 +58,7 @@ export const mjLesson1_1: CoursivLesson = {
       'Midjourney loves descriptive, evocative language. Think artistically!',
       { title: 'Magical!', message: "You've created your first Midjourney prompt!" },
       { title: 'Try again', message: 'Use more evocative, artistic language.' },
-      undefined,
+      '/images/course/midjourney/mj-first-prompt.png',
       'Midjourney responds beautifully to evocative, artistic descriptions.',
       `🎨 **Midjourney Generation Started**
 
@@ -142,7 +142,7 @@ export const mjLesson1_2: CoursivLesson = {
       'The /imagine command is your gateway to creating images.',
       { title: 'Ready to create!', message: "You understand the basic command structure!" },
       { title: 'Try again', message: 'Remember: /imagine prompt: your description' },
-      undefined,
+      '/images/course/midjourney/mj-interface.png',
       'All Midjourney creation starts with /imagine prompt:',
       `📱 **Discord Command Reference**
 
@@ -225,7 +225,7 @@ export const mjLesson1_3: CoursivLesson = {
       'Match the action to the correct command.',
       { title: 'Command master!', message: "You know your Midjourney commands!" },
       { title: 'Try again', message: 'Think about what each command does.' },
-      undefined,
+      '/images/course/midjourney/mj-commands.png',
       '/describe is incredibly useful for learning how to prompt by analyzing images you like.',
       `📚 **Command Deep Dive: /describe**
 
@@ -309,7 +309,7 @@ export const mjLesson1_4: CoursivLesson = {
       'Combine all elements for a complete, detailed prompt.',
       { title: 'Masterpiece incoming!', message: "You've created a professional-level prompt!" },
       { title: 'Try again', message: 'Make sure all elements complement each other.' },
-      undefined,
+      '/images/course/midjourney/mj-masterpiece.png',
       'Quality keywords like "highly detailed" and "8k" can significantly improve results.',
       `🐉 **Dragon Masterpiece Generation**
 
@@ -463,7 +463,7 @@ export const mjLesson2_1: CoursivLesson = {
       'Parameters go at the end of your prompt after --',
       { title: 'Parameter pro!', message: "You've mastered basic parameters!" },
       { title: 'Try again', message: 'Remember the format: --parameter value' },
-      undefined,
+      '/images/course/midjourney/mj-parameters.png',
       'Higher stylize values (--s) make images more artistic but less literal.',
       `⚙️ **Parameter Analysis**
 
@@ -551,7 +551,7 @@ export const mjLesson2_2: CoursivLesson = {
       'Style references let you borrow aesthetics from any image.',
       { title: 'Style master!', message: "You understand style references!" },
       { title: 'Try again', message: 'Remember to include the --sref parameter.' },
-      undefined,
+      '/images/course/midjourney/mj-style-ref.png',
       '--sw controls how strongly the style reference influences your image (0-1000).',
       `🎨 **Style Reference Guide**
 
@@ -643,7 +643,7 @@ export const mjLesson2_3: CoursivLesson = {
       'Match the aspect ratio to where the image will be used.',
       { title: 'Perfect format!', message: "You understand aspect ratios!" },
       { title: 'Try again', message: 'Think about where the image will be displayed.' },
-      undefined,
+      '/images/course/midjourney/mj-aspect-ratio.png',
       'Always consider the final use case when choosing aspect ratio.',
       `📐 **Aspect Ratio Guide**
 
@@ -733,7 +733,7 @@ export const mjLesson2_4: CoursivLesson = {
       'U = Upscale (high-res), V = Variation (alternatives)',
       { title: 'Refinement expert!', message: "You know how to perfect your images!" },
       { title: 'Try again', message: 'Remember: U for upscale, V for variations.' },
-      undefined,
+      '/images/course/midjourney/mj-refine.png',
       'Always upscale your final choice before downloading for best quality.',
       `🔍 **Refinement Workflow**
 
@@ -902,7 +902,7 @@ export const mjLesson3_1: CoursivLesson = {
       'Higher weights make concepts more prominent in the final image.',
       { title: 'Multi-prompt master!', message: "You've learned advanced prompt weighting!" },
       { title: 'Try again', message: 'Remember: higher numbers = more influence.' },
-      undefined,
+      '/images/course/midjourney/mj-multi-prompt.png',
       'Multi-prompting lets you blend concepts in precise ratios.',
       `🔀 **Multi-Prompt Analysis**
 
@@ -992,7 +992,7 @@ export const mjLesson3_2: CoursivLesson = {
       '--cref maintains character appearance across different scenes.',
       { title: 'Character consistent!', message: "You understand character consistency!" },
       { title: 'Try again', message: 'Use --cref with a reference image of your character.' },
-      undefined,
+      '/images/course/midjourney/mj-character.png',
       '--cw at 100 focuses on face, lower values include clothing and style.',
       `👤 **Character Consistency Guide**
 
@@ -1090,7 +1090,7 @@ export const mjLesson3_3: CoursivLesson = {
       'Professional projects require structured workflows for consistency.',
       { title: 'Professional approach!', message: "You understand commercial workflows!" },
       { title: 'Try again', message: 'Think about the logical order of professional work.' },
-      undefined,
+      '/images/course/midjourney/mj-commercial.png',
       'Always establish style first, then scale production.',
       `💼 **Commercial Project Workflow**
 

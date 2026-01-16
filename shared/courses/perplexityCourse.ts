@@ -56,7 +56,7 @@ export const perplexityLesson1_1: CoursivLesson = {
       'Ask specific questions for better answers.',
       { title: 'Great query!', message: "You've asked an effective question!" },
       { title: 'Try again', message: 'Be specific about what you want to know.' },
-      undefined,
+      '/images/course/perplexity/perplexity-first.png',
       'Perplexity works best with specific, well-formed questions.',
       `🔍 **Perplexity Search Results**
 
@@ -149,7 +149,7 @@ export const perplexityLesson1_2: CoursivLesson = {
       'Different modes are optimized for different types of queries.',
       { title: 'Mode selected!', message: "You understand Perplexity search modes!" },
       { title: 'Try again', message: 'Match the mode to your research needs.' },
-      undefined,
+      '/images/course/perplexity/perplexity-modes.png',
       'Pro Search is best for complex questions requiring multiple sources.',
       `🎯 **Search Mode Guide**
 
@@ -263,7 +263,7 @@ export const perplexityLesson1_3: CoursivLesson = {
       'Multiple factors determine source reliability.',
       { title: 'Source evaluator!', message: "You know how to assess sources!" },
       { title: 'Try again', message: 'Consider what makes a source trustworthy.' },
-      undefined,
+      '/images/course/perplexity/perplexity-sources.png',
       'Always click through to sources for important research - don\'t just trust the summary.',
       `📚 **Source Evaluation Framework**
 
@@ -428,7 +428,7 @@ export const perplexityLesson2_1: CoursivLesson = {
       'Pro Search works best with multi-faceted questions.',
       { title: 'Pro researcher!', message: "You've crafted an excellent Pro Search query!" },
       { title: 'Try again', message: 'Include multiple aspects in your question.' },
-      undefined,
+      '/images/course/perplexity/perplexity-pro.png',
       'Pro Search can handle complex, multi-part questions better than Quick Search.',
       `🔬 **Pro Search Deep Dive**
 
@@ -537,7 +537,7 @@ export const perplexityLesson2_2: CoursivLesson = {
       'Collections help maintain context and organization.',
       { title: 'Organized!', message: "You understand Collections!" },
       { title: 'Try again', message: 'Think about the benefits of organized research.' },
-      undefined,
+      '/images/course/perplexity/perplexity-collections.png',
       'Collections maintain context, so follow-up questions understand previous research.',
       `📁 **Collections Guide**
 
@@ -656,7 +656,7 @@ export const perplexityLesson2_3: CoursivLesson = {
       'The API enables programmatic access to Perplexity\'s capabilities.',
       { title: 'API ready!', message: "You understand the Perplexity API!" },
       { title: 'Try again', message: 'Think about what the API enables.' },
-      undefined,
+      '/images/course/perplexity/perplexity-api.png',
       'The API is great for building research tools and automating information gathering.',
       `🔌 **Perplexity API Guide**
 

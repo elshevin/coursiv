@@ -59,7 +59,7 @@ export const sdLesson1_1: CoursivLesson = {
       'SD prompts are comma-separated descriptors.',
       { title: 'Great prompt!', message: "You've created your first SD prompt!" },
       { title: 'Try again', message: 'Use comma-separated descriptive terms.' },
-      undefined,
+      '/images/course/stable-diffusion/sd-first-prompt.png',
       'Stable Diffusion prompts work best with comma-separated descriptive terms.',
       `🎨 **Stable Diffusion Generation**
 
@@ -157,7 +157,7 @@ export const sdLesson1_2: CoursivLesson = {
       'Match your setup to your needs and technical level.',
       { title: 'Good choice!', message: "You've selected an appropriate setup!" },
       { title: 'Try again', message: 'Consider your use case and technical requirements.' },
-      undefined,
+      '/images/course/stable-diffusion/sd-setup.png',
       'Automatic1111 is the most popular local option due to its features and community support.',
       `🖥️ **Setup Comparison Guide**
 
@@ -257,7 +257,7 @@ export const sdLesson1_3: CoursivLesson = {
       'Balance quality and speed with your parameter choices.',
       { title: 'Parameter pro!', message: "You understand SD parameters!" },
       { title: 'Try again', message: 'Match parameters to your quality goals.' },
-      undefined,
+      '/images/course/stable-diffusion/sd-parameters.png',
       'DPM++ 2M Karras at 30 steps with CFG 7 is a great starting point for most images.',
       `⚙️ **Parameter Deep Dive**
 
@@ -363,7 +363,7 @@ export const sdLesson1_4: CoursivLesson = {
       'Negative prompts help avoid common SD issues.',
       { title: 'Negative prompt master!', message: "You know how to avoid unwanted elements!" },
       { title: 'Try again', message: 'Include quality, anatomy, and element issues.' },
-      undefined,
+      '/images/course/stable-diffusion/sd-negative.png',
       'A good negative prompt is as important as a good positive prompt.',
       `🚫 **Negative Prompt Guide**
 
@@ -539,7 +539,7 @@ export const sdLesson2_1: CoursivLesson = {
       'Different models excel at different styles and subjects.',
       { title: 'Model expert!', message: "You understand SD model selection!" },
       { title: 'Try again', message: 'Match the model to your specific use case.' },
-      undefined,
+      '/images/course/stable-diffusion/sd-models.png',
       'Choosing the right model is often more important than prompt engineering.',
       `🧠 **Model Selection Guide**
 
@@ -650,7 +650,7 @@ export const sdLesson2_2: CoursivLesson = {
       'LoRAs are added to prompts with <lora:name:weight> syntax.',
       { title: 'LoRA loaded!', message: "You understand how to use LoRAs!" },
       { title: 'Try again', message: 'Use the <lora:name:weight> syntax.' },
-      undefined,
+      '/images/course/stable-diffusion/sd-lora.png',
       'LoRA weights between 0.5-0.8 usually work best; 1.0 can be too strong.',
       `🔌 **LoRA & Embedding Guide**
 
@@ -762,7 +762,7 @@ export const sdLesson2_3: CoursivLesson = {
       'Denoising strength controls how much the image changes.',
       { title: 'Img2Img ready!', message: "You understand img2img settings!" },
       { title: 'Try again', message: 'Match denoising strength to your goal.' },
-      undefined,
+      '/images/course/stable-diffusion/sd-img2img.png',
       'Lower denoising = subtle changes, higher denoising = major transformations.',
       `🔄 **Img2Img Mastery**
 
@@ -875,7 +875,7 @@ export const sdLesson2_4: CoursivLesson = {
       'Different ControlNets serve different purposes.',
       { title: 'ControlNet ready!', message: "You understand ControlNet selection!" },
       { title: 'Try again', message: 'Match the ControlNet type to your control needs.' },
-      undefined,
+      '/images/course/stable-diffusion/sd-controlnet.png',
       'OpenPose is essential for consistent character poses across multiple images.',
       `🎯 **ControlNet Mastery**
 
@@ -1054,7 +1054,7 @@ export const sdLesson3_1: CoursivLesson = {
       'ComfyUI uses nodes connected in a pipeline.',
       { title: 'Node master!', message: "You understand ComfyUI basics!" },
       { title: 'Try again', message: 'Think about the flow: load → process → output.' },
-      undefined,
+      '/images/course/stable-diffusion/sd-comfyui.png',
       'ComfyUI workflows are shareable - you can import complex setups with one click.',
       `🔗 **ComfyUI Workflow Guide**
 
@@ -1173,7 +1173,7 @@ export const sdLesson3_2: CoursivLesson = {
       'Training requirements vary by LoRA type.',
       { title: 'Training ready!', message: "You understand LoRA training basics!" },
       { title: 'Try again', message: 'Consider image count, captions, and time.' },
-      undefined,
+      '/images/course/stable-diffusion/sd-lora-training.png',
       'Quality of training images matters more than quantity.',
       `🎓 **LoRA Training Guide**
 
@@ -1302,7 +1302,7 @@ export const sdLesson3_3: CoursivLesson = {
       'Production workflows require planning and consistency.',
       { title: 'Production ready!', message: "You understand production workflows!" },
       { title: 'Try again', message: 'Think about the logical order of production steps.' },
-      undefined,
+      '/images/course/stable-diffusion/sd-production.png',
       'Consistency in settings and prompts is key to professional results.',
       `🏭 **Production Workflow Guide**
 

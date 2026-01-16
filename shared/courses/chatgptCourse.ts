@@ -54,7 +54,7 @@ export const chatgptLesson1_1: CoursivLesson = {
       'Think about what action you want ChatGPT to help you with. The most direct request usually works best.',
       { title: 'Great!', message: "You've sent your first prompt to ChatGPT!" },
       { title: 'Incorrect', message: 'Try choosing a more specific action.' },
-      '/images/chatgpt-result.png',
+      '/images/course/chatgpt/chatgpt-complete-prompt.png',
       'ChatGPT works best when you give it clear, specific instructions!',
       `I'd be happy to help you order a pizza for dinner! Here are some popular options near you:
 
@@ -122,7 +122,7 @@ export const chatgptLesson1_2: CoursivLesson = {
       'Think about who you are, what you need, and how you want the output formatted.',
       { title: 'Perfect!', message: "You've created a well-structured prompt!" },
       { title: 'Try Again', message: 'Make sure each part of the prompt makes sense together.' },
-      undefined,
+      '/images/course/chatgpt/chatgpt-complete-prompt.png',
       'Always include your role, task, and desired format for best results!',
       `Of course! As a student, I'd be happy to help you summarize articles in bullet point format. Here's how I'll structure the summary:
 
@@ -187,7 +187,7 @@ export const chatgptLesson1_3: CoursivLesson = {
       'Think about what would make the response more useful for you.',
       { title: 'Excellent!', message: "You've learned to refine AI responses!" },
       { title: 'Not quite', message: 'Try different combinations to improve the response.' },
-      undefined,
+      '/images/course/chatgpt/chatgpt-refine.png',
       'Don\'t hesitate to ask ChatGPT to modify its responses - iteration is key!',
       `Absolutely! Here's a shorter version with examples:
 
@@ -255,7 +255,7 @@ export const chatgptLesson1_4: CoursivLesson = {
       'Choose a role that matches the expertise you need for your task.',
       { title: 'Well done!', message: "You've mastered role assignment!" },
       { title: 'Try again', message: 'Make sure the role matches the task you need help with.' },
-      undefined,
+      '/images/course/chatgpt/chatgpt-role.png',
       'Role assignment helps ChatGPT provide more focused, expert-level responses.',
       `As your financial advisor, I'd be happy to help you create a budget tailored to your income level. Here's a personalized approach:
 
@@ -402,7 +402,7 @@ export const chatgptLesson2_1: CoursivLesson = {
       'Think about what expertise you need and how you want the expert to communicate.',
       { title: 'Excellent!', message: "You've created a detailed expert persona!" },
       { title: 'Try again', message: 'Make sure all parts of the persona work together.' },
-      undefined,
+      '/images/course/chatgpt/chatgpt-persona.png',
       'Detailed personas lead to more focused and relevant responses.',
       `Hello! I'm excited to help you improve your app design. With 8 years of UX experience, I've seen what works and what doesn't.
 
@@ -472,7 +472,7 @@ export const chatgptLesson2_2: CoursivLesson = {
       'Think about how to structure a complex problem into manageable steps.',
       { title: 'Perfect!', message: "You've mastered Chain of Thought prompting!" },
       { title: 'Not quite', message: 'Try using step-by-step language in your prompt.' },
-      undefined,
+      '/images/course/chatgpt/chatgpt-cot.png',
       'Chain of Thought is especially powerful for math, logic, and planning tasks.',
       `I'll help you calculate your monthly expenses step by step, showing my reasoning throughout.
 
@@ -555,7 +555,7 @@ export const chatgptLesson2_3: CoursivLesson = {
       'Provide clear examples that demonstrate the pattern you want ChatGPT to follow.',
       { title: 'Great job!', message: "You've learned few-shot prompting!" },
       { title: 'Try again', message: 'Make sure your examples clearly show the pattern.' },
-      undefined,
+      '/images/course/chatgpt/chatgpt-few-shot.png',
       'The quality of your examples directly affects the quality of the output.',
       `Based on your examples, I can see you want concise, benefit-focused product descriptions. Here's one for wireless headphones:
 
@@ -631,7 +631,7 @@ export const chatgptLesson2_4: CoursivLesson = {
       'Periodically summarizing helps maintain context in long conversations.',
       { title: 'Excellent!', message: "You've learned to manage conversation context!" },
       { title: 'Try again', message: 'Try summarizing before moving to new topics.' },
-      undefined,
+      '/images/course/chatgpt/chatgpt-long-conv.png',
       'Regular summaries prevent important details from being lost in long conversations.',
       `Great approach! Here's my summary of our discussion:
 
@@ -713,7 +713,7 @@ export const chatgptLesson2_5: CoursivLesson = {
       'Specify the content type, topic, tone, and audience for best results.',
       { title: 'Well done!', message: "You've created professional content with ChatGPT!" },
       { title: 'Try again', message: 'Be more specific about your content requirements.' },
-      undefined,
+      '/images/course/chatgpt/chatgpt-content.png',
       'Always specify tone and audience when requesting written content.',
       `Here's a blog post introduction tailored for busy professionals:
 
@@ -865,7 +865,7 @@ export const chatgptLesson3_1: CoursivLesson = {
       'Think about the essential components of an API request.',
       { title: 'Correct!', message: "You understand API request structure!" },
       { title: 'Not quite', message: 'Review the key components of API calls.' },
-      undefined,
+      '/images/course/chatgpt/chatgpt-api.png',
       'The API gives you programmatic control over ChatGPT\'s behavior.',
       `Great question! Here's a complete breakdown of making an API call:
 
@@ -951,7 +951,7 @@ export const chatgptLesson3_2: CoursivLesson = {
       'Think about what information would help ChatGPT serve you better consistently.',
       { title: 'Perfect!', message: "You've created effective custom instructions!" },
       { title: 'Try again', message: 'Make sure your instructions are specific and actionable.' },
-      undefined,
+      '/images/course/chatgpt/chatgpt-custom.png',
       'Good custom instructions save time and improve response quality across all conversations.',
       `Excellent custom instructions! Here's how I'll apply them:
 
@@ -1030,7 +1030,7 @@ export const chatgptLesson3_3: CoursivLesson = {
       'Match the plugin to the specific capability you need.',
       { title: 'Great choice!', message: "You've selected the right plugin for the task!" },
       { title: 'Try again', message: 'Think about which plugin provides the capability you need.' },
-      undefined,
+      '/images/course/chatgpt/chatgpt-plugins.png',
       'Choose plugins based on the specific capabilities your task requires.',
       `Perfect plugin choice! Here's how Code Interpreter will help:
 
@@ -1123,7 +1123,7 @@ export const chatgptLesson3_4: CoursivLesson = {
       'Think about repetitive tasks in your organization that could benefit from AI assistance.',
       { title: 'Excellent!', message: "You've identified a valuable business application!" },
       { title: 'Try again', message: 'Focus on specific, measurable benefits.' },
-      undefined,
+      '/images/course/chatgpt/chatgpt-business.png',
       'The best enterprise applications target repetitive tasks with clear ROI.',
       `Great use case identification! Here's a detailed implementation plan:
 
