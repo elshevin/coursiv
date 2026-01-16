@@ -8,8 +8,8 @@ export default function Login() {
   const [, setLocation] = useLocation();
   const { login, isLoading: authLoading } = useEmailAuth();
   
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('demo@coursiv.com');
+  const [password, setPassword] = useState('demo123');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
