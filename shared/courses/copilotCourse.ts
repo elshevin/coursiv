@@ -102,7 +102,7 @@ Your Code + Comments + Context
 | Open Copilot panel | Ctrl + Enter |
 
 **Pro Tip:** Write clear comments describing what you want - Copilot reads them!`
-    ),
+    , true),
     createFeedbackBlock(
       'Are you excited to try Copilot?',
       ['Very excited', 'Curious', 'Already using it'],
@@ -210,7 +210,7 @@ function add(a, b) {
 - Wrong language? Copilot adapts to file extension
 
 **Pro Tip:** Also install "GitHub Copilot Chat" for conversational coding help!`
-    ),
+    , true),
     createFeedbackBlock(
       'Which editor do you use?',
       ['VS Code', 'JetBrains', 'Other'],
@@ -313,7 +313,7 @@ Suggestion 3: Using a library
 3. ✅ Include type hints when possible
 4. ✅ Review suggestions before accepting
 5. ❌ Don't accept blindly - verify logic`
-    ),
+    , true),
     createFeedbackBlock(
       'How natural does using Copilot feel?',
       ['Very natural', 'Getting used to it', 'Still learning'],
@@ -481,7 +481,7 @@ export const copilotLesson2_1: CoursivLesson = {
 \`\`\`
 
 **Pro Tip:** Use @workspace to ask questions about your entire project!`
-    ),
+    , true),
     createFeedbackBlock(
       'How useful is Copilot Chat?',
       ['Very useful', 'Somewhat useful', 'Haven\'t tried it'],
@@ -599,7 +599,7 @@ describe('validateEmail', () => {
 3. ✅ Verify mock behavior matches reality
 4. ✅ Run tests to confirm they pass
 5. ❌ Don't assume 100% coverage`
-    ),
+    , true),
     createFeedbackBlock(
       'Do you write tests regularly?',
       ['Yes, always', 'Sometimes', 'Rarely'],
@@ -717,7 +717,7 @@ def validate_email(email: str) -> bool:
 2. Review for accuracy - Copilot may guess wrong
 3. Add examples for complex functions
 4. Include edge cases in documentation`
-    ),
+    , true),
     createFeedbackBlock(
       'How often do you document your code?',
       ['Always', 'Sometimes', 'Rarely'],
@@ -880,7 +880,7 @@ The authentication flow:
 2. Be specific about what you're looking for
 3. Follow up with file-specific questions
 4. Use for onboarding to new projects`
-    ),
+    , true),
     createFeedbackBlock(
       'How useful is workspace context?',
       ['Very useful', 'Somewhat useful', 'Haven\'t tried it'],
@@ -1000,7 +1000,7 @@ When generating code:
 2. Update as your standards evolve
 3. Include examples for complex patterns
 4. Share with team for consistency`
-    ),
+    , true),
     createFeedbackBlock(
       'Do you have team coding standards?',
       ['Yes, detailed', 'Some guidelines', 'Not really'],
@@ -1113,7 +1113,7 @@ No Match → Allow
 - SOC 2: Audit trail requirements
 - HIPAA: PHI in code/comments
 - PCI-DSS: Payment data handling`
-    ),
+    , true),
     createFeedbackBlock(
       'Does your organization use Copilot?',
       ['Yes, enterprise', 'Individual licenses', 'Not yet'],

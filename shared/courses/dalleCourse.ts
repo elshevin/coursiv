@@ -53,7 +53,7 @@ export const dalleLesson1_1: CoursivLesson = {
         { id: 'setting', placeholder: 'setting', correctAnswer: 'garden' },
         { id: 'lighting', placeholder: 'lighting', correctAnswer: 'soft' }
       ],
-      ['watercolor', 'cat', 'garden', 'soft', 'oil', 'dog', 'city', 'dramatic'],
+      ['watercolor', 'cat', 'garden', 'soft'],
       'Think about the style, subject, setting, and lighting you want in your image.',
       { title: 'Beautiful!', message: "You've created your first DALL-E prompt!" },
       { title: 'Try again', message: 'Make sure all elements work together visually.' },
@@ -109,7 +109,7 @@ export const dalleLesson1_2: CoursivLesson = {
         { id: 'detail2', placeholder: 'detail 2', correctAnswer: 'golden sunset' },
         { id: 'composition', placeholder: 'composition', correctAnswer: 'wide angle shot' }
       ],
-      ['photorealistic', 'mountain landscape', 'snow-capped peaks', 'golden sunset', 'wide angle shot', 'digital art', 'forest scene', 'autumn colors', 'misty morning', 'close-up view'],
+      ['photorealistic', 'mountain landscape', 'snow-capped peaks', 'golden sunset', 'wide angle shot'],
       'Layer your description with style, subject, details, and composition.',
       { title: 'Stunning!', message: "You've created a detailed image prompt!" },
       { title: 'Try again', message: 'Make sure each element adds to the visual story.' },
@@ -190,7 +190,7 @@ export const dalleLesson1_3: CoursivLesson = {
         { id: 'lighting', placeholder: 'lighting', correctAnswer: 'warm candlelight' },
         { id: 'perspective', placeholder: 'perspective', correctAnswer: 'medium shot' }
       ],
-      ['a robot', 'reading a book', 'a cozy library', 'steampunk', 'warm candlelight', 'medium shot', 'a wizard', 'casting a spell', 'ancient ruins', 'fantasy', 'magical glow', 'low angle'],
+      ['a robot', 'reading a book', 'a cozy library', 'steampunk', 'warm candlelight', 'medium shot'],
       'Follow the formula: subject + action + environment + style + lighting + perspective.',
       { title: 'Perfect formula!', message: "You've mastered the prompt structure!" },
       { title: 'Try again', message: 'Make sure to include all elements of the formula.' },
@@ -338,7 +338,7 @@ export const dalleLesson2_1: CoursivLesson = {
         { id: 'technique', placeholder: 'technique', correctAnswer: 'visible brushstrokes' },
         { id: 'color_palette', placeholder: 'color palette', correctAnswer: 'warm golden' }
       ],
-      ['sunflower field', 'impressionism', 'visible brushstrokes', 'warm golden', 'city skyline', 'cyberpunk', 'neon glow', 'vibrant neon'],
+      ['sunflower field', 'impressionism', 'visible brushstrokes', 'warm golden'],
       'Combine style, technique, and color palette for cohesive results.',
       { title: 'Artistic!', message: "You've mastered style modifiers!" },
       { title: 'Try again', message: 'Make sure style elements complement each other.' },
@@ -424,7 +424,7 @@ export const dalleLesson2_2: CoursivLesson = {
         { id: 'framing', placeholder: 'framing', correctAnswer: 'natural arch' },
         { id: 'depth', placeholder: 'depth', correctAnswer: 'shallow' }
       ],
-      ['lone tree on a hill', 'rule of thirds', 'natural arch', 'shallow', 'lighthouse at sunset', 'centered symmetry', 'window', 'deep'],
+      ['lone tree on a hill', 'rule of thirds', 'natural arch', 'shallow'],
       'Combine composition rules with framing and depth for professional results.',
       { title: 'Well composed!', message: "You understand composition techniques!" },
       { title: 'Try again', message: 'Think about how these elements work together.' },
@@ -514,7 +514,7 @@ export const dalleLesson2_3: CoursivLesson = {
         { id: 'mood', placeholder: 'mood', correctAnswer: 'mysterious' },
         { id: 'time', placeholder: 'time', correctAnswer: 'rainy night' }
       ],
-      ['empty street', 'neon signs', 'mysterious', 'rainy night', 'forest path', 'dappled sunlight', 'peaceful', 'autumn afternoon'],
+      ['empty street', 'neon signs', 'mysterious', 'rainy night'],
       'Match lighting type with mood and time of day for cohesive atmosphere.',
       { title: 'Atmospheric!', message: "You've mastered lighting and mood!" },
       { title: 'Try again', message: 'Make sure lighting supports the mood you want.' },
@@ -603,7 +603,7 @@ export const dalleLesson2_4: CoursivLesson = {
         { id: 'replacement', placeholder: 'replacement', correctAnswer: 'a sunset beach' },
         { id: 'consistency', placeholder: 'consistency', correctAnswer: 'the lighting direction' }
       ],
-      ['inpaint', 'background', 'a sunset beach', 'the lighting direction', 'outpaint', 'left side', 'more forest', 'the color palette'],
+      ['inpaint', 'background', 'a sunset beach', 'the lighting direction'],
       'Consider what you want to change and what should stay consistent.',
       { title: 'Great edit plan!', message: "You understand image editing concepts!" },
       { title: 'Try again', message: 'Think about maintaining visual consistency.' },
@@ -771,7 +771,7 @@ export const dalleLesson3_1: CoursivLesson = {
         { id: 'lighting', placeholder: 'lighting', correctAnswer: 'natural window light' },
         { id: 'quality', placeholder: 'quality', correctAnswer: '8K ultra-detailed' }
       ],
-      ['portrait', 'Canon 5D Mark IV', '85mm', 'f/1.4', 'natural window light', '8K ultra-detailed', 'product', 'Hasselblad', '100mm macro', 'f/8', 'studio softbox', '4K sharp'],
+      ['portrait', 'Canon 5D Mark IV', '85mm', 'f/1.4', 'natural window light', '8K ultra-detailed'],
       'Use real camera terminology for authentic photorealistic results.',
       { title: 'Professional quality!', message: "You've mastered photorealistic prompts!" },
       { title: 'Try again', message: 'Use more specific photography terminology.' },
@@ -864,7 +864,7 @@ export const dalleLesson3_2: CoursivLesson = {
         { id: 'brand_feel', placeholder: 'brand feel', correctAnswer: 'luxury and premium' },
         { id: 'composition', placeholder: 'composition', correctAnswer: 'hero product centered' }
       ],
-      ['skincare product', 'minimalist white background', 'clean and modern', 'luxury and premium', 'hero product centered', 'tech gadget', 'lifestyle setting', 'bold and dynamic', 'innovative and cutting-edge', 'action shot'],
+      ['skincare product', 'minimalist white background', 'clean and modern', 'luxury and premium', 'hero product centered'],
       'Consider the brand identity and target audience when creating commercial images.',
       { title: 'Marketing ready!', message: "You've created professional commercial content!" },
       { title: 'Try again', message: 'Think about brand consistency and appeal.' },

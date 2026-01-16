@@ -54,7 +54,7 @@ export const mjLesson1_1: CoursivLesson = {
         { id: 'style', placeholder: 'style', correctAnswer: 'fantasy art' },
         { id: 'mood', placeholder: 'mood', correctAnswer: 'magical' }
       ],
-      ['mystical forest', 'enchanted realm', 'fantasy art', 'magical', 'ancient temple', 'mountain peaks', 'cinematic', 'epic'],
+      ['mystical forest', 'enchanted realm', 'fantasy art', 'magical'],
       'Midjourney loves descriptive, evocative language. Think artistically!',
       { title: 'Magical!', message: "You've created your first Midjourney prompt!" },
       { title: 'Try again', message: 'Use more evocative, artistic language.' },
@@ -138,7 +138,7 @@ export const mjLesson1_2: CoursivLesson = {
         { id: 'keyword', placeholder: 'keyword', correctAnswer: 'prompt' },
         { id: 'content', placeholder: 'content', correctAnswer: 'description' }
       ],
-      ['/imagine', 'prompt', 'description', '/settings', 'style', 'parameters'],
+      ['/imagine', 'prompt', 'description'],
       'The /imagine command is your gateway to creating images.',
       { title: 'Ready to create!', message: "You understand the basic command structure!" },
       { title: 'Try again', message: 'Remember: /imagine prompt: your description' },
@@ -221,7 +221,7 @@ export const mjLesson1_3: CoursivLesson = {
         { id: 'command', placeholder: 'command', correctAnswer: '/describe' },
         { id: 'result', placeholder: 'result', correctAnswer: 'suggest prompts based on the image' }
       ],
-      ['analyze an existing image', '/describe', 'suggest prompts based on the image', 'combine two images', '/blend', 'merge them into one creation'],
+      ['analyze an existing image', '/describe', 'suggest prompts based on the image'],
       'Match the action to the correct command.',
       { title: 'Command master!', message: "You know your Midjourney commands!" },
       { title: 'Try again', message: 'Think about what each command does.' },
@@ -305,7 +305,7 @@ export const mjLesson1_4: CoursivLesson = {
         { id: 'colors', placeholder: 'colors', correctAnswer: 'deep blues and golds' },
         { id: 'quality', placeholder: 'quality', correctAnswer: 'highly detailed' }
       ],
-      ['a majestic dragon', 'digital painting', 'dramatic backlighting', 'deep blues and golds', 'highly detailed', 'a serene landscape', 'watercolor', 'soft morning light', 'pastel colors', '8k resolution'],
+      ['a majestic dragon', 'digital painting', 'dramatic backlighting', 'deep blues and golds', 'highly detailed'],
       'Combine all elements for a complete, detailed prompt.',
       { title: 'Masterpiece incoming!', message: "You've created a professional-level prompt!" },
       { title: 'Try again', message: 'Make sure all elements complement each other.' },
@@ -459,7 +459,7 @@ export const mjLesson2_1: CoursivLesson = {
         { id: 'version', placeholder: 'version', correctAnswer: '6' },
         { id: 'stylize', placeholder: 'stylize', correctAnswer: '750' }
       ],
-      ['16:9', '6', '750', '1:1', '5.2', '250', '9:16', '5', '1000'],
+      ['16:9', '6', '750'],
       'Parameters go at the end of your prompt after --',
       { title: 'Parameter pro!', message: "You've mastered basic parameters!" },
       { title: 'Try again', message: 'Remember the format: --parameter value' },
@@ -547,7 +547,7 @@ export const mjLesson2_2: CoursivLesson = {
         { id: 'reference', placeholder: 'reference', correctAnswer: 'URL_of_style_image' },
         { id: 'weight', placeholder: 'weight', correctAnswer: '100' }
       ],
-      ['portrait of a warrior', 'URL_of_style_image', '100', 'fantasy castle', 'URL_of_reference', '50'],
+      ['portrait of a warrior', 'URL_of_style_image', '100'],
       'Style references let you borrow aesthetics from any image.',
       { title: 'Style master!', message: "You understand style references!" },
       { title: 'Try again', message: 'Remember to include the --sref parameter.' },
@@ -639,7 +639,7 @@ export const mjLesson2_3: CoursivLesson = {
         { id: 'ratio', placeholder: 'ratio', correctAnswer: '16:9' },
         { id: 'reason', placeholder: 'reason', correctAnswer: 'matches video player dimensions' }
       ],
-      ['YouTube thumbnail', '16:9', 'matches video player dimensions', 'Instagram post', '1:1', 'fits the square feed format'],
+      ['YouTube thumbnail', '16:9', 'matches video player dimensions'],
       'Match the aspect ratio to where the image will be used.',
       { title: 'Perfect format!', message: "You understand aspect ratios!" },
       { title: 'Try again', message: 'Think about where the image will be displayed.' },
@@ -729,7 +729,7 @@ export const mjLesson2_4: CoursivLesson = {
         { id: 'button', placeholder: 'button', correctAnswer: 'U3' },
         { id: 'result', placeholder: 'result', correctAnswer: 'upscale it for printing' }
       ],
-      ['a higher resolution version', 'U3', 'upscale it for printing', 'similar alternatives', 'V3', 'see variations of that image'],
+      ['a higher resolution version', 'U3', 'upscale it for printing'],
       'U = Upscale (high-res), V = Variation (alternatives)',
       { title: 'Refinement expert!', message: "You know how to perfect your images!" },
       { title: 'Try again', message: 'Remember: U for upscale, V for variations.' },
@@ -898,7 +898,7 @@ export const mjLesson3_1: CoursivLesson = {
         { id: 'weight2', placeholder: 'weight 2', correctAnswer: '1' },
         { id: 'negative', placeholder: 'negative', correctAnswer: 'people' }
       ],
-      ['cyberpunk city', '2', 'nature overgrowth', '1', 'people', 'ancient ruins', '1.5', 'futuristic elements', '1', 'modern buildings'],
+      ['cyberpunk city', '2', 'nature overgrowth', '1', 'people'],
       'Higher weights make concepts more prominent in the final image.',
       { title: 'Multi-prompt master!', message: "You've learned advanced prompt weighting!" },
       { title: 'Try again', message: 'Remember: higher numbers = more influence.' },
@@ -988,7 +988,7 @@ export const mjLesson3_2: CoursivLesson = {
         { id: 'reference', placeholder: 'reference', correctAnswer: 'URL_of_character' },
         { id: 'weight', placeholder: 'weight', correctAnswer: '100' }
       ],
-      ['red-haired warrior woman', 'riding a horse', 'URL_of_character', '100', 'elderly wizard', 'casting a spell', 'URL_of_wizard', '80'],
+      ['red-haired warrior woman', 'riding a horse', 'URL_of_character', '100'],
       '--cref maintains character appearance across different scenes.',
       { title: 'Character consistent!', message: "You understand character consistency!" },
       { title: 'Try again', message: 'Use --cref with a reference image of your character.' },
@@ -1086,7 +1086,7 @@ export const mjLesson3_3: CoursivLesson = {
         { id: 'step2', placeholder: 'step 2', correctAnswer: 'generate hero images' },
         { id: 'step3', placeholder: 'step 3', correctAnswer: 'create variations for different platforms' }
       ],
-      ['product campaign', 'establish the visual style', 'generate hero images', 'create variations for different platforms', 'book cover series', 'define the artistic direction', 'create the main cover', 'adapt for different formats'],
+      ['product campaign', 'establish the visual style', 'generate hero images', 'create variations for different platforms'],
       'Professional projects require structured workflows for consistency.',
       { title: 'Professional approach!', message: "You understand commercial workflows!" },
       { title: 'Try again', message: 'Think about the logical order of professional work.' },

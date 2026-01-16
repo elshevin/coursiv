@@ -55,7 +55,7 @@ export const sdLesson1_1: CoursivLesson = {
         { id: 'quality', placeholder: 'quality', correctAnswer: 'highly detailed' },
         { id: 'lighting', placeholder: 'lighting', correctAnswer: 'golden hour' }
       ],
-      ['a beautiful landscape', 'digital art', 'highly detailed', 'golden hour', 'portrait of a woman', 'oil painting', '8k resolution', 'studio lighting'],
+      ['a beautiful landscape', 'digital art', 'highly detailed', 'golden hour'],
       'SD prompts are comma-separated descriptors.',
       { title: 'Great prompt!', message: "You've created your first SD prompt!" },
       { title: 'Try again', message: 'Use comma-separated descriptive terms.' },
@@ -153,7 +153,7 @@ export const sdLesson1_2: CoursivLesson = {
         { id: 'option', placeholder: 'option', correctAnswer: 'Automatic1111 WebUI' },
         { id: 'benefit', placeholder: 'benefit', correctAnswer: 'a user-friendly interface with many features' }
       ],
-      ['learning and experimentation', 'Automatic1111 WebUI', 'a user-friendly interface with many features', 'quick one-off generations', 'DreamStudio', 'no setup required'],
+      ['learning and experimentation', 'Automatic1111 WebUI', 'a user-friendly interface with many features'],
       'Match your setup to your needs and technical level.',
       { title: 'Good choice!', message: "You've selected an appropriate setup!" },
       { title: 'Try again', message: 'Consider your use case and technical requirements.' },
@@ -253,7 +253,7 @@ export const sdLesson1_3: CoursivLesson = {
         { id: 'cfg', placeholder: 'CFG', correctAnswer: '7' },
         { id: 'sampler', placeholder: 'sampler', correctAnswer: 'DPM++ 2M Karras' }
       ],
-      ['high quality detailed images', '30', '7', 'DPM++ 2M Karras', 'fast previews', '15', '5', 'Euler a'],
+      ['high quality detailed images', '30', '7', 'DPM++ 2M Karras'],
       'Balance quality and speed with your parameter choices.',
       { title: 'Parameter pro!', message: "You understand SD parameters!" },
       { title: 'Try again', message: 'Match parameters to your quality goals.' },
@@ -359,7 +359,7 @@ export const sdLesson1_4: CoursivLesson = {
         { id: 'unwanted_elements', placeholder: 'unwanted elements', correctAnswer: 'watermark, text' },
         { id: 'style_issues', placeholder: 'style issues', correctAnswer: 'cartoon, anime' }
       ],
-      ['blurry, low quality', 'bad hands, extra fingers', 'watermark, text', 'cartoon, anime', 'jpeg artifacts, pixelated', 'deformed, mutated', 'signature, logo', 'oversaturated'],
+      ['blurry, low quality', 'bad hands, extra fingers', 'watermark, text', 'cartoon, anime'],
       'Negative prompts help avoid common SD issues.',
       { title: 'Negative prompt master!', message: "You know how to avoid unwanted elements!" },
       { title: 'Try again', message: 'Include quality, anatomy, and element issues.' },
@@ -535,7 +535,7 @@ export const sdLesson2_1: CoursivLesson = {
         { id: 'model', placeholder: 'model', correctAnswer: 'Realistic Vision' },
         { id: 'strength', placeholder: 'strength', correctAnswer: 'lifelike human features' }
       ],
-      ['photorealistic portraits', 'Realistic Vision', 'lifelike human features', 'anime artwork', 'Anything V5', 'anime-style characters'],
+      ['photorealistic portraits', 'Realistic Vision', 'lifelike human features'],
       'Different models excel at different styles and subjects.',
       { title: 'Model expert!', message: "You understand SD model selection!" },
       { title: 'Try again', message: 'Match the model to your specific use case.' },
@@ -646,7 +646,7 @@ export const sdLesson2_2: CoursivLesson = {
         { id: 'lora_name', placeholder: 'LoRA name', correctAnswer: 'FilmGrain' },
         { id: 'weight', placeholder: 'weight', correctAnswer: '0.7' }
       ],
-      ['portrait of a woman', 'cinematic lighting', 'FilmGrain', '0.7', 'fantasy landscape', 'detailed', 'add_detail', '0.8'],
+      ['portrait of a woman', 'cinematic lighting', 'FilmGrain', '0.7'],
       'LoRAs are added to prompts with <lora:name:weight> syntax.',
       { title: 'LoRA loaded!', message: "You understand how to use LoRAs!" },
       { title: 'Try again', message: 'Use the <lora:name:weight> syntax.' },
@@ -758,7 +758,7 @@ export const sdLesson2_3: CoursivLesson = {
         { id: 'strength', placeholder: 'strength', correctAnswer: '0.3-0.4' },
         { id: 'effect', placeholder: 'effect', correctAnswer: 'keep most of the original image' }
       ],
-      ['subtle style changes', '0.3-0.4', 'keep most of the original image', 'major transformations', '0.7-0.8', 'significantly change the image'],
+      ['subtle style changes', '0.3-0.4', 'keep most of the original image'],
       'Denoising strength controls how much the image changes.',
       { title: 'Img2Img ready!', message: "You understand img2img settings!" },
       { title: 'Try again', message: 'Match denoising strength to your goal.' },
@@ -871,7 +871,7 @@ export const sdLesson2_4: CoursivLesson = {
         { id: 'controlnet_type', placeholder: 'ControlNet type', correctAnswer: 'OpenPose' },
         { id: 'weight', placeholder: 'weight', correctAnswer: '0.8-1.0' }
       ],
-      ['matching a specific pose', 'OpenPose', '0.8-1.0', 'preserving edges and structure', 'Canny', '0.5-0.7'],
+      ['matching a specific pose', 'OpenPose', '0.8-1.0'],
       'Different ControlNets serve different purposes.',
       { title: 'ControlNet ready!', message: "You understand ControlNet selection!" },
       { title: 'Try again', message: 'Match the ControlNet type to your control needs.' },
@@ -1050,7 +1050,7 @@ export const sdLesson3_1: CoursivLesson = {
         { id: 'process_node', placeholder: 'process node', correctAnswer: 'KSampler' },
         { id: 'output_node', placeholder: 'output node', correctAnswer: 'Save Image' }
       ],
-      ['Load Checkpoint', 'KSampler', 'Save Image', 'CLIP Text Encode', 'VAE Decode', 'Preview Image'],
+      ['Load Checkpoint', 'KSampler', 'Save Image'],
       'ComfyUI uses nodes connected in a pipeline.',
       { title: 'Node master!', message: "You understand ComfyUI basics!" },
       { title: 'Try again', message: 'Think about the flow: load → process → output.' },
@@ -1169,7 +1169,7 @@ export const sdLesson3_2: CoursivLesson = {
         { id: 'requirement2', placeholder: 'requirement 2', correctAnswer: 'consistent captions' },
         { id: 'time', placeholder: 'time', correctAnswer: '1-2 hours on consumer GPU' }
       ],
-      ['character', '15-30 high-quality images', 'consistent captions', '1-2 hours on consumer GPU', 'style', '50-100 example images', 'style-focused captions', '2-4 hours'],
+      ['character', '15-30 high-quality images', 'consistent captions', '1-2 hours on consumer GPU'],
       'Training requirements vary by LoRA type.',
       { title: 'Training ready!', message: "You understand LoRA training basics!" },
       { title: 'Try again', message: 'Consider image count, captions, and time.' },
@@ -1298,7 +1298,7 @@ export const sdLesson3_3: CoursivLesson = {
         { id: 'step2', placeholder: 'step 2', correctAnswer: 'batch generate with variations' },
         { id: 'step3', placeholder: 'step 3', correctAnswer: 'quality review and select finals' }
       ],
-      ['a product photo series', 'establish consistent style settings', 'batch generate with variations', 'quality review and select finals', 'character concept art', 'create base character LoRA', 'generate poses and expressions', 'refine and polish selected images'],
+      ['a product photo series', 'establish consistent style settings', 'batch generate with variations', 'quality review and select finals'],
       'Production workflows require planning and consistency.',
       { title: 'Production ready!', message: "You understand production workflows!" },
       { title: 'Try again', message: 'Think about the logical order of production steps.' },

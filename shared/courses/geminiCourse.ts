@@ -93,7 +93,7 @@ Please share:
 3. Your most productive time of day
 
 I'll create a personalized schedule based on your input!`
-    ),
+    , true),
     createFeedbackBlock(
       'How intuitive is Gemini to use?',
       ['Very intuitive', 'Somewhat intuitive', 'Takes practice'],
@@ -204,7 +204,7 @@ Before closing your laptop:
 **The Bottom Line:** Remote work productivity isn't about working more—it's about working intentionally.
 
 *What's your best remote work tip? Drop it in the comments!*`
-    ),
+    , true),
     createFeedbackBlock(
       'How useful is Gemini for writing tasks?',
       ['Very useful', 'Somewhat useful', 'Need more practice'],
@@ -299,7 +299,7 @@ export const geminiLesson1_3: CoursivLesson = {
 - Context interpretation: Medium confidence
 
 Would you like me to focus on any specific aspect of this image?`
-    ),
+    , true),
     createFeedbackBlock(
       'How useful is image understanding for you?',
       ['Very useful', 'Somewhat useful', 'Haven\'t tried it yet'],
@@ -505,7 +505,7 @@ if __name__ == "__main__":
 - ✅ Usage example included
 
 Would you like me to add unit tests or modify the validation rules?`
-    ),
+    , true),
     createFeedbackBlock(
       'How helpful is Gemini for coding?',
       ['Very helpful', 'Somewhat helpful', 'Prefer other tools'],
@@ -622,7 +622,7 @@ Q4: Holiday surge (+50-60%)
 - Funnel: Conversion analysis
 
 Would you like me to dive deeper into any specific area?`
-    ),
+    , true),
     createFeedbackBlock(
       'How useful is Gemini for data analysis?',
       ['Very useful', 'Somewhat useful', 'Need more practice'],
@@ -736,7 +736,7 @@ Or: Insert → "Help me write"
 4. Share via Gmail → Draft announcement email
 
 All powered by Gemini, all in one ecosystem!`
-    ),
+    , true),
     createFeedbackBlock(
       'Do you use Google Workspace?',
       ['Yes, daily', 'Sometimes', 'No'],

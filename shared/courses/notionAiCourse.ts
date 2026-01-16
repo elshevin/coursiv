@@ -117,7 +117,7 @@ Best,
 2. Provide context for better results
 3. Iterate - ask AI to refine its output
 4. Use in any Notion page or database`
-    ),
+    , true),
     createFeedbackBlock(
       'Do you already use Notion?',
       ['Yes, daily', 'Sometimes', 'New to Notion'],
@@ -235,7 +235,7 @@ export const notionAiLesson1_2: CoursivLesson = {
 2. Specify word count if needed
 3. Mention the target audience
 4. Ask for specific tone (professional, casual, etc.)`
-    ),
+    , true),
     createFeedbackBlock(
       'What do you write most often?',
       ['Documents', 'Emails', 'Notes'],
@@ -348,7 +348,7 @@ Best regards
 2. Use "Continue writing" to extend
 3. Undo (⌘Z) if you don't like changes
 4. Be specific: "Make this more concise while keeping key points"`
-    ),
+    , true),
     createFeedbackBlock(
       'Which editing feature do you need most?',
       ['Improve writing', 'Make shorter', 'Fix grammar'],
@@ -527,7 +527,7 @@ Next meeting scheduled for January 22nd.
 2. Use action item extraction for meetings
 3. Create summary blocks at page top
 4. Specify desired length if needed`
-    ),
+    , true),
     createFeedbackBlock(
       'How often do you need to summarize content?',
       ['Daily', 'Weekly', 'Occasionally'],
@@ -646,7 +646,7 @@ Personalized annual reports showing each customer's environmental impact.
 2. Ask for varied approaches
 3. Request pros/cons for each idea
 4. Follow up to expand on favorites`
-    ),
+    , true),
     createFeedbackBlock(
       'Do you use AI for brainstorming?',
       ['Yes, frequently', 'Sometimes', 'Not yet'],
@@ -759,7 +759,7 @@ Meeting Notes Template:
 2. Create templates with AI placeholders
 3. Bulk process imported content
 4. Combine with filters for smart views`
-    ),
+    , true),
     createFeedbackBlock(
       'Do you use Notion databases?',
       ['Yes, extensively', 'Sometimes', 'Learning'],

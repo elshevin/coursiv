@@ -97,7 +97,7 @@ AI systems have accelerated drug discovery and materials science, with several A
 - How do multimodal AI models work?
 - What are the limitations of current AI agents?
 - Which companies are leading AI research?`
-    ),
+    , true),
     createFeedbackBlock(
       'How does Perplexity compare to Google?',
       ['Much better', 'Different use cases', 'Still exploring'],
@@ -211,7 +211,7 @@ intermittent fasting and longevity?"
 2. Use Focus modes for specialized topics
 3. Quick Search for simple facts
 4. Create Collections for ongoing research`
-    ),
+    , true),
     createFeedbackBlock(
       'Which mode do you use most?',
       ['Pro Search', 'Quick Search', 'Focus modes'],
@@ -315,7 +315,7 @@ export const perplexityLesson1_3: CoursivLesson = {
 3. Be skeptical of single-source claims
 4. Check if sources cite each other (circular)
 5. Consider potential biases`
-    ),
+    , true),
     createFeedbackBlock(
       'Do you verify Perplexity sources?',
       ['Always', 'Sometimes', 'Rarely'],
@@ -485,7 +485,7 @@ Step 4: Synthesis
 3. Request comparisons explicitly
 4. Ask for data and statistics
 5. Follow up on interesting points`
-    ),
+    , true),
     createFeedbackBlock(
       'How often do you use Pro Search?',
       ['Always', 'For complex topics', 'Rarely'],
@@ -604,7 +604,7 @@ Thread 2: "How does that compare to last year?"
 3. Add summary notes
 4. Export regularly for backup
 5. Archive completed projects`
-    ),
+    , true),
     createFeedbackBlock(
       'Do you use Collections?',
       ['Yes, regularly', 'Sometimes', 'Not yet'],
@@ -740,7 +740,7 @@ def get_news_summary(topic):
 2. Use streaming for better UX
 3. Handle rate limits gracefully
 4. Log queries for debugging`
-    ),
+    , true),
     createFeedbackBlock(
       'Are you interested in the API?',
       ['Yes, for projects', 'Maybe later', 'Just using the web app'],

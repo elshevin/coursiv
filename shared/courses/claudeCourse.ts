@@ -93,7 +93,7 @@ When examining complex topics, I find it valuable to:
 - Areas where reasonable people might disagree
 
 What specific topic would you like me to analyze? I'll provide a thorough, balanced examination.`
-    ),
+    , true),
     createFeedbackBlock(
       'How do you find Claude compared to other AIs?',
       ['More thoughtful', 'Similar', 'Still exploring'],
@@ -178,7 +178,7 @@ export const claudeLesson1_2: CoursivLesson = {
 4. **Partnerships**: Cross-promotion with complementary apps
 
 Would you like me to review your specific checklist items, or dive deeper into any of these areas?`
-    ),
+    , true),
     createFeedbackBlock(
       'How natural does conversation with Claude feel?',
       ['Very natural', 'Somewhat natural', 'Takes getting used to'],
@@ -277,7 +277,7 @@ Both strategies offer viable paths forward, but with different risk-reward profi
 Choose Strategy A if you have strong capital reserves and risk tolerance. Choose Strategy B for a more conservative approach with faster validation.
 
 Would you like me to dive deeper into any specific aspect?`
-    ),
+    , true),
     createFeedbackBlock(
       'How useful is Claude for analysis tasks?',
       ['Very useful', 'Somewhat useful', 'Need more practice'],
@@ -438,7 +438,7 @@ export const claudeLesson2_1: CoursivLesson = {
 3. Provide sensitivity analysis for dropout impact
 
 Would you like me to elaborate on any section?`
-    ),
+    , true),
     createFeedbackBlock(
       'How useful is long document analysis for you?',
       ['Very useful', 'Somewhat useful', 'Not my use case'],
@@ -559,7 +559,7 @@ except DatabaseError as e:
    - Use asyncio for concurrent requests
 
 Would you like me to provide the complete refactored code?`
-    ),
+    , true),
     createFeedbackBlock(
       'How helpful is Claude for code review?',
       ['Very helpful', 'Somewhat helpful', 'Prefer other tools'],
@@ -659,7 +659,7 @@ export const claudeLesson2_3: CoursivLesson = {
 4. Need for interdisciplinary methodology
 
 Would you like me to expand on any framework or identify additional sources?`
-    ),
+    , true),
     createFeedbackBlock(
       'How useful is Claude for research?',
       ['Essential tool', 'Helpful supplement', 'Still exploring'],
@@ -832,7 +832,7 @@ with client.messages.stream(
 4. Monitor token usage for cost control
 
 Would you like to see tool use or vision examples?`
-    ),
+    , true),
     createFeedbackBlock(
       'Will you use the Claude API?',
       ['Yes, for projects', 'Maybe in the future', 'Prefer the web interface'],
@@ -943,7 +943,7 @@ Attorney Sign-off → Filing
 - Cost savings: Track monthly
 
 Would you like me to detail the technical architecture or training plan?`
-    ),
+    , true),
     createFeedbackBlock(
       'Do you see enterprise applications in your organization?',
       ['Yes, many opportunities', 'Some possibilities', 'Not applicable'],

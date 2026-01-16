@@ -122,6 +122,46 @@ export function MarkdownRenderer({ content, className = '' }: MarkdownRendererPr
     );
   }
 
+  // Check if content has line breaks
+  if (content.includes('\n')) {
+    const lines = content.split('\n');
+    return (
+      <div className={`space-y-2 ${className}`}>
+        {lines.map((line, index) => {
+          if (line.trim() === '') {
+            return <div key={index} className="h-2" />;
+          }
+          // Check for list items
+          if (line.trim().startsWith('•') || line.trim().startsWith('-') || line.trim().match(/^\d+\./)) {
+            const trimmed = line.trim();
+            let bulletChar = '';
+            let textContent = trimmed;
+
+            if (trimmed.startsWith('•')) {
+              bulletChar = '•';
+              textContent = trimmed.slice(1).trim();
+            } else if (trimmed.startsWith('-')) {
+              bulletChar = '•';
+              textContent = trimmed.slice(1).trim();
+            } else if (trimmed.match(/^\d+\./)) {
+              const match = trimmed.match(/^(\d+\.)/);
+              bulletChar = match ? match[1] : '';
+              textContent = trimmed.slice(bulletChar.length).trim();
+            }
+
+            return (
+              <div key={index} className="flex gap-2">
+                <span className="text-gray-500 flex-shrink-0">{bulletChar}</span>
+                <span>{renderContent(textContent)}</span>
+              </div>
+            );
+          }
+          return <div key={index}>{renderContent(line)}</div>;
+        })}
+      </div>
+    );
+  }
+
   // Regular paragraph
   return <span className={className}>{renderContent(content)}</span>;
 }

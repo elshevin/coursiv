@@ -95,7 +95,35 @@ export default function LessonContentV2() {
         console.error("Failed to save progress:", error);
       }
     }
-    // Navigate back to course detail
+    
+    // Find next module and navigate to it
+    const foundCourse = courses.find(c => c.id === courseId);
+    if (foundCourse) {
+      let foundCurrentModule = false;
+      let nextModuleId: string | null = null;
+      
+      // Iterate through all levels and modules to find the next one
+      for (const level of foundCourse.levels) {
+        for (const mod of level.modules) {
+          if (foundCurrentModule) {
+            nextModuleId = mod.id;
+            break;
+          }
+          if (mod.id === moduleId) {
+            foundCurrentModule = true;
+          }
+        }
+        if (nextModuleId) break;
+      }
+      
+      if (nextModuleId) {
+        // Navigate to next module
+        setLocation(`/lesson/${courseId}/${nextModuleId}`);
+        return;
+      }
+    }
+    
+    // If no next module, navigate back to course detail
     setLocation(`/course/${courseId}`);
   };
 

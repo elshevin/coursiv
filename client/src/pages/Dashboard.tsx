@@ -34,9 +34,9 @@ import { certificateData } from '@/data/certificateData';
 
 // Mock data for dashboard
 const mockCourses = [
-  { id: 1, title: 'ChatGPT Mastery', progress: 65, totalLessons: 24, completedLessons: 16, image: '/2-323.webp' },
-  { id: 2, title: 'AI for Business', progress: 30, totalLessons: 18, completedLessons: 5, image: '/2-2458.webp' },
-  { id: 3, title: 'Prompt Engineering', progress: 0, totalLessons: 12, completedLessons: 0, image: '/2-323.webp' },
+  { id: 1, title: 'ChatGPT Mastery', slug: 'chatgpt', progress: 65, totalLessons: 24, completedLessons: 16, image: '/images/course/covers/chatgpt-cover.png' },
+  { id: 2, title: 'DALL-E Creative', slug: 'dall-e', progress: 30, totalLessons: 18, completedLessons: 5, image: '/images/course/covers/dalle-cover.png' },
+  { id: 3, title: 'Midjourney Pro', slug: 'midjourney', progress: 0, totalLessons: 12, completedLessons: 0, image: '/images/course/covers/midjourney-cover.png' },
 ];
 
 const mockChallenges = [
@@ -172,19 +172,21 @@ export default function Dashboard() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {mockCourses.map((course) => (
-                  <Card key={course.id} className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer" data-testid="course-card-chatgpt">
-                    <div className="h-32 bg-gradient-to-br from-[#5A4CFF]/20 to-[#5A4CFF]/5 flex items-center justify-center">
-                      <BookOpen className="w-12 h-12 text-[#5A4CFF]/40" />
-                    </div>
-                    <CardContent className="p-4">
-                      <h3 className="font-semibold text-[#24234C] mb-2">{course.title}</h3>
-                      <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-3">
-                        <Clock className="w-4 h-4" />
-                        <span>{course.completedLessons}/{course.totalLessons} lessons</span>
+                  <Link key={course.id} href={`/course/${course.slug}`}>
+                    <Card className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer" data-testid={`course-card-${course.slug}`}>
+                      <div className="h-32 overflow-hidden">
+                        <img src={course.image} alt={course.title} className="w-full h-full object-cover" />
                       </div>
-                      <Progress value={course.progress} className="h-2" />
-                    </CardContent>
-                  </Card>
+                      <CardContent className="p-4">
+                        <h3 className="font-semibold text-[#24234C] mb-2">{course.title}</h3>
+                        <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-3">
+                          <Clock className="w-4 h-4" />
+                          <span>{course.completedLessons}/{course.totalLessons} lessons</span>
+                        </div>
+                        <Progress value={course.progress} className="h-2" />
+                      </CardContent>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -200,21 +202,23 @@ export default function Dashboard() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {mockChallenges.map((challenge) => (
-                  <Card key={challenge.id} className="border-[#E2E5E9] hover-lift">
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold text-[#24234C]">{challenge.title}</h3>
-                        <div className="flex items-center gap-1 text-amber-500">
-                          <Flame className="w-4 h-4" />
-                          <span className="font-medium">{challenge.streak}</span>
+                  <Link key={challenge.id} href={`/challenge/${challenge.id}`}>
+                    <Card className="border-[#E2E5E9] hover-lift cursor-pointer">
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h3 className="font-semibold text-[#24234C]">{challenge.title}</h3>
+                          <div className="flex items-center gap-1 text-amber-500">
+                            <Flame className="w-4 h-4" />
+                            <span className="font-medium">{challenge.streak}</span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-3">
-                        <span>Day {challenge.day} of {challenge.totalDays}</span>
-                      </div>
-                      <Progress value={(challenge.day / challenge.totalDays) * 100} className="h-2" />
-                    </CardContent>
-                  </Card>
+                        <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-3">
+                          <span>Day {challenge.day} of {challenge.totalDays}</span>
+                        </div>
+                        <Progress value={(challenge.day / challenge.totalDays) * 100} className="h-2" />
+                      </CardContent>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -231,17 +235,20 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { id: 'chatgpt', title: 'ChatGPT Mastery', lessons: 24, duration: '4h 30m', icon: '🤖', progress: 65 },
-                { id: 'dall-e', title: 'DALL-E Creative', lessons: 18, duration: '3h 15m', icon: '🎨', progress: 30 },
-                { id: 'midjourney', title: 'Midjourney Pro', lessons: 20, duration: '3h 45m', icon: '🖼️', progress: 0 },
-                { id: 'claude', title: 'Claude Assistant', lessons: 16, duration: '2h 50m', icon: '🧠', progress: 0 },
-                { id: 'copilot', title: 'GitHub Copilot', lessons: 14, duration: '2h 30m', icon: '💻', progress: 0 },
-                { id: 'gemini', title: 'Google Gemini', lessons: 12, duration: '2h 15m', icon: '✨', progress: 0 },
+                { id: 'chatgpt', title: 'ChatGPT Mastery', lessons: 24, duration: '4h 30m', cover: '/images/course/covers/chatgpt-cover.png', progress: 65 },
+                { id: 'dall-e', title: 'DALL-E Creative', lessons: 18, duration: '3h 15m', cover: '/images/course/covers/dalle-cover.png', progress: 30 },
+                { id: 'midjourney', title: 'Midjourney Pro', lessons: 20, duration: '3h 45m', cover: '/images/course/covers/midjourney-cover.png', progress: 0 },
+                { id: 'claude', title: 'Claude Assistant', lessons: 16, duration: '2h 50m', cover: '/images/course/covers/claude-cover.png', progress: 0 },
+                { id: 'copilot', title: 'GitHub Copilot', lessons: 14, duration: '2h 30m', cover: '/images/course/covers/copilot-cover.png', progress: 0 },
+                { id: 'gemini', title: 'Google Gemini', lessons: 12, duration: '2h 15m', cover: '/images/course/covers/gemini-cover.png', progress: 0 },
+                { id: 'stable-diffusion', title: 'Stable Diffusion', lessons: 14, duration: '2h 45m', cover: '/images/course/covers/stable-diffusion-cover.png', progress: 0 },
+                { id: 'perplexity', title: 'Perplexity AI', lessons: 8, duration: '1h 30m', cover: '/images/course/covers/perplexity-cover.png', progress: 0 },
+                { id: 'notion-ai', title: 'Notion AI', lessons: 8, duration: '1h 30m', cover: '/images/course/covers/notion-cover.png', progress: 0 },
               ].map((guide) => (
                 <Link key={guide.id} href={`/course/${guide.id}`}>
                   <Card className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer h-full">
-                    <div className="h-32 bg-gradient-to-br from-[#5A4CFF]/20 to-[#5A4CFF]/5 flex items-center justify-center">
-                      <span className="text-5xl">{guide.icon}</span>
+                    <div className="h-32 overflow-hidden">
+                      <img src={guide.cover} alt={guide.title} className="w-full h-full object-cover" />
                     </div>
                     <CardContent className="p-4">
                       <h3 className="font-semibold text-[#24234C] mb-2">{guide.title}</h3>

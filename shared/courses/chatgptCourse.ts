@@ -71,7 +71,7 @@ export const chatgptLesson1_1: CoursivLesson = {
 - Garlic sauce included
 
 Would you like me to help you place an order? Just let me know your preferred toppings and any dietary restrictions!`
-    ),
+    , true),
     createFeedbackBlock(
       'Was this exercise helpful?',
       ['Yes', 'Somewhat', 'No'],
@@ -137,7 +137,7 @@ export const chatgptLesson1_2: CoursivLesson = {
 • **Conclusion**: Main takeaway or recommendation
 
 Just paste the article you'd like me to summarize, and I'll create a clear, organized bullet-point summary for you!`
-    ),
+    , true),
     createFeedbackBlock(
       'How clear was this lesson?',
       ['Very clear', 'Somewhat clear', 'Confusing'],
@@ -204,7 +204,7 @@ export const chatgptLesson1_3: CoursivLesson = {
    ✅ "Write a professional follow-up email after a job interview"
 
 Need more examples for any specific use case?`
-    ),
+    , true),
     createFeedbackBlock(
       'Did this help you understand response refinement?',
       ['Yes, very helpful', 'Somewhat helpful', 'Need more practice'],
@@ -276,7 +276,7 @@ First, let's categorize your monthly income:
 I recommend starting with a simple spreadsheet or apps like Mint or YNAB.
 
 Would you like me to create a specific budget template based on your actual income figures?`
-    ),
+    , true),
     createFeedbackBlock(
       'How useful was the role assignment technique?',
       ['Very useful', 'Somewhat useful', 'Not useful'],
@@ -421,7 +421,7 @@ I'll give you practical, actionable advice that you can implement right away. No
 - Reduce cognitive load with progressive disclosure
 
 Share a screenshot or describe your current design, and I'll give you specific, prioritized improvements!`
-    ),
+    , true),
     createFeedbackBlock(
       'How effective do you find role-based prompting?',
       ['Very effective', 'Somewhat effective', 'Need more practice'],
@@ -503,7 +503,7 @@ Total = Fixed + Variable
 Cross-check against bank statement total
 
 Would you like to fill in your actual numbers? I'll help you calculate the totals.`
-    ),
+    , true),
     createFeedbackBlock(
       'Did Chain of Thought help you understand complex problem solving?',
       ['Yes, very helpful', 'Somewhat helpful', 'Need more examples'],
@@ -580,7 +580,7 @@ export const chatgptLesson2_3: CoursivLesson = {
 - No technical jargon
 
 Would you like me to generate more variations or adjust the tone?`
-    ),
+    , true),
     createFeedbackBlock(
       'How useful is few-shot learning for your needs?',
       ['Very useful', 'Somewhat useful', 'Not applicable to my use case'],
@@ -660,7 +660,7 @@ I'll structure this in phases:
 - Deployment preparation
 
 Does this align with your expectations? Any adjustments needed?`
-    ),
+    , true),
     createFeedbackBlock(
       'Do you feel confident managing long conversations now?',
       ['Yes, confident', 'Need more practice', 'Still confused'],
@@ -740,7 +740,7 @@ Ready to work smarter? Let's dive in.
 **CTA:** Implicit (continue reading)
 
 Want me to continue with the full article or adjust the tone?`
-    ),
+    , true),
     createFeedbackBlock(
       'How helpful was this writing lesson?',
       ['Very helpful', 'Somewhat helpful', 'Need more practice'],
@@ -899,7 +899,7 @@ response = openai.ChatCompletion.create(
 4. Monitor token usage for cost control
 
 Want me to show you a complete implementation example?`
-    ),
+    , true),
     createFeedbackBlock(
       'Is API integration relevant to your needs?',
       ['Yes, very relevant', 'Somewhat relevant', 'Not applicable'],
@@ -979,7 +979,7 @@ const sortedDesc = arr.sort((a, b) => b - a);
 **Pro Tip:** You can update these instructions anytime in Settings → Custom Instructions.
 
 Ready to test this in a real coding scenario?`
-    ),
+    , true),
     createFeedbackBlock(
       'Will you use custom instructions?',
       ['Yes, definitely', 'Maybe', 'No'],
@@ -1070,7 +1070,7 @@ plt.show()
 - 📉 Scatter plots for correlations
 
 Upload your CSV file and tell me what insights you're looking for!`
-    ),
+    , true),
     createFeedbackBlock(
       'How interested are you in using plugins?',
       ['Very interested', 'Somewhat interested', 'Not interested'],
@@ -1159,7 +1159,7 @@ ChatGPT Integration Points:
 4. **Week 7-8**: Full rollout
 
 Would you like me to create a detailed business case document?`
-    ),
+    , true),
     createFeedbackBlock(
       'Do you see enterprise applications in your organization?',
       ['Yes, many opportunities', 'A few possibilities', 'Not applicable'],

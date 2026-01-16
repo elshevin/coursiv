@@ -2,6 +2,7 @@
 // Supports scroll-to-expand content with text, playground, quiz, and discovery blocks
 
 import { useState, useRef, useEffect } from 'react';
+import { PlaygroundPage } from './PlaygroundPage';
 import {
   ContentBlock,
   TextBlock,
@@ -29,6 +30,7 @@ export function CoursivLessonViewer({
   const [visibleBlockCount, setVisibleBlockCount] = useState(1);
   const [completedBlocks, setCompletedBlocks] = useState<Set<number>>(new Set());
   const [showExitModal, setShowExitModal] = useState(false);
+  const [openPlaygroundIndex, setOpenPlaygroundIndex] = useState<number | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const lastBlockRef = useRef<HTMLDivElement>(null);
 
@@ -73,6 +75,22 @@ export function CoursivLessonViewer({
   };
 
   const canContinue = !requiresInteraction || isCurrentBlockCompleted;
+
+  // If a playground is open, show the PlaygroundPage
+  if (openPlaygroundIndex !== null) {
+    const playgroundBlock = blocks[openPlaygroundIndex] as PlaygroundBlock;
+    return (
+      <PlaygroundPage
+        block={playgroundBlock}
+        onComplete={() => {
+          handleBlockComplete(openPlaygroundIndex);
+        }}
+        onBack={() => {
+          setOpenPlaygroundIndex(null);
+        }}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -125,6 +143,7 @@ export function CoursivLessonViewer({
                 blockIndex={index}
                 isCompleted={completedBlocks.has(index)}
                 onComplete={() => handleBlockComplete(index)}
+                onOpenPlayground={() => setOpenPlaygroundIndex(index)}
               />
             </div>
           ))}
@@ -183,14 +202,15 @@ interface BlockRendererProps {
   blockIndex: number;
   isCompleted: boolean;
   onComplete: () => void;
+  onOpenPlayground?: () => void;
 }
 
-function BlockRenderer({ block, blockIndex, isCompleted, onComplete }: BlockRendererProps) {
+function BlockRenderer({ block, blockIndex, isCompleted, onComplete, onOpenPlayground }: BlockRendererProps) {
   switch (block.type) {
     case 'text':
       return <TextBlockComponent block={block} />;
     case 'playground':
-      return <PlaygroundBlockComponent block={block} isCompleted={isCompleted} onComplete={onComplete} />;
+      return <PlaygroundBlockComponent block={block} isCompleted={isCompleted} onComplete={onComplete} onOpenPlayground={onOpenPlayground} />;
     case 'quiz':
       return <QuizBlockComponent block={block} isCompleted={isCompleted} onComplete={onComplete} />;
     case 'discovery':
@@ -278,8 +298,124 @@ function parsePromptTemplate(template: string, blanks: PlaygroundBlank[]): Array
   return parts;
 }
 
-// Playground Block Component - Coursiv-style with multiple blanks and option consumption
+// Playground Block Component - Entry card that opens full-screen playground
 function PlaygroundBlockComponent({
+  block,
+  isCompleted,
+  onComplete,
+  onOpenPlayground,
+}: {
+  block: PlaygroundBlock;
+  isCompleted: boolean;
+  onComplete: () => void;
+  onOpenPlayground?: () => void;
+}) {
+  // If completed, show completed state
+  if (isCompleted) {
+    return (
+      <div className="space-y-4">
+        {/* Result image - only show if not showImageOnStart */}
+        {block.content.resultImage && !block.content.showImageOnStart && (
+          <div className="w-full rounded-xl overflow-hidden border border-gray-200">
+            <img 
+              src={block.content.resultImage} 
+              alt="AI Generated Result" 
+              className="w-full h-auto object-cover"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = '/images/course/success.png';
+              }}
+            />
+          </div>
+        )}
+        
+        <div className="bg-white border border-gray-200 rounded-xl p-6">
+          <div className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium mb-4">
+            <span>✓</span>
+            <span>Task completed</span>
+          </div>
+          
+          <h3 className="font-semibold text-gray-900 mb-2">{block.content.title}</h3>
+          <p className="text-gray-600 text-sm mb-4">{block.content.description}</p>
+          
+          <button
+            onClick={onOpenPlayground}
+            className="w-full py-3 border-2 border-purple-300 text-purple-600 rounded-xl font-semibold hover:bg-purple-50 transition-colors flex items-center justify-center gap-2"
+          >
+            <span>↻</span>
+            <span>Repeat task</span>
+          </button>
+        </div>
+        
+        {/* AI Response */}
+        {block.content.aiResponse && (
+          <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+            <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-200">
+              <span className="text-xl">{block.content.aiTool.icon}</span>
+              <span className="font-medium text-gray-700">{block.content.aiTool.name}</span>
+            </div>
+            <div className="prose prose-sm max-w-none text-gray-700">
+              <MarkdownRenderer content={block.content.aiResponse} />
+            </div>
+          </div>
+        )}
+        
+        {/* Pro Tip */}
+        {block.content.proTip && (
+          <div className="bg-gray-100 rounded-xl p-4">
+            <p className="font-semibold text-gray-900 mb-1">Pro Tip</p>
+            <p className="text-gray-600 text-sm">{block.content.proTip}</p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Entry card state - show image and "Open Playground" button
+  return (
+    <div className="space-y-4">
+      {/* Show reference image if showImageOnStart */}
+      {block.content.showImageOnStart && block.content.resultImage && (
+        <div className="w-full rounded-xl overflow-hidden border border-gray-200">
+          <img 
+            src={block.content.resultImage} 
+            alt="Reference" 
+            className="w-full h-auto object-cover"
+            onError={(e) => {
+              (e.target as HTMLImageElement).style.display = 'none';
+            }}
+          />
+        </div>
+      )}
+      
+      {/* Entry card */}
+      <div className="bg-white border border-gray-200 rounded-xl p-6">
+        <h3 className="font-bold text-gray-900 mb-2">{block.content.title}</h3>
+        <p className="text-gray-600 text-sm mb-4">{block.content.description}</p>
+        
+        <button
+          onClick={onOpenPlayground}
+          className="w-full py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition-colors"
+        >
+          Open Playground
+        </button>
+      </div>
+      
+      {/* Skip practice option */}
+      <button
+        onClick={onComplete}
+        className="w-full py-3 text-purple-600 font-medium hover:bg-purple-50 rounded-xl transition-colors flex items-center justify-center gap-1"
+      >
+        Skip practice
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
+// Legacy Playground Block Component - kept for reference
+function LegacyPlaygroundBlockComponent({
   block,
   isCompleted,
   onComplete,
@@ -386,8 +522,8 @@ function PlaygroundBlockComponent({
   if (taskCompleted || (isCompleted && showResult && isCorrect)) {
     return (
       <div className="space-y-4">
-        {/* Result image */}
-        {block.content.resultImage && (
+        {/* Result image - only show if not already shown at start */}
+        {block.content.resultImage && !block.content.showImageOnStart && (
           <div className="w-full rounded-xl overflow-hidden border border-gray-200">
             <img 
               src={block.content.resultImage} 
@@ -447,6 +583,20 @@ function PlaygroundBlockComponent({
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-6">
+      {/* Show image at start if showImageOnStart is true */}
+      {block.content.showImageOnStart && block.content.resultImage && (
+        <div className="w-full rounded-xl overflow-hidden border border-gray-200 mb-4">
+          <img 
+            src={block.content.resultImage} 
+            alt="Reference" 
+            className="w-full h-auto object-cover"
+            onError={(e) => {
+              (e.target as HTMLImageElement).style.display = 'none';
+            }}
+          />
+        </div>
+      )}
+      
       {/* AI Tool header */}
       <div className="bg-gray-50 rounded-lg px-4 py-2 mb-4 inline-flex items-center gap-2">
         <span className="text-xl">{block.content.aiTool.icon}</span>

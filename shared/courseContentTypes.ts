@@ -38,8 +38,10 @@ export interface PlaygroundBlock {
     blanks: PlaygroundBlank[];
     // All available options (will be consumed as user selects)
     options: string[];
-    // Image shown on completion
+    // Image shown on completion (or on start if showImageOnStart is true)
     resultImage?: string;
+    // If true, show the image at the start as a reference/intro, not as a result
+    showImageOnStart?: boolean;
     // Pro tip shown on completion
     proTip?: string;
     // Hint text shown when user clicks "Show Hint"
@@ -136,7 +138,8 @@ export function createPlaygroundBlock(
   errorFeedback: { title: string; message: string },
   resultImage?: string,
   proTip?: string,
-  aiResponse?: string
+  aiResponse?: string,
+  showImageOnStart?: boolean
 ): PlaygroundBlock {
   return {
     type: 'playground',
@@ -149,6 +152,7 @@ export function createPlaygroundBlock(
       options,
       hint,
       resultImage,
+      showImageOnStart,
       proTip,
       successFeedback,
       errorFeedback,
