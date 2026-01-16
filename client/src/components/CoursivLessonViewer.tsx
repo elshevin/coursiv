@@ -163,7 +163,8 @@ export function CoursivLessonViewer({
           {currentBlock?.type === 'playground' && !isCurrentBlockCompleted && (
             <button
               onClick={() => {
-                handleBlockComplete(currentBlockIndex);
+                // Skip practice - just move to next block without marking as completed
+                // The playground remains in default state, user can come back anytime
                 if (visibleBlockCount < blocks.length) {
                   setVisibleBlockCount(prev => prev + 1);
                 }
@@ -526,7 +527,8 @@ function LegacyPlaygroundBlockComponent({
   };
 
   const handleSkip = () => {
-    onComplete();
+    // Skip practice - just continue without marking as completed
+    // User can come back and do the practice anytime
   };
 
   const handleTryAgain = () => {
