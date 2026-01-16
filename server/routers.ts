@@ -53,12 +53,29 @@ export const appRouter = router({
       try {
         const { payload } = await jwtVerify(cookie, getJwtSecret());
         const userId = payload.userId as number;
-        const user = await getEmailUserById(userId);
-        if (!user) return null;
         
-        // Return user without password hash
-        const { passwordHash, ...safeUser } = user;
-        return safeUser;
+        // Try to get user from database first
+        const user = await getEmailUserById(userId);
+        if (user) {
+          // Return user without password hash
+          const { passwordHash, ...safeUser } = user;
+          return safeUser;
+        }
+        
+        // Demo mode: if no user in database but valid JWT, return mock user
+        // This happens when user registered in demo mode (no database)
+        return {
+          id: userId,
+          email: 'demo@example.com',
+          name: 'Demo User',
+          avatarUrl: null,
+          quizAnswers: null,
+          testModeEnabled: false,
+          darkModeEnabled: false,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          lastLoginAt: new Date().toISOString(),
+        };
       } catch {
         return null;
       }
