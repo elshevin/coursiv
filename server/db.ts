@@ -1,13 +1,34 @@
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, demoUsers, InsertDemoUser, DemoUser, emailUsers, InsertEmailUser, EmailUser } from "../drizzle/schema";
+import { InsertUser, users, demoUsers, InsertDemoUser, DemoUser, emailUsers, InsertEmailUser, EmailUser, userStreaks, dailyActivity, userCourseProgress, UserStreak, DailyActivity, UserCourseProgress } from "../drizzle/schema";
 import { ENV } from './_core/env';
 import bcrypt from "bcryptjs";
+
+// Check if we should use SQLite (no DATABASE_URL configured)
+const USE_SQLITE = !process.env.DATABASE_URL;
+
+// Conditionally import SQLite module
+let sqliteDb: typeof import('./sqlite-db') | null = null;
+
+if (USE_SQLITE) {
+  console.log("[Database] No DATABASE_URL configured, using SQLite for local development");
+  // Dynamic import for SQLite
+  import('./sqlite-db').then(module => {
+    sqliteDb = module;
+    console.log("[Database] SQLite module loaded successfully");
+  }).catch(err => {
+    console.error("[Database] Failed to load SQLite module:", err);
+  });
+}
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
 // Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
+  if (USE_SQLITE) {
+    return null; // Will use SQLite functions instead
+  }
+  
   if (!_db && process.env.DATABASE_URL) {
     try {
       _db = drizzle(process.env.DATABASE_URL);
@@ -17,6 +38,14 @@ export async function getDb() {
     }
   }
   return _db;
+}
+
+// Helper to ensure SQLite is loaded
+async function ensureSqlite() {
+  if (!sqliteDb) {
+    sqliteDb = await import('./sqlite-db');
+  }
+  return sqliteDb;
 }
 
 export async function upsertUser(user: InsertUser): Promise<void> {
@@ -102,6 +131,12 @@ export async function createEmailUser(
   name?: string,
   quizAnswers?: Record<string, string>
 ): Promise<EmailUser | null> {
+  // Use SQLite if no MySQL configured
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.createEmailUser(email, password, name, quizAnswers) as Promise<EmailUser | null>;
+  }
+
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot create email user: database not available");
@@ -137,6 +172,11 @@ export async function createEmailUser(
 }
 
 export async function getEmailUserByEmail(email: string): Promise<EmailUser | null> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.getEmailUserByEmail(email) as Promise<EmailUser | null>;
+  }
+
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot get email user: database not available");
@@ -148,6 +188,11 @@ export async function getEmailUserByEmail(email: string): Promise<EmailUser | nu
 }
 
 export async function getEmailUserById(id: number): Promise<EmailUser | null> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.getEmailUserById(id) as Promise<EmailUser | null>;
+  }
+
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot get email user: database not available");
@@ -159,6 +204,11 @@ export async function getEmailUserById(id: number): Promise<EmailUser | null> {
 }
 
 export async function verifyEmailUserPassword(email: string, password: string): Promise<EmailUser | null> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.verifyEmailUserPassword(email, password) as Promise<EmailUser | null>;
+  }
+
   const user = await getEmailUserByEmail(email);
   if (!user) {
     return null;
@@ -182,6 +232,11 @@ export async function updateEmailUserSettings(
   id: number,
   settings: { testModeEnabled?: boolean; darkModeEnabled?: boolean }
 ): Promise<void> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.updateEmailUserSettings(id, settings);
+  }
+
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot update email user settings: database not available");
@@ -196,6 +251,11 @@ export async function updateEmailUserSettings(
 // ============================================
 
 export async function createDemoUser(): Promise<DemoUser | null> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.createDemoUser() as Promise<DemoUser | null>;
+  }
+
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot create demo user: database not available");
@@ -227,6 +287,11 @@ export async function createDemoUser(): Promise<DemoUser | null> {
 }
 
 export async function getDemoUserById(id: number): Promise<DemoUser | null> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.getDemoUserById(id) as Promise<DemoUser | null>;
+  }
+
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot get demo user: database not available");
@@ -238,6 +303,11 @@ export async function getDemoUserById(id: number): Promise<DemoUser | null> {
 }
 
 export async function updateDemoUserLastLogin(id: number): Promise<void> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.updateDemoUserLastLogin(id);
+  }
+
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot update demo user: database not available");
@@ -251,10 +321,12 @@ export async function updateDemoUserLastLogin(id: number): Promise<void> {
 // Streak Functions
 // ============================================
 
-import { userStreaks, dailyActivity, userCourseProgress, UserStreak, DailyActivity, UserCourseProgress } from "../drizzle/schema";
-import { and, gte, lte, sql } from "drizzle-orm";
-
 export async function getUserStreak(userId: number, userType: string): Promise<UserStreak | null> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.getUserStreak(userId, userType) as Promise<UserStreak | null>;
+  }
+
   const db = await getDb();
   if (!db) return null;
 
@@ -269,6 +341,11 @@ export async function createOrUpdateStreak(
   userType: string,
   testMode: boolean = false
 ): Promise<UserStreak | null> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.createOrUpdateStreak(userId, userType, testMode) as Promise<UserStreak | null>;
+  }
+
   const db = await getDb();
   if (!db) return null;
 
@@ -328,6 +405,11 @@ export async function createOrUpdateStreak(
 }
 
 export async function getWeeklyActivity(userId: number, userType: string): Promise<DailyActivity[]> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.getWeeklyActivity(userId, userType) as Promise<DailyActivity[]>;
+  }
+
   const db = await getDb();
   if (!db) return [];
 
@@ -338,27 +420,74 @@ export async function getWeeklyActivity(userId: number, userType: string): Promi
   const startOfWeek = new Date(now);
   startOfWeek.setDate(now.getDate() - daysToSaturday);
   startOfWeek.setHours(0, 0, 0, 0);
-  
-  const endOfWeek = new Date(startOfWeek);
-  endOfWeek.setDate(startOfWeek.getDate() + 6);
-  endOfWeek.setHours(23, 59, 59, 999);
 
-  const result = await db.select().from(dailyActivity)
+  const results = await db.select().from(dailyActivity)
+    .where(and(
+      eq(dailyActivity.userId, userId),
+      eq(dailyActivity.userType, userType)
+    ));
+
+  return results.filter(r => r.activityDate && new Date(r.activityDate) >= startOfWeek);
+}
+
+export async function recordDailyActivity(
+  userId: number,
+  userType: string,
+  lessonsCompleted: number = 1,
+  xpEarned: number = 10
+): Promise<void> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.recordDailyActivity(userId, userType, lessonsCompleted, xpEarned);
+  }
+
+  const db = await getDb();
+  if (!db) return;
+
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  // Check if there's already an entry for today
+  const existing = await db.select().from(dailyActivity)
     .where(and(
       eq(dailyActivity.userId, userId),
       eq(dailyActivity.userType, userType),
-      gte(dailyActivity.activityDate, startOfWeek),
-      lte(dailyActivity.activityDate, endOfWeek)
-    ));
-  
-  return result;
+      eq(dailyActivity.activityDate, today)
+    ))
+    .limit(1);
+
+  if (existing.length > 0) {
+    // Update existing entry
+    await db.update(dailyActivity).set({
+      lessonsCompleted: (existing[0].lessonsCompleted || 0) + lessonsCompleted,
+      xpEarned: (existing[0].xpEarned || 0) + xpEarned,
+    }).where(eq(dailyActivity.id, existing[0].id));
+  } else {
+    // Create new entry
+    await db.insert(dailyActivity).values({
+      userId,
+      userType,
+      activityDate: today,
+      lessonsCompleted,
+      xpEarned,
+    });
+  }
 }
 
 // ============================================
 // Course Progress Functions
 // ============================================
 
-export async function getUserCourseProgress(userId: number, userType: string, courseId: string): Promise<UserCourseProgress | null> {
+export async function getUserCourseProgress(
+  userId: number,
+  userType: string,
+  courseId: string
+): Promise<UserCourseProgress | null> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.getUserCourseProgress(userId, userType, courseId) as Promise<UserCourseProgress | null>;
+  }
+
   const db = await getDb();
   if (!db) return null;
 
@@ -372,11 +501,19 @@ export async function getUserCourseProgress(userId: number, userType: string, co
   return result.length > 0 ? result[0] : null;
 }
 
-export async function getAllUserCourseProgress(userId: number, userType: string): Promise<UserCourseProgress[]> {
+export async function getAllUserCourseProgress(
+  userId: number,
+  userType: string
+): Promise<UserCourseProgress[]> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.getAllUserCourseProgress(userId, userType) as Promise<UserCourseProgress[]>;
+  }
+
   const db = await getDb();
   if (!db) return [];
 
-  return await db.select().from(userCourseProgress)
+  return db.select().from(userCourseProgress)
     .where(and(
       eq(userCourseProgress.userId, userId),
       eq(userCourseProgress.userType, userType)
@@ -387,82 +524,61 @@ export async function updateCourseProgress(
   userId: number,
   userType: string,
   courseId: string,
-  completedModules: string[],
-  currentModuleId?: string
-): Promise<UserCourseProgress | null> {
-  const db = await getDb();
-  if (!db) return null;
+  moduleId: string
+): Promise<void> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.updateCourseProgress(userId, userType, courseId, moduleId);
+  }
 
-  const existing = await getUserCourseProgress(userId, userType, courseId);
-  
-  if (existing) {
-    await db.update(userCourseProgress)
-      .set({
-        completedModules: JSON.stringify(completedModules),
-        currentModuleId: currentModuleId || existing.currentModuleId,
-      })
-      .where(eq(userCourseProgress.id, existing.id));
-  } else {
+  const db = await getDb();
+  if (!db) return;
+
+  let progress = await getUserCourseProgress(userId, userType, courseId);
+
+  if (!progress) {
+    // Create new progress record
     await db.insert(userCourseProgress).values({
       userId,
       userType,
       courseId,
-      completedModules: JSON.stringify(completedModules),
-      currentModuleId,
+      completedModules: JSON.stringify([moduleId]),
+      currentModuleId: moduleId,
     });
+  } else {
+    // Update existing progress
+    const completedModules: string[] = progress.completedModules 
+      ? JSON.parse(progress.completedModules) 
+      : [];
+    
+    if (!completedModules.includes(moduleId)) {
+      completedModules.push(moduleId);
+    }
+
+    await db.update(userCourseProgress).set({
+      completedModules: JSON.stringify(completedModules),
+      currentModuleId: moduleId,
+    }).where(eq(userCourseProgress.id, progress.id));
   }
-  
-  return getUserCourseProgress(userId, userType, courseId);
 }
 
-export async function markCourseCompleted(userId: number, userType: string, courseId: string): Promise<void> {
-  const db = await getDb();
-  if (!db) return;
-
-  const existing = await getUserCourseProgress(userId, userType, courseId);
-  if (existing) {
-    await db.update(userCourseProgress)
-      .set({ completedAt: new Date() })
-      .where(eq(userCourseProgress.id, existing.id));
-  }
-}
-
-export async function recordDailyActivity(
+export async function markCourseCompleted(
   userId: number,
   userType: string,
-  lessonsCompleted: number = 1,
-  xpEarned: number = 50
+  courseId: string
 ): Promise<void> {
+  if (USE_SQLITE) {
+    const sqlite = await ensureSqlite();
+    return sqlite.markCourseCompleted(userId, userType, courseId);
+  }
+
   const db = await getDb();
   if (!db) return;
 
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  
-  // Check if there's already an activity record for today
-  const existing = await db.select().from(dailyActivity)
-    .where(and(
-      eq(dailyActivity.userId, userId),
-      eq(dailyActivity.userType, userType),
-      gte(dailyActivity.activityDate, today),
-      lte(dailyActivity.activityDate, new Date(today.getTime() + 24 * 60 * 60 * 1000 - 1))
-    ))
-    .limit(1);
-  
-  if (existing.length > 0) {
-    // Update existing record
-    await db.update(dailyActivity).set({
-      lessonsCompleted: sql`${dailyActivity.lessonsCompleted} + ${lessonsCompleted}`,
-      xpEarned: sql`${dailyActivity.xpEarned} + ${xpEarned}`,
-    }).where(eq(dailyActivity.id, existing[0].id));
-  } else {
-    // Create new record
-    await db.insert(dailyActivity).values({
-      userId,
-      userType,
-      activityDate: now,
-      lessonsCompleted,
-      xpEarned,
-    });
+  const progress = await getUserCourseProgress(userId, userType, courseId);
+  if (progress) {
+    await db.update(userCourseProgress).set({
+      completedAt: new Date(),
+    }).where(eq(userCourseProgress.id, progress.id));
   }
 }

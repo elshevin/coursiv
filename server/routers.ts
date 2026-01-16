@@ -64,7 +64,7 @@ export const appRouter = router({
       }
     }),
 
-    // Register new user
+    // Register new user (Demo mode - skip database)
     register: publicProcedure
       .input(z.object({
         email: z.string().email(),
@@ -73,16 +73,21 @@ export const appRouter = router({
         quizAnswers: z.record(z.string(), z.string()).optional(),
       }))
       .mutation(async ({ ctx, input }) => {
-        const user = await createEmailUser(
-          input.email,
-          input.password,
-          input.name,
-          input.quizAnswers as Record<string, string> | undefined
-        );
+        // Demo mode: create a mock user without database
+        const mockUser = {
+          id: Date.now(),
+          email: input.email,
+          name: input.name || input.email.split('@')[0],
+          avatarUrl: null,
+          quizAnswers: input.quizAnswers ? JSON.stringify(input.quizAnswers) : null,
+          testModeEnabled: false,
+          darkModeEnabled: false,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          lastLoginAt: new Date().toISOString(),
+        };
 
-        if (!user) {
-          throw new Error("Failed to create user");
-        }
+        const user = mockUser;
 
         // Create JWT token
         const token = await new SignJWT({ userId: user.id })
@@ -97,26 +102,33 @@ export const appRouter = router({
           maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
 
-        // Return user without password hash
-        const { passwordHash, ...safeUser } = user;
-        return safeUser;
+        // Return user (demo mode)
+        return user;
       }),
 
-    // Login with email and password
+    // Login with email and password (Demo mode - accept any credentials)
     login: publicProcedure
       .input(z.object({
         email: z.string().email(),
         password: z.string(),
       }))
       .mutation(async ({ ctx, input }) => {
-        const user = await verifyEmailUserPassword(input.email, input.password);
-
-        if (!user) {
-          throw new Error("Invalid email or password");
-        }
+        // Demo mode: create a mock user for any login
+        const mockUser = {
+          id: Date.now(),
+          email: input.email,
+          name: input.email.split('@')[0],
+          avatarUrl: null,
+          quizAnswers: null,
+          testModeEnabled: false,
+          darkModeEnabled: false,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          lastLoginAt: new Date().toISOString(),
+        };
 
         // Create JWT token
-        const token = await new SignJWT({ userId: user.id })
+        const token = await new SignJWT({ userId: mockUser.id })
           .setProtectedHeader({ alg: "HS256" })
           .setExpirationTime("7d")
           .sign(getJwtSecret());
@@ -128,9 +140,8 @@ export const appRouter = router({
           maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
 
-        // Return user without password hash
-        const { passwordHash, ...safeUser } = user;
-        return safeUser;
+        // Return user (demo mode)
+        return mockUser;
       }),
 
     // Logout
