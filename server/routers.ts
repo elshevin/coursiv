@@ -48,14 +48,19 @@ export const appRouter = router({
     // Get current user from cookie
     me: publicProcedure.query(async ({ ctx }) => {
       const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
+      console.log('[Auth] Checking cookie:', EMAIL_COOKIE_NAME, 'exists:', !!cookie);
+      console.log('[Auth] All cookies:', Object.keys(ctx.req.cookies || {}));
       if (!cookie) return null;
 
       try {
+        console.log('[Auth] Verifying JWT token...');
         const { payload } = await jwtVerify(cookie, getJwtSecret());
         const userId = payload.userId as number;
+        console.log('[Auth] JWT verified, userId:', userId);
         
         // Try to get user from database first
         const user = await getEmailUserById(userId);
+        console.log('[Auth] Database user:', user ? 'found' : 'not found');
         if (user) {
           // Return user without password hash
           const { passwordHash, ...safeUser } = user;
@@ -64,7 +69,8 @@ export const appRouter = router({
         
         // Demo mode: if no user in database but valid JWT, return mock user
         // This happens when user registered in demo mode (no database)
-        return {
+        console.log('[Auth] Returning demo user');
+        const demoUser = {
           id: userId,
           email: 'demo@example.com',
           name: 'Demo User',
@@ -76,7 +82,9 @@ export const appRouter = router({
           updatedAt: new Date().toISOString(),
           lastLoginAt: new Date().toISOString(),
         };
-      } catch {
+        return demoUser;
+      } catch (err) {
+        console.log('[Auth] JWT verification failed:', err);
         return null;
       }
     }),
@@ -114,6 +122,8 @@ export const appRouter = router({
 
         // Set cookie
         const cookieOptions = getSessionCookieOptions(ctx.req);
+        console.log('[Register] Setting cookie with options:', cookieOptions);
+        console.log('[Register] User ID:', user.id);
         ctx.res.cookie(EMAIL_COOKIE_NAME, token, {
           ...cookieOptions,
           maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days

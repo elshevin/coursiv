@@ -189,8 +189,9 @@ export async function getEmailUserByEmail(email: string): Promise<EmailUser | nu
 
 export async function getEmailUserById(id: number): Promise<EmailUser | null> {
   if (USE_SQLITE) {
-    const sqlite = await ensureSqlite();
-    return sqlite.getEmailUserById(id) as Promise<EmailUser | null>;
+    // Demo mode: no database, return null to trigger mock user in routers.ts
+    console.log('[Database] Demo mode: returning null for getEmailUserById');
+    return null;
   }
 
   const db = await getDb();
