@@ -494,11 +494,18 @@ export default function Quiz() {
             <ChevronLeft className="w-5 h-5" />
           </button>
           
-          <img src="/2-332.svg" alt="Coursiv" className="h-6" />
+          <img src="/logo.png" alt="Coursiv" className="h-8" />
           
-          <div className="text-sm text-[#24234C]/40">
-            {currentStep} / {quizSteps.length}
-          </div>
+          {/* Only show progress for question steps */}
+          {(step.type === 'identity' || step.type === 'question' || step.type === 'multi-select') && (
+            <div className="text-sm text-[#24234C]/40">
+              {quizSteps.filter((s, i) => i < currentStep - 1 && (s.type === 'identity' || s.type === 'question' || s.type === 'multi-select')).length + 1} / {quizSteps.filter(s => s.type === 'identity' || s.type === 'question' || s.type === 'multi-select').length}
+            </div>
+          )}
+          {/* Empty placeholder for non-question steps to maintain layout */}
+          {!(step.type === 'identity' || step.type === 'question' || step.type === 'multi-select') && (
+            <div className="w-12"></div>
+          )}
         </div>
       </header>
 
