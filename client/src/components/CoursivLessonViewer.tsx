@@ -86,7 +86,12 @@ export function CoursivLessonViewer({
           handleBlockComplete(openPlaygroundIndex);
         }}
         onBack={() => {
+          // Close playground and auto-advance to next block if playground is completed
+          const isPlaygroundCompleted = completedBlocks.has(openPlaygroundIndex);
           setOpenPlaygroundIndex(null);
+          if (isPlaygroundCompleted && visibleBlockCount < blocks.length) {
+            setVisibleBlockCount(prev => prev + 1);
+          }
         }}
       />
     );
