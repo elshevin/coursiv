@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
 
 interface ScratchCardPageProps {
@@ -7,45 +7,63 @@ interface ScratchCardPageProps {
 
 export function ScratchCardPage({ onComplete }: ScratchCardPageProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isScratching, setIsScratching] = useState(false);
   const [scratchProgress, setScratchProgress] = useState(0);
   const [isRevealed, setIsRevealed] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isCanvasReady, setIsCanvasReady] = useState(false);
 
+  // Initialize canvas with scratch layer
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
-    canvas.width = 200;
-    canvas.height = 200;
+    // Get container dimensions
+    const rect = container.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
 
-    // Draw scratch layer (gray with pattern)
-    ctx.fillStyle = '#E5E7EB';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Set canvas size to match container
+    canvas.width = width;
+    canvas.height = height;
+
+    // Create gradient background for scratch layer
+    const gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, '#C4B5FD');
+    gradient.addColorStop(0.5, '#A78BFA');
+    gradient.addColorStop(1, '#8B5CF6');
     
-    // Add some texture
-    ctx.fillStyle = '#D1D5DB';
-    for (let i = 0; i < 50; i++) {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, height);
+    
+    // Add sparkle/texture pattern
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+    for (let i = 0; i < 100; i++) {
+      const x = Math.random() * width;
+      const y = Math.random() * height;
+      const size = Math.random() * 3 + 1;
       ctx.beginPath();
-      ctx.arc(x, y, 2, 0, Math.PI * 2);
+      ctx.arc(x, y, size, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    // Add text hint
-    ctx.fillStyle = '#9CA3AF';
-    ctx.font = 'bold 16px sans-serif';
+    // Add "Scratch here!" text
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+    ctx.font = 'bold 20px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('Scratch here!', canvas.width / 2, canvas.height / 2);
+    ctx.textBaseline = 'middle';
+    ctx.fillText('✨ Scratch here! ✨', width / 2, height / 2);
+
+    setIsCanvasReady(true);
   }, []);
 
-  const scratch = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
-    if (!isScratching) return;
+  const scratch = useCallback((e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
+    if (!isScratching || isRevealed) return;
     
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -64,14 +82,16 @@ export function ScratchCardPage({ onComplete }: ScratchCardPageProps) {
       y = e.clientY - rect.top;
     }
 
-    // Scale coordinates
-    x = x * (canvas.width / rect.width);
-    y = y * (canvas.height / rect.height);
+    // Scale coordinates to canvas size
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    x = x * scaleX;
+    y = y * scaleY;
 
-    // Erase (scratch)
+    // Erase (scratch) with larger brush
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x, y, 25, 0, Math.PI * 2);
+    ctx.arc(x, y, 30, 0, Math.PI * 2);
     ctx.fill();
 
     // Calculate scratch progress
@@ -82,17 +102,18 @@ export function ScratchCardPage({ onComplete }: ScratchCardPageProps) {
         transparentPixels++;
       }
     }
-    const progress = (transparentPixels / (canvas.width * canvas.height)) * 100;
+    const totalPixels = canvas.width * canvas.height;
+    const progress = (transparentPixels / totalPixels) * 100;
     setScratchProgress(progress);
 
-    // Auto-reveal when 50% scratched
-    if (progress > 50 && !isRevealed) {
+    // Auto-reveal when 30% scratched (lower threshold for better UX)
+    if (progress > 30 && !isRevealed) {
       setIsRevealed(true);
       setTimeout(() => {
         setShowModal(true);
       }, 500);
     }
-  };
+  }, [isScratching, isRevealed]);
 
   const handleClaimDiscount = () => {
     setShowModal(false);
@@ -112,19 +133,23 @@ export function ScratchCardPage({ onComplete }: ScratchCardPageProps) {
       </p>
 
       {/* Scratch Card Container */}
-      <div className="relative inline-block mb-8">
+      <div 
+        ref={containerRef}
+        className="relative inline-block mb-8 w-[220px] h-[220px]"
+      >
         {/* Hidden discount underneath */}
-        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl">
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl border-4 border-dashed border-yellow-400">
           <div className="text-center">
             <p className="text-6xl font-bold text-[#5A4CFF]">50%</p>
             <p className="text-2xl font-bold text-[#24234C]">OFF</p>
           </div>
         </div>
 
-        {/* Scratch canvas */}
+        {/* Scratch canvas - positioned on top */}
         <canvas
           ref={canvasRef}
-          className={`rounded-2xl cursor-pointer transition-opacity duration-500 ${isRevealed ? 'opacity-0' : 'opacity-100'}`}
+          className={`absolute inset-0 rounded-2xl cursor-pointer transition-opacity duration-500 ${isRevealed ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+          style={{ touchAction: 'none' }}
           onMouseDown={() => setIsScratching(true)}
           onMouseUp={() => setIsScratching(false)}
           onMouseLeave={() => setIsScratching(false)}
@@ -136,7 +161,7 @@ export function ScratchCardPage({ onComplete }: ScratchCardPageProps) {
       </div>
 
       {/* Progress indicator */}
-      {!isRevealed && (
+      {!isRevealed && isCanvasReady && (
         <p className="text-sm text-[#24234C]/40 mb-4">
           {scratchProgress > 0 ? `${Math.round(scratchProgress)}% scratched` : 'Scratch the card to reveal your discount!'}
         </p>
