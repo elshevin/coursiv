@@ -81,11 +81,8 @@ export default function CourseDetail() {
     if (!selectedModule) return;
     const { module } = selectedModule;
     
-    if (module.type === "quiz") {
-      setLocation(`/course-quiz/${courseId}/${module.id}`);
-    } else {
-      setLocation(`/lesson/${courseId}/${module.id}`);
-    }
+    // All modules now use the unified /lesson/ route with Coursiv-style content
+    setLocation(`/lesson/${courseId}/${module.id}`);
     setSelectedModule(null);
   };
 
