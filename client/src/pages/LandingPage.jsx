@@ -58,10 +58,10 @@ export default function LandingPage() {
               {/* User avatars and count */}
               <div className="mt-6 flex items-center gap-3">
                 <div className="flex -space-x-2">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-white"></div>
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-white"></div>
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-green-600 border-2 border-white"></div>
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 border-2 border-white"></div>
+                  <img src="/images/avatars/avatar-1.png" alt="User" className="w-8 h-8 rounded-full border-2 border-white object-cover" />
+                  <img src="/images/avatars/avatar-2.png" alt="User" className="w-8 h-8 rounded-full border-2 border-white object-cover" />
+                  <img src="/images/avatars/avatar-3.png" alt="User" className="w-8 h-8 rounded-full border-2 border-white object-cover" />
+                  <img src="/images/avatars/avatar-4.png" alt="User" className="w-8 h-8 rounded-full border-2 border-white object-cover" />
                 </div>
                 <span className="text-sm text-[#24234C]/70">
                   More than <CountUp end={1468169} suffix="+" className="font-medium text-[#24234C]" /> people joined

@@ -9,12 +9,18 @@ interface OnboardingModalProps {
   userName?: string;
 }
 
-// Course icons mapping
+// Course icons mapping - using ai-tools icons
 const courseIcons: Record<string, string> = {
-  'chatgpt': '/images/course/chatgpt-icon.png',
-  'dalle': '/images/course/dalle-icon.png',
-  'midjourney': '/images/course/midjourney-icon.png',
-  'claude': '/images/course/claude-icon.png',
+  'chatgpt': '/images/ai-tools/chatgpt.png',
+  'dall-e': '/images/ai-tools/dall-e.png',
+  'midjourney': '/images/ai-tools/midjourney.png',
+  'claude': '/images/ai-tools/claude.png',
+  'gemini': '/images/ai-tools/gemini.png',
+  'perplexity': '/images/ai-tools/perplexity.png',
+  'copilot': '/images/ai-tools/copilot.png',
+  'notion-ai': '/images/ai-tools/notion-ai.png',
+  'stable-diffusion': '/images/ai-tools/stable-diffusion.png',
+  'deepseek': '/images/ai-tools/deepseek.png',
 };
 
 export function OnboardingModal({ isOpen, onClose, onComplete, userName = 'Learner' }: OnboardingModalProps) {
@@ -122,11 +128,11 @@ export function OnboardingModal({ isOpen, onClose, onComplete, userName = 'Learn
                       }}
                     >
                       <img 
-                        src={courseIcons[course.id] || `/images/course/covers/${course.id}-cover.png`}
+                        src={courseIcons[course.id] || '/images/ai-tools/chatgpt.png'}
                         alt={course.title}
                         className="w-8 h-8 object-contain"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/images/course/default-icon.png';
+                          (e.target as HTMLImageElement).style.display = 'none';
                         }}
                       />
                     </div>
@@ -169,11 +175,11 @@ export function OnboardingModal({ isOpen, onClose, onComplete, userName = 'Learn
                   >
                     <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0">
                       <img 
-                        src={courseIcons[course.id] || `/images/course/covers/${course.id}-cover.png`}
+                        src={courseIcons[course.id] || '/images/ai-tools/chatgpt.png'}
                         alt={course.title}
                         className="w-8 h-8 object-contain"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/images/course/default-icon.png';
+                          (e.target as HTMLImageElement).style.display = 'none';
                         }}
                       />
                     </div>
