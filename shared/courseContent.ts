@@ -5,6 +5,7 @@
 import { ContentPage, QuizQuestion } from './courseData';
 import { completeMockContent, completeMockQuizzes } from './mockCourseContent';
 import { allCourseContent, allQuizzes } from './allCourseContent';
+import { allBeginnerContent, beginnerQuizzes } from './beginnerCourseContent';
 
 // Content for each module - keyed by module ID
 export const moduleContent: Record<string, ContentPage[]> = {
@@ -366,11 +367,15 @@ export const moduleQuizzes: Record<string, QuizQuestion> = {
 
 // Helper function to get content for a module
 export function getModuleContent(moduleId: string): ContentPage[] {
-  // First try to get from complete mock content
+  // First try to get from complete beginner content (most comprehensive)
+  if (allBeginnerContent[moduleId]) {
+    return allBeginnerContent[moduleId];
+  }
+  // Then try complete mock content
   if (completeMockContent[moduleId]) {
     return completeMockContent[moduleId];
   }
-  // Then try all course content (new comprehensive content)
+  // Then try all course content (intermediate/advanced)
   if (allCourseContent[moduleId]) {
     return allCourseContent[moduleId];
   }
@@ -387,11 +392,15 @@ In the meantime, explore other lessons in this course.`,
 
 // Helper function to get quiz for a module
 export function getModuleQuiz(moduleId: string): QuizQuestion | null {
-  // First try to get from mock quizzes (complete)
+  // First try to get from beginner quizzes (most comprehensive)
+  if (beginnerQuizzes[moduleId]) {
+    return beginnerQuizzes[moduleId];
+  }
+  // Then try mock quizzes
   if (completeMockQuizzes[moduleId]) {
     return completeMockQuizzes[moduleId];
   }
-  // Then try all quizzes (new comprehensive quizzes)
+  // Then try all quizzes (intermediate/advanced)
   if (allQuizzes[moduleId]) {
     return allQuizzes[moduleId];
   }
