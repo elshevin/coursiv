@@ -31,7 +31,7 @@ import {
 } from "lucide-react";
 
 import { challengeData } from '@/data/challengeData';
-import { certificateData } from '@/data/certificateData';
+// certificateData removed - replaced with coursesWithProgress
 import { trpc } from "@/lib/trpc";
 import { courses } from "../../../shared/courseData";
 
@@ -530,33 +530,51 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Certificates */}
+              {/* AI Tools Learning Progress */}
               <div className="bg-white rounded-2xl p-6 border border-[#E2E5E9]">
                 <div className="flex items-center gap-3 mb-4">
-                  <Trophy className="w-5 h-5 text-amber-500" />
-                  <h3 className="text-lg font-bold text-[#24234C]">Certificates</h3>
+                  <Sparkles className="w-5 h-5 text-[#5A4CFF]" />
+                  <h3 className="text-lg font-bold text-[#24234C]">AI Tools Progress</h3>
                 </div>
                 <div className="space-y-3">
-                  {certificateData.map((cert) => (
-                    <Link key={cert.id} href={`/certificate/${cert.id}`}>
+                  {coursesWithProgress.slice(0, 6).map((course) => (
+                    <Link key={course.id} href={`/course/${course.id}`}>
                       <div className="flex items-center gap-4 p-3 rounded-xl hover:bg-[#F9FAFB] transition-colors cursor-pointer">
-                        <div className="w-10 h-10 rounded-lg overflow-hidden">
-                          <img src={cert.image} alt={cert.title} className="w-full h-full object-cover" />
+                        <div className="w-10 h-10 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
+                          <img 
+                            src={course.image} 
+                            alt={course.title} 
+                            className="w-full h-full object-cover" 
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).style.display = 'none';
+                            }}
+                          />
                         </div>
                         <div className="flex-1">
-                          <p className="font-medium text-[#24234C] text-sm">{cert.title}</p>
-                          <p className="text-xs text-[#24234C]/60">{cert.progress}% complete</p>
+                          <p className="font-medium text-[#24234C] text-sm">{course.title}</p>
+                          <p className="text-xs text-[#24234C]/60">
+                            {course.completedLessons}/{course.totalLessons} lessons • {course.progress}%
+                          </p>
                         </div>
-                        {cert.unlocked ? (
+                        {course.progress === 100 ? (
                           <Trophy className="w-5 h-5 text-green-500" />
+                        ) : course.progress > 0 ? (
+                          <div className="text-xs font-medium text-[#5A4CFF]">{course.progress}%</div>
                         ) : (
-                          <Lock className="w-5 h-5 text-gray-400" />
+                          <ChevronRight className="w-5 h-5 text-gray-400" />
                         )}
                       </div>
-                      <Progress value={cert.progress} className="h-1.5" />
+                      <Progress value={course.progress} className="h-1.5" />
                     </Link>
                   ))}
                 </div>
+                {coursesWithProgress.length > 6 && (
+                  <Link href="/dashboard/guides">
+                    <a className="block text-center text-sm text-[#5A4CFF] font-medium mt-4 hover:underline">
+                      View all {coursesWithProgress.length} courses
+                    </a>
+                  </Link>
+                )}
               </div>
 
               {/* Developer Options */}
