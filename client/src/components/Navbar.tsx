@@ -105,17 +105,14 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
             ) : (
               <>
                 {/* Login Button */}
-                <Button 
-                  onClick={handleLogin}
-                  disabled={isLoggingIn}
-                  variant="ghost"
-                  className="text-[#24234C] hover:text-[#5A4CFF] hover:bg-transparent text-sm font-medium h-11 px-5"
-                >
-                  {isLoggingIn ? (
-                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                  ) : null}
-                  Login
-                </Button>
+                <Link href="/login">
+                  <Button 
+                    variant="ghost"
+                    className="text-[#24234C] hover:text-[#5A4CFF] hover:bg-transparent text-sm font-medium h-11 px-5"
+                  >
+                    Login
+                  </Button>
+                </Link>
                 {/* Start Now Button - Highlighted with arrow */}
                 <Link href="/quiz">
                   <Button 
@@ -171,20 +168,14 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                 </div>
               ) : (
                 <div className="flex flex-col gap-3">
-                  <Button 
-                    onClick={() => {
-                      handleLogin();
-                      setMobileMenuOpen(false);
-                    }}
-                    disabled={isLoggingIn}
-                    variant="outline"
-                    className="w-full border-[#5A4CFF] text-[#5A4CFF] rounded-full h-11"
-                  >
-                    {isLoggingIn ? (
-                      <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                    ) : null}
-                    Login
-                  </Button>
+                  <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+                    <Button 
+                      variant="outline"
+                      className="w-full border-[#5A4CFF] text-[#5A4CFF] rounded-full h-11"
+                    >
+                      Login
+                    </Button>
+                  </Link>
                   <Link href="/quiz" onClick={() => setMobileMenuOpen(false)}>
                     <Button 
                       className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full h-11 font-medium flex items-center justify-center gap-1"
