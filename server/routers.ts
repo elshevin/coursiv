@@ -7,6 +7,7 @@ import {
   getDemoUserById, 
   updateDemoUserLastLogin,
   createEmailUser,
+  getEmailUserByEmail,
   getEmailUserById,
   verifyEmailUserPassword,
   updateEmailUserSettings,
@@ -28,6 +29,29 @@ const EMAIL_COOKIE_NAME = "coursiv_session";
 // Helper function to get JWT secret - ensures env var is read at runtime
 function getJwtSecret(): Uint8Array {
   return new TextEncoder().encode(process.env.JWT_SECRET || "demo-secret-key");
+}
+
+// Helper function to get authenticated user ID from cookie or Authorization header
+async function getAuthenticatedUserId(ctx: any): Promise<number | null> {
+  // Try cookie first, then Authorization header
+  let token = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
+  
+  // If no cookie, check Authorization header
+  if (!token) {
+    const authHeader = ctx.req.headers.authorization;
+    if (authHeader?.startsWith('Bearer ')) {
+      token = authHeader.substring(7);
+    }
+  }
+  
+  if (!token) return null;
+
+  try {
+    const { payload } = await jwtVerify(token, getJwtSecret());
+    return payload.userId as number;
+  } catch {
+    return null;
+  }
 }
 
 export const appRouter = router({
@@ -99,7 +123,7 @@ export const appRouter = router({
       }
     }),
 
-    // Register new user (Demo mode - skip database)
+    // Register new user with real database
     register: publicProcedure
       .input(z.object({
         email: z.string().email(),
@@ -108,21 +132,32 @@ export const appRouter = router({
         quizAnswers: z.record(z.string(), z.string()).optional(),
       }))
       .mutation(async ({ ctx, input }) => {
-        // Demo mode: create a mock user without database
-        const mockUser = {
-          id: Date.now(),
-          email: input.email,
-          name: input.name || input.email.split('@')[0],
-          avatarUrl: null,
-          quizAnswers: input.quizAnswers ? JSON.stringify(input.quizAnswers) : null,
-          testModeEnabled: false,
-          darkModeEnabled: false,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          lastLoginAt: new Date().toISOString(),
-        };
+        // Check if user already exists
+        const existingUser = await getEmailUserByEmail(input.email);
+        if (existingUser) {
+          throw new Error("EMAIL_ALREADY_EXISTS");
+        }
 
-        const user = mockUser;
+        // Create user in database
+        const newUser = await createEmailUser(
+          input.email,
+          input.password,
+          input.name,
+          input.quizAnswers
+        );
+
+        if (!newUser) {
+          throw new Error("Failed to create user");
+        }
+
+        // Prepare user data without password hash
+        const { passwordHash, ...safeUser } = newUser;
+        const user = {
+          ...safeUser,
+          createdAt: safeUser.createdAt?.toISOString?.() || new Date().toISOString(),
+          updatedAt: safeUser.updatedAt?.toISOString?.() || new Date().toISOString(),
+          lastLoginAt: safeUser.lastLoginAt?.toISOString?.() || new Date().toISOString(),
+        };
 
         // Create JWT token
         const token = await new SignJWT({ userId: user.id })
@@ -132,53 +167,55 @@ export const appRouter = router({
 
         // Set cookie (as backup)
         const cookieOptions = getSessionCookieOptions(ctx.req);
-        console.log('[Register] Setting cookie with options:', cookieOptions);
-        console.log('[Register] User ID:', user.id);
+        console.log('[Register] User created:', user.id, user.email);
         ctx.res.cookie(EMAIL_COOKIE_NAME, token, {
           ...cookieOptions,
           maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
 
-        // Return user and token (token for localStorage fallback)
+        // Return user and token
         return { user, token };
       }),
 
-    // Login with email and password (Demo mode - accept any credentials)
+    // Login with email and password - real password verification
     login: publicProcedure
       .input(z.object({
         email: z.string().email(),
         password: z.string(),
       }))
       .mutation(async ({ ctx, input }) => {
-        // Demo mode: create a mock user for any login
-        const mockUser = {
-          id: Date.now(),
-          email: input.email,
-          name: input.email.split('@')[0],
-          avatarUrl: null,
-          quizAnswers: null,
-          testModeEnabled: false,
-          darkModeEnabled: false,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          lastLoginAt: new Date().toISOString(),
+        // Verify password against database
+        const verifiedUser = await verifyEmailUserPassword(input.email, input.password);
+        
+        if (!verifiedUser) {
+          throw new Error("INVALID_CREDENTIALS");
+        }
+
+        // Prepare user data without password hash
+        const { passwordHash, ...safeUser } = verifiedUser;
+        const user = {
+          ...safeUser,
+          createdAt: safeUser.createdAt?.toISOString?.() || new Date().toISOString(),
+          updatedAt: safeUser.updatedAt?.toISOString?.() || new Date().toISOString(),
+          lastLoginAt: safeUser.lastLoginAt?.toISOString?.() || new Date().toISOString(),
         };
 
         // Create JWT token
-        const token = await new SignJWT({ userId: mockUser.id })
+        const token = await new SignJWT({ userId: user.id })
           .setProtectedHeader({ alg: "HS256" })
           .setExpirationTime("7d")
           .sign(getJwtSecret());
 
         // Set cookie (as backup)
         const cookieOptions = getSessionCookieOptions(ctx.req);
+        console.log('[Login] User logged in:', user.id, user.email);
         ctx.res.cookie(EMAIL_COOKIE_NAME, token, {
           ...cookieOptions,
           maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
 
-        // Return user and token (token for localStorage fallback)
-        return { user: mockUser, token };
+        // Return user and token
+        return { user, token };
       }),
 
     // Logout
@@ -195,17 +232,13 @@ export const appRouter = router({
         darkModeEnabled: z.boolean().optional(),
       }))
       .mutation(async ({ ctx, input }) => {
-        const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
-        if (!cookie) {
+        const userId = await getAuthenticatedUserId(ctx);
+        if (!userId) {
           throw new Error("Not authenticated");
         }
 
         try {
-          const { payload } = await jwtVerify(cookie, getJwtSecret());
-          const userId = payload.userId as number;
-          
           await updateEmailUserSettings(userId, input);
-          
           return { success: true };
         } catch {
           throw new Error("Not authenticated");
@@ -265,12 +298,10 @@ export const appRouter = router({
   streaks: router({
     // Get current user's streak
     get: publicProcedure.query(async ({ ctx }) => {
-      const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
-      if (!cookie) return null;
+      const userId = await getAuthenticatedUserId(ctx);
+      if (!userId) return null;
 
       try {
-        const { payload } = await jwtVerify(cookie, getJwtSecret());
-        const userId = payload.userId as number;
         const streak = await getUserStreak(userId, 'email');
         return streak;
       } catch {
@@ -286,15 +317,12 @@ export const appRouter = router({
         xpEarned: z.number().optional(),
       }))
       .mutation(async ({ ctx, input }) => {
-        const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
-        if (!cookie) {
+        const userId = await getAuthenticatedUserId(ctx);
+        if (!userId) {
           throw new Error("Not authenticated");
         }
 
         try {
-          const { payload } = await jwtVerify(cookie, getJwtSecret());
-          const userId = payload.userId as number;
-          
           // Update streak
           const streak = await createOrUpdateStreak(userId, 'email', input.testMode || false);
           
@@ -314,12 +342,10 @@ export const appRouter = router({
 
     // Get weekly activity for calendar
     getWeeklyActivity: publicProcedure.query(async ({ ctx }) => {
-      const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
-      if (!cookie) return [];
+      const userId = await getAuthenticatedUserId(ctx);
+      if (!userId) return [];
 
       try {
-        const { payload } = await jwtVerify(cookie, getJwtSecret());
-        const userId = payload.userId as number;
         const activity = await getWeeklyActivity(userId, 'email');
         return activity;
       } catch {
@@ -332,12 +358,10 @@ export const appRouter = router({
   courses: router({
     // Get all courses progress for current user
     getAllProgress: publicProcedure.query(async ({ ctx }) => {
-      const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
-      if (!cookie) return [];
+      const userId = await getAuthenticatedUserId(ctx);
+      if (!userId) return [];
 
       try {
-        const { payload } = await jwtVerify(cookie, getJwtSecret());
-        const userId = payload.userId as number;
         const progress = await getAllUserCourseProgress(userId, 'email');
         return progress;
       } catch {
@@ -349,12 +373,10 @@ export const appRouter = router({
     getProgress: publicProcedure
       .input(z.object({ courseId: z.string() }))
       .query(async ({ ctx, input }) => {
-        const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
-        if (!cookie) return null;
+        const userId = await getAuthenticatedUserId(ctx);
+        if (!userId) return null;
 
         try {
-          const { payload } = await jwtVerify(cookie, getJwtSecret());
-          const userId = payload.userId as number;
           const progress = await getUserCourseProgress(userId, 'email', input.courseId);
           return progress;
         } catch {
@@ -370,15 +392,12 @@ export const appRouter = router({
         nextModuleId: z.string().optional(),
       }))
       .mutation(async ({ ctx, input }) => {
-        const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
-        if (!cookie) {
+        const userId = await getAuthenticatedUserId(ctx);
+        if (!userId) {
           throw new Error("Not authenticated");
         }
 
         try {
-          const { payload } = await jwtVerify(cookie, getJwtSecret());
-          const userId = payload.userId as number;
-          
           // Get current progress
           const currentProgress = await getUserCourseProgress(userId, 'email', input.courseId);
           const completedModules = currentProgress?.completedModules 
@@ -390,6 +409,9 @@ export const appRouter = router({
             completedModules.push(input.moduleId);
           }
           
+          console.log('[CompleteModule] User:', userId, 'Course:', input.courseId, 'Module:', input.moduleId);
+          console.log('[CompleteModule] Completed modules:', completedModules);
+          
           // Update progress
           const progress = await updateCourseProgress(
             userId,
@@ -400,7 +422,8 @@ export const appRouter = router({
           );
           
           return progress;
-        } catch {
+        } catch (error) {
+          console.error('[CompleteModule] Error:', error);
           throw new Error("Not authenticated");
         }
       }),
@@ -409,17 +432,13 @@ export const appRouter = router({
     completeCourse: publicProcedure
       .input(z.object({ courseId: z.string() }))
       .mutation(async ({ ctx, input }) => {
-        const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
-        if (!cookie) {
+        const userId = await getAuthenticatedUserId(ctx);
+        if (!userId) {
           throw new Error("Not authenticated");
         }
 
         try {
-          const { payload } = await jwtVerify(cookie, getJwtSecret());
-          const userId = payload.userId as number;
-          
           await markCourseCompleted(userId, 'email', input.courseId);
-          
           return { success: true };
         } catch {
           throw new Error("Not authenticated");

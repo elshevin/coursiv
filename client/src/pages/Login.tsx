@@ -28,7 +28,12 @@ export default function Login() {
       console.log('[Login] setLocation called');
     } catch (err: any) {
       console.error('[Login] Login error:', err);
-      setError(err.message || 'Invalid email or password');
+      const errorMessage = err.message || '';
+      if (errorMessage.includes('INVALID_CREDENTIALS')) {
+        setError('Invalid email or password. Please check your credentials and try again.');
+      } else {
+        setError(errorMessage || 'Invalid email or password');
+      }
     } finally {
       setIsLoading(false);
     }

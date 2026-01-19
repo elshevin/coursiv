@@ -463,7 +463,14 @@ export default function Quiz() {
       await register(email, password, email.split('@')[0], quizAnswers);
       setLocation('/upsell');
     } catch (err: any) {
-      setError(err.message || 'Failed to create account');
+      const errorMessage = err.message || '';
+      if (errorMessage.includes('EMAIL_ALREADY_EXISTS')) {
+        setError('This email is already registered. Please log in instead.');
+      } else if (errorMessage.includes('INVALID_CREDENTIALS')) {
+        setError('Invalid email or password.');
+      } else {
+        setError(errorMessage || 'Failed to create account');
+      }
     } finally {
       setIsLoading(false);
     }
