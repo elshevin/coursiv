@@ -63,6 +63,8 @@ export default function Dashboard() {
   
   // Onboarding modal state
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
+  // Track if onboarding has been completed in this session (to prevent re-showing after navigation)
+  const [onboardingCompletedInSession, setOnboardingCompletedInSession] = useState(false);
   
   // Update settings mutation
   const updateSettingsMutation = trpc.emailAuth.updateSettings.useMutation();
@@ -145,8 +147,8 @@ export default function Dashboard() {
 
   // Check if user is new and show onboarding
   useEffect(() => {
-    // Check if user has completed onboarding (from user data)
-    const hasCompletedOnboarding = user?.onboardingCompleted === true;
+    // Check if user has completed onboarding (from user data or in this session)
+    const hasCompletedOnboarding = user?.onboardingCompleted === true || onboardingCompletedInSession;
     
     if (isAuthenticated && !isLoading && !hasCompletedOnboarding) {
       // Show onboarding for new users who haven't completed it
@@ -155,30 +157,36 @@ export default function Dashboard() {
       }, 500);
       return () => clearTimeout(timer);
     }
-  }, [isAuthenticated, isLoading, user?.onboardingCompleted]);
+  }, [isAuthenticated, isLoading, user?.onboardingCompleted, onboardingCompletedInSession]);
 
   // Handle onboarding completion
   const handleOnboardingComplete = async (selectedCourseId: string) => {
+    // Mark as completed in session immediately to prevent re-showing
+    setOnboardingCompletedInSession(true);
+    setIsOnboardingOpen(false);
+    
     // Save onboarding completion to database
     try {
       await updateSettingsMutation.mutateAsync({ onboardingCompleted: true });
     } catch (error) {
       console.error('Failed to save onboarding status:', error);
     }
-    setIsOnboardingOpen(false);
     // Navigate to the selected course
     setLocation(`/course/${selectedCourseId}`);
   };
 
   // Handle onboarding close (dismiss)
   const handleOnboardingClose = async () => {
+    // Mark as completed in session immediately to prevent re-showing
+    setOnboardingCompletedInSession(true);
+    setIsOnboardingOpen(false);
+    
     // Save onboarding completion to database
     try {
       await updateSettingsMutation.mutateAsync({ onboardingCompleted: true });
     } catch (error) {
       console.error('Failed to save onboarding status:', error);
     }
-    setIsOnboardingOpen(false);
   };
 
   // Calculate real progress for each course
