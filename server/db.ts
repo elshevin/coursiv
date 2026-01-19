@@ -164,10 +164,11 @@ export async function updateCourseProgress(
   userId: number,
   userType: string,
   courseId: string,
-  moduleId: string
+  completedModulesArray: string[],
+  nextModuleId?: string
 ): Promise<any> {
   const mod = await ensureDbModule();
-  return mod.updateCourseProgress(userId, userType, courseId, moduleId);
+  return mod.updateCourseProgress(userId, userType, courseId, completedModulesArray, nextModuleId);
 }
 
 export async function markCourseCompleted(userId: number, userType: string, courseId: string): Promise<void> {

@@ -364,39 +364,30 @@ export async function updateCourseProgress(
   userId: number, 
   userType: string, 
   courseId: string, 
-  moduleId: string
+  completedModulesArray: string[],
+  nextModuleId?: string
 ): Promise<UserCourseProgress | null> {
   if (!db) return null;
 
   const existing = await getCourseProgress(userId, userType, courseId);
+  const currentModuleId = nextModuleId || completedModulesArray[completedModulesArray.length - 1];
 
   if (!existing) {
     const values: InsertUserCourseProgress = {
       userId,
       userType,
       courseId,
-      completedModules: JSON.stringify([moduleId]),
-      currentModuleId: moduleId,
+      completedModules: JSON.stringify(completedModulesArray),
+      currentModuleId: currentModuleId,
     };
     await db.insert(userCourseProgress).values(values);
     return getCourseProgress(userId, userType, courseId);
   }
 
-  let completedModules: string[] = [];
-  try {
-    completedModules = existing.completedModules ? JSON.parse(existing.completedModules) : [];
-  } catch {
-    completedModules = [];
-  }
-
-  if (!completedModules.includes(moduleId)) {
-    completedModules.push(moduleId);
-  }
-
   await db.update(userCourseProgress)
     .set({ 
-      completedModules: JSON.stringify(completedModules),
-      currentModuleId: moduleId,
+      completedModules: JSON.stringify(completedModulesArray),
+      currentModuleId: currentModuleId,
       lastAccessedAt: new Date()
     })
     .where(eq(userCourseProgress.id, existing.id));
