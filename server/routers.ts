@@ -112,6 +112,7 @@ export const appRouter = router({
           quizAnswers: null,
           testModeEnabled: false,
           darkModeEnabled: false,
+          onboardingCompleted: false,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
           lastLoginAt: new Date().toISOString(),
@@ -225,11 +226,12 @@ export const appRouter = router({
       return { success: true };
     }),
 
-    // Update settings (test mode, dark mode)
+    // Update settings (test mode, dark mode, onboarding)
     updateSettings: publicProcedure
       .input(z.object({
         testModeEnabled: z.boolean().optional(),
         darkModeEnabled: z.boolean().optional(),
+        onboardingCompleted: z.boolean().optional(),
       }))
       .mutation(async ({ ctx, input }) => {
         const userId = await getAuthenticatedUserId(ctx);

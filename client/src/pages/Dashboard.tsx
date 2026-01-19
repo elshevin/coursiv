@@ -63,9 +63,9 @@ export default function Dashboard() {
   
   // Onboarding modal state
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
-  const [hasSeenOnboarding, setHasSeenOnboarding] = useState(() => {
-    return localStorage.getItem('coursiv_onboarding_completed') === 'true';
-  });
+  
+  // Update settings mutation
+  const updateSettingsMutation = trpc.emailAuth.updateSettings.useMutation();
 
   // Fetch streak data from backend
   const { data: streakData } = trpc.streaks.get.useQuery(undefined, {
@@ -143,53 +143,41 @@ export default function Dashboard() {
     return days;
   }, [weeklyActivityData]);
 
-  // Check if user is new (no progress) and show onboarding
+  // Check if user is new and show onboarding
   useEffect(() => {
-    if (isAuthenticated && !isLoading && !hasSeenOnboarding) {
-      // Check if user has any progress
-      const hasProgress = allProgressData && allProgressData.length > 0 && 
-        allProgressData.some(p => {
-          if (p.completedModules) {
-            try {
-              const parsed = typeof p.completedModules === 'string'
-                ? JSON.parse(p.completedModules)
-                : p.completedModules;
-              // Flatten and clean the array to handle nested arrays
-              const modules = Array.isArray(parsed) 
-                ? parsed.flat(Infinity).filter((item): item is string => typeof item === 'string')
-                : [];
-              return modules.length > 0;
-            } catch {
-              return false;
-            }
-          }
-          return false;
-        });
-      
-      // Show onboarding for new users with no progress
-      if (!hasProgress) {
-        // Small delay to let the page render first
-        const timer = setTimeout(() => {
-          setIsOnboardingOpen(true);
-        }, 500);
-        return () => clearTimeout(timer);
-      }
+    // Check if user has completed onboarding (from user data)
+    const hasCompletedOnboarding = user?.onboardingCompleted === true;
+    
+    if (isAuthenticated && !isLoading && !hasCompletedOnboarding) {
+      // Show onboarding for new users who haven't completed it
+      const timer = setTimeout(() => {
+        setIsOnboardingOpen(true);
+      }, 500);
+      return () => clearTimeout(timer);
     }
-  }, [isAuthenticated, isLoading, hasSeenOnboarding, allProgressData]);
+  }, [isAuthenticated, isLoading, user?.onboardingCompleted]);
 
   // Handle onboarding completion
-  const handleOnboardingComplete = (selectedCourseId: string) => {
-    localStorage.setItem('coursiv_onboarding_completed', 'true');
-    setHasSeenOnboarding(true);
+  const handleOnboardingComplete = async (selectedCourseId: string) => {
+    // Save onboarding completion to database
+    try {
+      await updateSettingsMutation.mutateAsync({ onboardingCompleted: true });
+    } catch (error) {
+      console.error('Failed to save onboarding status:', error);
+    }
     setIsOnboardingOpen(false);
     // Navigate to the selected course
     setLocation(`/course/${selectedCourseId}`);
   };
 
   // Handle onboarding close (dismiss)
-  const handleOnboardingClose = () => {
-    localStorage.setItem('coursiv_onboarding_completed', 'true');
-    setHasSeenOnboarding(true);
+  const handleOnboardingClose = async () => {
+    // Save onboarding completion to database
+    try {
+      await updateSettingsMutation.mutateAsync({ onboardingCompleted: true });
+    } catch (error) {
+      console.error('Failed to save onboarding status:', error);
+    }
     setIsOnboardingOpen(false);
   };
 

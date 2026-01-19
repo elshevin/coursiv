@@ -40,6 +40,7 @@ export const emailUsers = pgTable("email_users", {
   // Settings
   testModeEnabled: boolean("testModeEnabled").default(false),
   darkModeEnabled: boolean("darkModeEnabled").default(false),
+  onboardingCompleted: boolean("onboardingCompleted").default(false),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().notNull(),
   lastLoginAt: timestamp("lastLoginAt").defaultNow().notNull(),

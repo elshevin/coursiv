@@ -74,7 +74,7 @@ export async function verifyEmailUserPassword(email: string, password: string): 
 
 export async function updateEmailUserSettings(
   id: number,
-  settings: { testModeEnabled?: boolean; darkModeEnabled?: boolean }
+  settings: { testModeEnabled?: boolean; darkModeEnabled?: boolean; onboardingCompleted?: boolean }
 ): Promise<void> {
   const mod = await ensureDbModule();
   return mod.updateEmailUserSettings(id, settings);

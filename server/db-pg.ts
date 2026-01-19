@@ -126,7 +126,7 @@ export async function verifyEmailUserPassword(email: string, password: string): 
 
 export async function updateEmailUserSettings(
   id: number,
-  settings: { testModeEnabled?: boolean; darkModeEnabled?: boolean }
+  settings: { testModeEnabled?: boolean; darkModeEnabled?: boolean; onboardingCompleted?: boolean }
 ): Promise<void> {
   if (!db) {
     console.warn("[Database] Cannot update email user settings: database not available");
