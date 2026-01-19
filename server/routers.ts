@@ -45,16 +45,26 @@ export const appRouter = router({
 
   // Email/Password authentication
   emailAuth: router({
-    // Get current user from cookie
+    // Get current user from cookie or Authorization header
     me: publicProcedure.query(async ({ ctx }) => {
-      const cookie = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
-      console.log('[Auth] Checking cookie:', EMAIL_COOKIE_NAME, 'exists:', !!cookie);
+      // Try cookie first, then Authorization header
+      let token = ctx.req.cookies?.[EMAIL_COOKIE_NAME];
+      
+      // If no cookie, check Authorization header
+      if (!token) {
+        const authHeader = ctx.req.headers.authorization;
+        if (authHeader?.startsWith('Bearer ')) {
+          token = authHeader.substring(7);
+        }
+      }
+      
+      console.log('[Auth] Token source:', token ? (ctx.req.cookies?.[EMAIL_COOKIE_NAME] ? 'cookie' : 'header') : 'none');
       console.log('[Auth] All cookies:', Object.keys(ctx.req.cookies || {}));
-      if (!cookie) return null;
+      if (!token) return null;
 
       try {
         console.log('[Auth] Verifying JWT token...');
-        const { payload } = await jwtVerify(cookie, getJwtSecret());
+        const { payload } = await jwtVerify(token, getJwtSecret());
         const userId = payload.userId as number;
         console.log('[Auth] JWT verified, userId:', userId);
         
@@ -120,7 +130,7 @@ export const appRouter = router({
           .setExpirationTime("7d")
           .sign(getJwtSecret());
 
-        // Set cookie
+        // Set cookie (as backup)
         const cookieOptions = getSessionCookieOptions(ctx.req);
         console.log('[Register] Setting cookie with options:', cookieOptions);
         console.log('[Register] User ID:', user.id);
@@ -129,8 +139,8 @@ export const appRouter = router({
           maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
 
-        // Return user (demo mode)
-        return user;
+        // Return user and token (token for localStorage fallback)
+        return { user, token };
       }),
 
     // Login with email and password (Demo mode - accept any credentials)
@@ -160,15 +170,15 @@ export const appRouter = router({
           .setExpirationTime("7d")
           .sign(getJwtSecret());
 
-        // Set cookie
+        // Set cookie (as backup)
         const cookieOptions = getSessionCookieOptions(ctx.req);
         ctx.res.cookie(EMAIL_COOKIE_NAME, token, {
           ...cookieOptions,
           maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
 
-        // Return user (demo mode)
-        return mockUser;
+        // Return user and token (token for localStorage fallback)
+        return { user: mockUser, token };
       }),
 
     // Logout

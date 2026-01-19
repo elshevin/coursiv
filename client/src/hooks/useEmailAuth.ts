@@ -1,6 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { trpc } from "@/lib/trpc";
 
+const TOKEN_KEY = "coursiv_auth_token";
+const USER_KEY = "coursiv_user";
+
 export interface EmailUser {
   id: number;
   email: string;
@@ -14,15 +17,46 @@ export interface EmailUser {
   lastLoginAt: Date;
 }
 
+// Helper to get stored user from localStorage
+function getStoredUser(): EmailUser | null {
+  try {
+    const stored = localStorage.getItem(USER_KEY);
+    if (stored) {
+      return JSON.parse(stored);
+    }
+  } catch (e) {
+    console.error("Failed to parse stored user:", e);
+  }
+  return null;
+}
+
+// Helper to store user in localStorage
+function storeUser(user: EmailUser | null, token?: string) {
+  if (user) {
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
+    if (token) {
+      localStorage.setItem(TOKEN_KEY, token);
+    }
+  } else {
+    localStorage.removeItem(USER_KEY);
+    localStorage.removeItem(TOKEN_KEY);
+  }
+}
+
+// Get stored token
+export function getStoredToken(): string | null {
+  return localStorage.getItem(TOKEN_KEY);
+}
+
 export function useEmailAuth() {
-  const [user, setUser] = useState<EmailUser | null>(null);
+  const [user, setUser] = useState<EmailUser | null>(() => getStoredUser());
   const [isLoading, setIsLoading] = useState(true);
 
   const { data: userData, refetch } = trpc.emailAuth.me.useQuery(undefined, {
     retry: false,
     refetchOnWindowFocus: false,
-    staleTime: 0, // Always refetch on mount
-    cacheTime: 0, // Don't cache the result
+    staleTime: 0,
+    cacheTime: 0,
   });
 
   const registerMutation = trpc.emailAuth.register.useMutation();
@@ -31,8 +65,19 @@ export function useEmailAuth() {
   const updateSettingsMutation = trpc.emailAuth.updateSettings.useMutation();
 
   useEffect(() => {
-    if (userData !== undefined) {
+    // Check localStorage first
+    const storedUser = getStoredUser();
+    if (storedUser) {
+      setUser(storedUser);
+      setIsLoading(false);
+    } else if (userData !== undefined) {
       setUser(userData as EmailUser | null);
+      if (userData) {
+        storeUser(userData as EmailUser);
+      }
+      setIsLoading(false);
+    } else {
+      // No stored user and still loading from API
       setIsLoading(false);
     }
   }, [userData]);
@@ -44,25 +89,35 @@ export function useEmailAuth() {
     quizAnswers?: Record<string, string>
   ) => {
     try {
-      const newUser = await registerMutation.mutateAsync({
+      const result = await registerMutation.mutateAsync({
         email,
         password,
         name,
         quizAnswers,
       });
+      // Result includes user and token
+      const newUser = result.user || result;
+      const token = result.token;
+      
       setUser(newUser as EmailUser);
-      // Force refetch to ensure cookie is recognized
-      setTimeout(() => refetch(), 100);
+      storeUser(newUser as EmailUser, token);
+      
       return newUser;
     } catch (error) {
       throw error;
     }
-  }, [registerMutation, refetch]);
+  }, [registerMutation]);
 
   const login = useCallback(async (email: string, password: string) => {
     try {
-      const loggedInUser = await loginMutation.mutateAsync({ email, password });
+      const result = await loginMutation.mutateAsync({ email, password });
+      // Result includes user and token
+      const loggedInUser = result.user || result;
+      const token = result.token;
+      
       setUser(loggedInUser as EmailUser);
+      storeUser(loggedInUser as EmailUser, token);
+      
       return loggedInUser;
     } catch (error) {
       throw error;
@@ -72,9 +127,11 @@ export function useEmailAuth() {
   const logout = useCallback(async () => {
     try {
       await logoutMutation.mutateAsync();
-      setUser(null);
     } catch (error) {
       console.error("Logout error:", error);
+    } finally {
+      setUser(null);
+      storeUser(null);
     }
   }, [logoutMutation]);
 
@@ -84,7 +141,6 @@ export function useEmailAuth() {
   }) => {
     try {
       await updateSettingsMutation.mutateAsync(settings);
-      // Refetch user data to get updated settings
       await refetch();
     } catch (error) {
       throw error;
