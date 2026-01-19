@@ -9,6 +9,9 @@ function isIpAddress(host: string) {
 }
 
 function isSecureRequest(req: Request) {
+  // In production (Railway), always use secure cookies
+  if (process.env.NODE_ENV === "production") return true;
+  
   if (req.protocol === "https") return true;
 
   const forwardedProto = req.headers["x-forwarded-proto"];
@@ -24,25 +27,17 @@ function isSecureRequest(req: Request) {
 export function getSessionCookieOptions(
   req: Request
 ): Pick<CookieOptions, "domain" | "httpOnly" | "path" | "sameSite" | "secure"> {
-  // const hostname = req.hostname;
-  // const shouldSetDomain =
-  //   hostname &&
-  //   !LOCAL_HOSTS.has(hostname) &&
-  //   !isIpAddress(hostname) &&
-  //   hostname !== "127.0.0.1" &&
-  //   hostname !== "::1";
-
-  // const domain =
-  //   shouldSetDomain && !hostname.startsWith(".")
-  //     ? `.${hostname}`
-  //     : shouldSetDomain
-  //       ? hostname
-  //       : undefined;
-
+  const isProduction = process.env.NODE_ENV === "production";
+  const isSecure = isSecureRequest(req);
+  
+  // Log for debugging
+  console.log('[Cookie] isProduction:', isProduction, 'isSecure:', isSecure);
+  
   return {
     httpOnly: true,
     path: "/",
-    sameSite: "none",
-    secure: isSecureRequest(req),
+    // Use 'lax' for same-site requests in production, 'none' requires secure
+    sameSite: isSecure ? "none" : "lax",
+    secure: isSecure,
   };
 }
