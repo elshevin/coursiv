@@ -400,9 +400,19 @@ export const appRouter = router({
         try {
           // Get current progress
           const currentProgress = await getUserCourseProgress(userId, 'email', input.courseId);
-          const completedModules = currentProgress?.completedModules 
-            ? JSON.parse(currentProgress.completedModules) 
-            : [];
+          let completedModules: string[] = [];
+          
+          if (currentProgress?.completedModules) {
+            try {
+              const parsed = JSON.parse(currentProgress.completedModules);
+              // Flatten and clean the array - handle nested arrays and invalid data
+              completedModules = Array.isArray(parsed) 
+                ? parsed.flat(Infinity).filter((item: unknown): item is string => typeof item === 'string')
+                : [];
+            } catch {
+              completedModules = [];
+            }
+          }
           
           // Add module if not already completed
           if (!completedModules.includes(input.moduleId)) {

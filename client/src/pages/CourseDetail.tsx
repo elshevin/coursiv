@@ -43,11 +43,20 @@ export default function CourseDetail() {
 
   useEffect(() => {
     if (progressData) {
-      const modules = progressData.completedModules 
-        ? (typeof progressData.completedModules === 'string' 
+      let modules: string[] = [];
+      if (progressData.completedModules) {
+        try {
+          const parsed = typeof progressData.completedModules === 'string' 
             ? JSON.parse(progressData.completedModules) 
-            : progressData.completedModules)
-        : [];
+            : progressData.completedModules;
+          // Flatten and clean the array to handle nested arrays
+          modules = Array.isArray(parsed) 
+            ? parsed.flat(Infinity).filter((item): item is string => typeof item === 'string')
+            : [];
+        } catch {
+          modules = [];
+        }
+      }
       setCompletedModules(modules);
       setCurrentModuleId(progressData.currentModuleId || null);
     }

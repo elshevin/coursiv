@@ -90,10 +90,18 @@ export default function Dashboard() {
     if (allProgressData) {
       allProgressData.forEach(progress => {
         if (progress.completedModules) {
-          const modules = typeof progress.completedModules === 'string'
-            ? JSON.parse(progress.completedModules)
-            : progress.completedModules;
-          totalLessonsCompleted += modules.length;
+          try {
+            const parsed = typeof progress.completedModules === 'string'
+              ? JSON.parse(progress.completedModules)
+              : progress.completedModules;
+            // Flatten and clean the array to handle nested arrays
+            const modules = Array.isArray(parsed) 
+              ? parsed.flat(Infinity).filter((item): item is string => typeof item === 'string')
+              : [];
+            totalLessonsCompleted += modules.length;
+          } catch {
+            // Skip invalid data
+          }
         }
       });
     }
@@ -142,10 +150,18 @@ export default function Dashboard() {
       const hasProgress = allProgressData && allProgressData.length > 0 && 
         allProgressData.some(p => {
           if (p.completedModules) {
-            const modules = typeof p.completedModules === 'string'
-              ? JSON.parse(p.completedModules)
-              : p.completedModules;
-            return modules.length > 0;
+            try {
+              const parsed = typeof p.completedModules === 'string'
+                ? JSON.parse(p.completedModules)
+                : p.completedModules;
+              // Flatten and clean the array to handle nested arrays
+              const modules = Array.isArray(parsed) 
+                ? parsed.flat(Infinity).filter((item): item is string => typeof item === 'string')
+                : [];
+              return modules.length > 0;
+            } catch {
+              return false;
+            }
           }
           return false;
         });
@@ -188,9 +204,17 @@ export default function Dashboard() {
       let completedModules: string[] = [];
       
       if (courseProgress?.completedModules) {
-        completedModules = typeof courseProgress.completedModules === 'string'
-          ? JSON.parse(courseProgress.completedModules)
-          : courseProgress.completedModules;
+        try {
+          const parsed = typeof courseProgress.completedModules === 'string'
+            ? JSON.parse(courseProgress.completedModules)
+            : courseProgress.completedModules;
+          // Flatten and clean the array to handle nested arrays
+          completedModules = Array.isArray(parsed) 
+            ? parsed.flat(Infinity).filter((item): item is string => typeof item === 'string')
+            : [];
+        } catch {
+          completedModules = [];
+        }
       }
       
       const completedCount = completedModules.length;
