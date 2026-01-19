@@ -17,6 +17,7 @@ export default function QuizContent() {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [nextModuleId, setNextModuleId] = useState<string | null>(null);
   
   const completeModuleMutation = trpc.courses.completeModule.useMutation();
   const recordActivityMutation = trpc.streaks.recordActivity.useMutation();
@@ -25,11 +26,20 @@ export default function QuizContent() {
     if (courseId && moduleId) {
       const foundCourse = courses.find(c => c.id === courseId);
       if (foundCourse) {
+        // Flatten all modules to find current and next
+        const allModules: CourseModule[] = [];
         for (const level of foundCourse.levels) {
-          const mod = level.modules.find(m => m.id === moduleId);
-          if (mod) {
-            setModule(mod);
-            break;
+          allModules.push(...level.modules);
+        }
+        
+        const currentIndex = allModules.findIndex(m => m.id === moduleId);
+        if (currentIndex !== -1) {
+          setModule(allModules[currentIndex]);
+          // Set next module ID if exists
+          if (currentIndex < allModules.length - 1) {
+            setNextModuleId(allModules[currentIndex + 1].id);
+          } else {
+            setNextModuleId(null);
           }
         }
       }
@@ -55,7 +65,8 @@ export default function QuizContent() {
       try {
         await completeModuleMutation.mutateAsync({
           courseId,
-          moduleId
+          moduleId,
+          nextModuleId: nextModuleId || undefined
         });
         await recordActivityMutation.mutateAsync({ lessonsCompleted: 1 });
       } catch (error) {
@@ -75,7 +86,8 @@ export default function QuizContent() {
     try {
       await completeModuleMutation.mutateAsync({
         courseId,
-        moduleId
+        moduleId,
+        nextModuleId: nextModuleId || undefined
       });
       await recordActivityMutation.mutateAsync({ lessonsCompleted: 1, testMode: true });
       setLocation(`/course/${courseId}`);

@@ -19,6 +19,7 @@ export default function LessonContent() {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [showExitModal, setShowExitModal] = useState(false);
   const [showAudioComingSoon, setShowAudioComingSoon] = useState(false);
+  const [nextModuleId, setNextModuleId] = useState<string | null>(null);
   
   const completeModuleMutation = trpc.courses.completeModule.useMutation();
   const recordActivityMutation = trpc.streaks.recordActivity.useMutation();
@@ -27,12 +28,20 @@ export default function LessonContent() {
     if (courseId && moduleId) {
       const foundCourse = courses.find(c => c.id === courseId);
       if (foundCourse) {
-        // Find module across all levels
+        // Flatten all modules to find current and next
+        const allModules: CourseModule[] = [];
         for (const level of foundCourse.levels) {
-          const mod = level.modules.find(m => m.id === moduleId);
-          if (mod) {
-            setModule(mod);
-            break;
+          allModules.push(...level.modules);
+        }
+        
+        const currentIndex = allModules.findIndex(m => m.id === moduleId);
+        if (currentIndex !== -1) {
+          setModule(allModules[currentIndex]);
+          // Set next module ID if exists
+          if (currentIndex < allModules.length - 1) {
+            setNextModuleId(allModules[currentIndex + 1].id);
+          } else {
+            setNextModuleId(null);
           }
         }
       }
@@ -61,7 +70,8 @@ export default function LessonContent() {
           try {
             await completeModuleMutation.mutateAsync({
               courseId,
-              moduleId
+              moduleId,
+              nextModuleId: nextModuleId || undefined
             });
             // Record activity for streak
             await recordActivityMutation.mutateAsync({ lessonsCompleted: 1 });
@@ -99,7 +109,8 @@ export default function LessonContent() {
     try {
       await completeModuleMutation.mutateAsync({
         courseId,
-        moduleId
+        moduleId,
+        nextModuleId: nextModuleId || undefined
       });
       await recordActivityMutation.mutateAsync({ lessonsCompleted: 1, testMode: true });
       setLocation(`/course/${courseId}`);
