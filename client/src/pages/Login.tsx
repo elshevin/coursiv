@@ -20,9 +20,14 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      await login(email, password);
+      console.log('[Login] Starting login...');
+      const result = await login(email, password);
+      console.log('[Login] Login successful:', result);
+      console.log('[Login] Redirecting to /dashboard...');
       setLocation('/dashboard');
+      console.log('[Login] setLocation called');
     } catch (err: any) {
+      console.error('[Login] Login error:', err);
       setError(err.message || 'Invalid email or password');
     } finally {
       setIsLoading(false);

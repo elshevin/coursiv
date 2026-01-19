@@ -241,9 +241,11 @@ export default function Dashboard() {
 
   // Redirect to login if not authenticated (only after loading is complete)
   if (!isAuthenticated) {
+    console.log('[Dashboard] Not authenticated, redirecting to /login');
     setLocation('/login');
     return null;
   }
+  console.log('[Dashboard] User authenticated:', user);
 
   
 
