@@ -52,7 +52,7 @@ export default function Subscription() {
     script.id = 'fsc-api';
     script.src = 'https://sbl.onfastspring.com/sbl/1.0.6/fastspring-builder.min.js';
     script.type = 'text/javascript';
-    script.setAttribute('data-storefront', 'aichecker.test.onfastspring.com/popup-aicourse');
+    script.setAttribute('data-storefront', import.meta.env.VITE_FASTSPRING_STOREFRONT || 'aichecker.onfastspring.com/popup-aicourse');
     script.setAttribute('data-popup-closed', 'fastspringOnPopupClosed');
     document.body.appendChild(script);
 
