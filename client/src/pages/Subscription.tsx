@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLocation } from "wouter";
-import { Check, X, Clock, Star, Shield, Sparkles, BookOpen, Award, Rocket } from "lucide-react";
+import { Check, X, Clock, Star, Shield, Sparkles, BookOpen, Award, Rocket, Loader2 } from "lucide-react";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 // Declare FastSpring global
 declare global {
@@ -21,6 +22,30 @@ export default function Subscription() {
   const [, setLocation] = useLocation();
   const [timeLeft, setTimeLeft] = useState({ minutes: 9, seconds: 59 });
   const [selectedPlan, setSelectedPlan] = useState<'yearly' | 'monthly'>('yearly');
+  const { user, loading, isAuthenticated } = useAuth();
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      // Save current path to redirect back after login
+      sessionStorage.setItem('redirectAfterLogin', '/subscription');
+      setLocation('/login');
+    }
+  }, [loading, isAuthenticated, setLocation]);
+
+  // Show loading while checking auth
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50">
+        <Loader2 className="w-8 h-8 animate-spin text-[#5A4CFF]" />
+      </div>
+    );
+  }
+
+  // Don't render if not authenticated (will redirect)
+  if (!isAuthenticated) {
+    return null;
+  }
 
   // Countdown timer
   useEffect(() => {

@@ -23,8 +23,16 @@ export default function Login() {
       console.log('[Login] Starting login...');
       const result = await login(email, password);
       console.log('[Login] Login successful:', result);
-      console.log('[Login] Redirecting to /dashboard...');
-      setLocation('/dashboard');
+      // Check if there's a redirect path saved
+      const redirectPath = sessionStorage.getItem('redirectAfterLogin');
+      if (redirectPath) {
+        sessionStorage.removeItem('redirectAfterLogin');
+        console.log('[Login] Redirecting to saved path:', redirectPath);
+        setLocation(redirectPath);
+      } else {
+        console.log('[Login] Redirecting to /dashboard...');
+        setLocation('/dashboard');
+      }
       console.log('[Login] setLocation called');
     } catch (err: any) {
       console.error('[Login] Login error:', err);
