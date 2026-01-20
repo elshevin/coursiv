@@ -10,6 +10,7 @@ import LandingPage from "./pages/LandingPage";
 import Quiz from "./pages/Quiz";
 import Dashboard from "./pages/Dashboard";
 import Upsell from "./pages/Upsell";
+import Subscription from "./pages/Subscription";
 import Login from "./pages/Login";
 import CourseDetail from "./pages/CourseDetail";
 import LessonContent from "./pages/LessonContent";
@@ -29,6 +30,7 @@ function Router() {
       <Route path={"/quiz/:step?"} component={Quiz} />
       <Route path={"/dashboard/:tab?"} component={Dashboard} />
       <Route path={"/upsell"} component={Upsell} />
+      <Route path={"/subscription"} component={Subscription} />
       <Route path={"/course/:courseId"} component={CourseDetail} />
       <Route path={"/lesson/:courseId/:moduleId"} component={LessonContentV2} />
       <Route path={"/lesson-old/:courseId/:moduleId"} component={LessonContent} />

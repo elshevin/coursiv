@@ -461,7 +461,7 @@ export default function Quiz() {
       });
 
       await register(email, password, email.split('@')[0], quizAnswers);
-      setLocation('/upsell');
+      setLocation('/subscription');
     } catch (err: any) {
       const errorMessage = err.message || '';
       if (errorMessage.includes('EMAIL_ALREADY_EXISTS')) {
