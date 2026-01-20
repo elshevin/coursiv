@@ -483,28 +483,22 @@ export default function LandingPage() {
           <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16">
             <div>
               <img src="/2-2745.svg" alt="Coursiv Logo" className="h-8 mb-6" />
-              <div className="flex gap-4">
-                <img src="/2-2766.webp" alt="App Store" className="h-10" />
-              </div>
             </div>
             
             <div className="flex gap-16 flex-wrap">
               <div>
                 <h4 className="font-bold text-lg mb-4">Coursiv</h4>
                 <ul className="space-y-2 text-sm text-[#24234C]/80">
-                  <li><a href="#" className="hover:text-[#5A4CFF]">Home</a></li>
-                  <li><a href="#" className="hover:text-[#5A4CFF]">Blog</a></li>
-                  <li><a href="#" className="hover:text-[#5A4CFF]">Support Center</a></li>
-                  <li><a href="#" className="hover:text-[#5A4CFF]">support@coursiv.io</a></li>
+                  <li><a href="/" className="hover:text-[#5A4CFF]">Home</a></li>
                 </ul>
               </div>
               
               <div>
                 <h4 className="font-bold text-lg mb-4">Legal</h4>
                 <ul className="space-y-2 text-sm text-[#24234C]/80">
-                  <li><a href="#" className="hover:text-[#5A4CFF]">Privacy Policy</a></li>
-                  <li><a href="#" className="hover:text-[#5A4CFF]">Terms and Conditions</a></li>
-                  <li><a href="#" className="hover:text-[#5A4CFF]">Subscription Terms</a></li>
+                  <li><a href="/privacy-policy" className="hover:text-[#5A4CFF]">Privacy Policy</a></li>
+                  <li><a href="/terms" className="hover:text-[#5A4CFF]">Terms and Conditions</a></li>
+                  <li><a href="/subscription-terms" className="hover:text-[#5A4CFF]">Subscription Terms</a></li>
                 </ul>
               </div>
               
@@ -518,7 +512,7 @@ export default function LandingPage() {
           </div>
           
           <div className="border-t border-[#E2E5E9] pt-8 text-center text-sm text-[#24234C]/40">
-            <p>Coursiv. All right reserved. © 2025. Coursiv Limited. Limassol, Cyprus</p>
+            <p>Coursiv. All rights reserved. © 2025. Coursiv Limited. Limassol, Cyprus</p>
           </div>
         </div>
       </footer>

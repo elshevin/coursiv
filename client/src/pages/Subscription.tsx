@@ -186,85 +186,108 @@ export default function Subscription() {
       {/* Main Content */}
       <main className="max-w-[900px] mx-auto px-4 py-8">
         
-        {/* Now vs Goal Section */}
+        {/* Now vs Goal Section - Professional Design */}
         <div className="mb-12">
-          <Card className="border-[#E2E5E9] overflow-hidden">
+          <Card className="border-[#E2E5E9] overflow-hidden shadow-sm">
             <CardContent className="p-0">
-              <div className="grid grid-cols-2">
+              <div className="grid grid-cols-2 divide-x divide-[#E2E5E9]">
                 {/* Now Column */}
-                <div className="p-6 border-r border-[#E2E5E9]">
+                <div className="p-6 md:p-8">
                   <h3 className="text-center text-lg font-semibold text-gray-400 mb-6">Now</h3>
-                  <div className="flex justify-center mb-6">
-                    <div className="relative">
-                      <div className="w-32 h-32 rounded-full bg-gray-100 flex items-center justify-center">
-                        <span className="text-4xl">😕</span>
+                  
+                  {/* Professional Icon */}
+                  <div className="flex justify-center mb-8">
+                    <div className="relative w-28 h-28 md:w-32 md:h-32">
+                      <div className="w-full h-full rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center shadow-inner">
+                        <svg className="w-14 h-14 md:w-16 md:h-16 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                          <circle cx="12" cy="8" r="4" />
+                          <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+                          <path d="M9 8.5c0 0 0.5-1 1.5-1s1.5 1 1.5 1" strokeLinecap="round" />
+                          <path d="M14 8.5c0 0 0.5-1 1.5-1" strokeLinecap="round" />
+                        </svg>
                       </div>
                     </div>
                   </div>
                   
                   {/* AI Skills - Now */}
                   <div className="mb-6">
-                    <p className="text-sm font-medium text-[#24234C] mb-2">AI skills</p>
-                    <div className="relative h-3 bg-gray-200 rounded-full overflow-hidden">
-                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-red-400 to-yellow-400 rounded-full" style={{ width: '35%' }}></div>
-                      <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-yellow-400 rounded-full shadow" style={{ left: '33%' }}></div>
+                    <p className="text-sm font-medium text-[#24234C] mb-3">AI skills</p>
+                    <div className="relative h-2.5 bg-gray-100 rounded-full overflow-visible">
+                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-orange-400 to-amber-400 rounded-full transition-all" style={{ width: '35%' }}></div>
+                      <div className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-amber-400 rounded-full shadow-md flex items-center justify-center" style={{ left: 'calc(35% - 10px)' }}>
+                        <div className="w-2 h-2 bg-amber-400 rounded-full"></div>
+                      </div>
                     </div>
-                    <div className="mt-2 flex justify-center">
-                      <span className="px-3 py-1 bg-[#24234C] text-white text-xs rounded-full">Moderate</span>
+                    <div className="mt-3 flex justify-center">
+                      <span className="px-4 py-1.5 bg-[#24234C] text-white text-xs font-medium rounded-full">Moderate</span>
                     </div>
                   </div>
 
                   {/* Practical Readiness - Now */}
                   <div>
-                    <p className="text-sm font-medium text-[#24234C] mb-2">Practical Readiness</p>
-                    <div className="relative h-3 bg-gray-200 rounded-full overflow-hidden">
-                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full" style={{ width: '30%' }}></div>
-                      <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-blue-500 rounded-full shadow" style={{ left: '28%' }}></div>
+                    <p className="text-sm font-medium text-[#24234C] mb-3">Practical Readiness</p>
+                    <div className="relative h-2.5 bg-gray-100 rounded-full overflow-visible">
+                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full transition-all" style={{ width: '30%' }}></div>
+                      <div className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-blue-500 rounded-full shadow-md flex items-center justify-center" style={{ left: 'calc(30% - 10px)' }}>
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      </div>
                     </div>
-                    <p className="text-sm text-gray-500 mt-2">Limited</p>
+                    <p className="text-sm text-gray-500 mt-3 text-center">Limited</p>
                   </div>
                 </div>
 
                 {/* Goal Column */}
-                <div className="p-6 bg-gradient-to-br from-green-50 to-white">
+                <div className="p-6 md:p-8 bg-gradient-to-br from-emerald-50/50 to-white relative">
                   <h3 className="text-center text-lg font-semibold text-[#24234C] mb-6">Goal</h3>
-                  <div className="flex justify-center mb-6">
-                    <div className="relative">
-                      <div className="w-32 h-32 rounded-full bg-green-100 flex items-center justify-center">
-                        <span className="text-4xl">🚀</span>
+                  
+                  {/* Professional Icon with Badges */}
+                  <div className="flex justify-center mb-8">
+                    <div className="relative w-28 h-28 md:w-32 md:h-32">
+                      <div className="w-full h-full rounded-2xl bg-gradient-to-br from-emerald-100 to-emerald-200 flex items-center justify-center shadow-inner">
+                        <svg className="w-14 h-14 md:w-16 md:h-16 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                          <circle cx="12" cy="8" r="4" />
+                          <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+                          <path d="M15 2l2 2-2 2" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M19 4h-4" strokeLinecap="round" />
+                        </svg>
                       </div>
-                      <div className="absolute -top-1 -right-1 bg-green-500 text-white text-xs px-2 py-1 rounded-full">+45%</div>
-                      <div className="absolute top-6 -right-4 bg-green-500 text-white text-xs px-2 py-1 rounded-full">+72%</div>
-                      <div className="absolute bottom-4 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">+35%</div>
+                      {/* Improvement Badges */}
+                      <div className="absolute -top-2 -right-2 bg-emerald-500 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-pulse">+45%</div>
+                      <div className="absolute top-8 -right-4 md:-right-6 bg-emerald-500 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded-full shadow-lg">+72%</div>
+                      <div className="absolute bottom-2 -right-2 bg-emerald-500 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded-full shadow-lg">+35%</div>
                     </div>
                   </div>
                   
                   {/* AI Skills - Goal */}
                   <div className="mb-6">
-                    <p className="text-sm font-medium text-[#24234C] mb-2">AI skills</p>
-                    <div className="relative h-3 bg-gray-200 rounded-full overflow-hidden">
-                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-red-400 via-yellow-400 to-green-500 rounded-full" style={{ width: '85%' }}></div>
-                      <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-green-500 rounded-full shadow" style={{ left: '83%' }}></div>
+                    <p className="text-sm font-medium text-[#24234C] mb-3">AI skills</p>
+                    <div className="relative h-2.5 bg-gray-100 rounded-full overflow-visible">
+                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-orange-400 via-amber-400 to-emerald-500 rounded-full transition-all" style={{ width: '85%' }}></div>
+                      <div className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-emerald-500 rounded-full shadow-md flex items-center justify-center" style={{ left: 'calc(85% - 10px)' }}>
+                        <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                      </div>
                     </div>
-                    <div className="mt-2 flex justify-center">
-                      <span className="px-3 py-1 bg-[#24234C] text-white text-xs rounded-full">High</span>
+                    <div className="mt-3 flex justify-center">
+                      <span className="px-4 py-1.5 bg-[#24234C] text-white text-xs font-medium rounded-full">High</span>
                     </div>
                   </div>
 
                   {/* Practical Readiness - Goal */}
                   <div>
-                    <p className="text-sm font-medium text-[#24234C] mb-2">Practical Readiness</p>
-                    <div className="relative h-3 bg-gray-200 rounded-full overflow-hidden">
-                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full" style={{ width: '80%' }}></div>
-                      <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full shadow" style={{ left: '78%' }}></div>
+                    <p className="text-sm font-medium text-[#24234C] mb-3">Practical Readiness</p>
+                    <div className="relative h-2.5 bg-gray-100 rounded-full overflow-visible">
+                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all" style={{ width: '80%' }}></div>
+                      <div className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-blue-600 rounded-full shadow-md flex items-center justify-center" style={{ left: 'calc(80% - 10px)' }}>
+                        <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                      </div>
                     </div>
-                    <p className="text-sm text-green-600 font-medium mt-2">High</p>
+                    <p className="text-sm text-emerald-600 font-semibold mt-3 text-center">High</p>
                   </div>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <p className="text-center text-xs text-gray-400 mt-2">This is not a guarantee or promise of results.</p>
+          <p className="text-center text-xs text-gray-400 mt-3">This is not a guarantee or promise of results.</p>
         </div>
 
         {/* Readiness Score */}
