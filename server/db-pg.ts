@@ -462,3 +462,77 @@ export async function getUserByOpenId(openId: string): Promise<User | undefined>
   const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
   return result.length > 0 ? result[0] : undefined;
 }
+
+
+// ============================================
+// Password Reset Functions
+// ============================================
+
+import { passwordResetTokens, type PasswordResetToken, type InsertPasswordResetToken } from "../drizzle/schema-pg";
+import { nanoid } from "nanoid";
+
+export type { PasswordResetToken };
+
+export async function createPasswordResetToken(userId: number): Promise<string | null> {
+  if (!db) {
+    console.warn("[Database] Cannot create password reset token: database not available");
+    return null;
+  }
+
+  try {
+    // Generate a unique token
+    const token = nanoid(32);
+    
+    // Token expires in 1 hour
+    const expiresAt = new Date();
+    expiresAt.setHours(expiresAt.getHours() + 1);
+
+    const values: InsertPasswordResetToken = {
+      userId,
+      token,
+      expiresAt,
+    };
+
+    await db.insert(passwordResetTokens).values(values);
+    return token;
+  } catch (error) {
+    console.error("[Database] Failed to create password reset token:", error);
+    return null;
+  }
+}
+
+export async function getPasswordResetToken(token: string): Promise<PasswordResetToken | null> {
+  if (!db) {
+    console.warn("[Database] Cannot get password reset token: database not available");
+    return null;
+  }
+
+  const result = await db.select().from(passwordResetTokens)
+    .where(eq(passwordResetTokens.token, token))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function markTokenAsUsed(token: string): Promise<void> {
+  if (!db) {
+    console.warn("[Database] Cannot mark token as used: database not available");
+    return;
+  }
+
+  await db.update(passwordResetTokens)
+    .set({ usedAt: new Date() })
+    .where(eq(passwordResetTokens.token, token));
+}
+
+export async function updateEmailUserPassword(userId: number, newPassword: string): Promise<void> {
+  if (!db) {
+    console.warn("[Database] Cannot update password: database not available");
+    return;
+  }
+
+  const passwordHash = await bcrypt.hash(newPassword, SALT_ROUNDS);
+  await db.update(emailUsers)
+    .set({ passwordHash, updatedAt: new Date() })
+    .where(eq(emailUsers.id, userId));
+}

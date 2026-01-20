@@ -202,3 +202,38 @@ export async function getDb() {
   }
   return null;
 }
+
+
+// ============================================
+// Password Reset Functions
+// ============================================
+
+export async function createPasswordResetToken(userId: number): Promise<string | null> {
+  const mod = await ensureDbModule();
+  if (mod.createPasswordResetToken) {
+    return mod.createPasswordResetToken(userId);
+  }
+  return null;
+}
+
+export async function getPasswordResetToken(token: string): Promise<any> {
+  const mod = await ensureDbModule();
+  if (mod.getPasswordResetToken) {
+    return mod.getPasswordResetToken(token);
+  }
+  return null;
+}
+
+export async function markTokenAsUsed(token: string): Promise<void> {
+  const mod = await ensureDbModule();
+  if (mod.markTokenAsUsed) {
+    return mod.markTokenAsUsed(token);
+  }
+}
+
+export async function updateEmailUserPassword(userId: number, newPassword: string): Promise<void> {
+  const mod = await ensureDbModule();
+  if (mod.updateEmailUserPassword) {
+    return mod.updateEmailUserPassword(userId, newPassword);
+  }
+}

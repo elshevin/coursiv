@@ -24,12 +24,16 @@ import CourseViewerTest from "./pages/CourseViewerTest";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import SubscriptionTerms from "./pages/SubscriptionTerms";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={LandingPage} />
       <Route path={"/login"} component={Login} />
+      <Route path={"/forgot-password"} component={ForgotPassword} />
+      <Route path={"/reset-password"} component={ResetPassword} />
       <Route path={"/quiz/:step?"} component={Quiz} />
       <Route path={"/dashboard/:tab?"} component={Dashboard} />
       <Route path={"/upsell"} component={Upsell} />

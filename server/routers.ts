@@ -18,8 +18,13 @@ import {
   getUserCourseProgress,
   getAllUserCourseProgress,
   updateCourseProgress,
-  markCourseCompleted
+  markCourseCompleted,
+  createPasswordResetToken,
+  getPasswordResetToken,
+  markTokenAsUsed,
+  updateEmailUserPassword
 } from "./db";
+import { Resend } from 'resend';
 import { SignJWT, jwtVerify } from "jose";
 import { z } from "zod";
 
@@ -245,6 +250,90 @@ export const appRouter = router({
         } catch {
           throw new Error("Not authenticated");
         }
+      }),
+
+    // Request password reset - sends email with reset link
+    forgotPassword: publicProcedure
+      .input(z.object({
+        email: z.string().email(),
+      }))
+      .mutation(async ({ input }) => {
+        const user = await getEmailUserByEmail(input.email);
+        
+        // Always return success to prevent email enumeration
+        if (!user) {
+          return { success: true };
+        }
+
+        // Create reset token
+        const token = await createPasswordResetToken(user.id);
+        if (!token) {
+          throw new Error("Failed to create reset token");
+        }
+
+        // Send email via Resend
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        const resetUrl = `${process.env.APP_URL || 'https://coursiv-production.up.railway.app'}/reset-password?token=${token}`;
+
+        try {
+          await resend.emails.send({
+            from: 'Coursiv <noreply@resend.dev>',
+            to: input.email,
+            subject: 'Reset Your Coursiv Password',
+            html: `
+              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <h2 style="color: #7c3aed;">Reset Your Password</h2>
+                <p>Hi ${user.name || 'there'},</p>
+                <p>We received a request to reset your password. Click the button below to create a new password:</p>
+                <div style="text-align: center; margin: 30px 0;">
+                  <a href="${resetUrl}" style="background-color: #7c3aed; color: white; padding: 12px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">Reset Password</a>
+                </div>
+                <p>This link will expire in 1 hour.</p>
+                <p>If you didn't request this, you can safely ignore this email.</p>
+                <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
+                <p style="color: #666; font-size: 12px;">Coursiv - Master AI Skills</p>
+              </div>
+            `,
+          });
+        } catch (error) {
+          console.error('[ForgotPassword] Failed to send email:', error);
+          throw new Error("Failed to send reset email");
+        }
+
+        return { success: true };
+      }),
+
+    // Reset password with token
+    resetPassword: publicProcedure
+      .input(z.object({
+        token: z.string(),
+        newPassword: z.string().min(6),
+      }))
+      .mutation(async ({ input }) => {
+        // Get token from database
+        const resetToken = await getPasswordResetToken(input.token);
+        
+        if (!resetToken) {
+          throw new Error("INVALID_TOKEN");
+        }
+
+        // Check if token is expired
+        if (new Date() > new Date(resetToken.expiresAt)) {
+          throw new Error("TOKEN_EXPIRED");
+        }
+
+        // Check if token was already used
+        if (resetToken.usedAt) {
+          throw new Error("TOKEN_ALREADY_USED");
+        }
+
+        // Update password
+        await updateEmailUserPassword(resetToken.userId, input.newPassword);
+
+        // Mark token as used
+        await markTokenAsUsed(input.token);
+
+        return { success: true };
       }),
   }),
 
