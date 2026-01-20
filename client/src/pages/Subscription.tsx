@@ -96,6 +96,34 @@ export default function Subscription() {
     { text: 'Priority access to new courses', included: true },
   ];
 
+  const getCardClass = (plan: 'monthly' | 'yearly', isYearly: boolean = false) => {
+    const base = "border-2 cursor-pointer transition-all";
+    const extra = isYearly ? " relative overflow-hidden" : "";
+    const selected = selectedPlan === plan 
+      ? " border-[#5A4CFF] shadow-lg" 
+      : " border-gray-200 hover:border-gray-300";
+    return base + extra + selected;
+  };
+
+  const getRadioClass = (plan: 'monthly' | 'yearly') => {
+    const base = "w-5 h-5 rounded-full border-2 flex items-center justify-center";
+    return selectedPlan === plan 
+      ? base + " border-[#5A4CFF] bg-[#5A4CFF]" 
+      : base + " border-gray-300";
+  };
+
+  const getButtonClass = (plan: 'monthly' | 'yearly', isMonthly: boolean = false) => {
+    const base = "w-full h-12 rounded-xl font-medium";
+    if (isMonthly) {
+      return selectedPlan === plan 
+        ? base + " bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white" 
+        : base + " border-gray-300 text-gray-700 hover:bg-gray-50";
+    }
+    return selectedPlan === plan 
+      ? base + " bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white" 
+      : base + " bg-gray-100 text-gray-700 hover:bg-gray-200";
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Header with countdown */}
@@ -235,19 +263,13 @@ export default function Subscription() {
           <div className="grid md:grid-cols-2 gap-6">
             {/* Monthly Plan */}
             <Card 
-              className={\`border-2 cursor-pointer transition-all \${
-                selectedPlan === 'monthly' 
-                  ? 'border-[#5A4CFF] shadow-lg' 
-                  : 'border-gray-200 hover:border-gray-300'
-              }\`}
+              className={getCardClass('monthly')}
               onClick={() => setSelectedPlan('monthly')}
             >
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-[#24234C]">Monthly</h3>
-                  <div className={\`w-5 h-5 rounded-full border-2 flex items-center justify-center \${
-                    selectedPlan === 'monthly' ? 'border-[#5A4CFF] bg-[#5A4CFF]' : 'border-gray-300'
-                  }\`}>
+                  <div className={getRadioClass('monthly')}>
                     {selectedPlan === 'monthly' && <Check className="w-3 h-3 text-white" />}
                   </div>
                 </div>
@@ -272,7 +294,7 @@ export default function Subscription() {
                           <X className="w-3 h-3 text-gray-400" />
                         </div>
                       )}
-                      <span className={\`text-sm \${feature.included ? 'text-[#24234C]' : 'text-gray-400'}\`}>
+                      <span className={feature.included ? "text-sm text-[#24234C]" : "text-sm text-gray-400"}>
                         {feature.text}
                         {feature.comingSoon && <span className="ml-1 text-xs text-[#5A4CFF]">(Coming Soon)</span>}
                       </span>
@@ -286,11 +308,7 @@ export default function Subscription() {
                     handleSubscribe('monthly');
                   }}
                   variant={selectedPlan === 'monthly' ? 'default' : 'outline'}
-                  className={\`w-full h-12 rounded-xl font-medium \${
-                    selectedPlan === 'monthly' 
-                      ? 'bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white' 
-                      : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                  }\`}
+                  className={getButtonClass('monthly', true)}
                 >
                   Start Monthly Plan
                 </Button>
@@ -299,11 +317,7 @@ export default function Subscription() {
 
             {/* Yearly Plan */}
             <Card 
-              className={\`border-2 cursor-pointer transition-all relative overflow-hidden \${
-                selectedPlan === 'yearly' 
-                  ? 'border-[#5A4CFF] shadow-lg' 
-                  : 'border-gray-200 hover:border-gray-300'
-              }\`}
+              className={getCardClass('yearly', true)}
               onClick={() => setSelectedPlan('yearly')}
             >
               {/* Best Value Badge */}
@@ -314,9 +328,7 @@ export default function Subscription() {
               <CardContent className="p-6 pt-8">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-[#24234C]">Yearly</h3>
-                  <div className={\`w-5 h-5 rounded-full border-2 flex items-center justify-center \${
-                    selectedPlan === 'yearly' ? 'border-[#5A4CFF] bg-[#5A4CFF]' : 'border-gray-300'
-                  }\`}>
+                  <div className={getRadioClass('yearly')}>
                     {selectedPlan === 'yearly' && <Check className="w-3 h-3 text-white" />}
                   </div>
                 </div>
@@ -357,11 +369,7 @@ export default function Subscription() {
                     e.stopPropagation();
                     handleSubscribe('yearly');
                   }}
-                  className={\`w-full h-12 rounded-xl font-medium \${
-                    selectedPlan === 'yearly' 
-                      ? 'bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white' 
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }\`}
+                  className={getButtonClass('yearly')}
                 >
                   Start 7-Day Free Trial
                 </Button>
@@ -441,7 +449,7 @@ export default function Subscription() {
           onClick={() => handleSubscribe(selectedPlan)}
           className="w-full h-12 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-xl font-medium"
         >
-          {selectedPlan === 'yearly' ? 'Start 7-Day Free Trial' : 'Start Monthly Plan'} - \${selectedPlan === 'yearly' ? '0.16' : '0.33'}/day
+          {selectedPlan === 'yearly' ? 'Start 7-Day Free Trial' : 'Start Monthly Plan'} - ${selectedPlan === 'yearly' ? '0.16' : '0.33'}/day
         </Button>
       </div>
     </div>
