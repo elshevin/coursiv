@@ -14,7 +14,7 @@ export default function Terms() {
             </button>
           </Link>
           <a href="/">
-            <img src="/2-332.svg" alt="Coursiv" className="h-6" />
+            <img src="/logo.png" alt="Coursiv" className="h-8" />
           </a>
         </div>
       </header>
