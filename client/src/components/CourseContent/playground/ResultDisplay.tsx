@@ -11,10 +11,10 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
 
   return (
     <div className="flex justify-center mb-6">
-      <div className="relative rounded-xl overflow-hidden bg-gray-100 max-w-[280px]">
+      <div className="relative rounded-xl overflow-hidden bg-gray-100 max-w-[200px]">
         {/* Loading State */}
         {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-100 min-h-[160px]">
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-100 min-h-[120px]">
             <div className="flex flex-col items-center gap-3">
               <div className="w-8 h-8 border-3 border-[#7C3AED] border-t-transparent rounded-full animate-spin" />
               <span className="text-sm text-gray-500">Generating image...</span>
