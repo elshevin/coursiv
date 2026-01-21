@@ -223,7 +223,7 @@ export default function Dashboard() {
         progress: progressPercent,
         totalLessons: totalModules,
         completedLessons: completedCount,
-        image: `/images/course/covers/${course.id}-cover.png`,
+        image: `/images/course/covers/${course.id}-cover.jpg`,
         duration: course.totalDuration,
       };
     });
