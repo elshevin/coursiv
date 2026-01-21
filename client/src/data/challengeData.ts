@@ -32,7 +32,7 @@ export const challengeData: Challenge[] = [
     totalDays: 28,
     difficulty: 'Beginner',
     category: 'AI Fundamentals',
-    image: '/images/course/covers/deepseek-cover.png',
+    image: '/images/course/covers/deepseek-cover.jpg',
     icon: '🚀',
     currentDay: 12,
     tasks: [
@@ -77,7 +77,7 @@ export const challengeData: Challenge[] = [
     totalDays: 28,
     difficulty: 'Beginner',
     category: 'Getting Started',
-    image: '/images/course/covers/chatgpt-cover.png',
+    image: '/images/course/covers/chatgpt-cover.jpg',
     icon: '🌟',
     currentDay: 3,
     tasks: [
@@ -122,7 +122,7 @@ export const challengeData: Challenge[] = [
     totalDays: 14,
     difficulty: 'Intermediate',
     category: 'Business',
-    image: '/images/course/covers/midjourney-cover.png',
+    image: '/images/course/covers/midjourney-cover.jpg',
     icon: '💰',
     currentDay: 0,
     tasks: [
@@ -151,7 +151,7 @@ export const challengeData: Challenge[] = [
     totalDays: 14,
     difficulty: 'Beginner',
     category: 'Development',
-    image: '/images/course/covers/copilot-cover.png',
+    image: '/images/course/covers/copilot-cover.jpg',
     icon: '🛠️',
     currentDay: 0,
     tasks: [

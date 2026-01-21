@@ -149,7 +149,7 @@ export const testLessonWithPlayground: Lesson = {
           object: 'rolling hills',
           style: 'impressionism'
         },
-        resultImage: '/images/playground/landscape-impressionism.png',
+        resultImage: '/images/playground/landscape-impressionism.jpg',
         successFeedback: {
           title: 'Amazing!',
           message: 'You\'re right on track with your approach'

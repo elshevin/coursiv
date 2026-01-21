@@ -217,7 +217,7 @@ export function PlaygroundPage({ block, onComplete, onBack }: PlaygroundPageProp
                   alt="AI Generated Result" 
                   className="w-full h-auto object-cover"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/images/course/success.png';
+                    (e.target as HTMLImageElement).src = '/images/course/success.jpg';
                   }}
                 />
               </div>

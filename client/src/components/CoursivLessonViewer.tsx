@@ -359,7 +359,7 @@ function PlaygroundBlockComponent({
               alt="AI Generated Result" 
               className="w-full h-auto object-cover"
               onError={(e) => {
-                (e.target as HTMLImageElement).src = '/images/course/success.png';
+                (e.target as HTMLImageElement).src = '/images/course/success.jpg';
               }}
             />
           </div>
@@ -568,7 +568,7 @@ function LegacyPlaygroundBlockComponent({
               className="w-full h-auto object-cover"
               onError={(e) => {
                 // Fallback to placeholder if image fails to load
-                (e.target as HTMLImageElement).src = '/images/course/success.png';
+                (e.target as HTMLImageElement).src = '/images/course/success.jpg';
               }}
             />
           </div>

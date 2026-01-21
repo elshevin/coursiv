@@ -11,16 +11,16 @@ interface OnboardingModalProps {
 
 // Course icons mapping - using ai-tools icons
 const courseIcons: Record<string, string> = {
-  'chatgpt': '/images/ai-tools/chatgpt.png',
-  'dall-e': '/images/ai-tools/dall-e.png',
-  'midjourney': '/images/ai-tools/midjourney.png',
-  'claude': '/images/ai-tools/claude.png',
-  'gemini': '/images/ai-tools/gemini.png',
-  'perplexity': '/images/ai-tools/perplexity.png',
-  'copilot': '/images/ai-tools/copilot.png',
-  'notion-ai': '/images/ai-tools/notion-ai.png',
-  'stable-diffusion': '/images/ai-tools/stable-diffusion.png',
-  'deepseek': '/images/ai-tools/deepseek.png',
+  'chatgpt': '/images/ai-tools/chatgpt.jpg',
+  'dall-e': '/images/ai-tools/dall-e.jpg',
+  'midjourney': '/images/ai-tools/midjourney.jpg',
+  'claude': '/images/ai-tools/claude.jpg',
+  'gemini': '/images/ai-tools/gemini.jpg',
+  'perplexity': '/images/ai-tools/perplexity.jpg',
+  'copilot': '/images/ai-tools/copilot.jpg',
+  'notion-ai': '/images/ai-tools/notion-ai.jpg',
+  'stable-diffusion': '/images/ai-tools/stable-diffusion.jpg',
+  'deepseek': '/images/ai-tools/deepseek.jpg',
 };
 
 export function OnboardingModal({ isOpen, onClose, onComplete, userName = 'Learner' }: OnboardingModalProps) {
@@ -128,7 +128,7 @@ export function OnboardingModal({ isOpen, onClose, onComplete, userName = 'Learn
                       }}
                     >
                       <img 
-                        src={courseIcons[course.id] || '/images/ai-tools/chatgpt.png'}
+                        src={courseIcons[course.id] || '/images/ai-tools/chatgpt.jpg'}
                         alt={course.title}
                         className="w-8 h-8 object-contain"
                         onError={(e) => {
@@ -175,7 +175,7 @@ export function OnboardingModal({ isOpen, onClose, onComplete, userName = 'Learn
                   >
                     <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0">
                       <img 
-                        src={courseIcons[course.id] || '/images/ai-tools/chatgpt.png'}
+                        src={courseIcons[course.id] || '/images/ai-tools/chatgpt.jpg'}
                         alt={course.title}
                         className="w-8 h-8 object-contain"
                         onError={(e) => {

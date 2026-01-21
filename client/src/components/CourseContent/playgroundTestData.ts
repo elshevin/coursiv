@@ -27,7 +27,7 @@ export const playgroundExercises: PlaygroundContent[] = [
       object: 'rolling hills',
       style: 'impressionism'
     },
-    resultImage: '/images/playground/landscape-impressionism.png',
+    resultImage: '/images/playground/landscape-impressionism.jpg',
     successFeedback: {
       title: 'Amazing!',
       message: "You're right on track with your approach"
@@ -57,7 +57,7 @@ export const playgroundExercises: PlaygroundContent[] = [
       water: 'koi pond',
       style: 'Studio Ghibli'
     },
-    resultImage: '/images/playground/japanese-garden-ghibli.png',
+    resultImage: '/images/playground/japanese-garden-ghibli.jpg',
     successFeedback: {
       title: 'Amazing!',
       message: "You're right on track with your approach"
@@ -87,7 +87,7 @@ export const playgroundExercises: PlaygroundContent[] = [
       location: 'laboratory',
       style: 'realistic digital painting'
     },
-    resultImage: '/images/playground/scientist-portrait.png',
+    resultImage: '/images/playground/scientist-portrait.jpg',
     successFeedback: {
       title: 'Perfect!',
       message: 'Your prompt will generate an amazing portrait'
@@ -117,7 +117,7 @@ export const playgroundExercises: PlaygroundContent[] = [
       elements: 'neon lights and flying vehicles',
       style: 'cyberpunk digital art'
     },
-    resultImage: '/images/playground/futuristic-city.png',
+    resultImage: '/images/playground/futuristic-city.jpg',
     successFeedback: {
       title: 'Excellent!',
       message: 'Your cyberpunk city prompt is ready to generate'
@@ -147,7 +147,7 @@ export const playgroundExercises: PlaygroundContent[] = [
       elements: 'floating geometric shapes and melting clocks',
       artist: 'Salvador Dali'
     },
-    resultImage: '/images/playground/abstract-surrealism.png',
+    resultImage: '/images/playground/abstract-surrealism.jpg',
     successFeedback: {
       title: 'Masterpiece!',
       message: 'Your surrealist prompt captures the essence perfectly'
