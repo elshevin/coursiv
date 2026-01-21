@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -15,29 +15,88 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-import { challengeData, getChallengeById, ChallengeTask } from '@/data/challengeData';
+import { challengeData, getChallengeById, ChallengeTask, calculateCurrentDay } from '@/data/challengeData';
 import { useTestMode } from '@/contexts/TestModeContext';
+import { trpc } from '@/lib/trpc';
+import { useEmailAuth } from '@/hooks/useEmailAuth';
 
 export default function ChallengeDetail() {
   const { challengeId } = useParams<{ challengeId: string }>();
   const [, setLocation] = useLocation();
   const { isTestModeEnabled } = useTestMode();
+  const { isAuthenticated } = useEmailAuth();
   
   const challenge = getChallengeById(challengeId || '');
   const [selectedDay, setSelectedDay] = useState(1);
-  const [completedTasks, setCompletedTasks] = useState<Set<string>>(new Set());
+  const [localCompletedTasks, setLocalCompletedTasks] = useState<Set<string>>(new Set());
   const dayNavRef = useRef<HTMLDivElement>(null);
   
-  // Mock: In test mode, first 5 days are completed
+  // Fetch user's challenge progress from backend
+  const { data: progressData, refetch: refetchProgress } = trpc.challenges.getProgress.useQuery(
+    { challengeId: challengeId || '' },
+    { enabled: isAuthenticated && !!challengeId }
+  );
+  
+  // Start challenge mutation
+  const startChallengeMutation = trpc.challenges.start.useMutation({
+    onSuccess: () => {
+      refetchProgress();
+    }
+  });
+  
+  // Complete task mutation
+  const completeTaskMutation = trpc.challenges.completeTask.useMutation({
+    onSuccess: () => {
+      refetchProgress();
+    }
+  });
+  
+  // Parse completed tasks from backend data
+  const completedTasks = new Set<string>(() => {
+    if (progressData?.completedTasks) {
+      try {
+        const parsed = typeof progressData.completedTasks === 'string'
+          ? JSON.parse(progressData.completedTasks)
+          : progressData.completedTasks;
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+    return [];
+  });
+  
+  // Merge backend data with local state
   useEffect(() => {
-    if (isTestModeEnabled) {
+    if (progressData?.completedTasks) {
+      try {
+        const parsed = typeof progressData.completedTasks === 'string'
+          ? JSON.parse(progressData.completedTasks)
+          : progressData.completedTasks;
+        if (Array.isArray(parsed)) {
+          setLocalCompletedTasks(new Set(parsed));
+        }
+      } catch {
+        // Keep local state
+      }
+    }
+  }, [progressData]);
+  
+  // Calculate current day based on user's start date
+  const userStartDate = progressData?.startedAt ? new Date(progressData.startedAt).toISOString() : null;
+  const currentDay = challenge ? calculateCurrentDay(userStartDate, challenge.totalDays) : 0;
+  const isStarted = !!progressData?.startedAt;
+  
+  // In test mode, simulate some completed tasks
+  useEffect(() => {
+    if (isTestModeEnabled && !progressData) {
       const initialCompleted = new Set<string>();
       challenge?.tasks.slice(0, 5).forEach(task => {
         initialCompleted.add(task.id);
       });
-      setCompletedTasks(initialCompleted);
+      setLocalCompletedTasks(initialCompleted);
     }
-  }, [isTestModeEnabled, challenge]);
+  }, [isTestModeEnabled, challenge, progressData]);
 
   if (!challenge) {
     return (
@@ -53,7 +112,7 @@ export default function ChallengeDetail() {
   }
 
   const currentTask = challenge.tasks.find(t => t.day === selectedDay);
-  const completedCount = completedTasks.size;
+  const completedCount = localCompletedTasks.size;
   const progressPercent = Math.round((completedCount / challenge.totalDays) * 100);
   
   // All days are unlocked - users can freely choose any task
@@ -61,15 +120,40 @@ export default function ChallengeDetail() {
     return true;
   };
 
-  const handleCompleteTask = (taskId: string) => {
-    setCompletedTasks(prev => {
+  const handleStartChallenge = async () => {
+    if (!challengeId) return;
+    
+    try {
+      await startChallengeMutation.mutateAsync({ challengeId });
+    } catch (error) {
+      console.error('Failed to start challenge:', error);
+    }
+  };
+
+  const handleCompleteTask = async (taskId: string) => {
+    // Update local state immediately for better UX
+    setLocalCompletedTasks(prev => {
       const newSet = new Set(prev);
       newSet.add(taskId);
       return newSet;
     });
+    
+    // Sync with backend
+    if (challengeId && isAuthenticated) {
+      try {
+        await completeTaskMutation.mutateAsync({ challengeId, taskId });
+      } catch (error) {
+        console.error('Failed to complete task:', error);
+      }
+    }
   };
 
   const handleStartTask = (task: ChallengeTask) => {
+    // If challenge not started yet, start it first
+    if (!isStarted && isAuthenticated) {
+      handleStartChallenge();
+    }
+    
     if (task.courseId && task.moduleId) {
       setLocation(`/lesson/${task.courseId}/${task.moduleId}`);
     } else {
@@ -88,109 +172,108 @@ export default function ChallengeDetail() {
     }
   };
 
-  const getTaskIcon = (task: ChallengeTask, isCompleted: boolean) => {
-    if (isCompleted) {
-      return <CheckCircle2 className="w-5 h-5 text-green-500" />;
-    }
-    switch (task.type) {
+  const getTaskIcon = (type: ChallengeTask['type']) => {
+    switch (type) {
+      case 'lesson':
+        return <BookOpen className="w-5 h-5" />;
       case 'quiz':
-        return <HelpCircle className="w-5 h-5 text-purple-500" />;
+        return <HelpCircle className="w-5 h-5" />;
       case 'practice':
-        return <Play className="w-5 h-5 text-blue-500" />;
+        return <Play className="w-5 h-5" />;
       default:
-        return <BookOpen className="w-5 h-5 text-[#5A4CFF]" />;
+        return <BookOpen className="w-5 h-5" />;
     }
   };
 
   return (
     <div className="min-h-screen bg-[#F9FAFB]">
       {/* Header */}
-      <div className="bg-white border-b border-[#E2E5E9]">
-        <div className="max-w-[1200px] mx-auto px-6 py-4">
-          <button 
-            onClick={() => setLocation('/dashboard/challenges')}
-            className="flex items-center gap-2 text-[#24234C]/60 hover:text-[#24234C] transition-colors mb-4"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Back to Challenges</span>
-          </button>
+      <div className="bg-gradient-to-r from-[#5A4CFF] to-[#7C6FFF] text-white">
+        <div className="max-w-4xl mx-auto px-4 py-6">
+          <Link href="/dashboard/challenges">
+            <a className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-4">
+              <ArrowLeft className="w-4 h-4" />
+              Back to Challenges
+            </a>
+          </Link>
           
-          <div className="flex items-start justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-[#24234C] mb-2">{challenge.title}</h1>
-              <p className="text-[#24234C]/60 max-w-2xl">{challenge.description}</p>
-              <div className="flex items-center gap-4 mt-3">
-                <span className="px-3 py-1 bg-[#5A4CFF]/10 text-[#5A4CFF] text-sm font-medium rounded-full">
-                  {challenge.difficulty}
-                </span>
-                <span className="text-sm text-[#24234C]/60">
-                  {challenge.totalDays} days
-                </span>
-                <span className="text-sm text-[#24234C]/60">
-                  {challenge.category}
-                </span>
+          <div className="flex items-start gap-4">
+            <span className="text-4xl">{challenge.icon}</span>
+            <div className="flex-1">
+              <h1 className="text-2xl font-bold mb-2">{challenge.title}</h1>
+              <p className="text-white/80 mb-4">{challenge.description}</p>
+              
+              <div className="flex items-center gap-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <Flame className="w-4 h-4" />
+                  <span>{challenge.totalDays} Days</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-4 h-4" />
+                  <span>{challenge.difficulty}</span>
+                </div>
+                {isStarted && (
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4" />
+                    <span>Day {currentDay} of {challenge.totalDays}</span>
+                  </div>
+                )}
               </div>
             </div>
-            
-            {/* Progress Card */}
-            <Card className="border-[#E2E5E9] min-w-[200px]">
-              <CardContent className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Flame className="w-5 h-5 text-orange-500" />
-                  <span className="font-semibold text-[#24234C]">{progressPercent}% Complete</span>
-                </div>
-                <Progress value={progressPercent} className="h-2 mb-2" />
-                <p className="text-xs text-[#24234C]/60">
-                  {completedCount} of {challenge.totalDays} days completed
-                </p>
-              </CardContent>
-            </Card>
+          </div>
+          
+          {/* Progress Bar */}
+          <div className="mt-6">
+            <div className="flex justify-between text-sm mb-2">
+              <span>{completedCount} of {challenge.totalDays} tasks completed</span>
+              <span>{progressPercent}%</span>
+            </div>
+            <Progress value={progressPercent} className="h-2 bg-white/20" />
           </div>
         </div>
       </div>
-
+      
       {/* Day Navigation */}
       <div className="bg-white border-b border-[#E2E5E9] sticky top-0 z-10">
-        <div className="max-w-[1200px] mx-auto px-6 py-3">
+        <div className="max-w-4xl mx-auto px-4 py-3">
           <div className="flex items-center gap-2">
             <button 
               onClick={() => scrollDayNav('left')}
-              className="p-2 rounded-full hover:bg-[#F0F2F5] transition-colors"
+              className="p-1 rounded-full hover:bg-gray-100"
             >
-              <ChevronLeft className="w-5 h-5 text-[#24234C]/60" />
+              <ChevronLeft className="w-5 h-5 text-gray-500" />
             </button>
             
             <div 
               ref={dayNavRef}
-              className="flex-1 overflow-x-auto scrollbar-hide flex gap-2 py-1"
+              className="flex-1 overflow-x-auto scrollbar-hide flex gap-2"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {Array.from({ length: challenge.totalDays }, (_, i) => i + 1).map(day => {
                 const task = challenge.tasks.find(t => t.day === day);
-                const isCompleted = task ? completedTasks.has(task.id) : false;
-                const isUnlocked = isDayUnlocked(day);
+                const isCompleted = task && localCompletedTasks.has(task.id);
                 const isSelected = day === selectedDay;
+                const unlocked = isDayUnlocked(day);
                 
                 return (
                   <button
                     key={day}
-                    onClick={() => isUnlocked && setSelectedDay(day)}
-                    disabled={!isUnlocked}
+                    onClick={() => unlocked && setSelectedDay(day)}
+                    disabled={!unlocked}
                     className={`
-                      flex-shrink-0 w-12 h-12 rounded-xl flex flex-col items-center justify-center
-                      transition-all font-medium text-sm
+                      flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium
+                      transition-all duration-200
                       ${isSelected 
                         ? 'bg-[#5A4CFF] text-white' 
                         : isCompleted 
-                          ? 'bg-green-100 text-green-700 hover:bg-green-200' 
-                          : isUnlocked 
-                            ? 'bg-[#F0F2F5] text-[#24234C] hover:bg-[#E2E5E9]' 
-                            : 'bg-[#F0F2F5] text-[#24234C]/30 cursor-not-allowed'
+                          ? 'bg-green-100 text-green-700 border-2 border-green-500' 
+                          : unlocked
+                            ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            : 'bg-gray-50 text-gray-300 cursor-not-allowed'
                       }
                     `}
                   >
-                    <span className="text-xs opacity-70">D</span>
-                    <span>{day}</span>
+                    {isCompleted ? <CheckCircle2 className="w-5 h-5" /> : day}
                   </button>
                 );
               })}
@@ -198,188 +281,134 @@ export default function ChallengeDetail() {
             
             <button 
               onClick={() => scrollDayNav('right')}
-              className="p-2 rounded-full hover:bg-[#F0F2F5] transition-colors"
+              className="p-1 rounded-full hover:bg-gray-100"
             >
-              <ChevronRight className="w-5 h-5 text-[#24234C]/60" />
+              <ChevronRight className="w-5 h-5 text-gray-500" />
             </button>
           </div>
         </div>
       </div>
-
-      {/* Main Content */}
-      <div className="max-w-[1200px] mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Task Details */}
-          <div className="lg:col-span-2">
-            {currentTask && (
-              <Card className="border-[#E2E5E9]">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-6">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="px-2 py-1 bg-[#5A4CFF]/10 text-[#5A4CFF] text-xs font-medium rounded">
-                          Day {currentTask.day}
-                        </span>
-                        <span className="px-2 py-1 bg-[#F0F2F5] text-[#24234C]/60 text-xs font-medium rounded capitalize">
-                          {currentTask.type}
-                        </span>
-                      </div>
-                      <h2 className="text-xl font-bold text-[#24234C] mb-2">{currentTask.title}</h2>
-                      <p className="text-[#24234C]/60">{currentTask.description}</p>
-                    </div>
-                    {getTaskIcon(currentTask, completedTasks.has(currentTask.id))}
-                  </div>
-                  
-                  <div className="flex items-center gap-4 mb-6 text-sm text-[#24234C]/60">
-                    <span>⏱️ {currentTask.duration}</span>
-                  </div>
-                  
-                  {completedTasks.has(currentTask.id) ? (
-                    <div className="flex items-center gap-3 p-4 bg-green-50 rounded-xl">
-                      <CheckCircle2 className="w-6 h-6 text-green-500" />
-                      <div>
-                        <p className="font-medium text-green-700">Task Completed!</p>
-                        <p className="text-sm text-green-600">Great job! Move on to the next day.</p>
-                      </div>
-                    </div>
-                  ) : isDayUnlocked(currentTask.day) ? (
-                    <div className="flex gap-3">
-                      <Button 
-                        onClick={() => handleStartTask(currentTask)}
-                        className="flex-1 bg-[#5A4CFF] hover:bg-[#4B3FE0]"
-                      >
-                        {currentTask.type === 'quiz' ? 'Start Quiz' : currentTask.type === 'practice' ? 'Start Practice' : 'Start Lesson'}
-                      </Button>
-                      {isTestModeEnabled && (
-                        <Button 
-                          onClick={() => handleCompleteTask(currentTask.id)}
-                          variant="outline"
-                          className="border-amber-500 text-amber-600 hover:bg-amber-50"
-                        >
-                          🧪 Quick Complete
-                        </Button>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-3 p-4 bg-[#F0F2F5] rounded-xl">
-                      <Lock className="w-6 h-6 text-[#24234C]/40" />
-                      <div>
-                        <p className="font-medium text-[#24234C]/60">Task Locked</p>
-                        <p className="text-sm text-[#24234C]/40">Complete the previous day to unlock.</p>
-                      </div>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Task List */}
-            <div className="mt-8">
-              <h3 className="text-lg font-bold text-[#24234C] mb-4">All Tasks</h3>
-              <div className="space-y-3">
-                {challenge.tasks.map(task => {
-                  const isCompleted = completedTasks.has(task.id);
-                  const isUnlocked = isDayUnlocked(task.day);
-                  const isSelected = task.day === selectedDay;
-                  
-                  return (
-                    <button
-                      key={task.id}
-                      onClick={() => isUnlocked && setSelectedDay(task.day)}
-                      disabled={!isUnlocked}
-                      className={`
-                        w-full flex items-center gap-4 p-4 rounded-xl border transition-all text-left
-                        ${isSelected 
-                          ? 'border-[#5A4CFF] bg-[#5A4CFF]/5' 
-                          : 'border-[#E2E5E9] hover:border-[#5A4CFF]/30'
-                        }
-                        ${!isUnlocked && 'opacity-50 cursor-not-allowed'}
-                      `}
-                    >
-                      <div className={`
-                        w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0
-                        ${isCompleted ? 'bg-green-100' : 'bg-[#F0F2F5]'}
-                      `}>
-                        {isCompleted ? (
-                          <CheckCircle2 className="w-5 h-5 text-green-500" />
-                        ) : isUnlocked ? (
-                          <span className="font-medium text-[#24234C]">{task.day}</span>
-                        ) : (
-                          <Lock className="w-4 h-4 text-[#24234C]/40" />
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className={`font-medium truncate ${isCompleted ? 'text-green-700' : 'text-[#24234C]'}`}>
-                          {task.title}
-                        </p>
-                        <p className="text-sm text-[#24234C]/60 truncate">{task.description}</p>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-[#24234C]/60">
-                        <span>{task.duration}</span>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            {/* Certificate Card */}
-            <Card className="border-[#E2E5E9] mb-6">
-              <CardContent className="p-6 text-center">
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[#F0F2F5] flex items-center justify-center">
-                  {progressPercent >= 100 ? (
-                    <Trophy className="w-10 h-10 text-amber-500" />
-                  ) : (
-                    <Lock className="w-10 h-10 text-[#24234C]/30" />
-                  )}
-                </div>
-                <h3 className="font-bold text-[#24234C] mb-2">Challenge Certificate</h3>
-                <p className="text-sm text-[#24234C]/60 mb-4">
-                  {progressPercent >= 100 
-                    ? 'Congratulations! You earned this certificate.' 
-                    : `Complete all ${challenge.totalDays} days to earn your certificate.`
+      
+      {/* Task Content */}
+      <div className="max-w-4xl mx-auto px-4 py-6">
+        {!isStarted && !isTestModeEnabled && (
+          <Card className="mb-6 border-[#5A4CFF] bg-[#5A4CFF]/5">
+            <CardContent className="p-6 text-center">
+              <h3 className="text-lg font-semibold text-[#24234C] mb-2">Ready to start this challenge?</h3>
+              <p className="text-[#24234C]/60 mb-4">Click the button below to begin your {challenge.totalDays}-day journey!</p>
+              <Button 
+                onClick={handleStartChallenge}
+                disabled={startChallengeMutation.isPending}
+                className="bg-[#5A4CFF] hover:bg-[#4A3CE0]"
+              >
+                {startChallengeMutation.isPending ? 'Starting...' : 'Start Challenge'}
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+        
+        {currentTask ? (
+          <Card className="border-[#E2E5E9]">
+            <CardContent className="p-6">
+              <div className="flex items-start gap-4">
+                <div className={`
+                  w-12 h-12 rounded-xl flex items-center justify-center
+                  ${localCompletedTasks.has(currentTask.id) 
+                    ? 'bg-green-100 text-green-600' 
+                    : 'bg-[#5A4CFF]/10 text-[#5A4CFF]'
                   }
-                </p>
-                <Progress value={progressPercent} className="h-2" />
-              </CardContent>
-            </Card>
-
-            {/* Stats Card */}
-            <Card className="border-[#E2E5E9]">
-              <CardContent className="p-6">
-                <h3 className="font-bold text-[#24234C] mb-4">Your Progress</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[#24234C]/60">Days Completed</span>
-                    <span className="font-medium text-[#24234C]">{completedCount}/{challenge.totalDays}</span>
+                `}>
+                  {localCompletedTasks.has(currentTask.id) 
+                    ? <CheckCircle2 className="w-6 h-6" />
+                    : getTaskIcon(currentTask.type)
+                  }
+                </div>
+                
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-sm text-[#5A4CFF] font-medium">Day {currentTask.day}</span>
+                    <span className="text-sm text-gray-400">•</span>
+                    <span className="text-sm text-gray-500 capitalize">{currentTask.type}</span>
+                    <span className="text-sm text-gray-400">•</span>
+                    <span className="text-sm text-gray-500">{currentTask.duration}</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[#24234C]/60">Lessons</span>
-                    <span className="font-medium text-[#24234C]">
-                      {challenge.tasks.filter(t => t.type === 'lesson' && completedTasks.has(t.id)).length}/
-                      {challenge.tasks.filter(t => t.type === 'lesson').length}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[#24234C]/60">Quizzes</span>
-                    <span className="font-medium text-[#24234C]">
-                      {challenge.tasks.filter(t => t.type === 'quiz' && completedTasks.has(t.id)).length}/
-                      {challenge.tasks.filter(t => t.type === 'quiz').length}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[#24234C]/60">Practice</span>
-                    <span className="font-medium text-[#24234C]">
-                      {challenge.tasks.filter(t => t.type === 'practice' && completedTasks.has(t.id)).length}/
-                      {challenge.tasks.filter(t => t.type === 'practice').length}
-                    </span>
+                  
+                  <h2 className="text-xl font-bold text-[#24234C] mb-2">{currentTask.title}</h2>
+                  <p className="text-[#24234C]/60 mb-4">{currentTask.description}</p>
+                  
+                  {localCompletedTasks.has(currentTask.id) ? (
+                    <div className="flex items-center gap-2 text-green-600">
+                      <CheckCircle2 className="w-5 h-5" />
+                      <span className="font-medium">Completed!</span>
+                    </div>
+                  ) : (
+                    <Button 
+                      onClick={() => handleStartTask(currentTask)}
+                      className="bg-[#5A4CFF] hover:bg-[#4A3CE0]"
+                    >
+                      <Play className="w-4 h-4 mr-2" />
+                      Start Task
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ) : (
+          <Card className="border-[#E2E5E9]">
+            <CardContent className="p-6 text-center">
+              <p className="text-[#24234C]/60">No task found for this day.</p>
+            </CardContent>
+          </Card>
+        )}
+        
+        {/* All Tasks Overview */}
+        <div className="mt-8">
+          <h3 className="text-lg font-bold text-[#24234C] mb-4">All Tasks</h3>
+          <div className="space-y-3">
+            {challenge.tasks.map(task => {
+              const isCompleted = localCompletedTasks.has(task.id);
+              const unlocked = isDayUnlocked(task.day);
+              
+              return (
+                <div 
+                  key={task.id}
+                  onClick={() => unlocked && setSelectedDay(task.day)}
+                  className={`
+                    p-4 rounded-xl border cursor-pointer transition-all
+                    ${selectedDay === task.day 
+                      ? 'border-[#5A4CFF] bg-[#5A4CFF]/5' 
+                      : 'border-[#E2E5E9] hover:border-[#5A4CFF]/50'
+                    }
+                    ${!unlocked && 'opacity-50 cursor-not-allowed'}
+                  `}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className={`
+                      w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium
+                      ${isCompleted 
+                        ? 'bg-green-100 text-green-600' 
+                        : 'bg-gray-100 text-gray-600'
+                      }
+                    `}>
+                      {isCompleted ? <CheckCircle2 className="w-4 h-4" /> : task.day}
+                    </div>
+                    
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium text-[#24234C]">{task.title}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 capitalize">
+                          {task.type}
+                        </span>
+                      </div>
+                      <p className="text-sm text-[#24234C]/60">{task.duration}</p>
+                    </div>
+                    
+                    {!unlocked && <Lock className="w-4 h-4 text-gray-400" />}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              );
+            })}
           </div>
         </div>
       </div>

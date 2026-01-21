@@ -19,8 +19,15 @@ export interface Challenge {
   category: string;
   image: string;
   icon: string;
-  startDate: string | null; // ISO date string when user started the challenge, null if not started
   tasks: ChallengeTask[];
+}
+
+// User's progress on a challenge (from database)
+export interface UserChallengeProgress {
+  challengeId: string;
+  startedAt: string | null;
+  completedTasks: string[];
+  completedAt: string | null;
 }
 
 // Helper function to calculate current day based on start date
@@ -43,28 +50,28 @@ export function calculateCurrentDay(startDate: string | null, totalDays: number)
   return diffDays;
 }
 
-// Helper function to get challenge with computed currentDay
-export function getChallengeWithProgress(challenge: Challenge): Challenge & { currentDay: number } {
+// Get challenge with user's progress
+export function getChallengeWithUserProgress(
+  challenge: Challenge, 
+  userProgress: UserChallengeProgress | null
+): Challenge & { currentDay: number; isStarted: boolean; completedTasks: string[] } {
+  const startDate = userProgress?.startedAt || null;
+  const currentDay = calculateCurrentDay(startDate, challenge.totalDays);
+  
   return {
     ...challenge,
-    currentDay: calculateCurrentDay(challenge.startDate, challenge.totalDays)
+    currentDay,
+    isStarted: !!userProgress?.startedAt,
+    completedTasks: userProgress?.completedTasks || []
   };
 }
 
-// Get all challenges with computed progress
-export function getAllChallengesWithProgress(): (Challenge & { currentDay: number })[] {
-  return challengeData.map(getChallengeWithProgress);
-}
-
-// Get a single challenge by ID with computed currentDay
-export function getChallengeById(id: string): (Challenge & { currentDay: number }) | undefined {
-  const challenge = challengeData.find(c => c.id === id);
-  if (!challenge) return undefined;
-  return getChallengeWithProgress(challenge);
+// Get a single challenge by ID (static data only)
+export function getChallengeById(id: string): Challenge | undefined {
+  return challengeData.find(c => c.id === id);
 }
 
 // 4 Challenges with daily tasks - All tasks linked to course modules
-// startDate is set to actual dates for active challenges
 export const challengeData: Challenge[] = [
   {
     id: 'ai-reinvention-2026',
@@ -75,7 +82,6 @@ export const challengeData: Challenge[] = [
     category: 'AI Fundamentals',
     image: '/images/course/covers/deepseek-cover.jpg',
     icon: '🚀',
-    startDate: '2026-01-10', // Started on Jan 10, 2026
     tasks: [
       // Week 1: AI Basics
       { id: 'air-d1', day: 1, title: 'Introduction to DeepSeek', description: 'Learn the basics of DeepSeek AI', duration: '15 min', type: 'lesson', courseId: 'deepseek', moduleId: 'deepseek-1-1' },
@@ -120,7 +126,6 @@ export const challengeData: Challenge[] = [
     category: 'Getting Started',
     image: '/images/course/covers/chatgpt-cover.jpg',
     icon: '🌟',
-    startDate: '2026-01-19', // Started on Jan 19, 2026
     tasks: [
       // Week 1: Introduction to AI
       { id: 'jac-d1', day: 1, title: 'What is AI?', description: 'Introduction to artificial intelligence', duration: '10 min', type: 'lesson', courseId: 'chatgpt', moduleId: 'chatgpt-1-1' },
@@ -165,7 +170,6 @@ export const challengeData: Challenge[] = [
     category: 'Business',
     image: '/images/course/covers/midjourney-cover.jpg',
     icon: '💰',
-    startDate: null, // Not started yet
     tasks: [
       // Week 1: Foundations
       { id: 'asg-d1', day: 1, title: 'Freelancing with AI', description: 'Introduction to AI freelancing', duration: '20 min', type: 'lesson', courseId: 'chatgpt', moduleId: 'chatgpt-2-1' },
@@ -194,7 +198,6 @@ export const challengeData: Challenge[] = [
     category: 'Advanced Skills',
     image: '/images/course/covers/claude-cover.jpg',
     icon: '⚡',
-    startDate: null, // Not started yet
     tasks: [
       { id: 'pep-d1', day: 1, title: 'Prompt Fundamentals', description: 'Master the basics of prompting', duration: '25 min', type: 'lesson', courseId: 'chatgpt', moduleId: 'chatgpt-3-1' },
       { id: 'pep-d2', day: 2, title: 'Chain of Thought', description: 'Learn CoT prompting', duration: '30 min', type: 'lesson', courseId: 'chatgpt', moduleId: 'chatgpt-3-2' },

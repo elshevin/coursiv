@@ -22,7 +22,12 @@ import {
   createPasswordResetToken,
   getPasswordResetToken,
   markTokenAsUsed,
-  updateEmailUserPassword
+  updateEmailUserPassword,
+  getChallengeProgress,
+  getAllChallengeProgress,
+  startChallenge,
+  updateChallengeProgress,
+  markChallengeCompleted
 } from "./db";
 import { Resend } from 'resend';
 import { SignJWT, jwtVerify } from "jose";
@@ -543,6 +548,119 @@ export const appRouter = router({
           return { success: true };
         } catch {
           throw new Error("Not authenticated");
+        }
+      }),
+  }),
+
+  // Challenge progress system
+  challenges: router({
+    // Get all challenge progress for current user
+    getAllProgress: publicProcedure.query(async ({ ctx }) => {
+      const userId = await getAuthenticatedUserId(ctx);
+      if (!userId) return [];
+
+      try {
+        const progress = await getAllChallengeProgress(userId, 'email');
+        return progress;
+      } catch {
+        return [];
+      }
+    }),
+
+    // Get progress for a specific challenge
+    getProgress: publicProcedure
+      .input(z.object({ challengeId: z.string() }))
+      .query(async ({ ctx, input }) => {
+        const userId = await getAuthenticatedUserId(ctx);
+        if (!userId) return null;
+
+        try {
+          const progress = await getChallengeProgress(userId, 'email', input.challengeId);
+          return progress;
+        } catch {
+          return null;
+        }
+      }),
+
+    // Start a challenge
+    start: publicProcedure
+      .input(z.object({ challengeId: z.string() }))
+      .mutation(async ({ ctx, input }) => {
+        const userId = await getAuthenticatedUserId(ctx);
+        if (!userId) {
+          throw new Error("Not authenticated");
+        }
+
+        try {
+          const progress = await startChallenge(userId, 'email', input.challengeId);
+          return progress;
+        } catch {
+          throw new Error("Failed to start challenge");
+        }
+      }),
+
+    // Complete a task in a challenge
+    completeTask: publicProcedure
+      .input(z.object({
+        challengeId: z.string(),
+        taskId: z.string(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const userId = await getAuthenticatedUserId(ctx);
+        if (!userId) {
+          throw new Error("Not authenticated");
+        }
+
+        try {
+          // Get current progress
+          const currentProgress = await getChallengeProgress(userId, 'email', input.challengeId);
+          let completedTasks: string[] = [];
+          
+          if (currentProgress?.completedTasks) {
+            try {
+              const parsed = JSON.parse(currentProgress.completedTasks);
+              completedTasks = Array.isArray(parsed) 
+                ? parsed.filter((item: unknown): item is string => typeof item === 'string')
+                : [];
+            } catch {
+              completedTasks = [];
+            }
+          }
+          
+          // Add task if not already completed
+          if (!completedTasks.includes(input.taskId)) {
+            completedTasks.push(input.taskId);
+          }
+          
+          // Update progress
+          const progress = await updateChallengeProgress(
+            userId,
+            'email',
+            input.challengeId,
+            completedTasks
+          );
+          
+          return progress;
+        } catch (error) {
+          console.error('[CompleteTask] Error:', error);
+          throw new Error("Failed to complete task");
+        }
+      }),
+
+    // Mark challenge as completed
+    complete: publicProcedure
+      .input(z.object({ challengeId: z.string() }))
+      .mutation(async ({ ctx, input }) => {
+        const userId = await getAuthenticatedUserId(ctx);
+        if (!userId) {
+          throw new Error("Not authenticated");
+        }
+
+        try {
+          await markChallengeCompleted(userId, 'email', input.challengeId);
+          return { success: true };
+        } catch {
+          throw new Error("Failed to complete challenge");
         }
       }),
   }),

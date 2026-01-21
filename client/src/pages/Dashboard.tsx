@@ -30,7 +30,7 @@ import {
   Sun
 } from "lucide-react";
 
-import { challengeData, getAllChallengesWithProgress } from '@/data/challengeData';
+import { challengeData, getChallengeWithUserProgress, type UserChallengeProgress } from '@/data/challengeData';
 // certificateData removed - replaced with coursesWithProgress
 import { trpc } from "@/lib/trpc";
 import { courses } from "../../../shared/courseData";
@@ -74,6 +74,11 @@ export default function Dashboard() {
     enabled: isAuthenticated,
   });
 
+  // Fetch all challenge progress from backend
+  const { data: challengeProgressData } = trpc.challenges.getAllProgress.useQuery(undefined, {
+    enabled: isAuthenticated,
+  });
+
   // Calculate real statistics
   const stats = useMemo(() => {
     // Calculate total lessons completed across all courses
@@ -112,6 +117,41 @@ export default function Dashboard() {
       xpEarned: xpEarned,
     };
   }, [allProgressData, streakData]);
+
+  // Calculate challenges with user progress
+  const challengesWithProgress = useMemo(() => {
+    // Convert backend progress data to a map for easy lookup
+    const progressMap = new Map<string, UserChallengeProgress>();
+    
+    if (challengeProgressData) {
+      challengeProgressData.forEach(progress => {
+        let completedTasks: string[] = [];
+        if (progress.completedTasks) {
+          try {
+            const parsed = typeof progress.completedTasks === 'string'
+              ? JSON.parse(progress.completedTasks)
+              : progress.completedTasks;
+            completedTasks = Array.isArray(parsed) ? parsed : [];
+          } catch {
+            completedTasks = [];
+          }
+        }
+        
+        progressMap.set(progress.challengeId, {
+          challengeId: progress.challengeId,
+          startedAt: progress.startedAt ? new Date(progress.startedAt).toISOString() : null,
+          completedTasks,
+          completedAt: progress.completedAt ? new Date(progress.completedAt).toISOString() : null,
+        });
+      });
+    }
+    
+    // Combine static challenge data with user progress
+    return challengeData.map(challenge => {
+      const userProgress = progressMap.get(challenge.id) || null;
+      return getChallengeWithUserProgress(challenge, userProgress);
+    });
+  }, [challengeProgressData]);
 
   // Calculate weekly streak days for the modal
   const streakDays = useMemo(() => {
@@ -372,8 +412,8 @@ export default function Dashboard() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {getAllChallengesWithProgress().slice(0, 2).map((challenge) => {
-                  const isActive = challenge.currentDay > 0;
+                {challengesWithProgress.slice(0, 2).map((challenge) => {
+                  const isActive = challenge.isStarted && challenge.currentDay > 0;
                   const progress = isActive 
                     ? Math.round((challenge.currentDay / challenge.totalDays) * 100) 
                     : 0;
@@ -483,9 +523,9 @@ export default function Dashboard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {getAllChallengesWithProgress().map((challenge) => {
-                // Determine status based on currentDay
-                const status = challenge.currentDay > 0 ? 'active' : 'available';
+              {challengesWithProgress.map((challenge) => {
+                // Determine status based on user's progress
+                const status = challenge.isStarted && challenge.currentDay > 0 ? 'active' : 'available';
                 const progress = challenge.currentDay > 0 
                   ? Math.round((challenge.currentDay / challenge.totalDays) * 100) 
                   : 0;

@@ -119,3 +119,18 @@ export const passwordResetTokens = pgTable("password_reset_tokens", {
 
 export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
 export type InsertPasswordResetToken = typeof passwordResetTokens.$inferInsert;
+
+// User challenge progress tracking
+export const userChallengeProgress = pgTable("user_challenge_progress", {
+  id: serial("id").primaryKey(),
+  userId: integer("userId").notNull(),
+  userType: varchar("userType", { length: 16 }).notNull(), // 'demo' or 'email'
+  challengeId: varchar("challengeId", { length: 64 }).notNull(),
+  startedAt: timestamp("startedAt").defaultNow().notNull(),
+  completedTasks: text("completedTasks"), // JSON array of completed task IDs
+  lastAccessedAt: timestamp("lastAccessedAt").defaultNow().notNull(),
+  completedAt: timestamp("completedAt"),
+});
+
+export type UserChallengeProgress = typeof userChallengeProgress.$inferSelect;
+export type InsertUserChallengeProgress = typeof userChallengeProgress.$inferInsert;

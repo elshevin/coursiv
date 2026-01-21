@@ -66,19 +66,29 @@ export function useEmailAuth() {
   const updateSettingsMutation = trpc.emailAuth.updateSettings.useMutation();
 
   useEffect(() => {
-    // Always prefer server data over localStorage to get latest settings
-    if (userData !== undefined) {
+    // Check localStorage first for immediate auth state
+    const storedUser = getStoredUser();
+    const storedToken = localStorage.getItem(TOKEN_KEY);
+    
+    if (storedUser && storedToken) {
+      // User is authenticated via localStorage, use this immediately
+      setUser(storedUser);
+      setIsLoading(false);
+      
+      // Still update from server if available (for latest settings)
+      if (userData !== undefined && userData) {
+        setUser(userData as EmailUser);
+        storeUser(userData as EmailUser);
+      }
+    } else if (userData !== undefined) {
+      // No localStorage data, use server response
       setUser(userData as EmailUser | null);
       if (userData) {
         storeUser(userData as EmailUser);
       }
       setIsLoading(false);
     } else {
-      // Fall back to localStorage while loading
-      const storedUser = getStoredUser();
-      if (storedUser) {
-        setUser(storedUser);
-      }
+      // No localStorage and still loading from server
       setIsLoading(false);
     }
   }, [userData]);

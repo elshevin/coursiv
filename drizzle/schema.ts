@@ -102,3 +102,18 @@ export const dailyActivity = mysqlTable("daily_activity", {
 
 export type DailyActivity = typeof dailyActivity.$inferSelect;
 export type InsertDailyActivity = typeof dailyActivity.$inferInsert;
+
+// User challenge progress tracking
+export const userChallengeProgress = mysqlTable("user_challenge_progress", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  userType: varchar("userType", { length: 16 }).notNull(), // 'demo' or 'email'
+  challengeId: varchar("challengeId", { length: 64 }).notNull(),
+  startedAt: timestamp("startedAt").defaultNow().notNull(),
+  completedTasks: text("completedTasks"), // JSON array of completed task IDs
+  lastAccessedAt: timestamp("lastAccessedAt").defaultNow().onUpdateNow().notNull(),
+  completedAt: timestamp("completedAt"),
+});
+
+export type UserChallengeProgress = typeof userChallengeProgress.$inferSelect;
+export type InsertUserChallengeProgress = typeof userChallengeProgress.$inferInsert;

@@ -36,7 +36,7 @@ ensureDbModule().catch(err => {
 });
 
 // Re-export types
-export type { EmailUser, UserStreak, DailyActivity, UserCourseProgress } from "../drizzle/schema-pg";
+export type { EmailUser, UserStreak, DailyActivity, UserCourseProgress, UserChallengeProgress } from "../drizzle/schema-pg";
 
 const SALT_ROUNDS = 10;
 
@@ -235,5 +235,54 @@ export async function updateEmailUserPassword(userId: number, newPassword: strin
   const mod = await ensureDbModule();
   if (mod.updateEmailUserPassword) {
     return mod.updateEmailUserPassword(userId, newPassword);
+  }
+}
+
+
+// ============================================
+// Challenge Progress Functions
+// ============================================
+
+export async function getChallengeProgress(userId: number, userType: string, challengeId: string): Promise<any> {
+  const mod = await ensureDbModule();
+  if (mod.getChallengeProgress) {
+    return mod.getChallengeProgress(userId, userType, challengeId);
+  }
+  return null;
+}
+
+export async function getAllChallengeProgress(userId: number, userType: string): Promise<any[]> {
+  const mod = await ensureDbModule();
+  if (mod.getAllChallengeProgress) {
+    return mod.getAllChallengeProgress(userId, userType);
+  }
+  return [];
+}
+
+export async function startChallenge(userId: number, userType: string, challengeId: string): Promise<any> {
+  const mod = await ensureDbModule();
+  if (mod.startChallenge) {
+    return mod.startChallenge(userId, userType, challengeId);
+  }
+  return null;
+}
+
+export async function updateChallengeProgress(
+  userId: number,
+  userType: string,
+  challengeId: string,
+  completedTasksArray: string[]
+): Promise<any> {
+  const mod = await ensureDbModule();
+  if (mod.updateChallengeProgress) {
+    return mod.updateChallengeProgress(userId, userType, challengeId, completedTasksArray);
+  }
+  return null;
+}
+
+export async function markChallengeCompleted(userId: number, userType: string, challengeId: string): Promise<void> {
+  const mod = await ensureDbModule();
+  if (mod.markChallengeCompleted) {
+    return mod.markChallengeCompleted(userId, userType, challengeId);
   }
 }

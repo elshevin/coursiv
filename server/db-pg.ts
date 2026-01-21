@@ -8,6 +8,7 @@ import {
   userStreaks, 
   dailyActivity, 
   userCourseProgress,
+  userChallengeProgress,
   type User,
   type InsertUser,
   type DemoUser,
@@ -19,12 +20,14 @@ import {
   type DailyActivity,
   type InsertDailyActivity,
   type UserCourseProgress,
-  type InsertUserCourseProgress
+  type InsertUserCourseProgress,
+  type UserChallengeProgress,
+  type InsertUserChallengeProgress
 } from "../drizzle/schema-pg";
 import bcrypt from "bcryptjs";
 
 // Re-export types
-export type { User, InsertUser, DemoUser, InsertDemoUser, EmailUser, InsertEmailUser, UserStreak, DailyActivity, UserCourseProgress };
+export type { User, InsertUser, DemoUser, InsertDemoUser, EmailUser, InsertEmailUser, UserStreak, DailyActivity, UserCourseProgress, UserChallengeProgress };
 
 const connectionString = process.env.DATABASE_URL;
 
@@ -535,4 +538,95 @@ export async function updateEmailUserPassword(userId: number, newPassword: strin
   await db.update(emailUsers)
     .set({ passwordHash, updatedAt: new Date() })
     .where(eq(emailUsers.id, userId));
+}
+
+// ============================================
+// Challenge Progress Functions
+// ============================================
+
+export async function getChallengeProgress(userId: number, userType: string, challengeId: string): Promise<UserChallengeProgress | null> {
+  if (!db) return null;
+
+  const result = await db.select().from(userChallengeProgress)
+    .where(and(
+      eq(userChallengeProgress.userId, userId),
+      eq(userChallengeProgress.userType, userType),
+      eq(userChallengeProgress.challengeId, challengeId)
+    ))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function getAllChallengeProgress(userId: number, userType: string): Promise<UserChallengeProgress[]> {
+  if (!db) return [];
+
+  return db.select().from(userChallengeProgress)
+    .where(and(
+      eq(userChallengeProgress.userId, userId),
+      eq(userChallengeProgress.userType, userType)
+    ));
+}
+
+export async function startChallenge(userId: number, userType: string, challengeId: string): Promise<UserChallengeProgress | null> {
+  if (!db) return null;
+
+  // Check if already started
+  const existing = await getChallengeProgress(userId, userType, challengeId);
+  if (existing) {
+    return existing;
+  }
+
+  const values: InsertUserChallengeProgress = {
+    userId,
+    userType,
+    challengeId,
+    completedTasks: JSON.stringify([]),
+  };
+
+  await db.insert(userChallengeProgress).values(values);
+  return getChallengeProgress(userId, userType, challengeId);
+}
+
+export async function updateChallengeProgress(
+  userId: number,
+  userType: string,
+  challengeId: string,
+  completedTasksArray: string[]
+): Promise<UserChallengeProgress | null> {
+  if (!db) return null;
+
+  const existing = await getChallengeProgress(userId, userType, challengeId);
+
+  if (!existing) {
+    // Start the challenge first
+    const values: InsertUserChallengeProgress = {
+      userId,
+      userType,
+      challengeId,
+      completedTasks: JSON.stringify(completedTasksArray),
+    };
+    await db.insert(userChallengeProgress).values(values);
+    return getChallengeProgress(userId, userType, challengeId);
+  }
+
+  await db.update(userChallengeProgress)
+    .set({
+      completedTasks: JSON.stringify(completedTasksArray),
+      lastAccessedAt: new Date()
+    })
+    .where(eq(userChallengeProgress.id, existing.id));
+
+  return getChallengeProgress(userId, userType, challengeId);
+}
+
+export async function markChallengeCompleted(userId: number, userType: string, challengeId: string): Promise<void> {
+  if (!db) return;
+
+  const existing = await getChallengeProgress(userId, userType, challengeId);
+  if (existing) {
+    await db.update(userChallengeProgress)
+      .set({ completedAt: new Date() })
+      .where(eq(userChallengeProgress.id, existing.id));
+  }
 }
