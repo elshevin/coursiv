@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useLocation } from "wouter";
 import { Check, X, Clock, Star, Shield, Sparkles, BookOpen, Award, Rocket, Loader2 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { useEmailAuth } from "@/hooks/useEmailAuth";
 
 // Declare FastSpring global
 declare global {
@@ -22,7 +23,13 @@ export default function Subscription() {
   const [, setLocation] = useLocation();
   const [timeLeft, setTimeLeft] = useState({ minutes: 9, seconds: 59 });
   const [selectedPlan, setSelectedPlan] = useState<'yearly' | 'monthly'>('yearly');
-  const { user, loading, isAuthenticated } = useAuth();
+  const { user: oauthUser, loading: oauthLoading, isAuthenticated: oauthAuthenticated } = useAuth();
+  const { user: emailUser, isLoading: emailLoading, isAuthenticated: emailAuthenticated } = useEmailAuth();
+  
+  // Combined auth state - user is authenticated if either OAuth or Email auth is valid
+  const user = oauthUser || emailUser;
+  const loading = oauthLoading || emailLoading;
+  const isAuthenticated = oauthAuthenticated || emailAuthenticated;
 
   // Redirect to login if not authenticated
   useEffect(() => {
