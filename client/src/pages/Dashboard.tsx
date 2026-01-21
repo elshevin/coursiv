@@ -30,7 +30,7 @@ import {
   Sun
 } from "lucide-react";
 
-import { challengeData } from '@/data/challengeData';
+import { challengeData, getAllChallengesWithProgress } from '@/data/challengeData';
 // certificateData removed - replaced with coursesWithProgress
 import { trpc } from "@/lib/trpc";
 import { courses } from "../../../shared/courseData";
@@ -372,7 +372,7 @@ export default function Dashboard() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {challengeData.slice(0, 2).map((challenge) => {
+                {getAllChallengesWithProgress().slice(0, 2).map((challenge) => {
                   const isActive = challenge.currentDay > 0;
                   const progress = isActive 
                     ? Math.round((challenge.currentDay / challenge.totalDays) * 100) 
@@ -483,7 +483,7 @@ export default function Dashboard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {challengeData.map((challenge) => {
+              {getAllChallengesWithProgress().map((challenge) => {
                 // Determine status based on currentDay
                 const status = challenge.currentDay > 0 ? 'active' : 'available';
                 const progress = challenge.currentDay > 0 

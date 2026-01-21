@@ -19,11 +19,45 @@ export interface Challenge {
   category: string;
   image: string;
   icon: string;
-  currentDay: number;
+  startDate: string | null; // ISO date string when user started the challenge, null if not started
   tasks: ChallengeTask[];
 }
 
+// Helper function to calculate current day based on start date
+export function calculateCurrentDay(startDate: string | null, totalDays: number): number {
+  if (!startDate) return 0;
+  
+  const start = new Date(startDate);
+  const now = new Date();
+  
+  // Reset time to midnight for accurate day calculation
+  start.setHours(0, 0, 0, 0);
+  now.setHours(0, 0, 0, 0);
+  
+  const diffTime = now.getTime() - start.getTime();
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 because day 1 is the start day
+  
+  // Return 0 if not started yet, or cap at totalDays if challenge is complete
+  if (diffDays < 1) return 0;
+  if (diffDays > totalDays) return totalDays;
+  return diffDays;
+}
+
+// Helper function to get challenge with computed currentDay
+export function getChallengeWithProgress(challenge: Challenge): Challenge & { currentDay: number } {
+  return {
+    ...challenge,
+    currentDay: calculateCurrentDay(challenge.startDate, challenge.totalDays)
+  };
+}
+
+// Get all challenges with computed progress
+export function getAllChallengesWithProgress(): (Challenge & { currentDay: number })[] {
+  return challengeData.map(getChallengeWithProgress);
+}
+
 // 4 Challenges with daily tasks - All tasks linked to course modules
+// startDate is set to actual dates for active challenges
 export const challengeData: Challenge[] = [
   {
     id: 'ai-reinvention-2026',
@@ -34,7 +68,7 @@ export const challengeData: Challenge[] = [
     category: 'AI Fundamentals',
     image: '/images/course/covers/deepseek-cover.jpg',
     icon: '🚀',
-    currentDay: 12,
+    startDate: '2026-01-10', // Started on Jan 10, 2026
     tasks: [
       // Week 1: AI Basics
       { id: 'air-d1', day: 1, title: 'Introduction to DeepSeek', description: 'Learn the basics of DeepSeek AI', duration: '15 min', type: 'lesson', courseId: 'deepseek', moduleId: 'deepseek-1-1' },
@@ -79,7 +113,7 @@ export const challengeData: Challenge[] = [
     category: 'Getting Started',
     image: '/images/course/covers/chatgpt-cover.jpg',
     icon: '🌟',
-    currentDay: 3,
+    startDate: '2026-01-19', // Started on Jan 19, 2026
     tasks: [
       // Week 1: Introduction to AI
       { id: 'jac-d1', day: 1, title: 'What is AI?', description: 'Introduction to artificial intelligence', duration: '10 min', type: 'lesson', courseId: 'chatgpt', moduleId: 'chatgpt-1-1' },
@@ -124,7 +158,7 @@ export const challengeData: Challenge[] = [
     category: 'Business',
     image: '/images/course/covers/midjourney-cover.jpg',
     icon: '💰',
-    currentDay: 0,
+    startDate: null, // Not started yet
     tasks: [
       // Week 1: Foundations
       { id: 'asg-d1', day: 1, title: 'Freelancing with AI', description: 'Introduction to AI freelancing', duration: '20 min', type: 'lesson', courseId: 'chatgpt', moduleId: 'chatgpt-2-1' },
@@ -135,53 +169,33 @@ export const challengeData: Challenge[] = [
       { id: 'asg-d6', day: 6, title: 'Week 1 Quiz', description: 'Test your knowledge', duration: '10 min', type: 'quiz', courseId: 'chatgpt', moduleId: 'chatgpt-2-quiz' },
       { id: 'asg-d7', day: 7, title: 'Finding Clients', description: 'Where to find AI work', duration: '25 min', type: 'lesson', courseId: 'chatgpt', moduleId: 'chatgpt-2-4' },
       // Week 2: Scaling
-      { id: 'asg-d8', day: 8, title: 'AI Consulting', description: 'Become an AI consultant', duration: '25 min', type: 'lesson', courseId: 'claude', moduleId: 'claude-2-1' },
-      { id: 'asg-d9', day: 9, title: 'Building a Portfolio', description: 'Showcase your AI work', duration: '30 min', type: 'practice', courseId: 'claude', moduleId: 'claude-2-2' },
-      { id: 'asg-d10', day: 10, title: 'AI Automation Services', description: 'Offer automation services', duration: '25 min', type: 'lesson', courseId: 'copilot', moduleId: 'copilot-2-1' },
-      { id: 'asg-d11', day: 11, title: 'Client Communication', description: 'Work with clients effectively', duration: '20 min', type: 'lesson', courseId: 'copilot', moduleId: 'copilot-2-2' },
-      { id: 'asg-d12', day: 12, title: 'Scaling Your Business', description: 'Grow your AI side gig', duration: '25 min', type: 'lesson', courseId: 'copilot', moduleId: 'copilot-2-3' },
-      { id: 'asg-d13', day: 13, title: 'Final Quiz', description: 'Complete knowledge check', duration: '15 min', type: 'quiz', courseId: 'copilot', moduleId: 'copilot-2-quiz' },
-      { id: 'asg-d14', day: 14, title: 'Launch Your Business', description: 'Start earning with AI', duration: '30 min', type: 'practice', courseId: 'copilot', moduleId: 'copilot-2-4' },
+      { id: 'asg-d8', day: 8, title: 'Building a Portfolio', description: 'Showcase your AI work', duration: '30 min', type: 'practice', courseId: 'midjourney', moduleId: 'mj-2-3' },
+      { id: 'asg-d9', day: 9, title: 'AI for Social Media', description: 'Create content with AI', duration: '25 min', type: 'lesson', courseId: 'dalle', moduleId: 'dalle-2-1' },
+      { id: 'asg-d10', day: 10, title: 'Automation Tips', description: 'Automate your workflow', duration: '20 min', type: 'lesson', courseId: 'copilot', moduleId: 'copilot-2-1' },
+      { id: 'asg-d11', day: 11, title: 'Client Communication', description: 'Working with clients', duration: '20 min', type: 'lesson', courseId: 'claude', moduleId: 'claude-2-1' },
+      { id: 'asg-d12', day: 12, title: 'Scaling Your Business', description: 'Grow your AI business', duration: '25 min', type: 'lesson', courseId: 'claude', moduleId: 'claude-2-2' },
+      { id: 'asg-d13', day: 13, title: 'Final Quiz', description: 'Test your business knowledge', duration: '15 min', type: 'quiz', courseId: 'midjourney', moduleId: 'mj-2-quiz' },
+      { id: 'asg-d14', day: 14, title: 'Launch Your Business', description: 'Put it all together', duration: '30 min', type: 'practice', courseId: 'chatgpt', moduleId: 'chatgpt-2-5' },
     ]
   },
   {
-    id: 'no-code-challenge',
-    title: 'No Code Challenge',
-    description: 'Build apps and automations without writing code. Learn to use AI-powered no-code tools to create real products.',
-    totalDays: 14,
-    difficulty: 'Beginner',
-    category: 'Development',
-    image: '/images/course/covers/copilot-cover.jpg',
-    icon: '🛠️',
-    currentDay: 0,
+    id: 'prompt-engineering-pro',
+    title: '7-Day Prompt Engineering Pro',
+    description: 'Become a prompt engineering expert in just one week. Learn advanced techniques to get better results from any AI.',
+    totalDays: 7,
+    difficulty: 'Advanced',
+    category: 'Advanced Skills',
+    image: '/images/course/covers/claude-cover.jpg',
+    icon: '⚡',
+    startDate: null, // Not started yet
     tasks: [
-      // Week 1: Basics
-      { id: 'ncc-d1', day: 1, title: 'Intro to No-Code', description: 'What is no-code development', duration: '15 min', type: 'lesson', courseId: 'notion-ai', moduleId: 'notion-1-1' },
-      { id: 'ncc-d2', day: 2, title: 'No-Code Tools Overview', description: 'Explore popular no-code tools', duration: '20 min', type: 'lesson', courseId: 'notion-ai', moduleId: 'notion-1-2' },
-      { id: 'ncc-d3', day: 3, title: 'Building Your First App', description: 'Create a simple app', duration: '30 min', type: 'practice', courseId: 'notion-ai', moduleId: 'notion-1-3' },
-      { id: 'ncc-d4', day: 4, title: 'AI + No-Code', description: 'Combine AI with no-code', duration: '25 min', type: 'lesson', courseId: 'copilot', moduleId: 'copilot-1-1' },
-      { id: 'ncc-d5', day: 5, title: 'Automations Basics', description: 'Create your first automation', duration: '25 min', type: 'practice', courseId: 'copilot', moduleId: 'copilot-1-2' },
-      { id: 'ncc-d6', day: 6, title: 'Week 1 Quiz', description: 'Test your knowledge', duration: '10 min', type: 'quiz', courseId: 'notion-ai', moduleId: 'notion-1-quiz' },
-      { id: 'ncc-d7', day: 7, title: 'Advanced Automations', description: 'Complex automation workflows', duration: '30 min', type: 'lesson', courseId: 'copilot', moduleId: 'copilot-1-3' },
-      // Week 2: Advanced
-      { id: 'ncc-d8', day: 8, title: 'Database Basics', description: 'Work with no-code databases', duration: '25 min', type: 'lesson', courseId: 'notion-ai', moduleId: 'notion-2-1' },
-      { id: 'ncc-d9', day: 9, title: 'Building a Dashboard', description: 'Create a data dashboard', duration: '30 min', type: 'practice', courseId: 'notion-ai', moduleId: 'notion-2-2' },
-      { id: 'ncc-d10', day: 10, title: 'API Integrations', description: 'Connect to external services', duration: '25 min', type: 'lesson', courseId: 'copilot', moduleId: 'copilot-2-1' },
-      { id: 'ncc-d11', day: 11, title: 'User Authentication', description: 'Add login to your app', duration: '25 min', type: 'lesson', courseId: 'copilot', moduleId: 'copilot-2-2' },
-      { id: 'ncc-d12', day: 12, title: 'Deploying Your App', description: 'Launch your no-code app', duration: '20 min', type: 'practice', courseId: 'copilot', moduleId: 'copilot-2-3' },
-      { id: 'ncc-d13', day: 13, title: 'Final Quiz', description: 'Complete knowledge check', duration: '15 min', type: 'quiz', courseId: 'notion-ai', moduleId: 'notion-2-quiz' },
-      { id: 'ncc-d14', day: 14, title: 'Challenge Complete', description: 'Review and celebrate', duration: '15 min', type: 'practice', courseId: 'notion-ai', moduleId: 'notion-2-3' },
+      { id: 'pep-d1', day: 1, title: 'Prompt Fundamentals', description: 'Master the basics of prompting', duration: '25 min', type: 'lesson', courseId: 'chatgpt', moduleId: 'chatgpt-3-1' },
+      { id: 'pep-d2', day: 2, title: 'Chain of Thought', description: 'Learn CoT prompting', duration: '30 min', type: 'lesson', courseId: 'chatgpt', moduleId: 'chatgpt-3-2' },
+      { id: 'pep-d3', day: 3, title: 'Few-Shot Learning', description: 'Master few-shot techniques', duration: '25 min', type: 'lesson', courseId: 'claude', moduleId: 'claude-3-1' },
+      { id: 'pep-d4', day: 4, title: 'Mid-Week Quiz', description: 'Test your skills', duration: '15 min', type: 'quiz', courseId: 'chatgpt', moduleId: 'chatgpt-3-quiz' },
+      { id: 'pep-d5', day: 5, title: 'System Prompts', description: 'Create effective system prompts', duration: '30 min', type: 'lesson', courseId: 'claude', moduleId: 'claude-3-2' },
+      { id: 'pep-d6', day: 6, title: 'Advanced Techniques', description: 'Expert-level prompting', duration: '35 min', type: 'lesson', courseId: 'deepseek', moduleId: 'deepseek-3-1' },
+      { id: 'pep-d7', day: 7, title: 'Final Project', description: 'Build your prompt library', duration: '40 min', type: 'practice', courseId: 'deepseek', moduleId: 'deepseek-3-2' },
     ]
   }
 ];
-
-// Helper function to get challenge by ID
-export function getChallengeById(id: string): Challenge | undefined {
-  return challengeData.find(c => c.id === id);
-}
-
-// Helper function to get task by challenge and day
-export function getTaskByDay(challengeId: string, day: number): ChallengeTask | undefined {
-  const challenge = getChallengeById(challengeId);
-  return challenge?.tasks.find(t => t.day === day);
-}
