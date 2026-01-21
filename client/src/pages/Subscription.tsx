@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLocation } from "wouter";
-import { Check, X, Clock, Star, Shield, Sparkles, BookOpen, Award, Rocket, Loader2 } from "lucide-react";
+import { Check, X, Clock, Star, Shield, Sparkles, BookOpen, Award, Rocket, Loader2, TrendingUp, Brain, Zap, Target, ArrowRight } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useEmailAuth } from "@/hooks/useEmailAuth";
 
@@ -197,107 +197,208 @@ export default function Subscription() {
       {/* Main Content */}
       <main className="max-w-[900px] mx-auto px-4 py-8">
         
-        {/* Now vs Goal Section - Professional Design */}
-        <div className="mb-12">
-          <Card className="border-[#E2E5E9] overflow-hidden shadow-sm">
-            <CardContent className="p-0">
-              <div className="grid grid-cols-2 divide-x divide-[#E2E5E9]">
-                {/* Now Column */}
-                <div className="p-6 md:p-8">
-                  <h3 className="text-center text-lg font-semibold text-gray-400 mb-6">Now</h3>
-                  
-                  {/* Professional Icon */}
-                  <div className="flex justify-center mb-8">
-                    <div className="relative w-28 h-28 md:w-32 md:h-32">
-                      <div className="w-full h-full rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center shadow-inner">
-                        <svg className="w-14 h-14 md:w-16 md:h-16 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                          <circle cx="12" cy="8" r="4" />
-                          <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
-                          <path d="M9 8.5c0 0 0.5-1 1.5-1s1.5 1 1.5 1" strokeLinecap="round" />
-                          <path d="M14 8.5c0 0 0.5-1 1.5-1" strokeLinecap="round" />
-                        </svg>
+        {/* Transformation Journey Section */}
+        <div className="mb-10">
+          {/* Section Header */}
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-[#24234C] mb-2">Your 28-Day Transformation</h2>
+            <p className="text-gray-500">See what you'll achieve with our AI mastery program</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-4 items-stretch">
+            {/* TODAY Card */}
+            <Card className="border-2 border-gray-200 bg-gray-50/50 overflow-hidden">
+              <CardContent className="p-5">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                    <Clock className="w-4 h-4 text-gray-500" />
+                  </div>
+                  <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Today</span>
+                </div>
+                
+                {/* Skills List - Current State */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Brain className="w-5 h-5 text-gray-400" />
+                      <span className="text-sm text-gray-600">AI Knowledge</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-orange-400 rounded-full" style={{ width: '25%' }}></div>
                       </div>
+                      <span className="text-xs font-medium text-gray-500 w-8">25%</span>
                     </div>
                   </div>
                   
-                  {/* AI Skills - Now */}
-                  <div className="mb-6">
-                    <p className="text-sm font-medium text-[#24234C] mb-3">AI skills</p>
-                    <div className="relative h-2.5 bg-gray-100 rounded-full overflow-visible">
-                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-orange-400 to-amber-400 rounded-full transition-all" style={{ width: '35%' }}></div>
-                      <div className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-amber-400 rounded-full shadow-md flex items-center justify-center" style={{ left: 'calc(35% - 10px)' }}>
-                        <div className="w-2 h-2 bg-amber-400 rounded-full"></div>
-                      </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Zap className="w-5 h-5 text-gray-400" />
+                      <span className="text-sm text-gray-600">Productivity</span>
                     </div>
-                    <div className="mt-3 flex justify-center">
-                      <span className="px-4 py-1.5 bg-[#24234C] text-white text-xs font-medium rounded-full">Moderate</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-blue-400 rounded-full" style={{ width: '30%' }}></div>
+                      </div>
+                      <span className="text-xs font-medium text-gray-500 w-8">30%</span>
                     </div>
                   </div>
-
-                  {/* Practical Readiness - Now */}
-                  <div>
-                    <p className="text-sm font-medium text-[#24234C] mb-3">Practical Readiness</p>
-                    <div className="relative h-2.5 bg-gray-100 rounded-full overflow-visible">
-                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full transition-all" style={{ width: '30%' }}></div>
-                      <div className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-blue-500 rounded-full shadow-md flex items-center justify-center" style={{ left: 'calc(30% - 10px)' }}>
-                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Target className="w-5 h-5 text-gray-400" />
+                      <span className="text-sm text-gray-600">Career Readiness</span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-3 text-center">Limited</p>
+                    <div className="flex items-center gap-2">
+                      <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-purple-400 rounded-full" style={{ width: '20%' }}></div>
+                      </div>
+                      <span className="text-xs font-medium text-gray-500 w-8">20%</span>
+                    </div>
                   </div>
                 </div>
-
-                {/* Goal Column */}
-                <div className="p-6 md:p-8 bg-gradient-to-br from-emerald-50/50 to-white relative">
-                  <h3 className="text-center text-lg font-semibold text-[#24234C] mb-6">Goal</h3>
-                  
-                  {/* Professional Icon with Badges */}
-                  <div className="flex justify-center mb-8">
-                    <div className="relative w-28 h-28 md:w-32 md:h-32">
-                      <div className="w-full h-full rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg">
-                        <svg className="w-14 h-14 md:w-16 md:h-16 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                          <circle cx="12" cy="8" r="4" />
-                          <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
-                          <path d="M9 7.5c0 0 0.5 1 1.5 1s1.5-1 1.5-1" strokeLinecap="round" />
-                        </svg>
-                      </div>
-                      {/* Floating badges */}
-                      <div className="absolute -top-2 -right-2 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md">+45%</div>
-                      <div className="absolute -bottom-1 -right-3 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md">+72%</div>
-                      <div className="absolute bottom-2 -left-3 bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md">+35%</div>
+                
+                {/* Pain Points */}
+                <div className="mt-5 pt-4 border-t border-gray-200">
+                  <p className="text-xs text-gray-400 uppercase tracking-wide mb-3">Current Challenges</p>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <X className="w-4 h-4 text-red-400" />
+                      <span>Overwhelmed by AI tools</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <X className="w-4 h-4 text-red-400" />
+                      <span>Missing career opportunities</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <X className="w-4 h-4 text-red-400" />
+                      <span>Falling behind competitors</span>
                     </div>
                   </div>
-                  
-                  {/* AI Skills - Goal */}
-                  <div className="mb-6">
-                    <p className="text-sm font-medium text-[#24234C] mb-3">AI skills</p>
-                    <div className="relative h-2.5 bg-gray-100 rounded-full overflow-visible">
-                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-orange-400 via-amber-400 to-emerald-400 rounded-full transition-all" style={{ width: '80%' }}></div>
-                      <div className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-emerald-500 rounded-full shadow-md flex items-center justify-center" style={{ left: 'calc(80% - 10px)' }}>
-                        <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                      </div>
-                    </div>
-                    <div className="mt-3 flex justify-center">
-                      <span className="px-4 py-1.5 bg-[#24234C] text-white text-xs font-medium rounded-full">High</span>
-                    </div>
-                  </div>
-
-                  {/* Practical Readiness - Goal */}
-                  <div>
-                    <p className="text-sm font-medium text-[#24234C] mb-3">Practical Readiness</p>
-                    <div className="relative h-2.5 bg-gray-100 rounded-full overflow-visible">
-                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500 rounded-full transition-all" style={{ width: '85%' }}></div>
-                      <div className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-purple-500 rounded-full shadow-md flex items-center justify-center" style={{ left: 'calc(85% - 10px)' }}>
-                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                      </div>
-                    </div>
-                    <p className="text-sm text-emerald-600 font-medium mt-3 text-center">High</p>
-                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Arrow / Transformation Indicator */}
+            <div className="hidden md:flex flex-col items-center justify-center px-2">
+              <div className="flex flex-col items-center gap-2 py-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#5A4CFF] to-purple-500 flex items-center justify-center shadow-lg">
+                  <ArrowRight className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-center">
+                  <p className="text-xs font-bold text-[#5A4CFF]">28 DAYS</p>
+                  <p className="text-[10px] text-gray-400">of learning</p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-          <p className="text-xs text-gray-400 text-center mt-3">This is not a guarantee or promise of results.</p>
+            </div>
+            
+            {/* Mobile Arrow */}
+            <div className="flex md:hidden justify-center py-2">
+              <div className="flex items-center gap-3">
+                <div className="h-px w-8 bg-gradient-to-r from-transparent to-[#5A4CFF]"></div>
+                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#5A4CFF] to-purple-500 flex items-center justify-center shadow-lg rotate-90">
+                  <ArrowRight className="w-5 h-5 text-white" />
+                </div>
+                <div className="h-px w-8 bg-gradient-to-l from-transparent to-purple-500"></div>
+              </div>
+            </div>
+            
+            {/* AFTER 28 DAYS Card */}
+            <Card className="border-2 border-emerald-200 bg-gradient-to-br from-emerald-50 to-white overflow-hidden relative">
+              {/* Recommended Badge */}
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                YOUR GOAL
+              </div>
+              
+              <CardContent className="p-5">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
+                    <Rocket className="w-4 h-4 text-emerald-600" />
+                  </div>
+                  <span className="text-sm font-semibold text-emerald-600 uppercase tracking-wide">After 28 Days</span>
+                </div>
+                
+                {/* Skills List - Future State */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Brain className="w-5 h-5 text-emerald-500" />
+                      <span className="text-sm font-medium text-[#24234C]">AI Knowledge</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-orange-400 to-emerald-500 rounded-full" style={{ width: '85%' }}></div>
+                      </div>
+                      <span className="text-xs font-bold text-emerald-600 w-8">85%</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Zap className="w-5 h-5 text-emerald-500" />
+                      <span className="text-sm font-medium text-[#24234C]">Productivity</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-blue-400 to-emerald-500 rounded-full" style={{ width: '90%' }}></div>
+                      </div>
+                      <span className="text-xs font-bold text-emerald-600 w-8">90%</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Target className="w-5 h-5 text-emerald-500" />
+                      <span className="text-sm font-medium text-[#24234C]">Career Readiness</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-purple-400 to-emerald-500 rounded-full" style={{ width: '80%' }}></div>
+                      </div>
+                      <span className="text-xs font-bold text-emerald-600 w-8">80%</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Achievements */}
+                <div className="mt-5 pt-4 border-t border-emerald-100">
+                  <p className="text-xs text-emerald-600 uppercase tracking-wide mb-3">What You'll Achieve</p>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-[#24234C]">
+                      <Check className="w-4 h-4 text-emerald-500" />
+                      <span>Master ChatGPT, Claude & more</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-[#24234C]">
+                      <Check className="w-4 h-4 text-emerald-500" />
+                      <span>3x faster work with AI automation</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-[#24234C]">
+                      <Check className="w-4 h-4 text-emerald-500" />
+                      <span>Stand out in job market</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Improvement Stats */}
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  <div className="bg-emerald-100/50 rounded-lg p-2 text-center">
+                    <p className="text-lg font-bold text-emerald-600">+240%</p>
+                    <p className="text-[10px] text-gray-500">AI Skills</p>
+                  </div>
+                  <div className="bg-blue-100/50 rounded-lg p-2 text-center">
+                    <p className="text-lg font-bold text-blue-600">+200%</p>
+                    <p className="text-[10px] text-gray-500">Productivity</p>
+                  </div>
+                  <div className="bg-purple-100/50 rounded-lg p-2 text-center">
+                    <p className="text-lg font-bold text-purple-600">+300%</p>
+                    <p className="text-[10px] text-gray-500">Career Ready</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <p className="text-xs text-gray-400 text-center mt-4">*Based on average learner progress. Individual results may vary.</p>
         </div>
 
         {/* Your readiness section */}
