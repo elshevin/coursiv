@@ -354,7 +354,7 @@ function PlaygroundBlockComponent({
         {/* Result image - only show if not showImageOnStart */}
         {block.content.resultImage && !block.content.showImageOnStart && (
           <div className="flex justify-center">
-            <div className="max-w-[200px] rounded-xl overflow-hidden border border-gray-200">
+            <div className="max-w-[120px] rounded-xl overflow-hidden border border-gray-200">
               <img 
                 src={block.content.resultImage} 
                 alt="AI Generated Result" 
@@ -423,7 +423,7 @@ function PlaygroundBlockComponent({
       {/* Show reference image if showImageOnStart */}
       {block.content.showImageOnStart && block.content.resultImage && (
         <div className="flex justify-center">
-          <div className="max-w-[200px] rounded-xl overflow-hidden border border-gray-200">
+          <div className="max-w-[120px] rounded-xl overflow-hidden border border-gray-200">
             <img 
               src={block.content.resultImage} 
               alt="Reference" 
@@ -566,7 +566,7 @@ function LegacyPlaygroundBlockComponent({
         {/* Result image - only show if not already shown at start */}
         {block.content.resultImage && !block.content.showImageOnStart && (
           <div className="flex justify-center">
-            <div className="max-w-[200px] rounded-xl overflow-hidden border border-gray-200">
+            <div className="max-w-[120px] rounded-xl overflow-hidden border border-gray-200">
               <img 
                 src={block.content.resultImage} 
                 alt="AI Generated Result" 
@@ -637,7 +637,7 @@ function LegacyPlaygroundBlockComponent({
       {/* Show image at start if showImageOnStart is true */}
       {block.content.showImageOnStart && block.content.resultImage && (
         <div className="flex justify-center mb-4">
-          <div className="max-w-[200px] rounded-xl overflow-hidden border border-gray-200">
+          <div className="max-w-[120px] rounded-xl overflow-hidden border border-gray-200">
             <img 
               src={block.content.resultImage} 
               alt="Reference" 
