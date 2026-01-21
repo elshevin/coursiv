@@ -111,7 +111,7 @@ export default function TestimonialsCarousel() {
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px] text-center">
       <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">
-        See how Coursiv changes lives
+        See how Learnway changes lives
       </h2>
       <div className="flex justify-center items-center gap-2 mb-16">
         <span className="text-[20px] font-medium">Excellent</span>
