@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Check, Crown, Sparkles, Lock } from 'lucide-react';
+import { Check, Crown, Sparkles, Lock, Clock } from 'lucide-react';
 
 declare global {
   interface Window {
@@ -33,9 +33,11 @@ export function SubscriptionModal({ isOpen, onClose, userEmail }: SubscriptionMo
 
   const plans = {
     monthly: {
-      price: '$14.99',
+      price: '$9.99',
+      pricePerDay: '$0.33',
       period: '/month',
       savings: null,
+      trial: null,
       features: [
         'Access to all AI courses',
         'Daily challenges & quizzes',
@@ -44,9 +46,12 @@ export function SubscriptionModal({ isOpen, onClose, userEmail }: SubscriptionMo
       ],
     },
     yearly: {
-      price: '$99.99',
+      price: '$59.99',
+      pricePerDay: '$0.16',
       period: '/year',
-      savings: 'Save 44%',
+      originalPrice: '$119.88',
+      savings: 'Save 50%',
+      trial: '7-Day Free Trial',
       features: [
         'Access to all AI courses',
         'Daily challenges & quizzes',
@@ -123,10 +128,11 @@ export function SubscriptionModal({ isOpen, onClose, userEmail }: SubscriptionMo
                     {selectedPlan === 'monthly' && <Check className="w-3 h-3 text-white" />}
                   </div>
                 </div>
-                <div className="mb-3">
-                  <span className="text-2xl font-bold text-gray-900">{plans.monthly.price}</span>
-                  <span className="text-gray-500">{plans.monthly.period}</span>
+                <div className="mb-1">
+                  <span className="text-3xl font-bold text-gray-900">{plans.monthly.pricePerDay}</span>
+                  <span className="text-gray-500">/day</span>
                 </div>
+                <p className="text-sm text-gray-500 mb-3">{plans.monthly.price} billed monthly</p>
                 <ul className="space-y-2">
                   {plans.monthly.features.map((feature, index) => (
                     <li key={index} className="flex items-center gap-2 text-sm text-gray-600">
@@ -166,9 +172,24 @@ export function SubscriptionModal({ isOpen, onClose, userEmail }: SubscriptionMo
                     {selectedPlan === 'yearly' && <Check className="w-3 h-3 text-white" />}
                   </div>
                 </div>
-                <div className="mb-3">
-                  <span className="text-2xl font-bold text-gray-900">{plans.yearly.price}</span>
-                  <span className="text-gray-500">{plans.yearly.period}</span>
+                
+                {/* 7-Day Free Trial Badge */}
+                {plans.yearly.trial && (
+                  <div className="flex items-center gap-1.5 bg-blue-50 text-blue-600 px-2 py-1 rounded-md text-xs font-medium mb-2 w-fit">
+                    <Clock className="w-3 h-3" />
+                    {plans.yearly.trial}
+                  </div>
+                )}
+                
+                <div className="mb-1">
+                  <span className="text-3xl font-bold text-gray-900">{plans.yearly.pricePerDay}</span>
+                  <span className="text-gray-500">/day</span>
+                </div>
+                <div className="flex items-center gap-2 mb-3">
+                  <p className="text-sm text-gray-500">{plans.yearly.price} billed annually</p>
+                  {plans.yearly.originalPrice && (
+                    <p className="text-xs text-gray-400 line-through">{plans.yearly.originalPrice}</p>
+                  )}
                 </div>
                 <ul className="space-y-2">
                   {plans.yearly.features.map((feature, index) => (
@@ -188,7 +209,7 @@ export function SubscriptionModal({ isOpen, onClose, userEmail }: SubscriptionMo
             className="w-full bg-[#5A4CFF] hover:bg-[#4A3CE0] text-white py-6 text-lg font-semibold"
           >
             <Sparkles className="w-5 h-5 mr-2" />
-            {isProcessing ? 'Processing...' : `Subscribe ${selectedPlan === 'yearly' ? 'Yearly' : 'Monthly'}`}
+            {isProcessing ? 'Processing...' : selectedPlan === 'yearly' ? 'Start 7-Day Free Trial' : 'Subscribe Monthly'}
           </Button>
 
           <p className="text-center text-xs text-gray-400 mt-4">

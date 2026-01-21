@@ -540,7 +540,16 @@ export default function Subscription() {
           </div>
         </div>
 
-        {/* Skip option removed - subscription is required */}
+        {/* Skip option - user can explore dashboard first */}
+        <div className="text-center">
+          <button
+            onClick={() => setLocation('/dashboard')}
+            className="text-sm text-gray-400 hover:text-gray-600 underline transition-colors"
+          >
+            Skip for now, explore first
+          </button>
+          <p className="text-xs text-gray-400 mt-1">You can subscribe anytime from the dashboard</p>
+        </div>
       </main>
 
       {/* Footer */}
