@@ -335,19 +335,19 @@ export default function Subscription() {
                     </div>
                   </div>
                   
-                  {/* Achievements */}
+                  {/* Achievements - Personal Growth */}
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2 text-xs text-[#24234C]">
                       <Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
-                      <span>Master ChatGPT & Claude</span>
+                      <span>Confident using AI daily</span>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-[#24234C]">
                       <Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
-                      <span>3x faster with AI</span>
+                      <span>Work smarter, not harder</span>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-[#24234C]">
                       <Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
-                      <span>Stand out in job market</span>
+                      <span>Future-proof your career</span>
                     </div>
                   </div>
                 </div>
