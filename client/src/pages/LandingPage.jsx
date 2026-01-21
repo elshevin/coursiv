@@ -37,7 +37,7 @@ export default function LandingPage() {
               {/* AI Coursiv Tag */}
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="text-[#5A4CFF] text-sm font-medium">AI</span>
-                <span className="text-[#24234C] text-sm">Coursiv</span>
+                <span className="text-[#24234C] text-sm">Learnway</span>
                 <ChevronRight className="w-4 h-4 text-[#5A4CFF]" />
               </div>
               
@@ -87,7 +87,7 @@ export default function LandingPage() {
       <AnimatedSection animation="fadeIn">
         <section className="w-full max-w-[1000px] mx-auto py-16 px-6 text-center">
           <h2 className="text-2xl lg:text-3xl font-medium italic leading-relaxed">
-            "Using AI doesn't make you the best... You have to learn to take the best out of it. Coursiv helps you do that, perfectly!"
+            "Using AI doesn't make you the best... You have to learn to take the best out of it. Learnway helps you do that, perfectly!"
           </h2>
           <div className="mt-4 w-12 h-1 bg-[#E2E5E9] mx-auto rounded-full"></div>
         </section>
@@ -98,9 +98,9 @@ export default function LandingPage() {
         <section className="w-full max-w-[1280px] mx-auto px-4 py-[60px] lg:py-[100px]">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-[100px] items-center border border-[#E2E5E9] rounded-[24px] px-6 py-10 lg:px-[40px] lg:py-[80px] shadow-[0px_4px_4px_0px_rgba(20,21,26,0.05)]">
           <div className="flex-1 order-2 lg:order-1">
-            <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">Why people love Coursiv</h2>
+            <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">Why people love Learnway</h2>
             <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-10 leading-[1.4]">
-              Thousands of users trust Coursiv to learn AI. Get the tools, skills, and confidence to grow in your career.
+              Thousands of users trust Learnway to learn AI. Get the tools, skills, and confidence to grow in your career.
             </p>
             
             <div className="flex flex-col gap-8">
@@ -147,7 +147,7 @@ export default function LandingPage() {
           </div>
           
           <div className="flex-1 order-1 lg:order-2 flex justify-center">
-            <img src="/2-2458.webp" alt="Why Coursiv" className="max-w-full h-auto max-h-[550px]" />
+            <img src="/2-2458.webp" alt="Why Learnway" className="max-w-full h-auto max-h-[550px]" />
           </div>
           </div>
         </section>
@@ -233,7 +233,7 @@ export default function LandingPage() {
       {/* How Coursiv Works */}
       <AnimatedSection animation="fadeIn" delay={100}>
       <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px] text-center">
-        <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">How Coursiv works</h2>
+        <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">How Learnway works</h2>
         <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-20">
           Learn at your own pace and discover how AI and digital tools can help you grow
         </p>
@@ -287,9 +287,9 @@ export default function LandingPage() {
       {/* Stats Section */}
       <AnimatedSection animation="fadeIn" delay={100}>
       <section className="w-full max-w-[1280px] mx-auto px-4 py-[80px] lg:py-[120px] text-center">
-        <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">Coursiv in action</h2>
+        <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px]">Learnway in action</h2>
         <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-20">
-          Discover Coursiv's impact on learners and our success in numbers
+          Discover Learnway's impact on learners and our success in numbers
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
@@ -397,19 +397,19 @@ export default function LandingPage() {
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1" className="border-b border-[#E2E5E9]">
             <AccordionTrigger className="text-[20px] font-medium hover:text-[#5A4CFF] py-6 [&[data-state=open]>svg]:rotate-180">
-              What is Coursiv?
+              What is Learnway?
             </AccordionTrigger>
             <AccordionContent className="text-[#24234C]/80 text-lg pb-6">
-              Coursiv is an AI-powered learning platform designed to help you master artificial intelligence skills. Our platform offers bite-sized lessons, interactive tutorials, and hands-on projects to help you learn AI at your own pace.
+              Learnway is an AI-powered learning platform designed to help you master artificial intelligence skills. Our platform offers bite-sized lessons, interactive tutorials, and hands-on projects to help you learn AI at your own pace.
             </AccordionContent>
           </AccordionItem>
           
           <AccordionItem value="item-2" className="border-b border-[#E2E5E9]">
             <AccordionTrigger className="text-[20px] font-medium hover:text-[#5A4CFF] py-6 [&[data-state=open]>svg]:rotate-180">
-              How to download and use Coursiv?
+              How to download and use Learnway?
             </AccordionTrigger>
             <AccordionContent className="text-[#24234C]/80 text-lg pb-6">
-              You can download Coursiv from the App Store or Google Play Store. Simply search for "Coursiv" and install the app. Once installed, create an account and take our quick quiz to get a personalized learning plan.
+              You can download Learnway from the App Store or Google Play Store. Simply search for "Learnway" and install the app. Once installed, create an account and take our quick quiz to get a personalized learning plan.
             </AccordionContent>
           </AccordionItem>
           
@@ -424,10 +424,10 @@ export default function LandingPage() {
           
           <AccordionItem value="item-4" className="border-b border-[#E2E5E9]">
             <AccordionTrigger className="text-[20px] font-medium hover:text-[#5A4CFF] py-6 [&[data-state=open]>svg]:rotate-180">
-              How to cancel Coursiv subscription?
+              How to cancel Learnway subscription?
             </AccordionTrigger>
             <AccordionContent className="text-[#24234C]/80 text-lg pb-6">
-              You can cancel your subscription at any time through your account settings or by contacting our support team at support@coursiv.io. If you cancel, you'll continue to have access until the end of your current billing period.
+              You can cancel your subscription at any time through your account settings or by contacting our support team at support@learnway.io. If you cancel, you'll continue to have access until the end of your current billing period.
             </AccordionContent>
           </AccordionItem>
         </Accordion>
@@ -466,7 +466,7 @@ export default function LandingPage() {
       <AnimatedSection animation="fadeIn" delay={100}>
       <section className="w-full bg-[#F9FAFB] py-[80px] lg:py-[120px] text-center">
         <div className="max-w-[800px] mx-auto px-4">
-          <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px] leading-[1.2]">Start your AI journey with Coursiv today!</h2>
+          <h2 className="text-[32px] lg:text-[48px] font-medium mb-6 tracking-[-1px] leading-[1.2]">Start your AI journey with Learnway today!</h2>
           <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-12 leading-[1.4]">
             Learn today, take control of your future, and build new skills in AI and digitization.
           </p>
@@ -482,12 +482,12 @@ export default function LandingPage() {
         <div className="max-w-[1280px] mx-auto px-4">
           <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16">
             <div>
-              <img src="/2-2745.svg" alt="Coursiv Logo" className="h-8 mb-6" />
+              <img src="/2-2745.svg" alt="Learnway Logo" className="h-8 mb-6" />
             </div>
             
             <div className="flex gap-16 flex-wrap">
               <div>
-                <h4 className="font-bold text-lg mb-4">Coursiv</h4>
+                <h4 className="font-bold text-lg mb-4">Learnway</h4>
                 <ul className="space-y-2 text-sm text-[#24234C]/80">
                   <li><a href="/" className="hover:text-[#5A4CFF]">Home</a></li>
                 </ul>
@@ -505,14 +505,14 @@ export default function LandingPage() {
               <div className="max-w-[300px]">
                 <h4 className="font-bold text-lg mb-4">Disclaimer</h4>
                 <p className="text-sm text-[#24234C]/80 leading-relaxed">
-                  Coursiv as an educational platform does not provide any financial or career advice. Please consult with your financial or career advisor first before making any career decisions.
+                  Learnway as an educational platform does not provide any financial or career advice. Please consult with your financial or career advisor first before making any career decisions.
                 </p>
               </div>
             </div>
           </div>
           
           <div className="border-t border-[#E2E5E9] pt-8 text-center text-sm text-[#24234C]/40">
-            <p>Coursiv. All rights reserved. © 2025. Coursiv Limited. Limassol, Cyprus</p>
+            <p>Learnway. All rights reserved. © 2025. Learnway Limited. Limassol, Cyprus</p>
           </div>
         </div>
       </footer>

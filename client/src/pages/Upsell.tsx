@@ -49,7 +49,7 @@ export default function Upsell() {
     {
       name: 'Sarah M.',
       role: 'Marketing Manager',
-      text: 'Coursiv helped me automate 80% of my content creation. Worth every penny!',
+      text: 'Learnway helped me automate 80% of my content creation. Worth every penny!',
       rating: 5,
     },
     {
@@ -71,7 +71,7 @@ export default function Upsell() {
       {/* Header */}
       <header className="w-full px-4 py-4 border-b border-[#E2E5E9] bg-white">
         <div className="max-w-[1200px] mx-auto flex items-center justify-between">
-          <img src="/2-332.svg" alt="Coursiv" className="h-8" />
+          <img src="/2-332.svg" alt="Learnway" className="h-8" />
           <button 
             onClick={handleSkip}
             className="text-sm text-[#24234C]/60 hover:text-[#24234C] transition-colors"
@@ -224,7 +224,7 @@ export default function Upsell() {
       {/* Footer */}
       <footer className="border-t border-[#E2E5E9] py-6 px-4 mt-12">
         <div className="max-w-[1200px] mx-auto text-center text-sm text-[#24234C]/40">
-          <p>Coursiv. All rights reserved. © 2025</p>
+          <p>Learnway. All rights reserved. © 2025</p>
         </div>
       </footer>
     </div>

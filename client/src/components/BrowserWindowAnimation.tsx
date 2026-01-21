@@ -19,7 +19,7 @@ AI isn't just the future—it's NOW. Whether you're a marketer, entrepreneur, or
 
 Start your AI journey today! 🎯
 
-#AILearning #FutureOfWork #Coursiv`;
+#AILearning #FutureOfWork #Learnway`;
 
   // Typing animation for input
   useEffect(() => {
@@ -124,7 +124,7 @@ Start your AI journey today! 🎯
           {/* URL Bar */}
           <div className="flex-1 ml-4">
             <div className="bg-white/20 rounded-lg px-4 py-1.5 text-white/80 text-sm">
-              coursiv.io/ai-assistant
+              learnway.io/ai-assistant
             </div>
           </div>
         </div>
@@ -165,7 +165,7 @@ Start your AI journey today! 🎯
                       AI
                     </div>
                     <div className="flex-1">
-                      <div className="text-sm font-medium text-gray-900">Coursiv AI</div>
+                      <div className="text-sm font-medium text-gray-900">Learnway AI</div>
                       <div className="text-xs text-gray-500">Just now</div>
                     </div>
                   </div>

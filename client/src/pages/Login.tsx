@@ -53,7 +53,7 @@ export default function Login() {
       <header className="w-full border-b border-[#E2E5E9] px-4 py-4">
         <div className="max-w-[800px] mx-auto flex items-center justify-center">
           <a href="/">
-            <img src="/2-332.svg" alt="Coursiv" className="h-6" />
+            <img src="/2-332.svg" alt="Learnway" className="h-6" />
           </a>
         </div>
       </header>

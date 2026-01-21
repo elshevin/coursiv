@@ -46,7 +46,7 @@ export function TopNavbar({
             {/* Logo */}
             <div className="flex-shrink-0">
               <Link href="/">
-                <img src="/2-332.svg" alt="Coursiv" className="h-8 cursor-pointer" />
+                <img src="/2-332.svg" alt="Learnway" className="h-8 cursor-pointer" />
               </Link>
             </div>
 

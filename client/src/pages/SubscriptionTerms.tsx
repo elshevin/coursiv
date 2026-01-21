@@ -14,7 +14,7 @@ export default function SubscriptionTerms() {
             </button>
           </Link>
           <a href="/">
-            <img src="/logo.png" alt="Coursiv" className="h-8" />
+            <img src="/logo.png" alt="Learnway" className="h-8" />
           </a>
         </div>
       </header>
@@ -28,7 +28,7 @@ export default function SubscriptionTerms() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-[#24234C] mb-4">1. Subscription Plans</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
-              Coursiv offers the following subscription plans to access our premium content and features:
+              Learnway offers the following subscription plans to access our premium content and features:
             </p>
             <div className="bg-gray-50 rounded-lg p-4 mb-4">
               <h3 className="font-semibold text-[#24234C] mb-2">Monthly Subscription</h3>
@@ -68,7 +68,7 @@ export default function SubscriptionTerms() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-[#24234C] mb-4">3. Billing and Payment</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
-              By subscribing to Coursiv, you authorize us to charge your payment method on a recurring basis according to your chosen plan:
+              By subscribing to Learnway, you authorize us to charge your payment method on a recurring basis according to your chosen plan:
             </p>
             <ul className="list-disc pl-6 text-gray-600 space-y-2">
               <li>Payments are processed securely through FastSpring, our authorized payment processor</li>
@@ -99,7 +99,7 @@ export default function SubscriptionTerms() {
               You may cancel your subscription at any time. To cancel:
             </p>
             <ul className="list-disc pl-6 text-gray-600 space-y-2">
-              <li>Log in to your Coursiv account</li>
+              <li>Log in to your Learnway account</li>
               <li>Go to Account Settings &gt; Subscription</li>
               <li>Click "Cancel Subscription" and follow the prompts</li>
             </ul>
@@ -175,7 +175,7 @@ export default function SubscriptionTerms() {
               If you have any questions about your subscription or these terms, please contact us at:
             </p>
             <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-              <p className="text-gray-600"><strong>Coursiv Limited</strong></p>
+              <p className="text-gray-600"><strong>Learnway Limited</strong></p>
               <p className="text-gray-600">Limassol, Cyprus</p>
             </div>
           </section>
@@ -185,7 +185,7 @@ export default function SubscriptionTerms() {
       {/* Footer */}
       <footer className="border-t border-[#E2E5E9] py-6">
         <div className="max-w-[800px] mx-auto px-4 text-center text-sm text-gray-400">
-          <p>© 2025 Coursiv Limited. All rights reserved.</p>
+          <p>© 2025 Learnway Limited. All rights reserved.</p>
         </div>
       </footer>
     </div>

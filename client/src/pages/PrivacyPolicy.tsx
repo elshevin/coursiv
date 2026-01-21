@@ -14,7 +14,7 @@ export default function PrivacyPolicy() {
             </button>
           </Link>
           <a href="/">
-            <img src="/logo.png" alt="Coursiv" className="h-8" />
+            <img src="/logo.png" alt="Learnway" className="h-8" />
           </a>
         </div>
       </header>
@@ -28,10 +28,10 @@ export default function PrivacyPolicy() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-[#24234C] mb-4">1. Introduction</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
-              Welcome to Coursiv ("we," "our," or "us"). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our website and services.
+              Welcome to Learnway ("we," "our," or "us"). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our website and services.
             </p>
             <p className="text-gray-600 leading-relaxed">
-              By using Coursiv, you agree to the collection and use of information in accordance with this policy.
+              By using Learnway, you agree to the collection and use of information in accordance with this policy.
             </p>
           </section>
 
@@ -74,7 +74,7 @@ export default function PrivacyPolicy() {
             <ul className="list-disc pl-6 text-gray-600 space-y-2">
               <li><strong>Service Providers:</strong> With third-party vendors who perform services on our behalf (payment processing, analytics, email delivery).</li>
               <li><strong>Legal Requirements:</strong> When required by law or to respond to legal process.</li>
-              <li><strong>Protection of Rights:</strong> To protect the rights, property, and safety of Coursiv, our users, or others.</li>
+              <li><strong>Protection of Rights:</strong> To protect the rights, property, and safety of Learnway, our users, or others.</li>
               <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets.</li>
             </ul>
           </section>
@@ -133,7 +133,7 @@ export default function PrivacyPolicy() {
               If you have any questions about this Privacy Policy, please contact us at:
             </p>
             <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-              <p className="text-gray-600"><strong>Coursiv Limited</strong></p>
+              <p className="text-gray-600"><strong>Learnway Limited</strong></p>
               <p className="text-gray-600">Limassol, Cyprus</p>
             </div>
           </section>
@@ -143,7 +143,7 @@ export default function PrivacyPolicy() {
       {/* Footer */}
       <footer className="border-t border-[#E2E5E9] py-6">
         <div className="max-w-[800px] mx-auto px-4 text-center text-sm text-gray-400">
-          <p>© 2025 Coursiv Limited. All rights reserved.</p>
+          <p>© 2025 Learnway Limited. All rights reserved.</p>
         </div>
       </footer>
     </div>

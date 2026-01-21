@@ -166,7 +166,7 @@ export default function Subscription() {
       <header className="w-full px-4 py-4 border-b border-[#E2E5E9] bg-white sticky top-0 z-50">
         <div className="max-w-[1200px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <img src="/logo.png" alt="Coursiv" className="h-8" />
+            <img src="/logo.png" alt="Learnway" className="h-8" />
             <div className="hidden sm:flex items-center gap-2 text-sm text-gray-500">
               <Clock className="w-4 h-4 text-red-500" />
               <span>Discount expires in</span>
@@ -557,7 +557,7 @@ export default function Subscription() {
       <footer className="border-t border-[#E2E5E9] py-6 mt-12">
         <div className="max-w-[900px] mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-gray-400">© 2025 Coursiv Limited. All rights reserved.</p>
+            <p className="text-xs text-gray-400">© 2025 Learnway Limited. All rights reserved.</p>
             <div className="flex items-center gap-4">
               <a href="/privacy-policy" className="text-xs text-gray-400 hover:text-gray-600">Privacy Policy</a>
               <a href="/terms" className="text-xs text-gray-400 hover:text-gray-600">Terms</a>

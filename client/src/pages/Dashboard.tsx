@@ -371,22 +371,37 @@ export default function Dashboard() {
                 </Link>
               </div>
               
-              <Card className="border-[#E2E5E9]">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-amber-100 flex items-center justify-center">
-                    <Flame className="w-6 h-6 text-amber-500" />
-                  </div>
-                  <h3 className="font-semibold text-[#24234C] mb-2">No Active Challenges</h3>
-                  <p className="text-sm text-[#24234C]/60 mb-4">
-                    Start a challenge to track your daily progress and build consistency!
-                  </p>
-                  <Link href="/dashboard/challenges">
-                    <a className="inline-flex items-center gap-2 px-4 py-2 bg-[#5A4CFF] text-white rounded-lg text-sm font-medium hover:bg-[#4A3CE0] transition-colors">
-                      Browse Challenges
-                    </a>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {challengeData.slice(0, 2).map((challenge) => (
+                  <Link key={challenge.id} href={`/challenge/${challenge.id}`}>
+                    <Card className="border-[#E2E5E9] hover-lift cursor-pointer">
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center gap-2">
+                            <span className="text-2xl">{challenge.icon}</span>
+                            <h3 className="font-semibold text-[#24234C]">{challenge.title}</h3>
+                          </div>
+                        </div>
+                        <p className="text-sm text-[#24234C]/60 mb-3 line-clamp-2">{challenge.description}</p>
+                        <div className="flex items-center gap-4 text-sm text-[#24234C]/60 mb-3">
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-4 h-4" />
+                            <span>{challenge.totalDays} days</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Target className="w-4 h-4" />
+                            <span>{challenge.difficulty}</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-[#5A4CFF] font-medium">{challenge.category}</span>
+                          <ChevronRight className="w-4 h-4 text-gray-400" />
+                        </div>
+                      </CardContent>
+                    </Card>
                   </Link>
-                </CardContent>
-              </Card>
+                ))}
+              </div>
             </div>
           </div>
         )}

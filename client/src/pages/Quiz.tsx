@@ -43,7 +43,7 @@ interface QuizStep {
   };
 }
 
-// Coursiv-style Quiz Data - 24 steps with motivation pages
+// Learnway-style Quiz Data - 24 steps with motivation pages
 const quizSteps: QuizStep[] = [
   {
     id: 1,
@@ -62,7 +62,7 @@ const quizSteps: QuizStep[] = [
     id: 2,
     type: 'social-proof',
     title: "700,000+ people",
-    subtitle: "have chosen Coursiv to master AI skills",
+    subtitle: "have chosen Learnway to master AI skills",
     stats: [
       { value: '700K+', label: 'Active learners' },
       { value: '4.8', label: 'App Store rating' },
@@ -130,7 +130,7 @@ const quizSteps: QuizStep[] = [
     title: "Great news!",
     subtitle: "You're already ahead of most people",
     motivationContent: {
-      headline: "Coursiv helps you stay on track",
+      headline: "Learnway helps you stay on track",
       subtext: "Our bite-sized lessons and daily reminders help you build consistent learning habits, even with a busy schedule.",
       image: "/images/motivation-1.jpg"
     }
@@ -501,7 +501,7 @@ export default function Quiz() {
             <ChevronLeft className="w-5 h-5" />
           </button>
           
-          <img src="/logo.png" alt="Coursiv" className="h-8" />
+          <img src="/logo.png" alt="Learnway" className="h-8" />
           
           {/* Only show progress for question steps */}
           {(step.type === 'identity' || step.type === 'question' || step.type === 'multi-select') && (
@@ -891,7 +891,7 @@ export default function Quiz() {
               {/* Social Proof during loading */}
               <div className="mt-8">
                 <p className="text-4xl font-bold text-[#5A4CFF] mb-2">700,000+ people</p>
-                <p className="text-[#24234C]/60">have chosen Coursiv</p>
+                <p className="text-[#24234C]/60">have chosen Learnway</p>
               </div>
 
               {/* Trustpilot Review */}

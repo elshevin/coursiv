@@ -14,7 +14,7 @@ export default function Terms() {
             </button>
           </Link>
           <a href="/">
-            <img src="/logo.png" alt="Coursiv" className="h-8" />
+            <img src="/logo.png" alt="Learnway" className="h-8" />
           </a>
         </div>
       </header>
@@ -28,7 +28,7 @@ export default function Terms() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-[#24234C] mb-4">1. Agreement to Terms</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
-              These Terms and Conditions ("Terms") constitute a legally binding agreement between you and Coursiv Limited ("Coursiv," "we," "us," or "our") governing your access to and use of the Coursiv website, platform, and services (collectively, the "Services").
+              These Terms and Conditions ("Terms") constitute a legally binding agreement between you and Learnway Limited ("Learnway," "we," "us," or "our") governing your access to and use of the Learnway website, platform, and services (collectively, the "Services").
             </p>
             <p className="text-gray-600 leading-relaxed">
               By accessing or using our Services, you agree to be bound by these Terms. If you do not agree to these Terms, you may not access or use the Services.
@@ -72,7 +72,7 @@ export default function Terms() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-[#24234C] mb-4">5. Intellectual Property</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
-              The Services and all content, features, and functionality (including but not limited to text, graphics, logos, images, audio, video, software, and course materials) are owned by Coursiv or its licensors and are protected by copyright, trademark, and other intellectual property laws.
+              The Services and all content, features, and functionality (including but not limited to text, graphics, logos, images, audio, video, software, and course materials) are owned by Learnway or its licensors and are protected by copyright, trademark, and other intellectual property laws.
             </p>
             <p className="text-gray-600 leading-relaxed">
               Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to access and use the Services for your personal, non-commercial educational purposes.
@@ -109,14 +109,14 @@ export default function Terms() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-[#24234C] mb-4">9. Limitation of Liability</h2>
             <p className="text-gray-600 leading-relaxed">
-              TO THE MAXIMUM EXTENT PERMITTED BY LAW, COURSIV AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, OR GOODWILL, ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF THE SERVICES.
+              TO THE MAXIMUM EXTENT PERMITTED BY LAW, LEARNWAY AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, OR GOODWILL, ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF THE SERVICES.
             </p>
           </section>
 
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-[#24234C] mb-4">10. Indemnification</h2>
             <p className="text-gray-600 leading-relaxed">
-              You agree to indemnify, defend, and hold harmless Coursiv and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses (including reasonable attorneys' fees) arising out of or in any way connected with your access to or use of the Services or your violation of these Terms.
+              You agree to indemnify, defend, and hold harmless Learnway and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses (including reasonable attorneys' fees) arising out of or in any way connected with your access to or use of the Services or your violation of these Terms.
             </p>
           </section>
 
@@ -154,7 +154,7 @@ export default function Terms() {
               If you have any questions about these Terms, please contact us at:
             </p>
             <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-              <p className="text-gray-600"><strong>Coursiv Limited</strong></p>
+              <p className="text-gray-600"><strong>Learnway Limited</strong></p>
               <p className="text-gray-600">Limassol, Cyprus</p>
             </div>
           </section>
@@ -164,7 +164,7 @@ export default function Terms() {
       {/* Footer */}
       <footer className="border-t border-[#E2E5E9] py-6">
         <div className="max-w-[800px] mx-auto px-4 text-center text-sm text-gray-400">
-          <p>© 2025 Coursiv Limited. All rights reserved.</p>
+          <p>© 2025 Learnway Limited. All rights reserved.</p>
         </div>
       </footer>
     </div>
