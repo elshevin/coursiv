@@ -372,35 +372,59 @@ export default function Dashboard() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {challengeData.slice(0, 2).map((challenge) => (
-                  <Link key={challenge.id} href={`/challenge/${challenge.id}`}>
-                    <Card className="border-[#E2E5E9] hover-lift cursor-pointer">
-                      <CardContent className="p-6">
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center gap-2">
-                            <span className="text-2xl">{challenge.icon}</span>
-                            <h3 className="font-semibold text-[#24234C]">{challenge.title}</h3>
+                {challengeData.slice(0, 2).map((challenge) => {
+                  const isActive = challenge.currentDay > 0;
+                  const progress = isActive 
+                    ? Math.round((challenge.currentDay / challenge.totalDays) * 100) 
+                    : 0;
+                  
+                  return (
+                    <Link key={challenge.id} href={`/challenge/${challenge.id}`}>
+                      <Card className="border-[#E2E5E9] hover-lift cursor-pointer">
+                        <CardContent className="p-6">
+                          <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-2">
+                              <span className="text-2xl">{challenge.icon}</span>
+                              <h3 className="font-semibold text-[#24234C]">{challenge.title}</h3>
+                            </div>
+                            <span className={`px-2 py-1 text-xs rounded-full ${
+                              isActive ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
+                            }`}>
+                              {isActive ? `Day ${challenge.currentDay}/${challenge.totalDays}` : 'Start'}
+                            </span>
                           </div>
-                        </div>
-                        <p className="text-sm text-[#24234C]/60 mb-3 line-clamp-2">{challenge.description}</p>
-                        <div className="flex items-center gap-4 text-sm text-[#24234C]/60 mb-3">
-                          <div className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
-                            <span>{challenge.totalDays} days</span>
+                          <p className="text-sm text-[#24234C]/60 mb-3 line-clamp-2">{challenge.description}</p>
+                          
+                          {/* Progress bar for active challenges */}
+                          {isActive && (
+                            <div className="mb-3">
+                              <div className="flex justify-between text-xs text-[#24234C]/60 mb-1">
+                                <span>Progress</span>
+                                <span>{progress}%</span>
+                              </div>
+                              <Progress value={progress} className="h-2" />
+                            </div>
+                          )}
+                          
+                          <div className="flex items-center gap-4 text-sm text-[#24234C]/60 mb-3">
+                            <div className="flex items-center gap-1">
+                              <Clock className="w-4 h-4" />
+                              <span>{challenge.totalDays} days</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Target className="w-4 h-4" />
+                              <span>{challenge.difficulty}</span>
+                            </div>
                           </div>
-                          <div className="flex items-center gap-1">
-                            <Target className="w-4 h-4" />
-                            <span>{challenge.difficulty}</span>
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs text-[#5A4CFF] font-medium">{challenge.category}</span>
+                            <ChevronRight className="w-4 h-4 text-gray-400" />
                           </div>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs text-[#5A4CFF] font-medium">{challenge.category}</span>
-                          <ChevronRight className="w-4 h-4 text-gray-400" />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -459,38 +483,63 @@ export default function Dashboard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {challengeData.map((challenge) => (
-                <Link key={challenge.id} href={`/challenge/${challenge.id}`}>
-                  <Card className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer">
-                    <div className="h-32 overflow-hidden">
-                      <img src={challenge.image} alt={challenge.title} className="w-full h-full object-cover" />
-                    </div>
-                    <CardContent className="p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="font-semibold text-[#24234C]">{challenge.title}</h3>
-                        <span className={`px-2 py-1 text-xs rounded-full ${
-                          challenge.status === 'active' ? 'bg-green-100 text-green-700' :
-                          challenge.status === 'upcoming' ? 'bg-blue-100 text-blue-700' :
-                          'bg-gray-100 text-gray-700'
-                        }`}>
-                          {challenge.status}
-                        </span>
-                      </div>
-                      <p className="text-sm text-[#24234C]/60 mb-3">{challenge.description}</p>
-                      <div className="flex items-center gap-4 text-sm text-[#24234C]/60">
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
-                          <span>{challenge.duration}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Trophy className="w-4 h-4" />
-                          <span>{challenge.reward}</span>
+              {challengeData.map((challenge) => {
+                // Determine status based on currentDay
+                const status = challenge.currentDay > 0 ? 'active' : 'available';
+                const progress = challenge.currentDay > 0 
+                  ? Math.round((challenge.currentDay / challenge.totalDays) * 100) 
+                  : 0;
+                
+                return (
+                  <Link key={challenge.id} href={`/challenge/${challenge.id}`}>
+                    <Card className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer">
+                      <div className="h-32 overflow-hidden relative">
+                        <img src={challenge.image} alt={challenge.title} className="w-full h-full object-cover" />
+                        <div className="absolute top-2 left-2">
+                          <span className="text-2xl">{challenge.icon}</span>
                         </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="font-semibold text-[#24234C]">{challenge.title}</h3>
+                          <span className={`px-2 py-1 text-xs rounded-full ${
+                            status === 'active' ? 'bg-green-100 text-green-700' :
+                            'bg-blue-100 text-blue-700'
+                          }`}>
+                            {status === 'active' ? `Day ${challenge.currentDay}/${challenge.totalDays}` : 'Start'}
+                          </span>
+                        </div>
+                        <p className="text-sm text-[#24234C]/60 mb-3 line-clamp-2">{challenge.description}</p>
+                        
+                        {/* Progress bar for active challenges */}
+                        {status === 'active' && (
+                          <div className="mb-3">
+                            <div className="flex justify-between text-xs text-[#24234C]/60 mb-1">
+                              <span>Progress</span>
+                              <span>{progress}%</span>
+                            </div>
+                            <Progress value={progress} className="h-2" />
+                          </div>
+                        )}
+                        
+                        <div className="flex items-center gap-4 text-sm text-[#24234C]/60">
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-4 h-4" />
+                            <span>{challenge.totalDays} days</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Target className="w-4 h-4" />
+                            <span>{challenge.difficulty}</span>
+                          </div>
+                        </div>
+                        <div className="mt-2">
+                          <span className="text-xs text-[#5A4CFF] font-medium">{challenge.category}</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         )}
