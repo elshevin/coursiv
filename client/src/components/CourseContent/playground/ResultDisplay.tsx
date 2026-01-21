@@ -10,7 +10,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className="flex justify-center mb-6">
+    <div className="flex justify-start mb-6">
       <div className="relative rounded-xl overflow-hidden bg-gray-100 max-w-[280px]">
         {/* Loading State */}
         {isLoading && (

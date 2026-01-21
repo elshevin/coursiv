@@ -353,7 +353,7 @@ function PlaygroundBlockComponent({
       <div className="space-y-4">
         {/* Result image - only show if not showImageOnStart */}
         {block.content.resultImage && !block.content.showImageOnStart && (
-          <div className="flex justify-center">
+          <div className="flex justify-start">
             <div className="max-w-[280px] rounded-xl overflow-hidden border border-gray-200">
               <img 
                 src={block.content.resultImage} 
@@ -422,7 +422,7 @@ function PlaygroundBlockComponent({
     <div className="space-y-4">
       {/* Show reference image if showImageOnStart */}
       {block.content.showImageOnStart && block.content.resultImage && (
-        <div className="flex justify-center">
+        <div className="flex justify-start">
           <div className="max-w-[280px] rounded-xl overflow-hidden border border-gray-200">
             <img 
               src={block.content.resultImage} 
@@ -565,7 +565,7 @@ function LegacyPlaygroundBlockComponent({
       <div className="space-y-4">
         {/* Result image - only show if not already shown at start */}
         {block.content.resultImage && !block.content.showImageOnStart && (
-          <div className="flex justify-center">
+          <div className="flex justify-start">
             <div className="max-w-[280px] rounded-xl overflow-hidden border border-gray-200">
               <img 
                 src={block.content.resultImage} 
@@ -636,7 +636,7 @@ function LegacyPlaygroundBlockComponent({
     <div className="bg-white border border-gray-200 rounded-xl p-6">
       {/* Show image at start if showImageOnStart is true */}
       {block.content.showImageOnStart && block.content.resultImage && (
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-start mb-4">
           <div className="max-w-[280px] rounded-xl overflow-hidden border border-gray-200">
             <img 
               src={block.content.resultImage} 

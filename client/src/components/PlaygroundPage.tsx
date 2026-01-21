@@ -211,7 +211,7 @@ export function PlaygroundPage({ block, onComplete, onBack }: PlaygroundPageProp
             
             {/* Result Image - Show immediately after correct answer */}
             {isCorrect && block.content.resultImage && !block.content.showImageOnStart && (
-              <div className="flex justify-center mb-4">
+              <div className="flex justify-start mb-4">
                 <div className="max-w-[280px] rounded-xl overflow-hidden border border-gray-200">
                   <img 
                     src={block.content.resultImage} 
