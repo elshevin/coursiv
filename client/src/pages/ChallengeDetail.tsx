@@ -51,20 +51,8 @@ export default function ChallengeDetail() {
     }
   });
   
-  // Parse completed tasks from backend data
-  const completedTasks = new Set<string>(() => {
-    if (progressData?.completedTasks) {
-      try {
-        const parsed = typeof progressData.completedTasks === 'string'
-          ? JSON.parse(progressData.completedTasks)
-          : progressData.completedTasks;
-        return Array.isArray(parsed) ? parsed : [];
-      } catch {
-        return [];
-      }
-    }
-    return [];
-  });
+  // Parse completed tasks from backend data (this is just for reference, actual state is in localCompletedTasks)
+  // Note: We use localCompletedTasks state instead of this computed value
   
   // Merge backend data with local state
   useEffect(() => {
