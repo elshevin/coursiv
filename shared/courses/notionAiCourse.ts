@@ -46,7 +46,7 @@ export const notionAiLesson1_1: CoursivLesson = {
     createPlaygroundBlock(
       'Your First Notion AI Command',
       'Learn to invoke Notion AI.',
-      { name: 'Notion AI', icon: '📝', logo: '/images/ai-tools/notion-ai.png' },
+      { name: 'Notion AI', icon: '📝', logo: '/images/ai-tools/notion-ai.jpg' },
       'To use Notion AI, I can [method] and then [action] to [result].',
       [
         { id: 'method', placeholder: 'method', correctAnswer: 'press Space or type /ai' },
@@ -57,7 +57,7 @@ export const notionAiLesson1_1: CoursivLesson = {
       'Notion AI is accessible from anywhere in your workspace.',
       { title: 'Great start!', message: "You know how to invoke Notion AI!" },
       { title: 'Try again', message: 'Think about how to access Notion AI.' },
-      '/images/course/notion/notion-first.png',
+      '/images/course/notion/notion-first.jpg',
       'Press Space on an empty line or type /ai to quickly access Notion AI.',
       `📝 **Notion AI Overview**
 
@@ -158,7 +158,7 @@ export const notionAiLesson1_2: CoursivLesson = {
     createPlaygroundBlock(
       'Generating Content',
       'Learn to write with Notion AI.',
-      { name: 'Notion AI', icon: '📝', logo: '/images/ai-tools/notion-ai.png' },
+      { name: 'Notion AI', icon: '📝', logo: '/images/ai-tools/notion-ai.jpg' },
       'To write a [content_type], I should prompt: "[prompt]"',
       [
         { id: 'content_type', placeholder: 'content type', correctAnswer: 'blog post outline' },
@@ -168,7 +168,7 @@ export const notionAiLesson1_2: CoursivLesson = {
       'Specific prompts lead to better content.',
       { title: 'Content creator!', message: "You know how to generate content!" },
       { title: 'Try again', message: 'Be specific about the content type and topic.' },
-      '/images/course/notion/notion-generate.png',
+      '/images/course/notion/notion-generate.jpg',
       'Include context like audience, tone, and purpose for better results.',
       `✍️ **Content Generation Guide**
 
@@ -276,7 +276,7 @@ export const notionAiLesson1_3: CoursivLesson = {
     createPlaygroundBlock(
       'Editing Text',
       'Learn to improve content with AI.',
-      { name: 'Notion AI', icon: '📝', logo: '/images/ai-tools/notion-ai.png' },
+      { name: 'Notion AI', icon: '📝', logo: '/images/ai-tools/notion-ai.jpg' },
       'To [goal] my text, I should select it and choose "[command]".',
       [
         { id: 'goal', placeholder: 'goal', correctAnswer: 'make more professional' },
@@ -286,7 +286,7 @@ export const notionAiLesson1_3: CoursivLesson = {
       'Different commands serve different editing needs.',
       { title: 'Editor ready!', message: "You know how to edit with AI!" },
       { title: 'Try again', message: 'Match the command to your editing goal.' },
-      '/images/course/notion/notion-edit.png',
+      '/images/course/notion/notion-edit.jpg',
       'You can chain commands - first improve, then shorten, then translate.',
       `✏️ **AI Editing Guide**
 
@@ -451,7 +451,7 @@ export const notionAiLesson2_1: CoursivLesson = {
     createPlaygroundBlock(
       'Summarizing Content',
       'Learn to create effective summaries.',
-      { name: 'Notion AI', icon: '📝', logo: '/images/ai-tools/notion-ai.png' },
+      { name: 'Notion AI', icon: '📝', logo: '/images/ai-tools/notion-ai.jpg' },
       'To summarize [content_type], I should [action] and request "[summary_type]".',
       [
         { id: 'content_type', placeholder: 'content type', correctAnswer: 'meeting notes' },
@@ -462,7 +462,7 @@ export const notionAiLesson2_1: CoursivLesson = {
       'Different content types benefit from different summary styles.',
       { title: 'Summarizer!', message: "You know how to summarize effectively!" },
       { title: 'Try again', message: 'Match the summary type to your content.' },
-      '/images/course/notion/notion-summarize.png',
+      '/images/course/notion/notion-summarize.jpg',
       'Ask for specific summary formats like bullet points, paragraphs, or action items.',
       `📋 **Summarization Guide**
 
@@ -568,7 +568,7 @@ export const notionAiLesson2_2: CoursivLesson = {
     createPlaygroundBlock(
       'Brainstorming with AI',
       'Learn to generate ideas effectively.',
-      { name: 'Notion AI', icon: '📝', logo: '/images/ai-tools/notion-ai.png' },
+      { name: 'Notion AI', icon: '📝', logo: '/images/ai-tools/notion-ai.jpg' },
       'To brainstorm [topic], I should ask: "[brainstorm_prompt]"',
       [
         { id: 'topic', placeholder: 'topic', correctAnswer: 'marketing campaign ideas' },
@@ -578,7 +578,7 @@ export const notionAiLesson2_2: CoursivLesson = {
       'Specific brainstorming prompts yield better ideas.',
       { title: 'Idea generator!', message: "You know how to brainstorm with AI!" },
       { title: 'Try again', message: 'Include context like audience and constraints.' },
-      '/images/course/notion/notion-brainstorm.png',
+      '/images/course/notion/notion-brainstorm.jpg',
       'Ask for a specific number of ideas and include constraints for more useful results.',
       `💡 **Brainstorming Guide**
 
@@ -687,7 +687,7 @@ export const notionAiLesson2_3: CoursivLesson = {
     createPlaygroundBlock(
       'Using AI in Databases',
       'Learn to leverage AI with databases.',
-      { name: 'Notion AI', icon: '📝', logo: '/images/ai-tools/notion-ai.png' },
+      { name: 'Notion AI', icon: '📝', logo: '/images/ai-tools/notion-ai.jpg' },
       'To auto-generate [property_type] for database items, I should create an AI property that [action].',
       [
         { id: 'property_type', placeholder: 'property type', correctAnswer: 'summaries' },
@@ -697,7 +697,7 @@ export const notionAiLesson2_3: CoursivLesson = {
       'AI properties can automate repetitive tasks.',
       { title: 'Database AI ready!', message: "You understand AI in databases!" },
       { title: 'Try again', message: 'Think about automating content generation.' },
-      '/images/course/notion/notion-database.png',
+      '/images/course/notion/notion-database.jpg',
       'AI properties update automatically when page content changes.',
       `🗄️ **Database AI Guide**
 

@@ -58,7 +58,7 @@ export const copilotLesson1_1: CoursivLesson = {
       'Copilot uses context to understand what you\'re trying to do.',
       { title: 'Great start!', message: "You understand how Copilot works!" },
       { title: 'Try again', message: 'Think about what triggers Copilot suggestions.' },
-      '/images/course/copilot/copilot-understand.png',
+      '/images/course/copilot/copilot-understand.jpg',
       'Copilot learns from your codebase context to provide relevant suggestions.',
       `👨‍💻 **GitHub Copilot Overview**
 
@@ -154,7 +154,7 @@ export const copilotLesson1_2: CoursivLesson = {
       'The setup process is straightforward in most editors.',
       { title: 'Setup ready!', message: "You know how to install Copilot!" },
       { title: 'Try again', message: 'Think about the logical order of setup steps.' },
-      '/images/course/copilot/copilot-install.png',
+      '/images/course/copilot/copilot-install.jpg',
       'VS Code has the best Copilot integration with additional features like Copilot Chat.',
       `⚙️ **Copilot Setup Guide**
 
@@ -261,7 +261,7 @@ export const copilotLesson1_3: CoursivLesson = {
       'Clear, descriptive comments lead to better suggestions.',
       { title: 'Great prompting!', message: "You know how to trigger good suggestions!" },
       { title: 'Try again', message: 'Be specific and descriptive in your comment.' },
-      '/images/course/copilot/copilot-suggest.png',
+      '/images/course/copilot/copilot-suggest.jpg',
       'The more specific your comment, the more accurate Copilot\'s suggestion.',
       `💡 **Code Completion Techniques**
 
@@ -426,7 +426,7 @@ export const copilotLesson2_1: CoursivLesson = {
       'Ask specific questions for better answers.',
       { title: 'Chat ready!', message: "You know how to use Copilot Chat!" },
       { title: 'Try again', message: 'Be specific about what you need help with.' },
-      '/images/course/copilot/copilot-chat.png',
+      '/images/course/copilot/copilot-chat.jpg',
       'Select code before asking questions for context-aware responses.',
       `💬 **Copilot Chat Guide**
 
@@ -532,7 +532,7 @@ export const copilotLesson2_2: CoursivLesson = {
       'Mention edge cases to get more comprehensive tests.',
       { title: 'Test generation ready!', message: "You know how to generate tests!" },
       { title: 'Try again', message: 'Be specific about what to test and edge cases.' },
-      '/images/course/copilot/copilot-test.png',
+      '/images/course/copilot/copilot-test.jpg',
       'Always review generated tests - they may miss business logic edge cases.',
       `🧪 **Test Generation Guide**
 
@@ -651,7 +651,7 @@ export const copilotLesson2_3: CoursivLesson = {
       'Documentation triggers vary by language.',
       { title: 'Doc generation ready!', message: "You know how to generate documentation!" },
       { title: 'Try again', message: 'Think about documentation syntax for your language.' },
-      '/images/course/copilot/copilot-docs.png',
+      '/images/course/copilot/copilot-docs.jpg',
       'Type the doc comment opener (/** or """) above a function to trigger docstring generation.',
       `📚 **Documentation Generation**
 
@@ -829,7 +829,7 @@ export const copilotLesson3_1: CoursivLesson = {
       '@workspace gives Copilot access to your entire project.',
       { title: 'Workspace ready!', message: "You understand workspace context!" },
       { title: 'Try again', message: 'Use @workspace for project-wide questions.' },
-      '/images/course/copilot/copilot-workspace.png',
+      '/images/course/copilot/copilot-workspace.jpg',
       '@workspace is powerful for understanding unfamiliar codebases.',
       `🏗️ **Workspace Context Guide**
 
@@ -932,7 +932,7 @@ export const copilotLesson3_2: CoursivLesson = {
       'Custom instructions help maintain consistency.',
       { title: 'Customization ready!', message: "You know how to personalize Copilot!" },
       { title: 'Try again', message: 'Think about how to communicate preferences to Copilot.' },
-      '/images/course/copilot/copilot-custom.png',
+      '/images/course/copilot/copilot-custom.jpg',
       'Create .github/copilot-instructions.md for project-wide Copilot customization.',
       `⚙️ **Copilot Customization Guide**
 
@@ -1052,7 +1052,7 @@ export const copilotLesson3_3: CoursivLesson = {
       'Enterprise features focus on security and compliance.',
       { title: 'Enterprise ready!', message: "You understand enterprise Copilot!" },
       { title: 'Try again', message: 'Think about organizational security needs.' },
-      '/images/course/copilot/copilot-enterprise.png',
+      '/images/course/copilot/copilot-enterprise.jpg',
       'The code referencing filter helps prevent accidental use of copyrighted code.',
       `🏢 **Enterprise Copilot Guide**
 

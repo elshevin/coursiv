@@ -17,7 +17,7 @@ export const chatgptIntermediateContent: Record<string, ContentPage[]> = {
 One of the most powerful techniques in ChatGPT is **role-based prompting**. This involves asking ChatGPT to adopt a specific persona or expertise.
 
 For example: "Act as a senior software engineer and review this code."`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Why Roles Work**
@@ -29,7 +29,7 @@ When you assign a role, ChatGPT:
 • **Provides more specialized** and accurate responses
 
 Think of it like consulting with an expert in that field.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Common Roles to Try**
@@ -41,7 +41,7 @@ Here are some effective roles:
 3. **Developer** - For code review
 4. **Consultant** - For business advice
 5. **Coach** - For motivation and guidance`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     }
   ],
   'chatgpt-2-2': [
@@ -51,7 +51,7 @@ Here are some effective roles:
 Chain of Thought (CoT) is a technique where you ask ChatGPT to **think step by step**.
 
 This dramatically improves results for complex problems like math, logic, and analysis.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**How to Use CoT**
@@ -64,7 +64,7 @@ Simply add phrases like:
 • "Break this down into steps"
 
 This forces the model to show its work.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**When to Use Chain of Thought**
@@ -75,7 +75,7 @@ CoT is most effective for:
 2. **Logic puzzles** - Deductive reasoning
 3. **Complex analysis** - Multi-factor decisions
 4. **Debugging code** - Finding errors systematically`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     }
   ],
   'chatgpt-2-3': [
@@ -85,7 +85,7 @@ CoT is most effective for:
 Few-shot learning means giving ChatGPT **examples** of what you want before asking for output.
 
 It's like showing someone a sample before asking them to create something similar.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Example Format**
@@ -102,7 +102,7 @@ Output: "J'adore la pizza"
 
 **Now translate:**
 Input: "Hello world"`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     },
     {
       text: `**Tips for Few-Shot Learning**
@@ -111,7 +111,7 @@ Input: "Hello world"`,
 • Keep examples **consistent** in format
 • Choose **diverse examples** covering edge cases
 • Make sure examples are **correct**`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'chatgpt-2-4': [
@@ -121,7 +121,7 @@ Input: "Hello world"`,
 ChatGPT has a **context window** - a limit on how much text it can "remember" in a conversation.
 
 Understanding this helps you have more effective long conversations.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Managing Long Conversations**
@@ -132,7 +132,7 @@ Tips for better context management:
 • **Reference earlier content** - "As we discussed earlier..."
 • **Start fresh** when switching topics
 • **Be explicit** about what information to retain`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Context Window Limits**
@@ -144,7 +144,7 @@ Different models have different limits:
 • **GPT-4 Turbo**: ~128,000 tokens
 
 A token is roughly 4 characters or 0.75 words.`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     }
   ],
   'chatgpt-2-5': [
@@ -158,7 +158,7 @@ ChatGPT excels at various writing tasks:
 • Creative stories
 • Technical documentation
 • Marketing copy`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Effective Writing Prompts**
@@ -170,7 +170,7 @@ For better writing output, specify:
 3. **Audience** - Who will read this
 4. **Purpose** - Inform, persuade, entertain
 5. **Style** - Formal, conversational, technical`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Iterative Refinement**
@@ -181,7 +181,7 @@ Don't expect perfection on the first try:
 • Request **alternative versions**
 • Have ChatGPT **expand** or **condense** sections
 • Use it as a **starting point** for your own editing`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     }
   ]
 };
@@ -198,7 +198,7 @@ export const chatgptAdvancedContent: Record<string, ContentPage[]> = {
 The ChatGPT API allows you to integrate AI capabilities into your own applications.
 
 This opens up possibilities for automation, custom tools, and scalable solutions.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Getting Started with the API**
@@ -210,7 +210,7 @@ Basic steps:
 3. **Install the SDK** (Python, Node.js, etc.)
 4. **Make your first API call**
 5. **Handle responses** in your application`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     },
     {
       text: `**API Best Practices**
@@ -219,7 +219,7 @@ Basic steps:
 • **Implement rate limiting** - Respect API limits
 • **Handle errors gracefully** - Plan for failures
 • **Monitor usage** - Track costs and performance`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     }
   ],
   'chatgpt-3-2': [
@@ -229,7 +229,7 @@ Basic steps:
 Custom Instructions let you set **persistent preferences** that apply to all your conversations.
 
 This saves time by not having to repeat context every time.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**What to Include**
@@ -241,13 +241,13 @@ In your custom instructions, consider:
 • **Common use cases**
 • **Output format preferences**
 • **Things to avoid**`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Example Custom Instructions**
 
 "I'm a software developer working with Python and JavaScript. I prefer concise code examples with comments. Always consider security best practices. Format code blocks properly."`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'chatgpt-3-3': [
@@ -261,7 +261,7 @@ ChatGPT can be extended with **plugins** that give it new capabilities:
 • Image generation
 • Data analysis
 • Third-party integrations`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Popular Plugin Categories**
@@ -271,7 +271,7 @@ ChatGPT can be extended with **plugins** that give it new capabilities:
 • **Shopping** - Price comparison, reviews
 • **Travel** - Flights, hotels, itineraries
 • **Development** - Code analysis, documentation`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Using Plugins Effectively**
@@ -280,7 +280,7 @@ ChatGPT can be extended with **plugins** that give it new capabilities:
 • **Be specific** about which tool to use
 • **Verify results** - Plugins can have errors
 • **Combine capabilities** for complex tasks`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     }
   ],
   'chatgpt-3-4': [
@@ -293,7 +293,7 @@ ChatGPT is transforming business operations:
 • **Content creation** - Marketing, documentation
 • **Data analysis** - Reports, insights
 • **Training** - Employee onboarding`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Implementation Considerations**
@@ -305,7 +305,7 @@ For enterprise deployment:
 • **Integration** - Existing systems
 • **Training** - Employee adoption
 • **Governance** - Usage policies`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**ROI Measurement**
@@ -317,7 +317,7 @@ Track the impact of ChatGPT:
 • **Customer satisfaction** scores
 • **Employee productivity** metrics
 • **Cost reduction** vs. alternatives`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     }
   ]
 };
@@ -334,7 +334,7 @@ export const dalleIntermediateContent: Record<string, ContentPage[]> = {
 Style modifiers are keywords that dramatically change how your image looks.
 
 They're like filters, but much more powerful and specific.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Popular Style Keywords**
@@ -344,7 +344,7 @@ They're like filters, but much more powerful and specific.`,
 • **Lighting**: dramatic lighting, soft light, backlit
 • **Mood**: moody, vibrant, ethereal
 • **Era**: vintage, futuristic, retro`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Combining Styles**
@@ -354,7 +354,7 @@ You can combine multiple style modifiers:
 "A cat in a garden, watercolor style, soft lighting, whimsical mood"
 
 Experiment with different combinations!`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'dalle-2-2': [
@@ -364,7 +364,7 @@ Experiment with different combinations!`,
 Composition is how elements are arranged in your image.
 
 Good composition makes images more visually appealing and professional.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Key Composition Terms**
@@ -374,7 +374,7 @@ Good composition makes images more visually appealing and professional.`,
 • **Symmetry** - Balanced elements
 • **Framing** - Natural borders
 • **Negative space** - Empty areas`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Composition in Prompts**
@@ -382,7 +382,7 @@ Good composition makes images more visually appealing and professional.`,
 Include composition in your prompts:
 
 "A lighthouse on a cliff, rule of thirds composition, leading lines from the path, dramatic sky"`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     }
   ],
   'dalle-2-3': [
@@ -392,7 +392,7 @@ Include composition in your prompts:
 Lighting is one of the most powerful tools for creating atmosphere.
 
 Different lighting creates completely different emotions.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Lighting Types**
@@ -402,7 +402,7 @@ Different lighting creates completely different emotions.`,
 • **Dramatic lighting** - High contrast, intense
 • **Soft diffused** - Even, gentle, flattering
 • **Backlit** - Silhouettes, halos`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Mood Keywords**
@@ -412,7 +412,7 @@ Different lighting creates completely different emotions.`,
 • **Mysterious**: enigmatic, shadowy, intriguing
 • **Joyful**: bright, cheerful, vibrant
 • **Melancholic**: somber, wistful, nostalgic`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     }
   ],
   'dalle-2-4': [
@@ -422,7 +422,7 @@ Different lighting creates completely different emotions.`,
 DALL-E can edit existing images, not just create new ones.
 
 This includes inpainting, outpainting, and variations.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Editing Capabilities**
@@ -431,7 +431,7 @@ This includes inpainting, outpainting, and variations.`,
 • **Outpainting** - Extend beyond borders
 • **Variations** - Create similar versions
 • **Style transfer** - Apply new styles`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Best Practices for Editing**
@@ -440,7 +440,7 @@ This includes inpainting, outpainting, and variations.`,
 • Be **specific** about what to change
 • Use **masks** to isolate areas
 • **Iterate** - Multiple edits often needed`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ]
 };
@@ -453,7 +453,7 @@ export const dalleAdvancedContent: Record<string, ContentPage[]> = {
 Creating photorealistic images requires attention to detail and specific techniques.
 
 The goal is images that look like real photographs.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Photorealism Keywords**
@@ -462,7 +462,7 @@ The goal is images that look like real photographs.`,
 • **Camera**: DSLR, 85mm lens, shallow depth of field
 • **Lighting**: natural light, studio lighting
 • **Quality**: professional photography, award-winning`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Common Pitfalls**
@@ -473,7 +473,7 @@ Watch out for:
 • **Inconsistent lighting** - Shadows don't match
 • **Texture issues** - Skin, fabric, surfaces
 • **Proportions** - Especially hands and faces`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     }
   ],
   'dalle-3-2': [
@@ -483,7 +483,7 @@ Watch out for:
 DALL-E is a powerful tool for creating marketing visuals.
 
 From social media to advertisements, AI can accelerate content creation.`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Marketing Applications**
@@ -493,7 +493,7 @@ From social media to advertisements, AI can accelerate content creation.`,
 • **Blog illustrations**
 • **Ad creatives**
 • **Presentation visuals**`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Brand Consistency**
@@ -504,7 +504,7 @@ Tips for maintaining brand identity:
 • Use **consistent color palettes**
 • Develop **reusable prompt templates**
 • **Document** what works for your brand`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     }
   ]
 };
@@ -521,7 +521,7 @@ export const midjourneyContent: Record<string, ContentPage[]> = {
 Midjourney parameters let you fine-tune your generations.
 
 They're added at the end of your prompt with -- syntax.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Essential Parameters**
@@ -531,7 +531,7 @@ They're added at the end of your prompt with -- syntax.`,
 • **--q** - Quality (0.25, 0.5, 1, 2)
 • **--s** - Stylize (0-1000)
 • **--c** - Chaos (0-100)`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Parameter Examples**
@@ -539,7 +539,7 @@ They're added at the end of your prompt with -- syntax.`,
 "A mountain landscape --ar 16:9 --v 5.2 --s 500"
 
 This creates a widescreen, highly stylized image using the latest version.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     }
   ],
   'mj-2-1': [
@@ -549,7 +549,7 @@ This creates a widescreen, highly stylized image using the latest version.`,
 Intermediate Midjourney users learn to structure prompts strategically.
 
 The order and grouping of words matters!`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Prompt Anatomy**
@@ -561,7 +561,7 @@ A well-structured prompt includes:
 3. **Style** - How should it look
 4. **Lighting** - What's the mood
 5. **Parameters** - Technical settings`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Word Weighting**
@@ -571,7 +571,7 @@ Use :: to weight words:
 "cat::2 dog::1" - Cat is twice as important
 
 "fantasy::3 realistic::-1" - More fantasy, less realistic`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'mj-2-2': [
@@ -581,7 +581,7 @@ Use :: to weight words:
 You can use images as part of your prompt!
 
 This is powerful for style transfer and consistency.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**How to Use Image Prompts**
@@ -592,7 +592,7 @@ This is powerful for style transfer and consistency.`,
 4. Add text description after
 
 "[image URL] in the style of this image, a forest scene"`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Image Weight**
@@ -604,7 +604,7 @@ Control image influence with --iw:
 • **--iw 2** - More influence
 
 Higher values = more similar to reference.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     }
   ],
   'mj-2-3': [
@@ -614,7 +614,7 @@ Higher values = more similar to reference.`,
 Creating the same character across multiple images is challenging but possible.
 
 This is crucial for storytelling and branding.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Techniques for Consistency**
@@ -623,7 +623,7 @@ This is crucial for storytelling and branding.`,
 • **Reference images** - Use your own generations
 • **Seed values** - --seed for reproducibility
 • **Style references** - --sref for style consistency`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Character Sheet Approach**
@@ -633,7 +633,7 @@ Create a character reference sheet first:
 "Character sheet, multiple angles, front view, side view, 3/4 view, consistent lighting"
 
 Then use this as a reference for future generations.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     }
   ],
   'mj-2-4': [
@@ -643,7 +643,7 @@ Then use this as a reference for future generations.`,
 Remix mode lets you modify prompts while keeping some elements.
 
 It's like having a conversation with your image.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Using Remix**
@@ -653,7 +653,7 @@ It's like having a conversation with your image.`,
 3. Click variation buttons (V1-V4)
 4. Modify the prompt in the popup
 5. Generate with changes`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     },
     {
       text: `**Remix Best Practices**
@@ -662,7 +662,7 @@ It's like having a conversation with your image.`,
 • Keep the **core subject** the same
 • Change **style, lighting, or mood**
 • Useful for **iterative refinement**`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'mj-3-1': [
@@ -672,7 +672,7 @@ It's like having a conversation with your image.`,
 Advanced users develop systematic approaches to Midjourney.
 
 This ensures quality and efficiency at scale.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Workflow Components**
@@ -682,7 +682,7 @@ This ensures quality and efficiency at scale.`,
 • **Batch processing** - Multiple generations
 • **Quality control** - Selection criteria
 • **Post-processing** - Editing and refinement`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Organization Tips**
@@ -691,7 +691,7 @@ This ensures quality and efficiency at scale.`,
 • Use **threads** to organize generations
 • **Tag and categorize** your best work
 • Build a **reference library** of successful prompts`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     }
   ],
   'mj-3-2': [
@@ -701,7 +701,7 @@ This ensures quality and efficiency at scale.`,
 Midjourney is increasingly used for professional work.
 
 Understanding commercial use is essential for professionals.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Commercial Use Cases**
@@ -711,7 +711,7 @@ Understanding commercial use is essential for professionals.`,
 • **Concept art** for games/film
 • **Product visualization**
 • **Social media content**`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Legal Considerations**
@@ -720,7 +720,7 @@ Understanding commercial use is essential for professionals.`,
 • Understand **copyright implications**
 • Be aware of **style mimicry** concerns
 • Consider **disclosure** requirements`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'mj-3-3': [
@@ -730,7 +730,7 @@ Understanding commercial use is essential for professionals.`,
 Advanced users combine multiple styles for unique results.
 
 This creates distinctive, original aesthetics.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Fusion Techniques**
@@ -739,7 +739,7 @@ This creates distinctive, original aesthetics.`,
 • **Era mixing** - "Victorian cyberpunk"
 • **Medium blending** - "Oil painting meets digital"
 • **Cultural fusion** - "Japanese Art Nouveau"`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Experimentation**
@@ -750,7 +750,7 @@ The best fusions come from experimentation:
 • Use **weight balancing** (::)
 • **Document** what works
 • Build your **signature style**`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ]
 };
@@ -767,7 +767,7 @@ export const claudeContent: Record<string, ContentPage[]> = {
 Claude excels at handling long documents and creating extended content.
 
 Its large context window makes it ideal for complex projects.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Long-Form Capabilities**
@@ -776,7 +776,7 @@ Its large context window makes it ideal for complex projects.`,
 • **Book writing** - Maintain consistency across chapters
 • **Research synthesis** - Combine multiple sources
 • **Technical documentation** - Comprehensive guides`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Tips for Long Content**
@@ -785,7 +785,7 @@ Its large context window makes it ideal for complex projects.`,
 • **Break into sections** if needed
 • **Provide context** about the whole project
 • **Review incrementally** rather than all at once`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'claude-2-2': [
@@ -795,7 +795,7 @@ Its large context window makes it ideal for complex projects.`,
 Claude is particularly strong at analytical tasks.
 
 It can break down complex problems and provide structured insights.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Analysis Types**
@@ -804,7 +804,7 @@ It can break down complex problems and provide structured insights.`,
 • **Comparative analysis** - Side-by-side evaluation
 • **Root cause analysis** - Finding underlying issues
 • **Risk assessment** - Identifying potential problems`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Getting Better Analysis**
@@ -813,7 +813,7 @@ It can break down complex problems and provide structured insights.`,
 • Request **multiple perspectives**
 • Ask Claude to **consider counterarguments**
 • Have it **rate confidence levels**`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     }
   ],
   'claude-2-3': [
@@ -823,7 +823,7 @@ It can break down complex problems and provide structured insights.`,
 Claude is an excellent coding assistant.
 
 It can write, review, explain, and debug code across many languages.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Code Capabilities**
@@ -833,7 +833,7 @@ It can write, review, explain, and debug code across many languages.`,
 • **Debugging** - Finding and fixing errors
 • **Refactoring** - Improving code quality
 • **Documentation** - Adding comments and docs`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Best Practices**
@@ -842,7 +842,7 @@ It can write, review, explain, and debug code across many languages.`,
 • **Provide context** about your project
 • **Include error messages** when debugging
 • **Ask for explanations** to learn`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     }
   ],
   'claude-3-1': [
@@ -852,7 +852,7 @@ It can write, review, explain, and debug code across many languages.`,
 Expert Claude users develop sophisticated prompting strategies.
 
 These techniques unlock Claude's full potential.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Advanced Techniques**
@@ -861,7 +861,7 @@ These techniques unlock Claude's full potential.`,
 • **XML tags** - Structure complex inputs
 • **Chain prompting** - Multi-step reasoning
 • **Persona assignment** - Specialized expertise`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**XML Tag Example**
@@ -875,7 +875,7 @@ Analyze the document above and provide...
 </instructions>
 
 This helps Claude understand structure.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     }
   ],
   'claude-3-2': [
@@ -885,7 +885,7 @@ This helps Claude understand structure.`,
 Claude can be integrated into business workflows and applications.
 
 This enables scalable AI-powered solutions.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Integration Options**
@@ -894,7 +894,7 @@ This enables scalable AI-powered solutions.`,
 • **Slack/Teams bots** - Workplace assistants
 • **Custom applications** - Tailored solutions
 • **Workflow automation** - Process optimization`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Implementation Considerations**
@@ -903,7 +903,7 @@ This enables scalable AI-powered solutions.`,
 • **Rate limits** - API constraints
 • **Cost management** - Token usage
 • **Error handling** - Graceful failures`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     }
   ]
 };
@@ -920,7 +920,7 @@ export const geminiContent: Record<string, ContentPage[]> = {
 Gemini's multimodal capabilities let you work with text, images, and code together.
 
 This opens up unique possibilities for complex tasks.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Multimodal Use Cases**
@@ -929,7 +929,7 @@ This opens up unique possibilities for complex tasks.`,
 • **Document processing** - Extract info from scans
 • **Code + visuals** - Explain diagrams
 • **Creative projects** - Combine media types`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Tips for Multimodal**
@@ -938,7 +938,7 @@ This opens up unique possibilities for complex tasks.`,
 • **Combine modalities** strategically
 • **Verify outputs** - AI can misinterpret
 • **Iterate** on complex tasks`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'gemini-2-2': [
@@ -948,7 +948,7 @@ This opens up unique possibilities for complex tasks.`,
 Gemini integrates deeply with Google's productivity tools.
 
 This makes it powerful for everyday work tasks.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Workspace Features**
@@ -958,7 +958,7 @@ This makes it powerful for everyday work tasks.`,
 • **Sheets** - Analyze and visualize data
 • **Slides** - Create presentations
 • **Meet** - Transcribe and summarize`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Productivity Tips**
@@ -967,7 +967,7 @@ This makes it powerful for everyday work tasks.`,
 • **Summarize** long email threads
 • **Generate** first drafts quickly
 • **Analyze** spreadsheet data naturally`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'gemini-2-3': [
@@ -977,7 +977,7 @@ This makes it powerful for everyday work tasks.`,
 Gemini excels at research tasks with its broad knowledge and reasoning.
 
 It can help synthesize information from multiple sources.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Research Capabilities**
@@ -986,7 +986,7 @@ It can help synthesize information from multiple sources.`,
 • **Fact-checking** - Verify claims
 • **Comparative analysis** - Evaluate options
 • **Trend identification** - Spot patterns`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Research Best Practices**
@@ -995,7 +995,7 @@ It can help synthesize information from multiple sources.`,
 • **Ask for sources** when possible
 • **Break complex topics** into parts
 • **Verify** critical information independently`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ]
 };
@@ -1012,7 +1012,7 @@ export const perplexityContent: Record<string, ContentPage[]> = {
 Perplexity's strength is providing answers with citations.
 
 Learning to evaluate sources is key to using it effectively.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Source Evaluation**
@@ -1023,7 +1023,7 @@ Look for:
 • **Recency** - Is the information current?
 • **Relevance** - Does it answer your question?
 • **Consistency** - Do multiple sources agree?`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Using Citations**
@@ -1032,7 +1032,7 @@ Look for:
 • **Verify** important claims
 • **Note** when sources disagree
 • **Consider** the source's perspective`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'perplexity-2-1': [
@@ -1042,7 +1042,7 @@ Look for:
 Power users leverage Perplexity's advanced features for better results.
 
 These techniques help you find exactly what you need.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Search Strategies**
@@ -1051,7 +1051,7 @@ These techniques help you find exactly what you need.`,
 • **Follow-up questions** - Dig deeper
 • **Specific domains** - Limit to certain sites
 • **Time filters** - Recent information only`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Pro Tips**
@@ -1060,7 +1060,7 @@ These techniques help you find exactly what you need.`,
 • Use **follow-ups** to clarify
 • **Compare** different focus modes
 • **Save** useful threads for reference`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'perplexity-2-2': [
@@ -1070,7 +1070,7 @@ These techniques help you find exactly what you need.`,
 Perplexity can be the center of your research process.
 
 Building effective workflows maximizes its value.`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Workflow Steps**
@@ -1080,7 +1080,7 @@ Building effective workflows maximizes its value.`,
 3. **Source review** - Verify key points
 4. **Synthesis** - Combine findings
 5. **Documentation** - Save and organize`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Organization Tips**
@@ -1089,7 +1089,7 @@ Building effective workflows maximizes its value.`,
 • **Tag** important threads
 • **Export** findings regularly
 • Build a **knowledge base** over time`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     }
   ],
   'perplexity-2-3': [
@@ -1099,7 +1099,7 @@ Building effective workflows maximizes its value.`,
 Perplexity Pro unlocks advanced capabilities for power users.
 
 Understanding these features helps you decide if it's worth it.`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     },
     {
       text: `**Pro Capabilities**
@@ -1109,7 +1109,7 @@ Understanding these features helps you decide if it's worth it.`,
 • **GPT-4** and Claude access
 • **Longer** context windows
 • **API** access`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     },
     {
       text: `**When to Upgrade**
@@ -1120,7 +1120,7 @@ Consider Pro if you:
 • Need **document analysis**
 • Want **multiple AI models**
 • Require **API integration**`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ]
 };
@@ -1137,7 +1137,7 @@ export const copilotContent: Record<string, ContentPage[]> = {
 GitHub Copilot is an AI pair programmer that helps you write code faster.
 
 It suggests code as you type, like autocomplete on steroids.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**How Copilot Works**
@@ -1146,7 +1146,7 @@ It suggests code as you type, like autocomplete on steroids.`,
 • **Predicts intent** - What you're trying to do
 • **Suggests code** - Complete lines or functions
 • **Learns patterns** - From your codebase`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Getting Started**
@@ -1155,7 +1155,7 @@ It suggests code as you type, like autocomplete on steroids.`,
 2. **Sign in** with GitHub
 3. **Start coding** - Suggestions appear automatically
 4. **Accept** with Tab or modify as needed`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'copilot-1-2': [
@@ -1165,7 +1165,7 @@ It suggests code as you type, like autocomplete on steroids.`,
 Comments are the key to getting good Copilot suggestions.
 
 Think of comments as prompts for your AI assistant.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Comment Best Practices**
@@ -1174,7 +1174,7 @@ Think of comments as prompts for your AI assistant.`,
 • **Include types** and parameters
 • **Describe edge cases**
 • **Mention libraries** to use`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Example Comments**
@@ -1184,7 +1184,7 @@ Think of comments as prompts for your AI assistant.`,
 // Should handle common edge cases
 
 This gives Copilot clear direction.`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'copilot-1-3': [
@@ -1194,7 +1194,7 @@ This gives Copilot clear direction.`,
 Not all Copilot suggestions are equal.
 
 Learning to evaluate and modify suggestions is crucial.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Evaluating Suggestions**
@@ -1206,7 +1206,7 @@ Ask yourself:
 • Is it **efficient**?
 • Does it follow **best practices**?
 • Is it **secure**?`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     },
     {
       text: `**Modifying Suggestions**
@@ -1215,7 +1215,7 @@ Ask yourself:
 • **Iterate** - Let it suggest again
 • **Combine** - Mix suggestions with your code
 • **Refine** - Edit after accepting`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     }
   ],
   'copilot-1-4': [
@@ -1225,7 +1225,7 @@ Ask yourself:
 Mastering shortcuts makes Copilot much more efficient.
 
 These are essential for a smooth workflow.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Essential Shortcuts**
@@ -1235,7 +1235,7 @@ These are essential for a smooth workflow.`,
 • **Alt+]** - Next suggestion
 • **Alt+[** - Previous suggestion
 • **Ctrl+Enter** - Open Copilot panel`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Workflow Tips**
@@ -1244,7 +1244,7 @@ These are essential for a smooth workflow.`,
 • **Cycle through** suggestions quickly
 • Use **panel** for complex tasks
 • **Dismiss** bad suggestions fast`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'copilot-2-1': [
@@ -1254,7 +1254,7 @@ These are essential for a smooth workflow.`,
 Copilot can understand context across multiple files.
 
 This makes it powerful for larger projects.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Context Sources**
@@ -1265,7 +1265,7 @@ Copilot considers:
 • **Imported modules**
 • **Project structure**
 • **Related files** by name`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Maximizing Context**
@@ -1274,7 +1274,7 @@ Copilot considers:
 • Use **consistent naming**
 • **Import** modules you want to use
 • **Reference** existing code in comments`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'copilot-2-2': [
@@ -1284,7 +1284,7 @@ Copilot considers:
 Copilot excels at generating test code.
 
 This can dramatically speed up your testing workflow.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Test Generation Tips**
@@ -1293,7 +1293,7 @@ This can dramatically speed up your testing workflow.`,
 • **Import** your testing framework
 • **Reference** the function to test
 • Ask for **edge cases** explicitly`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Example Workflow**
@@ -1304,7 +1304,7 @@ This can dramatically speed up your testing workflow.`,
 // Should handle empty strings
 
 Copilot will generate comprehensive tests.`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'copilot-2-3': [
@@ -1314,7 +1314,7 @@ Copilot will generate comprehensive tests.`,
 Copilot can help write documentation as you code.
 
 Good docs are essential for maintainable code.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Documentation Types**
@@ -1323,7 +1323,7 @@ Good docs are essential for maintainable code.`,
 • **Class docs** - Purpose, usage
 • **README** - Project overview
 • **Inline comments** - Complex logic`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Doc Generation Tips**
@@ -1332,7 +1332,7 @@ Good docs are essential for maintainable code.`,
 • **Describe the purpose** first
 • Let Copilot fill in **parameters**
 • **Review** for accuracy`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'copilot-2-4': [
@@ -1342,7 +1342,7 @@ Good docs are essential for maintainable code.`,
 Copilot can help you improve existing code.
 
 Use it as a refactoring assistant.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Refactoring Approaches**
@@ -1351,7 +1351,7 @@ Use it as a refactoring assistant.`,
 • **Show the pattern** - Write one example
 • **Ask for alternatives** - Multiple suggestions
 • **Incremental changes** - Small steps`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Common Refactors**
@@ -1360,7 +1360,7 @@ Use it as a refactoring assistant.`,
 • **Simplify logic** - Reduce complexity
 • **Update patterns** - Modern syntax
 • **Improve naming** - Clearer variables`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'copilot-3-1': [
@@ -1370,7 +1370,7 @@ Use it as a refactoring assistant.`,
 Copilot Chat brings conversational AI to your IDE.
 
 Ask questions, get explanations, and solve problems.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Chat Capabilities**
@@ -1379,7 +1379,7 @@ Ask questions, get explanations, and solve problems.`,
 • **Fix errors** - "Why is this failing?"
 • **Suggest improvements** - "How can I optimize?"
 • **Generate code** - "Write a function that..."`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Chat Best Practices**
@@ -1388,7 +1388,7 @@ Ask questions, get explanations, and solve problems.`,
 • Be **specific** in questions
 • **Follow up** for clarification
 • Use **slash commands** for common tasks`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'copilot-3-2': [
@@ -1398,7 +1398,7 @@ Ask questions, get explanations, and solve problems.`,
 Copilot for Business adds enterprise-grade features.
 
 These are essential for team and organizational use.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Enterprise Capabilities**
@@ -1408,7 +1408,7 @@ These are essential for team and organizational use.`,
 • **Audit logs** - Track usage
 • **SSO integration** - Enterprise auth
 • **IP protection** - Code privacy`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Implementation Tips**
@@ -1417,7 +1417,7 @@ These are essential for team and organizational use.`,
 • **Train teams** on best practices
 • **Monitor** adoption and impact
 • **Gather feedback** for optimization`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     }
   ]
 };
@@ -1434,7 +1434,7 @@ export const stableDiffusionContent: Record<string, ContentPage[]> = {
 Stable Diffusion is an open-source AI image generator.
 
 Unlike cloud services, you can run it on your own computer.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Key Advantages**
@@ -1444,7 +1444,7 @@ Unlike cloud services, you can run it on your own computer.`,
 • **Highly customizable** - Models and settings
 • **No content restrictions** - Your rules
 • **Community models** - Thousands available`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     },
     {
       text: `**Requirements**
@@ -1453,7 +1453,7 @@ Unlike cloud services, you can run it on your own computer.`,
 • **RAM** - 16GB+ for smooth operation
 • **Storage** - Models can be 2-7GB each
 • **Software** - Various UIs available`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     }
   ],
   'sd-1-2': [
@@ -1463,7 +1463,7 @@ Unlike cloud services, you can run it on your own computer.`,
 There are several ways to run Stable Diffusion locally.
 
 The most popular is Automatic1111's WebUI.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Popular Interfaces**
@@ -1472,7 +1472,7 @@ The most popular is Automatic1111's WebUI.`,
 • **ComfyUI** - Node-based, powerful
 • **InvokeAI** - User-friendly
 • **Fooocus** - Simple, Midjourney-like`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Installation Steps**
@@ -1482,7 +1482,7 @@ The most popular is Automatic1111's WebUI.`,
 3. **Run the installer**
 4. **Download a model**
 5. **Launch the WebUI**`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'sd-1-3': [
@@ -1492,7 +1492,7 @@ The most popular is Automatic1111's WebUI.`,
 Let's create your first image with Stable Diffusion.
 
 Start simple and build from there.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Basic Prompt Structure**
@@ -1503,7 +1503,7 @@ A good prompt includes:
 • **Style** - How it should look
 • **Quality tags** - masterpiece, best quality
 • **Details** - Specific elements`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Example First Prompt**
@@ -1511,7 +1511,7 @@ A good prompt includes:
 "A cute cat sitting on a windowsill, soft lighting, detailed fur, masterpiece, best quality"
 
 Start with something simple to learn the basics.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     }
   ],
   'sd-1-4': [
@@ -1521,7 +1521,7 @@ Start with something simple to learn the basics.`,
 Stable Diffusion has many settings that affect output.
 
 Learning these gives you more control.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Key Settings**
@@ -1531,7 +1531,7 @@ Learning these gives you more control.`,
 • **Sampler** - Algorithm for generation
 • **Seed** - For reproducibility
 • **Size** - Image dimensions`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Recommended Starting Values**
@@ -1540,7 +1540,7 @@ Learning these gives you more control.`,
 • **CFG Scale**: 7
 • **Sampler**: DPM++ 2M Karras
 • **Size**: 512x512 or 768x768`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     }
   ],
   'sd-2-1': [
@@ -1550,7 +1550,7 @@ Learning these gives you more control.`,
 Negative prompts tell SD what to avoid.
 
 They're crucial for quality results.`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Common Negative Prompts**
@@ -1559,7 +1559,7 @@ They're crucial for quality results.`,
 • **Anatomy**: bad hands, extra fingers, deformed
 • **Style**: cartoon, anime (if unwanted)
 • **Artifacts**: watermark, text, signature`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Building Your Negative**
@@ -1567,7 +1567,7 @@ They're crucial for quality results.`,
 Start with a base negative prompt and customize:
 
 "(worst quality:1.4), (low quality:1.4), blurry, bad anatomy, bad hands, extra fingers, watermark"`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'sd-2-2': [
@@ -1577,7 +1577,7 @@ Start with a base negative prompt and customize:
 The SD community creates specialized models.
 
 These can dramatically change your results.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Model Types**
@@ -1586,7 +1586,7 @@ These can dramatically change your results.`,
 • **LoRAs** - Small style/subject additions
 • **Embeddings** - Trained concepts
 • **VAEs** - Color/detail improvements`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Finding Models**
@@ -1596,7 +1596,7 @@ These can dramatically change your results.`,
 • **Reddit** - Community recommendations
 
 Always check model licenses before use.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'sd-2-3': [
@@ -1606,7 +1606,7 @@ Always check model licenses before use.`,
 LoRAs let you train custom styles and subjects.
 
 This is powerful for consistent characters or styles.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**LoRA Concepts**
@@ -1615,7 +1615,7 @@ This is powerful for consistent characters or styles.`,
 • **Captions** - Describe each image
 • **Steps** - Training iterations
 • **Strength** - How much to apply`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Training Tips**
@@ -1624,7 +1624,7 @@ This is powerful for consistent characters or styles.`,
 • **Caption accurately**
 • Start with **lower steps**
 • **Test** at different strengths`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'sd-2-4': [
@@ -1634,7 +1634,7 @@ This is powerful for consistent characters or styles.`,
 ControlNet gives you precise control over composition.
 
 Use reference images to guide generation.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**ControlNet Types**
@@ -1644,7 +1644,7 @@ Use reference images to guide generation.`,
 • **Pose** - Human poses
 • **Scribble** - Rough sketches
 • **Tile** - Upscaling/detail`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Using ControlNet**
@@ -1653,7 +1653,7 @@ Use reference images to guide generation.`,
 2. **Upload reference image**
 3. **Adjust strength**
 4. **Generate with your prompt**`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     }
   ],
   'sd-3-1': [
@@ -1663,7 +1663,7 @@ Use reference images to guide generation.`,
 Power users combine multiple techniques.
 
 This creates professional-quality results.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Workflow Components**
@@ -1673,7 +1673,7 @@ This creates professional-quality results.`,
 • **Inpainting** - Fix specific areas
 • **Upscaling** - Increase resolution
 • **Post-processing** - Final touches`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Example Workflow**
@@ -1683,7 +1683,7 @@ This creates professional-quality results.`,
 3. Inpaint problem areas
 4. Upscale 2-4x
 5. Final color correction`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'sd-3-2': [
@@ -1693,7 +1693,7 @@ This creates professional-quality results.`,
 ComfyUI offers node-based workflows.
 
 It's more complex but incredibly powerful.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**ComfyUI Advantages**
@@ -1702,7 +1702,7 @@ It's more complex but incredibly powerful.`,
 • **Reusable nodes** - Save and share
 • **Advanced control** - Fine-grained settings
 • **Batch processing** - Automate tasks`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Getting Started**
@@ -1711,7 +1711,7 @@ It's more complex but incredibly powerful.`,
 • **Copy existing workflows**
 • **Modify incrementally**
 • **Build your library**`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'sd-3-3': [
@@ -1721,7 +1721,7 @@ It's more complex but incredibly powerful.`,
 For professional use, efficiency matters.
 
 Build systems that scale.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Production Considerations**
@@ -1730,7 +1730,7 @@ Build systems that scale.`,
 • **Quality control** - Consistent output
 • **Asset management** - Organize results
 • **Version control** - Track settings`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Optimization Tips**
@@ -1739,7 +1739,7 @@ Build systems that scale.`,
 • **Preset settings** - Saved configurations
 • **Automated workflows** - Scripts and batches
 • **Cloud options** - Scale when needed`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ]
 };
@@ -1756,7 +1756,7 @@ export const notionContent: Record<string, ContentPage[]> = {
 Notion AI brings artificial intelligence to your workspace.
 
 It helps you write, summarize, and organize faster.`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Key Features**
@@ -1766,7 +1766,7 @@ It helps you write, summarize, and organize faster.`,
 • **Translation** - Multiple languages
 • **Brainstorming** - Generate ideas
 • **Extraction** - Pull key information`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     },
     {
       text: `**Accessing Notion AI**
@@ -1775,7 +1775,7 @@ It helps you write, summarize, and organize faster.`,
 • **Highlight text** and ask AI
 • **Slash command** /ai
 • **AI block** in any page`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'notion-1-2': [
@@ -1785,7 +1785,7 @@ It helps you write, summarize, and organize faster.`,
 Notion AI can help at every stage of writing.
 
 From first draft to final polish.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Writing Capabilities**
@@ -1795,7 +1795,7 @@ From first draft to final polish.`,
 • **Improve** - Enhance writing
 • **Fix** - Grammar and spelling
 • **Simplify** - Make clearer`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Writing Tips**
@@ -1804,7 +1804,7 @@ From first draft to final polish.`,
 • **Provide context** for better results
 • **Iterate** - Multiple passes
 • **Edit** - AI is a starting point`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'notion-1-3': [
@@ -1814,7 +1814,7 @@ From first draft to final polish.`,
 Notion AI excels at condensing information.
 
 Turn long documents into actionable summaries.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Summary Types**
@@ -1823,7 +1823,7 @@ Turn long documents into actionable summaries.`,
 • **Action items** - Tasks to do
 • **Meeting notes** - Discussion summary
 • **TLDR** - Quick overview`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Best Practices**
@@ -1832,7 +1832,7 @@ Turn long documents into actionable summaries.`,
 • **Specify format** you want
 • **Review** for accuracy
 • **Add context** if needed`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'notion-2-1': [
@@ -1842,7 +1842,7 @@ Turn long documents into actionable summaries.`,
 Notion AI works with your databases.
 
 Automate data entry and analysis.`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Database Features**
@@ -1851,7 +1851,7 @@ Automate data entry and analysis.`,
 • **Generate content** - From templates
 • **Summarize entries** - Quick overviews
 • **Extract data** - From text to fields`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Use Cases**
@@ -1860,7 +1860,7 @@ Automate data entry and analysis.`,
 • **Projects** - Status updates
 • **Content** - Draft generation
 • **Research** - Note synthesis`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     }
   ],
   'notion-2-2': [
@@ -1870,7 +1870,7 @@ Automate data entry and analysis.`,
 Create smart templates that use AI.
 
 Automate repetitive content creation.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Template Ideas**
@@ -1879,7 +1879,7 @@ Automate repetitive content creation.`,
 • **Project briefs** - AI-assisted drafts
 • **Weekly reviews** - Generated insights
 • **Content calendars** - Topic suggestions`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Building AI Templates**
@@ -1888,7 +1888,7 @@ Automate repetitive content creation.`,
 • **Set up prompts** for common tasks
 • **Add instructions** for users
 • **Test and refine** over time`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     }
   ],
   'notion-2-3': [
@@ -1898,7 +1898,7 @@ Automate repetitive content creation.`,
 Notion AI can enhance team collaboration.
 
 Shared AI capabilities for everyone.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Team Use Cases**
@@ -1907,7 +1907,7 @@ Shared AI capabilities for everyone.`,
 • **Knowledge base** - AI-powered search
 • **Documentation** - Auto-generated
 • **Onboarding** - AI assistance`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Implementation Tips**
@@ -1916,7 +1916,7 @@ Shared AI capabilities for everyone.`,
 • **Create guidelines** for use
 • **Share successful prompts**
 • **Gather feedback** for improvement`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     }
   ]
 };
@@ -1933,7 +1933,7 @@ export const deepseekContent: Record<string, ContentPage[]> = {
 DeepSeek is a powerful AI model known for its reasoning capabilities.
 
 It excels at complex problem-solving and analysis.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Key Strengths**
@@ -1943,7 +1943,7 @@ It excels at complex problem-solving and analysis.`,
 • **Math** - Complex calculations
 • **Analysis** - Deep understanding
 • **Cost-effective** - Competitive pricing`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Getting Started**
@@ -1952,7 +1952,7 @@ It excels at complex problem-solving and analysis.`,
 • Similar to other **chat-based AI**
 • Strong at **technical tasks**
 • Good for **detailed explanations**`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'deepseek-1-2': [
@@ -1962,7 +1962,7 @@ It excels at complex problem-solving and analysis.`,
 DeepSeek is particularly strong at coding tasks.
 
 It can write, explain, and debug code effectively.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Coding Capabilities**
@@ -1972,7 +1972,7 @@ It can write, explain, and debug code effectively.`,
 • **Explanation** - Line-by-line breakdown
 • **Optimization** - Improve performance
 • **Documentation** - Add comments`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Tips for Code Tasks**
@@ -1981,7 +1981,7 @@ It can write, explain, and debug code effectively.`,
 • **Provide context** about your project
 • **Include error messages** for debugging
 • **Ask for explanations** to learn`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     }
   ],
   'deepseek-1-3': [
@@ -1991,7 +1991,7 @@ It can write, explain, and debug code effectively.`,
 DeepSeek's reasoning capabilities set it apart.
 
 It can break down complex problems systematically.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Reasoning Features**
@@ -2000,7 +2000,7 @@ It can break down complex problems systematically.`,
 • **Multi-step problems** - Complex solutions
 • **Logical analysis** - Clear reasoning
 • **Math problems** - Detailed solutions`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**Best Practices**
@@ -2009,7 +2009,7 @@ It can break down complex problems systematically.`,
 • Request **explanations** of reasoning
 • **Verify** complex calculations
 • Use for **learning** and understanding`,
-      image: '/images/course/success.png'
+      image: '/images/course/success.jpg'
     }
   ],
   'deepseek-2-1': [
@@ -2019,7 +2019,7 @@ It can break down complex problems systematically.`,
 Get more from DeepSeek with advanced techniques.
 
 These strategies unlock its full potential.`,
-      image: '/images/course/learning.png'
+      image: '/images/course/learning.jpg'
     },
     {
       text: `**Advanced Techniques**
@@ -2028,7 +2028,7 @@ These strategies unlock its full potential.`,
 • **Few-shot examples** - Show what you want
 • **Structured output** - JSON, tables
 • **Role assignment** - Expert personas`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**Prompt Engineering**
@@ -2037,7 +2037,7 @@ These strategies unlock its full potential.`,
 • **Provide context** and constraints
 • **Request format** explicitly
 • **Iterate** on prompts`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     }
   ],
   'deepseek-2-2': [
@@ -2047,7 +2047,7 @@ These strategies unlock its full potential.`,
 DeepSeek offers API access for developers.
 
 Build AI-powered applications with ease.`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     },
     {
       text: `**API Features**
@@ -2056,7 +2056,7 @@ Build AI-powered applications with ease.`,
 • **Function calling** - Tool use
 • **Streaming** - Real-time responses
 • **Batch processing** - Multiple requests`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**Integration Tips**
@@ -2065,7 +2065,7 @@ Build AI-powered applications with ease.`,
 • **Handle errors** gracefully
 • **Monitor usage** and costs
 • **Cache responses** when appropriate`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     }
   ],
   'deepseek-2-3': [
@@ -2075,7 +2075,7 @@ Build AI-powered applications with ease.`,
 Understanding how DeepSeek compares helps you choose the right tool.
 
 Different models excel at different tasks.`,
-      image: '/images/course/thinking.png'
+      image: '/images/course/thinking.jpg'
     },
     {
       text: `**DeepSeek vs Others**
@@ -2085,7 +2085,7 @@ Different models excel at different tasks.`,
 • **Cost** - Generally lower
 • **Speed** - Varies by task
 • **Context** - Good window size`,
-      image: '/images/course/quiz.png'
+      image: '/images/course/quiz.jpg'
     },
     {
       text: `**When to Use DeepSeek**
@@ -2094,7 +2094,7 @@ Different models excel at different tasks.`,
 • **Technical problems**
 • **Cost-sensitive** applications
 • **Detailed explanations** needed`,
-      image: '/images/course/practice.png'
+      image: '/images/course/practice.jpg'
     }
   ]
 };

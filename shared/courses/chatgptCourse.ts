@@ -69,7 +69,7 @@ export const chatgptLesson1_1: CoursivLesson = {
     createPlaygroundBlock(
       'Your First Prompt',
       'Send a simple question to ChatGPT. Choose the best way to ask for help with dinner.',
-      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.jpg' },
       'Help me [action] for dinner tonight.',
       [
         { id: 'action', placeholder: 'action', correctAnswer: 'order a pizza' }
@@ -78,7 +78,7 @@ export const chatgptLesson1_1: CoursivLesson = {
       'Think about what action you want ChatGPT to help you with. The most direct request usually works best.',
       { title: 'Great!', message: "You've sent your first prompt to ChatGPT!" },
       { title: 'Incorrect', message: 'Try choosing a more specific action.' },
-      '/images/course/chatgpt/chatgpt-complete-prompt.png',
+      '/images/course/chatgpt/chatgpt-complete-prompt.jpg',
       'ChatGPT works best when you give it clear, specific instructions!',
       `I'd be happy to help you order a pizza for dinner! Here are some popular options near you:
 
@@ -166,7 +166,7 @@ export const chatgptLesson1_2: CoursivLesson = {
     createPlaygroundBlock(
       'Building a Complete Prompt',
       'Create a well-structured prompt by filling in the blanks.',
-      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.jpg' },
       'I am a [role]. Please help me [task] in a [format] format.',
       [
         { id: 'role', placeholder: 'role', correctAnswer: 'student' },
@@ -177,7 +177,7 @@ export const chatgptLesson1_2: CoursivLesson = {
       'Think about who you are, what you need, and how you want the output formatted.',
       { title: 'Perfect!', message: "You've created a well-structured prompt!" },
       { title: 'Try Again', message: 'Make sure each part of the prompt makes sense together.' },
-      '/images/course/chatgpt/chatgpt-complete-prompt.png',
+      '/images/course/chatgpt/chatgpt-complete-prompt.jpg',
       'Always include your role, task, and desired format for best results!',
       `Of course! As a student, I'd be happy to help you summarize articles in bullet point format. Here's how I'll structure the summary:
 
@@ -266,7 +266,7 @@ export const chatgptLesson1_3: CoursivLesson = {
     createPlaygroundBlock(
       'Refining a Response',
       'Practice asking ChatGPT to improve its response.',
-      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.jpg' },
       'That was helpful, but can you make it [modifier] and add [addition]?',
       [
         { id: 'modifier', placeholder: 'modifier', correctAnswer: 'shorter' },
@@ -276,7 +276,7 @@ export const chatgptLesson1_3: CoursivLesson = {
       'Think about what would make the response more useful for you.',
       { title: 'Excellent!', message: "You've learned to refine AI responses!" },
       { title: 'Not quite', message: 'Try different combinations to improve the response.' },
-      '/images/course/chatgpt/chatgpt-refine.png',
+      '/images/course/chatgpt/chatgpt-refine.jpg',
       'Don\'t hesitate to ask ChatGPT to modify its responses - iteration is key!',
       `Absolutely! Here's a shorter version with examples:
 
@@ -340,7 +340,7 @@ export const chatgptLesson1_4: CoursivLesson = {
     createPlaygroundBlock(
       'Using Role Assignment',
       'Practice assigning a role to get expert-level responses.',
-      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.jpg' },
       'Act as a [role] and help me [task]. Consider [consideration].',
       [
         { id: 'role', placeholder: 'role', correctAnswer: 'financial advisor' },
@@ -351,7 +351,7 @@ export const chatgptLesson1_4: CoursivLesson = {
       'Choose a role that matches the expertise you need for your task.',
       { title: 'Well done!', message: "You've mastered role assignment!" },
       { title: 'Try again', message: 'Make sure the role matches the task you need help with.' },
-      '/images/course/chatgpt/chatgpt-role.png',
+      '/images/course/chatgpt/chatgpt-role.jpg',
       'Role assignment helps ChatGPT provide more focused, expert-level responses.',
       `As your financial advisor, I'd be happy to help you create a budget tailored to your income level. Here's a personalized approach:
 
@@ -486,7 +486,7 @@ export const chatgptLesson2_1: CoursivLesson = {
     createPlaygroundBlock(
       'Creating an Expert Persona',
       'Define a detailed role for ChatGPT to assume.',
-      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.jpg' },
       'You are a [expertise] with [experience]. Your communication style is [style]. Help me with [task].',
       [
         { id: 'expertise', placeholder: 'expertise', correctAnswer: 'UX designer' },
@@ -498,7 +498,7 @@ export const chatgptLesson2_1: CoursivLesson = {
       'Think about what expertise you need and how you want the expert to communicate.',
       { title: 'Excellent!', message: "You've created a detailed expert persona!" },
       { title: 'Try again', message: 'Make sure all parts of the persona work together.' },
-      '/images/course/chatgpt/chatgpt-persona.png',
+      '/images/course/chatgpt/chatgpt-persona.jpg',
       'Detailed personas lead to more focused and relevant responses.',
       `Hello! I'm excited to help you improve your app design. With 8 years of UX experience, I've seen what works and what doesn't.
 
@@ -557,7 +557,7 @@ export const chatgptLesson2_2: CoursivLesson = {
     createPlaygroundBlock(
       'Applying Chain of Thought',
       'Use CoT to solve a complex problem.',
-      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.jpg' },
       'I need to [task]. Please [approach] and [verification].',
       [
         { id: 'task', placeholder: 'task', correctAnswer: 'calculate my monthly expenses' },
@@ -568,7 +568,7 @@ export const chatgptLesson2_2: CoursivLesson = {
       'Think about how to structure a complex problem into manageable steps.',
       { title: 'Perfect!', message: "You've mastered Chain of Thought prompting!" },
       { title: 'Not quite', message: 'Try using step-by-step language in your prompt.' },
-      '/images/course/chatgpt/chatgpt-cot.png',
+      '/images/course/chatgpt/chatgpt-cot.jpg',
       'Chain of Thought is especially powerful for math, logic, and planning tasks.',
       `I'll help you calculate your monthly expenses step by step, showing my reasoning throughout.
 
@@ -639,7 +639,7 @@ export const chatgptLesson2_3: CoursivLesson = {
     createPlaygroundBlock(
       'Using Few-Shot Learning',
       'Provide examples to guide ChatGPT\'s output.',
-      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.jpg' },
       'Here are examples of [content_type]:\n\nExample 1: [example1]\nExample 2: [example2]\n\nNow create a similar one for [topic].',
       [
         { id: 'content_type', placeholder: 'content type', correctAnswer: 'product descriptions' },
@@ -651,7 +651,7 @@ export const chatgptLesson2_3: CoursivLesson = {
       'Provide clear examples that demonstrate the pattern you want ChatGPT to follow.',
       { title: 'Great job!', message: "You've learned few-shot prompting!" },
       { title: 'Try again', message: 'Make sure your examples clearly show the pattern.' },
-      '/images/course/chatgpt/chatgpt-few-shot.png',
+      '/images/course/chatgpt/chatgpt-few-shot.jpg',
       'The quality of your examples directly affects the quality of the output.',
       `Based on your examples, I can see you want concise, benefit-focused product descriptions. Here's one for wireless headphones:
 
@@ -716,7 +716,7 @@ export const chatgptLesson2_4: CoursivLesson = {
     createPlaygroundBlock(
       'Managing Long Conversations',
       'Practice maintaining context in extended discussions.',
-      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.jpg' },
       'Before we continue, let me [action]: [summary]. Now, regarding [next_topic]...',
       [
         { id: 'action', placeholder: 'action', correctAnswer: 'summarize our discussion' },
@@ -727,7 +727,7 @@ export const chatgptLesson2_4: CoursivLesson = {
       'Periodically summarizing helps maintain context in long conversations.',
       { title: 'Excellent!', message: "You've learned to manage conversation context!" },
       { title: 'Try again', message: 'Try summarizing before moving to new topics.' },
-      '/images/course/chatgpt/chatgpt-long-conv.png',
+      '/images/course/chatgpt/chatgpt-long-conv.jpg',
       'Regular summaries prevent important details from being lost in long conversations.',
       `Great approach! Here's my summary of our discussion:
 
@@ -797,7 +797,7 @@ export const chatgptLesson2_5: CoursivLesson = {
     createPlaygroundBlock(
       'Creating Content',
       'Use ChatGPT to write professional content.',
-      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.jpg' },
       'Write a [content_type] about [topic]. The tone should be [tone] and the target audience is [audience].',
       [
         { id: 'content_type', placeholder: 'content type', correctAnswer: 'blog post introduction' },
@@ -809,7 +809,7 @@ export const chatgptLesson2_5: CoursivLesson = {
       'Specify the content type, topic, tone, and audience for best results.',
       { title: 'Well done!', message: "You've created professional content with ChatGPT!" },
       { title: 'Try again', message: 'Be more specific about your content requirements.' },
-      '/images/course/chatgpt/chatgpt-content.png',
+      '/images/course/chatgpt/chatgpt-content.jpg',
       'Always specify tone and audience when requesting written content.',
       `Here's a blog post introduction tailored for busy professionals:
 
@@ -950,7 +950,7 @@ export const chatgptLesson3_1: CoursivLesson = {
     createPlaygroundBlock(
       'Understanding API Calls',
       'Learn the structure of an API request.',
-      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.jpg' },
       'To make an API call, I need to specify the [component1], set the [component2], and include my [component3].',
       [
         { id: 'component1', placeholder: 'component 1', correctAnswer: 'model name' },
@@ -961,7 +961,7 @@ export const chatgptLesson3_1: CoursivLesson = {
       'Think about the essential components of an API request.',
       { title: 'Correct!', message: "You understand API request structure!" },
       { title: 'Not quite', message: 'Review the key components of API calls.' },
-      '/images/course/chatgpt/chatgpt-api.png',
+      '/images/course/chatgpt/chatgpt-api.jpg',
       'The API gives you programmatic control over ChatGPT\'s behavior.',
       `Great question! Here's a complete breakdown of making an API call:
 
@@ -1035,7 +1035,7 @@ export const chatgptLesson3_2: CoursivLesson = {
     createPlaygroundBlock(
       'Creating Custom Instructions',
       'Design effective custom instructions for your needs.',
-      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.jpg' },
       'About me: I am a [profession] who prefers [preference]. When responding, always [behavior] and avoid [constraint].',
       [
         { id: 'profession', placeholder: 'profession', correctAnswer: 'software developer' },
@@ -1047,7 +1047,7 @@ export const chatgptLesson3_2: CoursivLesson = {
       'Think about what information would help ChatGPT serve you better consistently.',
       { title: 'Perfect!', message: "You've created effective custom instructions!" },
       { title: 'Try again', message: 'Make sure your instructions are specific and actionable.' },
-      '/images/course/chatgpt/chatgpt-custom.png',
+      '/images/course/chatgpt/chatgpt-custom.jpg',
       'Good custom instructions save time and improve response quality across all conversations.',
       `Excellent custom instructions! Here's how I'll apply them:
 
@@ -1115,7 +1115,7 @@ export const chatgptLesson3_3: CoursivLesson = {
     createPlaygroundBlock(
       'Using Plugins Effectively',
       'Learn when and how to use ChatGPT plugins.',
-      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.jpg' },
       'For this task, I should use the [plugin] plugin because I need to [capability]. This will help me [outcome].',
       [
         { id: 'plugin', placeholder: 'plugin', correctAnswer: 'Code Interpreter' },
@@ -1126,7 +1126,7 @@ export const chatgptLesson3_3: CoursivLesson = {
       'Match the plugin to the specific capability you need.',
       { title: 'Great choice!', message: "You've selected the right plugin for the task!" },
       { title: 'Try again', message: 'Think about which plugin provides the capability you need.' },
-      '/images/course/chatgpt/chatgpt-plugins.png',
+      '/images/course/chatgpt/chatgpt-plugins.jpg',
       'Choose plugins based on the specific capabilities your task requires.',
       `Perfect plugin choice! Here's how Code Interpreter will help:
 
@@ -1207,7 +1207,7 @@ export const chatgptLesson3_4: CoursivLesson = {
     createPlaygroundBlock(
       'Identifying Business Opportunities',
       'Find ChatGPT applications in your organization.',
-      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.png' },
+      { name: 'ChatGPT', icon: '💬', logo: '/images/ai-tools/chatgpt.jpg' },
       'In my [department], we could use ChatGPT to [application]. This would save [benefit] and improve [outcome].',
       [
         { id: 'department', placeholder: 'department', correctAnswer: 'customer service' },
@@ -1219,7 +1219,7 @@ export const chatgptLesson3_4: CoursivLesson = {
       'Think about repetitive tasks in your organization that could benefit from AI assistance.',
       { title: 'Excellent!', message: "You've identified a valuable business application!" },
       { title: 'Try again', message: 'Focus on specific, measurable benefits.' },
-      '/images/course/chatgpt/chatgpt-business.png',
+      '/images/course/chatgpt/chatgpt-business.jpg',
       'The best enterprise applications target repetitive tasks with clear ROI.',
       `Great use case identification! Here's a detailed implementation plan:
 

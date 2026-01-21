@@ -45,7 +45,7 @@ export const dalleLesson1_1: CoursivLesson = {
     createPlaygroundBlock(
       'Your First Image Prompt',
       'Create a simple image prompt by describing what you want to see.',
-      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.jpg' },
       'A [style] painting of a [subject] in a [setting] with [lighting] lighting.',
       [
         { id: 'style', placeholder: 'style', correctAnswer: 'watercolor' },
@@ -57,7 +57,7 @@ export const dalleLesson1_1: CoursivLesson = {
       'Think about the style, subject, setting, and lighting you want in your image.',
       { title: 'Beautiful!', message: "You've created your first DALL-E prompt!" },
       { title: 'Try again', message: 'Make sure all elements work together visually.' },
-      '/images/course/dalle-cat-garden.png',
+      '/images/course/dalle-cat-garden.jpg',
       'DALL-E works best with descriptive prompts that include style, subject, and atmosphere.'
     ),
     createFeedbackBlock(
@@ -100,7 +100,7 @@ export const dalleLesson1_2: CoursivLesson = {
     createPlaygroundBlock(
       'Building a Detailed Prompt',
       'Create a more detailed image prompt with multiple elements.',
-      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.jpg' },
       'A [style] [subject], [detail1], [detail2], [composition].',
       [
         { id: 'style', placeholder: 'style', correctAnswer: 'photorealistic' },
@@ -113,7 +113,7 @@ export const dalleLesson1_2: CoursivLesson = {
       'Layer your description with style, subject, details, and composition.',
       { title: 'Stunning!', message: "You've created a detailed image prompt!" },
       { title: 'Try again', message: 'Make sure each element adds to the visual story.' },
-      '/images/course/dalle-mountain.png',
+      '/images/course/dalle-mountain.jpg',
       'Layered descriptions with multiple details create more compelling images.',
       `🏔️ **Generating Your Landscape...**
 
@@ -180,7 +180,7 @@ export const dalleLesson1_3: CoursivLesson = {
     createPlaygroundBlock(
       'Using the Formula',
       'Apply the prompt formula to create a professional image.',
-      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.jpg' },
       '[subject] [action] in [environment], [style] style, [lighting] lighting, [perspective].',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'a robot' },
@@ -194,7 +194,7 @@ export const dalleLesson1_3: CoursivLesson = {
       'Follow the formula: subject + action + environment + style + lighting + perspective.',
       { title: 'Perfect formula!', message: "You've mastered the prompt structure!" },
       { title: 'Try again', message: 'Make sure to include all elements of the formula.' },
-      '/images/course/dalle-robot.png',
+      '/images/course/dalle-robot.jpg',
       'Following a consistent formula helps create predictable, high-quality results.',
       `🤖 **Steampunk Library Scene**
 
@@ -330,7 +330,7 @@ export const dalleLesson2_1: CoursivLesson = {
     createPlaygroundBlock(
       'Applying Style Modifiers',
       'Transform a simple subject with different styles.',
-      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.jpg' },
       'A [subject] in the style of [style], with [technique] technique, [color_palette] color palette.',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'sunflower field' },
@@ -342,7 +342,7 @@ export const dalleLesson2_1: CoursivLesson = {
       'Combine style, technique, and color palette for cohesive results.',
       { title: 'Artistic!', message: "You've mastered style modifiers!" },
       { title: 'Try again', message: 'Make sure style elements complement each other.' },
-      '/images/course/dalle-sunflower.png',
+      '/images/course/dalle-sunflower.jpg',
       'Style modifiers can completely transform the same subject into different artworks.',
       `🌻 **Impressionist Sunflower Field**
 
@@ -416,7 +416,7 @@ export const dalleLesson2_2: CoursivLesson = {
     createPlaygroundBlock(
       'Directing Composition',
       'Use composition terms to control image layout.',
-      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.jpg' },
       'A [subject] with [composition_rule], [framing] framing, [depth] depth of field.',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'lone tree on a hill' },
@@ -428,7 +428,7 @@ export const dalleLesson2_2: CoursivLesson = {
       'Combine composition rules with framing and depth for professional results.',
       { title: 'Well composed!', message: "You understand composition techniques!" },
       { title: 'Try again', message: 'Think about how these elements work together.' },
-      '/images/course/thinking.png',
+      '/images/course/thinking.jpg',
       'Composition instructions give you control over the visual structure of your images.',
       `🌳 **Compositional Analysis**
 
@@ -506,7 +506,7 @@ export const dalleLesson2_3: CoursivLesson = {
     createPlaygroundBlock(
       'Setting the Mood with Light',
       'Use lighting to create a specific atmosphere.',
-      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.jpg' },
       'A [subject] with [lighting_type] lighting, [mood] mood, [time] atmosphere.',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'empty street' },
@@ -518,7 +518,7 @@ export const dalleLesson2_3: CoursivLesson = {
       'Match lighting type with mood and time of day for cohesive atmosphere.',
       { title: 'Atmospheric!', message: "You've mastered lighting and mood!" },
       { title: 'Try again', message: 'Make sure lighting supports the mood you want.' },
-      '/images/course/dalle-neon-street.png',
+      '/images/course/dalle-neon-street.jpg',
       'Lighting is the key to emotional impact in your images.',
       `🌃 **Noir Street Scene**
 
@@ -595,7 +595,7 @@ export const dalleLesson2_4: CoursivLesson = {
     createPlaygroundBlock(
       'Planning an Edit',
       'Describe how you would edit an existing image.',
-      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.jpg' },
       'Take this image and [edit_type] the [area]. Replace it with [replacement] while maintaining [consistency].',
       [
         { id: 'edit_type', placeholder: 'edit type', correctAnswer: 'inpaint' },
@@ -607,7 +607,7 @@ export const dalleLesson2_4: CoursivLesson = {
       'Consider what you want to change and what should stay consistent.',
       { title: 'Great edit plan!', message: "You understand image editing concepts!" },
       { title: 'Try again', message: 'Think about maintaining visual consistency.' },
-      '/images/course/practice.png',
+      '/images/course/practice.jpg',
       'Good edits maintain consistency with the original image\'s style and lighting.',
       `✏️ **Edit Plan Analysis**
 
@@ -761,7 +761,7 @@ export const dalleLesson3_1: CoursivLesson = {
     createPlaygroundBlock(
       'Creating Photorealistic Images',
       'Use photography terminology for lifelike results.',
-      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.jpg' },
       'Professional [subject] photography, shot on [camera], [lens] lens, [aperture] aperture, [lighting], [quality].',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'portrait' },
@@ -775,7 +775,7 @@ export const dalleLesson3_1: CoursivLesson = {
       'Use real camera terminology for authentic photorealistic results.',
       { title: 'Professional quality!', message: "You've mastered photorealistic prompts!" },
       { title: 'Try again', message: 'Use more specific photography terminology.' },
-      '/images/course/dalle-portrait.png',
+      '/images/course/dalle-portrait.jpg',
       'Real camera and lens specifications help DALL-E understand photographic aesthetics.',
       `📸 **Professional Portrait Analysis**
 
@@ -855,7 +855,7 @@ export const dalleLesson3_2: CoursivLesson = {
     createPlaygroundBlock(
       'Creating Marketing Content',
       'Design a commercial image for a product.',
-      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.png' },
+      { name: 'DALL-E', icon: '🎨', logo: '/images/ai-tools/dall-e.jpg' },
       'Professional [product_type] advertisement, [setting], [style] aesthetic, [brand_feel], [composition] composition.',
       [
         { id: 'product_type', placeholder: 'product type', correctAnswer: 'skincare product' },
@@ -868,7 +868,7 @@ export const dalleLesson3_2: CoursivLesson = {
       'Consider the brand identity and target audience when creating commercial images.',
       { title: 'Marketing ready!', message: "You've created professional commercial content!" },
       { title: 'Try again', message: 'Think about brand consistency and appeal.' },
-      '/images/course/dalle-product.png',
+      '/images/course/dalle-product.jpg',
       'Commercial images need consistent style, clear focus, and brand alignment.',
       `💄 **Commercial Image Analysis**
 

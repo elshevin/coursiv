@@ -335,19 +335,19 @@ export default function Subscription() {
                     </div>
                   </div>
                   
-                  {/* Achievements - Specific Skills */}
+                  {/* Achievements - Personal Growth */}
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2 text-xs text-[#24234C]">
                       <Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
-                      <span>Master GPT, Claude, Gemini</span>
+                      <span>Confident using AI daily</span>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-[#24234C]">
                       <Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
-                      <span>Create with DALL·E, Midjourney</span>
+                      <span>Work smarter, not harder</span>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-[#24234C]">
                       <Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
-                      <span>Automate daily workflows</span>
+                      <span>Future-proof your career</span>
                     </div>
                   </div>
                 </div>

@@ -46,7 +46,7 @@ export const geminiLesson1_1: CoursivLesson = {
     createPlaygroundBlock(
       'Your First Gemini Prompt',
       'Start a conversation with Gemini.',
-      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.png' },
+      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.jpg' },
       'Help me [task] by [approach]. I want the output in [format].',
       [
         { id: 'task', placeholder: 'task', correctAnswer: 'plan my week' },
@@ -57,7 +57,7 @@ export const geminiLesson1_1: CoursivLesson = {
       'Gemini excels at structured tasks and organization.',
       { title: 'Great start!', message: "You've engaged Gemini effectively!" },
       { title: 'Try again', message: 'Be specific about your task and desired format.' },
-      '/images/course/gemini/gemini-first.png',
+      '/images/course/gemini/gemini-first.jpg',
       'Gemini works well with structured requests that specify the desired output format.',
       `I'd be happy to help you plan your week! Let me create a structured schedule based on your priorities.
 
@@ -134,7 +134,7 @@ export const geminiLesson1_2: CoursivLesson = {
     createPlaygroundBlock(
       'Creating Content',
       'Use Gemini to generate written content.',
-      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.png' },
+      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.jpg' },
       'Write a [content_type] about [topic] for [audience]. The tone should be [tone].',
       [
         { id: 'content_type', placeholder: 'content type', correctAnswer: 'blog post' },
@@ -146,7 +146,7 @@ export const geminiLesson1_2: CoursivLesson = {
       'Specify content type, topic, audience, and tone for best results.',
       { title: 'Content created!', message: "You've generated great content with Gemini!" },
       { title: 'Try again', message: 'Be more specific about your content needs.' },
-      '/images/course/gemini/gemini-content.png',
+      '/images/course/gemini/gemini-content.jpg',
       'Always specify your audience and tone for more targeted content.',
       `Here's a friendly, practical blog post for remote workers:
 
@@ -245,7 +245,7 @@ export const geminiLesson1_3: CoursivLesson = {
     createPlaygroundBlock(
       'Working with Images',
       'Learn how to prompt Gemini about images.',
-      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.png' },
+      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.jpg' },
       'Looking at this image, please [task]. Focus on [focus_area] and provide [output_type].',
       [
         { id: 'task', placeholder: 'task', correctAnswer: 'identify all the objects' },
@@ -256,7 +256,7 @@ export const geminiLesson1_3: CoursivLesson = {
       'Be specific about what you want Gemini to analyze in the image.',
       { title: 'Image analysis ready!', message: "You understand multimodal prompting!" },
       { title: 'Try again', message: 'Specify what aspect of the image to focus on.' },
-      '/images/course/gemini/gemini-images.png',
+      '/images/course/gemini/gemini-images.jpg',
       'Gemini can analyze images for objects, text, data, and contextual information.',
       `I'll analyze the image systematically, focusing on the main subject and providing a detailed list.
 
@@ -402,7 +402,7 @@ export const geminiLesson2_1: CoursivLesson = {
     createPlaygroundBlock(
       'Generating Code',
       'Ask Gemini to write code for a specific task.',
-      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.png' },
+      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.jpg' },
       'Write a [language] function that [task]. Include [requirement] and add [documentation].',
       [
         { id: 'language', placeholder: 'language', correctAnswer: 'Python' },
@@ -414,7 +414,7 @@ export const geminiLesson2_1: CoursivLesson = {
       'Specify language, task, requirements, and documentation needs.',
       { title: 'Code generated!', message: "You've learned to request code from Gemini!" },
       { title: 'Try again', message: 'Be specific about language and requirements.' },
-      '/images/course/gemini/gemini-code.png',
+      '/images/course/gemini/gemini-code.jpg',
       'Always specify error handling and documentation requirements for production-ready code.',
       `Here's a Python function that validates email addresses with error handling and docstrings:
 
@@ -546,7 +546,7 @@ export const geminiLesson2_2: CoursivLesson = {
     createPlaygroundBlock(
       'Analyzing Data',
       'Ask Gemini to analyze and interpret data.',
-      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.png' },
+      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.jpg' },
       'Analyze this [data_type] data. Identify [analysis_focus] and suggest [recommendation_type].',
       [
         { id: 'data_type', placeholder: 'data type', correctAnswer: 'sales' },
@@ -557,7 +557,7 @@ export const geminiLesson2_2: CoursivLesson = {
       'Specify the data type, what to look for, and what kind of output you need.',
       { title: 'Data analyzed!', message: "You've learned to request data analysis!" },
       { title: 'Try again', message: 'Be specific about what patterns to identify.' },
-      '/images/course/gemini/gemini-data.png',
+      '/images/course/gemini/gemini-data.jpg',
       'Gemini can identify trends, patterns, and generate actionable insights from data.',
       `I'll analyze your sales data to identify trends, patterns, and provide actionable insights.
 
@@ -663,7 +663,7 @@ export const geminiLesson2_3: CoursivLesson = {
     createPlaygroundBlock(
       'Using Gemini in Workspace',
       'Learn how to leverage Gemini across Google tools.',
-      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.png' },
+      { name: 'Gemini', icon: '✨', logo: '/images/ai-tools/gemini.jpg' },
       'In [google_app], I can use Gemini to [task]. This helps me [benefit].',
       [
         { id: 'google_app', placeholder: 'Google app', correctAnswer: 'Google Docs' },
@@ -674,7 +674,7 @@ export const geminiLesson2_3: CoursivLesson = {
       'Gemini is available across Google Workspace for different tasks.',
       { title: 'Integration expert!', message: "You understand Gemini's Google integration!" },
       { title: 'Try again', message: 'Think about what Gemini can do in each app.' },
-      '/images/course/gemini/gemini-workspace.png',
+      '/images/course/gemini/gemini-workspace.jpg',
       'Gemini in Workspace lets you use AI without leaving your workflow.',
       `Here's how to maximize Gemini across Google Workspace:
 

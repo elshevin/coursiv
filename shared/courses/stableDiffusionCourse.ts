@@ -47,7 +47,7 @@ export const sdLesson1_1: CoursivLesson = {
     createPlaygroundBlock(
       'Your First SD Prompt',
       'Create a basic Stable Diffusion prompt.',
-      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.jpg' },
       '[subject], [style], [quality], [lighting]',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'a beautiful landscape' },
@@ -59,7 +59,7 @@ export const sdLesson1_1: CoursivLesson = {
       'SD prompts are comma-separated descriptors.',
       { title: 'Great prompt!', message: "You've created your first SD prompt!" },
       { title: 'Try again', message: 'Use comma-separated descriptive terms.' },
-      '/images/course/stable-diffusion/sd-first-prompt.png',
+      '/images/course/stable-diffusion/sd-first-prompt.jpg',
       'Stable Diffusion prompts work best with comma-separated descriptive terms.',
       `🎨 **Stable Diffusion Generation**
 
@@ -146,7 +146,7 @@ export const sdLesson1_2: CoursivLesson = {
     createPlaygroundBlock(
       'Choosing Your Setup',
       'Select the right setup for your needs.',
-      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.jpg' },
       'For [use_case], I should use [option] because it offers [benefit].',
       [
         { id: 'use_case', placeholder: 'use case', correctAnswer: 'learning and experimentation' },
@@ -157,7 +157,7 @@ export const sdLesson1_2: CoursivLesson = {
       'Match your setup to your needs and technical level.',
       { title: 'Good choice!', message: "You've selected an appropriate setup!" },
       { title: 'Try again', message: 'Consider your use case and technical requirements.' },
-      '/images/course/stable-diffusion/sd-setup.png',
+      '/images/course/stable-diffusion/sd-setup.jpg',
       'Automatic1111 is the most popular local option due to its features and community support.',
       `🖥️ **Setup Comparison Guide**
 
@@ -245,7 +245,7 @@ export const sdLesson1_3: CoursivLesson = {
     createPlaygroundBlock(
       'Setting Parameters',
       'Learn to configure generation parameters.',
-      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.jpg' },
       'For [goal], I should set steps to [steps], CFG scale to [cfg], and use [sampler] sampler.',
       [
         { id: 'goal', placeholder: 'goal', correctAnswer: 'high quality detailed images' },
@@ -257,7 +257,7 @@ export const sdLesson1_3: CoursivLesson = {
       'Balance quality and speed with your parameter choices.',
       { title: 'Parameter pro!', message: "You understand SD parameters!" },
       { title: 'Try again', message: 'Match parameters to your quality goals.' },
-      '/images/course/stable-diffusion/sd-parameters.png',
+      '/images/course/stable-diffusion/sd-parameters.jpg',
       'DPM++ 2M Karras at 30 steps with CFG 7 is a great starting point for most images.',
       `⚙️ **Parameter Deep Dive**
 
@@ -351,7 +351,7 @@ export const sdLesson1_4: CoursivLesson = {
     createPlaygroundBlock(
       'Using Negative Prompts',
       'Create effective negative prompts.',
-      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.jpg' },
       'Negative prompt: [quality_issues], [anatomy_issues], [unwanted_elements], [style_issues]',
       [
         { id: 'quality_issues', placeholder: 'quality issues', correctAnswer: 'blurry, low quality' },
@@ -363,7 +363,7 @@ export const sdLesson1_4: CoursivLesson = {
       'Negative prompts help avoid common SD issues.',
       { title: 'Negative prompt master!', message: "You know how to avoid unwanted elements!" },
       { title: 'Try again', message: 'Include quality, anatomy, and element issues.' },
-      '/images/course/stable-diffusion/sd-negative.png',
+      '/images/course/stable-diffusion/sd-negative.jpg',
       'A good negative prompt is as important as a good positive prompt.',
       `🚫 **Negative Prompt Guide**
 
@@ -528,7 +528,7 @@ export const sdLesson2_1: CoursivLesson = {
     createPlaygroundBlock(
       'Choosing Models',
       'Select the right model for your needs.',
-      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.jpg' },
       'For [use_case], I should use [model] because it excels at [strength].',
       [
         { id: 'use_case', placeholder: 'use case', correctAnswer: 'photorealistic portraits' },
@@ -539,7 +539,7 @@ export const sdLesson2_1: CoursivLesson = {
       'Different models excel at different styles and subjects.',
       { title: 'Model expert!', message: "You understand SD model selection!" },
       { title: 'Try again', message: 'Match the model to your specific use case.' },
-      '/images/course/stable-diffusion/sd-models.png',
+      '/images/course/stable-diffusion/sd-models.jpg',
       'Choosing the right model is often more important than prompt engineering.',
       `🧠 **Model Selection Guide**
 
@@ -638,7 +638,7 @@ export const sdLesson2_2: CoursivLesson = {
     createPlaygroundBlock(
       'Using LoRAs',
       'Learn to apply LoRAs to your prompts.',
-      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.jpg' },
       '[subject], [style] <lora:[lora_name]:[weight]>',
       [
         { id: 'subject', placeholder: 'subject', correctAnswer: 'portrait of a woman' },
@@ -650,7 +650,7 @@ export const sdLesson2_2: CoursivLesson = {
       'LoRAs are added to prompts with <lora:name:weight> syntax.',
       { title: 'LoRA loaded!', message: "You understand how to use LoRAs!" },
       { title: 'Try again', message: 'Use the <lora:name:weight> syntax.' },
-      '/images/course/stable-diffusion/sd-lora.png',
+      '/images/course/stable-diffusion/sd-lora.jpg',
       'LoRA weights between 0.5-0.8 usually work best; 1.0 can be too strong.',
       `🔌 **LoRA & Embedding Guide**
 
@@ -751,7 +751,7 @@ export const sdLesson2_3: CoursivLesson = {
     createPlaygroundBlock(
       'Using Img2Img',
       'Configure img2img for different purposes.',
-      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.jpg' },
       'For [purpose], set denoising strength to [strength]. This will [effect].',
       [
         { id: 'purpose', placeholder: 'purpose', correctAnswer: 'subtle style changes' },
@@ -762,7 +762,7 @@ export const sdLesson2_3: CoursivLesson = {
       'Denoising strength controls how much the image changes.',
       { title: 'Img2Img ready!', message: "You understand img2img settings!" },
       { title: 'Try again', message: 'Match denoising strength to your goal.' },
-      '/images/course/stable-diffusion/sd-img2img.png',
+      '/images/course/stable-diffusion/sd-img2img.jpg',
       'Lower denoising = subtle changes, higher denoising = major transformations.',
       `🔄 **Img2Img Mastery**
 
@@ -864,7 +864,7 @@ export const sdLesson2_4: CoursivLesson = {
     createPlaygroundBlock(
       'Using ControlNet',
       'Choose the right ControlNet for your needs.',
-      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.jpg' },
       'For [goal], I should use [controlnet_type] ControlNet with weight [weight].',
       [
         { id: 'goal', placeholder: 'goal', correctAnswer: 'matching a specific pose' },
@@ -875,7 +875,7 @@ export const sdLesson2_4: CoursivLesson = {
       'Different ControlNets serve different purposes.',
       { title: 'ControlNet ready!', message: "You understand ControlNet selection!" },
       { title: 'Try again', message: 'Match the ControlNet type to your control needs.' },
-      '/images/course/stable-diffusion/sd-controlnet.png',
+      '/images/course/stable-diffusion/sd-controlnet.jpg',
       'OpenPose is essential for consistent character poses across multiple images.',
       `🎯 **ControlNet Mastery**
 
@@ -1043,7 +1043,7 @@ export const sdLesson3_1: CoursivLesson = {
     createPlaygroundBlock(
       'Understanding ComfyUI',
       'Learn the basics of node-based workflows.',
-      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.jpg' },
       'In ComfyUI, [input_node] connects to [process_node] which outputs to [output_node].',
       [
         { id: 'input_node', placeholder: 'input node', correctAnswer: 'Load Checkpoint' },
@@ -1054,7 +1054,7 @@ export const sdLesson3_1: CoursivLesson = {
       'ComfyUI uses nodes connected in a pipeline.',
       { title: 'Node master!', message: "You understand ComfyUI basics!" },
       { title: 'Try again', message: 'Think about the flow: load → process → output.' },
-      '/images/course/stable-diffusion/sd-comfyui.png',
+      '/images/course/stable-diffusion/sd-comfyui.jpg',
       'ComfyUI workflows are shareable - you can import complex setups with one click.',
       `🔗 **ComfyUI Workflow Guide**
 
@@ -1161,7 +1161,7 @@ export const sdLesson3_2: CoursivLesson = {
     createPlaygroundBlock(
       'Planning LoRA Training',
       'Understand the requirements for training.',
-      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.jpg' },
       'To train a [lora_type] LoRA, I need [requirement1] and [requirement2]. Training takes about [time].',
       [
         { id: 'lora_type', placeholder: 'LoRA type', correctAnswer: 'character' },
@@ -1173,7 +1173,7 @@ export const sdLesson3_2: CoursivLesson = {
       'Training requirements vary by LoRA type.',
       { title: 'Training ready!', message: "You understand LoRA training basics!" },
       { title: 'Try again', message: 'Consider image count, captions, and time.' },
-      '/images/course/stable-diffusion/sd-lora-training.png',
+      '/images/course/stable-diffusion/sd-lora-training.jpg',
       'Quality of training images matters more than quantity.',
       `🎓 **LoRA Training Guide**
 
@@ -1290,7 +1290,7 @@ export const sdLesson3_3: CoursivLesson = {
     createPlaygroundBlock(
       'Production Planning',
       'Plan a production workflow.',
-      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.png' },
+      { name: 'Stable Diffusion', icon: '🎨', logo: '/images/ai-tools/stable-diffusion.jpg' },
       'For [project_type], I need to [step1], then [step2], and finally [step3].',
       [
         { id: 'project_type', placeholder: 'project type', correctAnswer: 'a product photo series' },
@@ -1302,7 +1302,7 @@ export const sdLesson3_3: CoursivLesson = {
       'Production workflows require planning and consistency.',
       { title: 'Production ready!', message: "You understand production workflows!" },
       { title: 'Try again', message: 'Think about the logical order of production steps.' },
-      '/images/course/stable-diffusion/sd-production.png',
+      '/images/course/stable-diffusion/sd-production.jpg',
       'Consistency in settings and prompts is key to professional results.',
       `🏭 **Production Workflow Guide**
 

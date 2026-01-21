@@ -47,7 +47,7 @@ export const claudeLesson1_1: CoursivLesson = {
     createPlaygroundBlock(
       'Your First Claude Conversation',
       'Start a thoughtful conversation with Claude.',
-      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.jpg' },
       'I need help [task]. Please consider [consideration] and provide [output_type].',
       [
         { id: 'task', placeholder: 'task', correctAnswer: 'analyzing this complex topic' },
@@ -58,7 +58,7 @@ export const claudeLesson1_1: CoursivLesson = {
       'Claude excels at nuanced, thoughtful analysis.',
       { title: 'Great start!', message: "You've engaged Claude's analytical strengths!" },
       { title: 'Try again', message: 'Ask for analysis that leverages Claude\'s thoughtfulness.' },
-      '/images/course/claude/claude-first.png',
+      '/images/course/claude/claude-first.jpg',
       'Claude is particularly strong at nuanced analysis and considering multiple viewpoints.',
       `Thank you for this thoughtful request. I'd be happy to help you analyze this complex topic while considering multiple perspectives.
 
@@ -134,7 +134,7 @@ export const claudeLesson1_2: CoursivLesson = {
     createPlaygroundBlock(
       'Crafting Clear Requests',
       'Practice making clear, contextual requests to Claude.',
-      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.jpg' },
       'I am a [role] working on [project]. I need you to [task] while keeping in mind [constraint].',
       [
         { id: 'role', placeholder: 'role', correctAnswer: 'product manager' },
@@ -146,7 +146,7 @@ export const claudeLesson1_2: CoursivLesson = {
       'Context helps Claude provide more relevant, tailored responses.',
       { title: 'Clear communication!', message: "You've provided excellent context!" },
       { title: 'Try again', message: 'Include more context about your situation.' },
-      '/images/course/claude/claude-clear.png',
+      '/images/course/claude/claude-clear.jpg',
       'The more context you provide, the more tailored Claude\'s response will be.',
       `I understand you're a product manager preparing for a mobile app launch with budget constraints. I'd be happy to review your launch checklist with that context in mind.
 
@@ -219,7 +219,7 @@ export const claudeLesson1_3: CoursivLesson = {
     createPlaygroundBlock(
       'Requesting Analysis',
       'Ask Claude to perform a specific type of analysis.',
-      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.jpg' },
       'Please perform a [analysis_type] analysis of [subject]. Focus on [focus_area] and present findings as [format].',
       [
         { id: 'analysis_type', placeholder: 'analysis type', correctAnswer: 'comparative' },
@@ -231,7 +231,7 @@ export const claudeLesson1_3: CoursivLesson = {
       'Specify the type of analysis, subject, focus, and desired output format.',
       { title: 'Analytical!', message: "You've structured an effective analysis request!" },
       { title: 'Try again', message: 'Be more specific about what kind of analysis you need.' },
-      '/images/course/claude/claude-analysis.png',
+      '/images/course/claude/claude-analysis.jpg',
       'Specifying the analysis type and output format helps Claude deliver exactly what you need.',
       `I'll perform a comparative analysis of the two business strategies, focusing on risk and reward.
 
@@ -380,7 +380,7 @@ export const claudeLesson2_1: CoursivLesson = {
     createPlaygroundBlock(
       'Analyzing Long Documents',
       'Structure a request for long document analysis.',
-      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.jpg' },
       'I\'ve uploaded a [document_type]. Please [primary_task] and then [secondary_task]. Focus especially on [focus_area].',
       [
         { id: 'document_type', placeholder: 'document type', correctAnswer: '50-page research report' },
@@ -392,7 +392,7 @@ export const claudeLesson2_1: CoursivLesson = {
       'Break down your analysis into primary and secondary tasks.',
       { title: 'Document master!', message: "You've structured an effective document analysis!" },
       { title: 'Try again', message: 'Be specific about what you want from the document.' },
-      '/images/course/claude/claude-analysis.png',
+      '/images/course/claude/claude-analysis.jpg',
       'Claude can hold entire documents in context and answer questions about any part.',
       `I've analyzed your 50-page research report. Here's my comprehensive analysis:
 
@@ -479,7 +479,7 @@ export const claudeLesson2_2: CoursivLesson = {
     createPlaygroundBlock(
       'Requesting Code Review',
       'Ask Claude to review code with specific focus areas.',
-      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.jpg' },
       'Please review this [code_type] code. Focus on [focus1] and [focus2]. Suggest improvements for [improvement_area].',
       [
         { id: 'code_type', placeholder: 'code type', correctAnswer: 'Python API' },
@@ -491,7 +491,7 @@ export const claudeLesson2_2: CoursivLesson = {
       'Specify the code type and what aspects you want reviewed.',
       { title: 'Code review ready!', message: "You've structured an effective code review request!" },
       { title: 'Try again', message: 'Be specific about what aspects of the code to review.' },
-      '/images/course/claude/claude-code.png',
+      '/images/course/claude/claude-code.jpg',
       'Claude can review entire codebases and understand how components interact.',
       `I've reviewed your Python API code. Here's my comprehensive analysis:
 
@@ -600,7 +600,7 @@ export const claudeLesson2_3: CoursivLesson = {
     createPlaygroundBlock(
       'Research Assistance',
       'Ask Claude to help with a research task.',
-      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.jpg' },
       'I\'m researching [topic]. Please help me [task] by [approach]. I need this for [purpose].',
       [
         { id: 'topic', placeholder: 'topic', correctAnswer: 'AI ethics in healthcare' },
@@ -612,7 +612,7 @@ export const claudeLesson2_3: CoursivLesson = {
       'Specify your research topic, task, approach, and purpose.',
       { title: 'Research ready!', message: "You've structured an effective research request!" },
       { title: 'Try again', message: 'Be more specific about your research needs.' },
-      '/images/course/claude/claude-analysis.png',
+      '/images/course/claude/claude-analysis.jpg',
       'Claude can synthesize information across multiple sources and identify patterns.',
       `I'll help you synthesize the main arguments in AI ethics in healthcare by comparing different frameworks for your literature review.
 
@@ -762,7 +762,7 @@ export const claudeLesson3_1: CoursivLesson = {
     createPlaygroundBlock(
       'Understanding API Calls',
       'Learn the structure of Claude API requests.',
-      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.jpg' },
       'To call the Claude API, I need to specify the [component1], provide [component2], and set [component3] for response length.',
       [
         { id: 'component1', placeholder: 'component 1', correctAnswer: 'model version' },
@@ -773,7 +773,7 @@ export const claudeLesson3_1: CoursivLesson = {
       'The API requires model, messages, and max_tokens at minimum.',
       { title: 'API ready!', message: "You understand Claude API structure!" },
       { title: 'Try again', message: 'Think about the essential API parameters.' },
-      '/images/course/claude/claude-api.png',
+      '/images/course/claude/claude-api.jpg',
       'The Messages API is the primary way to interact with Claude programmatically.',
       `Excellent! Here's a complete guide to Claude API integration:
 
@@ -873,7 +873,7 @@ export const claudeLesson3_2: CoursivLesson = {
     createPlaygroundBlock(
       'Enterprise Implementation',
       'Plan an enterprise Claude implementation.',
-      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.png' },
+      { name: 'Claude', icon: '🤖', logo: '/images/ai-tools/claude.jpg' },
       'For our [department], we could implement Claude to [use_case]. This would improve [benefit] while ensuring [safeguard].',
       [
         { id: 'department', placeholder: 'department', correctAnswer: 'legal team' },
@@ -885,7 +885,7 @@ export const claudeLesson3_2: CoursivLesson = {
       'Consider the use case, benefits, and necessary safeguards.',
       { title: 'Enterprise ready!', message: "You've planned a thoughtful implementation!" },
       { title: 'Try again', message: 'Include safeguards alongside benefits.' },
-      '/images/course/claude/claude-enterprise.png',
+      '/images/course/claude/claude-enterprise.jpg',
       'Enterprise implementations should balance efficiency gains with appropriate human oversight.',
       `Excellent implementation plan! Here's a detailed roadmap for your legal team:
 
