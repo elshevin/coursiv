@@ -33,22 +33,10 @@ export default function Subscription() {
     }
   }, [loading, isAuthenticated, setLocation]);
 
-  // Show loading while checking auth
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50">
-        <Loader2 className="w-8 h-8 animate-spin text-[#5A4CFF]" />
-      </div>
-    );
-  }
-
-  // Don't render if not authenticated (will redirect)
-  if (!isAuthenticated) {
-    return null;
-  }
-
-  // Countdown timer
+  // Countdown timer - moved before conditional returns
   useEffect(() => {
+    if (!isAuthenticated) return; // Don't run if not authenticated
+    
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev.seconds > 0) {
@@ -61,10 +49,12 @@ export default function Subscription() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isAuthenticated]);
 
-  // Load FastSpring script
+  // Load FastSpring script - moved before conditional returns
   useEffect(() => {
+    if (!isAuthenticated) return; // Don't run if not authenticated
+    
     // Define callback for successful purchase
     (window as any).fastspringOnPopupClosed = (orderReference: any) => {
       if (orderReference && orderReference.id) {
@@ -88,7 +78,21 @@ export default function Subscription() {
       }
       delete (window as any).fastspringOnPopupClosed;
     };
-  }, [setLocation]);
+  }, [setLocation, isAuthenticated]);
+
+  // Show loading while checking auth
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50">
+        <Loader2 className="w-8 h-8 animate-spin text-[#5A4CFF]" />
+      </div>
+    );
+  }
+
+  // Don't render if not authenticated (will redirect)
+  if (!isAuthenticated) {
+    return null;
+  }
 
   const handleSkip = () => {
     setLocation('/dashboard');
@@ -155,7 +159,7 @@ export default function Subscription() {
       <header className="w-full px-4 py-4 border-b border-[#E2E5E9] bg-white sticky top-0 z-50">
         <div className="max-w-[1200px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <img src="/2-332.svg" alt="Coursiv" className="h-8" />
+            <img src="/logo.png" alt="Coursiv" className="h-8" />
             <div className="hidden sm:flex items-center gap-2 text-sm text-gray-500">
               <Clock className="w-4 h-4 text-red-500" />
               <span>Discount expires in</span>
@@ -243,18 +247,17 @@ export default function Subscription() {
                   {/* Professional Icon with Badges */}
                   <div className="flex justify-center mb-8">
                     <div className="relative w-28 h-28 md:w-32 md:h-32">
-                      <div className="w-full h-full rounded-2xl bg-gradient-to-br from-emerald-100 to-emerald-200 flex items-center justify-center shadow-inner">
-                        <svg className="w-14 h-14 md:w-16 md:h-16 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <div className="w-full h-full rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg">
+                        <svg className="w-14 h-14 md:w-16 md:h-16 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                           <circle cx="12" cy="8" r="4" />
                           <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
-                          <path d="M15 2l2 2-2 2" strokeLinecap="round" strokeLinejoin="round" />
-                          <path d="M19 4h-4" strokeLinecap="round" />
+                          <path d="M9 7.5c0 0 0.5 1 1.5 1s1.5-1 1.5-1" strokeLinecap="round" />
                         </svg>
                       </div>
-                      {/* Improvement Badges */}
-                      <div className="absolute -top-2 -right-2 bg-emerald-500 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-pulse">+45%</div>
-                      <div className="absolute top-8 -right-4 md:-right-6 bg-emerald-500 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded-full shadow-lg">+72%</div>
-                      <div className="absolute bottom-2 -right-2 bg-emerald-500 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded-full shadow-lg">+35%</div>
+                      {/* Floating badges */}
+                      <div className="absolute -top-2 -right-2 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md">+45%</div>
+                      <div className="absolute -bottom-1 -right-3 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md">+72%</div>
+                      <div className="absolute bottom-2 -left-3 bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md">+35%</div>
                     </div>
                   </div>
                   
@@ -262,8 +265,8 @@ export default function Subscription() {
                   <div className="mb-6">
                     <p className="text-sm font-medium text-[#24234C] mb-3">AI skills</p>
                     <div className="relative h-2.5 bg-gray-100 rounded-full overflow-visible">
-                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-orange-400 via-amber-400 to-emerald-500 rounded-full transition-all" style={{ width: '85%' }}></div>
-                      <div className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-emerald-500 rounded-full shadow-md flex items-center justify-center" style={{ left: 'calc(85% - 10px)' }}>
+                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-orange-400 via-amber-400 to-emerald-400 rounded-full transition-all" style={{ width: '80%' }}></div>
+                      <div className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-emerald-500 rounded-full shadow-md flex items-center justify-center" style={{ left: 'calc(80% - 10px)' }}>
                         <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
                       </div>
                     </div>
@@ -276,230 +279,229 @@ export default function Subscription() {
                   <div>
                     <p className="text-sm font-medium text-[#24234C] mb-3">Practical Readiness</p>
                     <div className="relative h-2.5 bg-gray-100 rounded-full overflow-visible">
-                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all" style={{ width: '80%' }}></div>
-                      <div className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-blue-600 rounded-full shadow-md flex items-center justify-center" style={{ left: 'calc(80% - 10px)' }}>
-                        <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500 rounded-full transition-all" style={{ width: '85%' }}></div>
+                      <div className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-purple-500 rounded-full shadow-md flex items-center justify-center" style={{ left: 'calc(85% - 10px)' }}>
+                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                       </div>
                     </div>
-                    <p className="text-sm text-emerald-600 font-semibold mt-3 text-center">High</p>
+                    <p className="text-sm text-emerald-600 font-medium mt-3 text-center">High</p>
                   </div>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <p className="text-center text-xs text-gray-400 mt-3">This is not a guarantee or promise of results.</p>
+          <p className="text-xs text-gray-400 text-center mt-3">This is not a guarantee or promise of results.</p>
         </div>
 
-        {/* Readiness Score */}
+        {/* Your readiness section */}
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-[#24234C]">
-            Your readiness: <span className="text-[#5A4CFF]">83%</span>
+          <h2 className="text-xl font-semibold text-[#24234C] mb-2">
+            Your readiness: <span className="text-emerald-500">83%</span>
           </h2>
-          <div className="flex items-center justify-center gap-2 mt-3 text-gray-600">
+          <div className="inline-flex items-center gap-2 bg-gray-50 rounded-full px-4 py-2">
             <span className="text-[#5A4CFF] font-semibold">4-week</span>
-            <span>program is enough for you to start your AI journey</span>
+            <span className="text-gray-600">program is enough for you to start your AI journey</span>
             <span className="text-xl">💡</span>
           </div>
         </div>
 
-        {/* Pricing Plans */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-[#24234C] text-center mb-8">
-            Choose Your Plan
-          </h2>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Monthly Plan */}
-            <Card 
-              className={getCardClass('monthly')}
-              onClick={() => setSelectedPlan('monthly')}
-            >
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-[#24234C]">Monthly</h3>
-                  <div className={getRadioClass('monthly')}>
-                    {selectedPlan === 'monthly' && <Check className="w-3 h-3 text-white" />}
-                  </div>
+        {/* Pricing Cards */}
+        <div className="grid md:grid-cols-2 gap-6 mb-12">
+          {/* Yearly Plan */}
+          <Card 
+            className={getCardClass('yearly', true)}
+            onClick={() => setSelectedPlan('yearly')}
+          >
+            {/* Best Value Badge */}
+            <div className="absolute top-0 right-0 bg-gradient-to-r from-[#5A4CFF] to-purple-500 text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl">
+              BEST VALUE - SAVE 50%
+            </div>
+            
+            <CardContent className="p-6 pt-10">
+              <div className="flex items-center gap-3 mb-4">
+                <div className={getRadioClass('yearly')}>
+                  {selectedPlan === 'yearly' && <Check className="w-3 h-3 text-white" />}
                 </div>
-                
-                <div className="mb-4">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold text-[#24234C]">$0.33</span>
-                    <span className="text-gray-500">/day</span>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-1">$9.99 billed monthly</p>
+                <div>
+                  <h3 className="text-lg font-bold text-[#24234C]">Yearly Plan</h3>
+                  <p className="text-sm text-gray-500">Best for committed learners</p>
                 </div>
-
-                <ul className="space-y-3 mb-6">
-                  {monthlyFeatures.map((feature, index) => (
-                    <li key={index} className="flex items-center gap-3">
-                      {feature.included ? (
-                        <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                          <Check className="w-3 h-3 text-green-600" />
-                        </div>
-                      ) : (
-                        <div className="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
-                          <X className="w-3 h-3 text-gray-400" />
-                        </div>
-                      )}
-                      <span className={feature.included ? "text-sm text-[#24234C]" : "text-sm text-gray-400"}>
-                        {feature.text}
-                        {feature.comingSoon && <span className="ml-1 text-xs text-[#5A4CFF]">(Coming Soon)</span>}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleSubscribe('monthly');
-                  }}
-                  variant={selectedPlan === 'monthly' ? 'default' : 'outline'}
-                  className={getButtonClass('monthly', true)}
-                >
-                  Start Monthly Plan
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Yearly Plan */}
-            <Card 
-              className={getCardClass('yearly', true)}
-              onClick={() => setSelectedPlan('yearly')}
-            >
-              {/* Best Value Badge */}
-              <div className="absolute top-0 right-0 bg-gradient-to-r from-[#5A4CFF] to-purple-500 text-white text-xs font-medium px-4 py-1 rounded-bl-lg">
-                BEST VALUE - SAVE 50%
               </div>
-              
-              <CardContent className="p-6 pt-8">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-[#24234C]">Yearly</h3>
-                  <div className={getRadioClass('yearly')}>
-                    {selectedPlan === 'yearly' && <Check className="w-3 h-3 text-white" />}
-                  </div>
-                </div>
-                
-                <div className="mb-4">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold text-[#24234C]">$0.16</span>
-                    <span className="text-gray-500">/day</span>
-                  </div>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-sm text-gray-400 line-through">$119.88</span>
-                    <span className="text-sm text-gray-500">$59.99 billed yearly</span>
-                  </div>
-                </div>
 
-                {/* Free Trial Badge */}
-                <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-2 mb-4 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-green-700 font-medium">7-day free trial included</span>
+              {/* Free Trial Badge */}
+              <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2 mb-4 flex items-center gap-2">
+                <Shield className="w-5 h-5 text-emerald-600" />
+                <span className="text-emerald-700 font-medium text-sm">7-Day Free Trial Included</span>
+              </div>
+
+              {/* Pricing */}
+              <div className="mb-6">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-4xl font-bold text-[#24234C]">$0.16</span>
+                  <span className="text-gray-500">/day</span>
                 </div>
+                <p className="text-sm text-gray-500 mt-1">$59.99 billed annually</p>
+                <p className="text-xs text-gray-400 line-through">$119.88/year</p>
+              </div>
 
-                <ul className="space-y-3 mb-6">
-                  {yearlyFeatures.map((feature, index) => (
-                    <li key={index} className="flex items-center gap-3">
-                      <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                        <Check className="w-3 h-3 text-green-600" />
-                      </div>
-                      <span className="text-sm text-[#24234C]">
-                        {feature.text}
-                        {feature.comingSoon && <span className="ml-1 text-xs text-[#5A4CFF]">(Coming Soon)</span>}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+              {/* Features */}
+              <ul className="space-y-3 mb-6">
+                {yearlyFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    {feature.included ? (
+                      <Check className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                    ) : (
+                      <X className="w-5 h-5 text-gray-300 flex-shrink-0 mt-0.5" />
+                    )}
+                    <span className={feature.included ? "text-gray-700" : "text-gray-400"}>
+                      {feature.text}
+                      {feature.comingSoon && <span className="ml-2 text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded-full">Coming Soon</span>}
+                    </span>
+                  </li>
+                ))}
+              </ul>
 
-                <Button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleSubscribe('yearly');
-                  }}
-                  className={getButtonClass('yearly')}
-                >
-                  Start 7-Day Free Trial
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+              <Button
+                className={getButtonClass('yearly')}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleSubscribe('yearly');
+                }}
+              >
+                <Sparkles className="w-4 h-4 mr-2" />
+                Start 7-Day Free Trial
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Monthly Plan */}
+          <Card 
+            className={getCardClass('monthly')}
+            onClick={() => setSelectedPlan('monthly')}
+          >
+            <CardContent className="p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className={getRadioClass('monthly')}>
+                  {selectedPlan === 'monthly' && <Check className="w-3 h-3 text-white" />}
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-[#24234C]">Monthly Plan</h3>
+                  <p className="text-sm text-gray-500">Flexible month-to-month</p>
+                </div>
+              </div>
+
+              {/* Pricing */}
+              <div className="mb-6 mt-[52px]">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-4xl font-bold text-[#24234C]">$0.33</span>
+                  <span className="text-gray-500">/day</span>
+                </div>
+                <p className="text-sm text-gray-500 mt-1">$9.99 billed monthly</p>
+              </div>
+
+              {/* Features */}
+              <ul className="space-y-3 mb-6">
+                {monthlyFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    {feature.included ? (
+                      <Check className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                    ) : (
+                      <X className="w-5 h-5 text-gray-300 flex-shrink-0 mt-0.5" />
+                    )}
+                    <span className={feature.included ? "text-gray-700" : "text-gray-400"}>
+                      {feature.text}
+                      {feature.comingSoon && <span className="ml-2 text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">Coming Soon</span>}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <Button
+                variant="outline"
+                className={getButtonClass('monthly', true)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleSubscribe('monthly');
+                }}
+              >
+                Start Monthly Plan
+              </Button>
+            </CardContent>
+          </Card>
         </div>
 
-        {/* What You'll Get Section */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-[#24234C] text-center mb-8">
-            What You'll Get
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { icon: BookOpen, title: 'All Courses', desc: 'Unlimited access' },
-              { icon: Award, title: 'Certificates', desc: 'Earn credentials' },
-              { icon: Rocket, title: 'New Content', desc: 'Weekly updates' },
-              { icon: Shield, title: 'Guarantee', desc: '30-day refund' },
-            ].map((item, index) => (
-              <Card key={index} className="border-[#E2E5E9]">
-                <CardContent className="p-4 text-center">
-                  <div className="w-12 h-12 rounded-full bg-[#5A4CFF]/10 flex items-center justify-center mx-auto mb-3">
-                    <item.icon className="w-6 h-6 text-[#5A4CFF]" />
-                  </div>
-                  <h4 className="font-semibold text-[#24234C] text-sm">{item.title}</h4>
-                  <p className="text-xs text-gray-500">{item.desc}</p>
-                </CardContent>
-              </Card>
-            ))}
+        {/* Trust Indicators */}
+        <div className="grid grid-cols-3 gap-4 mb-12">
+          <div className="text-center p-4 bg-white rounded-xl border border-[#E2E5E9]">
+            <Shield className="w-8 h-8 text-[#5A4CFF] mx-auto mb-2" />
+            <p className="text-sm font-medium text-[#24234C]">30-Day Money Back</p>
+            <p className="text-xs text-gray-500">No questions asked</p>
+          </div>
+          <div className="text-center p-4 bg-white rounded-xl border border-[#E2E5E9]">
+            <BookOpen className="w-8 h-8 text-[#5A4CFF] mx-auto mb-2" />
+            <p className="text-sm font-medium text-[#24234C]">16+ Courses</p>
+            <p className="text-xs text-gray-500">Updated regularly</p>
+          </div>
+          <div className="text-center p-4 bg-white rounded-xl border border-[#E2E5E9]">
+            <Award className="w-8 h-8 text-[#5A4CFF] mx-auto mb-2" />
+            <p className="text-sm font-medium text-[#24234C]">Certificates</p>
+            <p className="text-xs text-gray-500">Share your progress</p>
           </div>
         </div>
 
         {/* Testimonials */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-[#24234C] text-center mb-8">
-            What Our Users Say
-          </h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            {[
-              { name: 'Sarah M.', role: 'Marketing Manager', text: 'Coursiv helped me automate 80% of my content creation. Worth every penny!' },
-              { name: 'John D.', role: 'Entrepreneur', text: 'The AI courses alone saved me months of learning. Amazing value.' },
-              { name: 'Emily R.', role: 'Freelancer', text: 'I doubled my productivity in just 2 weeks. Highly recommend!' },
-            ].map((testimonial, index) => (
-              <Card key={index} className="border-[#E2E5E9]">
-                <CardContent className="p-4">
-                  <div className="flex gap-1 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    ))}
-                  </div>
-                  <p className="text-sm text-[#24234C] mb-3">"{testimonial.text}"</p>
-                  <div>
-                    <p className="font-medium text-sm text-[#24234C]">{testimonial.name}</p>
-                    <p className="text-xs text-gray-500">{testimonial.role}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          <h3 className="text-lg font-semibold text-[#24234C] text-center mb-6">What our learners say</h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <Card className="border-[#E2E5E9]">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-1 mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <p className="text-sm text-gray-600 mb-3">"The AI courses completely changed how I work. I'm now 3x more productive with ChatGPT!"</p>
+                <p className="text-xs text-gray-500">— Sarah M., Marketing Manager</p>
+              </CardContent>
+            </Card>
+            <Card className="border-[#E2E5E9]">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-1 mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <p className="text-sm text-gray-600 mb-3">"Best investment in my career. The practical exercises made everything click."</p>
+                <p className="text-xs text-gray-500">— James K., Software Developer</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
 
-        {/* Skip Option */}
-        <div className="text-center pb-8">
-          <button 
+        {/* Skip option */}
+        <div className="text-center">
+          <button
             onClick={handleSkip}
-            className="text-gray-400 hover:text-gray-600 text-sm underline transition-colors"
+            className="text-gray-400 hover:text-gray-600 text-sm underline"
           >
-            No thanks, I'll continue with limited access
+            Skip for now
           </button>
         </div>
       </main>
 
-      {/* Sticky Bottom CTA for Mobile */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 md:hidden">
-        <Button 
-          onClick={() => handleSubscribe(selectedPlan)}
-          className="w-full h-12 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-xl font-medium"
-        >
-          {selectedPlan === 'yearly' ? 'Start 7-Day Free Trial' : 'Start Monthly Plan'} - ${selectedPlan === 'yearly' ? '0.16' : '0.33'}/day
-        </Button>
-      </div>
+      {/* Footer */}
+      <footer className="border-t border-[#E2E5E9] py-6 mt-12">
+        <div className="max-w-[900px] mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-gray-400">© 2025 Coursiv Limited. All rights reserved.</p>
+            <div className="flex items-center gap-4">
+              <a href="/privacy-policy" className="text-xs text-gray-400 hover:text-gray-600">Privacy Policy</a>
+              <a href="/terms" className="text-xs text-gray-400 hover:text-gray-600">Terms</a>
+              <a href="/subscription-terms" className="text-xs text-gray-400 hover:text-gray-600">Subscription Terms</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
