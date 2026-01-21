@@ -56,6 +56,13 @@ export function getAllChallengesWithProgress(): (Challenge & { currentDay: numbe
   return challengeData.map(getChallengeWithProgress);
 }
 
+// Get a single challenge by ID with computed currentDay
+export function getChallengeById(id: string): (Challenge & { currentDay: number }) | undefined {
+  const challenge = challengeData.find(c => c.id === id);
+  if (!challenge) return undefined;
+  return getChallengeWithProgress(challenge);
+}
+
 // 4 Challenges with daily tasks - All tasks linked to course modules
 // startDate is set to actual dates for active challenges
 export const challengeData: Challenge[] = [
