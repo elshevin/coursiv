@@ -482,7 +482,7 @@ export default function LandingPage() {
         <div className="max-w-[1280px] mx-auto px-4">
           <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16">
             <div>
-              <img src="/2-2745.svg" alt="Learnway Logo" className="h-8 mb-6" />
+              <img src="/learnway_script.png" alt="Learnway Logo" className="h-8 mb-6" />
             </div>
             
             <div className="flex gap-16 flex-wrap">
