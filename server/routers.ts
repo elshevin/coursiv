@@ -278,13 +278,13 @@ export const appRouter = router({
 
         // Send email via Resend
         const resend = new Resend(process.env.RESEND_API_KEY);
-        const resetUrl = `${process.env.APP_URL || 'https://coursiv-production.up.railway.app'}/reset-password?token=${token}`;
+        const resetUrl = `${process.env.APP_URL || 'https://learnway.io'}/reset-password?token=${token}`;
 
         try {
           await resend.emails.send({
-            from: 'Coursiv <noreply@resend.dev>',
+            from: 'Learnway <noreply@resend.dev>',
             to: input.email,
-            subject: 'Reset Your Coursiv Password',
+            subject: 'Reset Your Learnway Password',
             html: `
               <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                 <h2 style="color: #7c3aed;">Reset Your Password</h2>
@@ -296,7 +296,7 @@ export const appRouter = router({
                 <p>This link will expire in 1 hour.</p>
                 <p>If you didn't request this, you can safely ignore this email.</p>
                 <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
-                <p style="color: #666; font-size: 12px;">Coursiv - Master AI Skills</p>
+                <p style="color: #666; font-size: 12px;">Learnway - Master AI Skills</p>
               </div>
             `,
           });
