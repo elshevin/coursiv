@@ -10,6 +10,7 @@ import { WeeklyStreaks } from "@/components/WeeklyStreaks";
 import { TopNavbar } from "@/components/TopNavbar";
 import { StreakDetailModal } from "@/components/StreakDetailModal";
 import { OnboardingModal } from "@/components/OnboardingModal";
+import { SubscriptionModal } from "@/components/SubscriptionModal";
 import { 
   Home, 
   BookOpen, 
@@ -43,7 +44,7 @@ const XP_PER_LESSON = 50;
 export default function Dashboard() {
   const params = useParams();
   const [, setLocation] = useLocation();
-  const { user, logout, isAuthenticated, isLoading } = useEmailAuth();
+  const { user, logout, isAuthenticated, isLoading, isSubscribed } = useEmailAuth();
   const { isTestModeEnabled, isTestModeAllowed, toggleTestMode } = useTestMode();
   const { theme, toggleTheme } = useTheme();
   const currentTab = params.tab || 'home';
@@ -55,6 +56,9 @@ export default function Dashboard() {
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
   // Track if onboarding has been completed in this session (to prevent re-showing after navigation)
   const [onboardingCompletedInSession, setOnboardingCompletedInSession] = useState(false);
+  
+  // Subscription modal state
+  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
   
   // Update settings mutation
   const updateSettingsMutation = trpc.emailAuth.updateSettings.useMutation();
@@ -217,6 +221,20 @@ export default function Dashboard() {
     } catch (error) {
       console.error('Failed to save onboarding status:', error);
     }
+  };
+
+  // Handle content click with subscription check
+  const handleContentClick = (e: React.MouseEvent, targetUrl: string) => {
+    // Allow access if subscribed or in test mode
+    if (isSubscribed || isTestModeEnabled) {
+      setLocation(targetUrl);
+      return;
+    }
+    
+    // Block access and show subscription modal
+    e.preventDefault();
+    e.stopPropagation();
+    setIsSubscriptionModalOpen(true);
   };
 
   // Calculate real progress for each course
@@ -382,8 +400,15 @@ export default function Dashboard() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {inProgressCourses.map((course) => (
-                    <Link key={course.id} href={`/course/${course.slug}`}>
-                      <Card className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer" data-testid={`course-card-${course.slug}`}>
+                    <div key={course.id} onClick={(e) => handleContentClick(e, `/course/${course.slug}`)} className="cursor-pointer">
+                      <Card className="border-[#E2E5E9] overflow-hidden hover-lift relative" data-testid={`course-card-${course.slug}`}>
+                        {!isSubscribed && !isTestModeEnabled && (
+                          <div className="absolute inset-0 bg-black/5 z-10">
+                            <div className="absolute top-2 right-2 bg-white/90 rounded-full p-1.5">
+                              <Lock className="w-4 h-4 text-gray-500" />
+                            </div>
+                          </div>
+                        )}
                         <div className="h-32 overflow-hidden">
                           <img src={course.image} alt={course.title} className="w-full h-full object-cover" />
                         </div>
@@ -396,7 +421,7 @@ export default function Dashboard() {
                           <Progress value={course.progress} className="h-2" />
                         </CardContent>
                       </Card>
-                    </Link>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -419,8 +444,15 @@ export default function Dashboard() {
                     : 0;
                   
                   return (
-                    <Link key={challenge.id} href={`/challenge/${challenge.id}`}>
-                      <Card className="border-[#E2E5E9] hover-lift cursor-pointer">
+                    <div key={challenge.id} onClick={(e) => handleContentClick(e, `/challenge/${challenge.id}`)} className="cursor-pointer">
+                      <Card className="border-[#E2E5E9] hover-lift relative">
+                        {!isSubscribed && !isTestModeEnabled && (
+                          <div className="absolute inset-0 bg-black/5 z-10 rounded-lg">
+                            <div className="absolute top-2 right-2 bg-white/90 rounded-full p-1.5">
+                              <Lock className="w-4 h-4 text-gray-500" />
+                            </div>
+                          </div>
+                        )}
                         <CardContent className="p-6">
                           <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-2">
@@ -462,7 +494,7 @@ export default function Dashboard() {
                           </div>
                         </CardContent>
                       </Card>
-                    </Link>
+                    </div>
                   );
                 })}
               </div>
@@ -480,8 +512,16 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {coursesWithProgress.map((course) => (
-                <Link key={course.id} href={`/course/${course.slug}`}>
-                  <Card className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer h-full">
+                <div key={course.id} onClick={(e) => handleContentClick(e, `/course/${course.slug}`)} className="cursor-pointer">
+                  <Card className="border-[#E2E5E9] overflow-hidden hover-lift h-full relative">
+                    {/* Lock overlay for non-subscribers */}
+                    {!isSubscribed && !isTestModeEnabled && (
+                      <div className="absolute inset-0 bg-black/5 z-10 flex items-center justify-center">
+                        <div className="absolute top-2 right-2 bg-white/90 rounded-full p-1.5">
+                          <Lock className="w-4 h-4 text-gray-500" />
+                        </div>
+                      </div>
+                    )}
                     <div className="h-40 overflow-hidden">
                       <img src={course.image} alt={course.title} className="w-full h-full object-cover" />
                     </div>
@@ -508,7 +548,7 @@ export default function Dashboard() {
                       )}
                     </CardContent>
                   </Card>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
@@ -531,8 +571,15 @@ export default function Dashboard() {
                   : 0;
                 
                 return (
-                  <Link key={challenge.id} href={`/challenge/${challenge.id}`}>
-                    <Card className="border-[#E2E5E9] overflow-hidden hover-lift cursor-pointer">
+                  <div key={challenge.id} onClick={(e) => handleContentClick(e, `/challenge/${challenge.id}`)} className="cursor-pointer">
+                    <Card className="border-[#E2E5E9] overflow-hidden hover-lift relative">
+                      {!isSubscribed && !isTestModeEnabled && (
+                        <div className="absolute inset-0 bg-black/5 z-10 rounded-lg">
+                          <div className="absolute top-2 right-2 bg-white/90 rounded-full p-1.5">
+                            <Lock className="w-4 h-4 text-gray-500" />
+                          </div>
+                        </div>
+                      )}
                       <div className="h-32 overflow-hidden relative">
                         <img src={challenge.image} alt={challenge.title} className="w-full h-full object-cover" />
                         <div className="absolute top-2 left-2">
@@ -577,7 +624,7 @@ export default function Dashboard() {
                         </div>
                       </CardContent>
                     </Card>
-                  </Link>
+                  </div>
                 );
               })}
             </div>
@@ -676,8 +723,13 @@ export default function Dashboard() {
                 </div>
                 <div className="space-y-3">
                   {coursesWithProgress.slice(0, 6).map((course) => (
-                    <Link key={course.id} href={`/course/${course.id}`}>
-                      <div className="flex items-center gap-4 p-3 rounded-xl hover:bg-[#F9FAFB] transition-colors cursor-pointer">
+                    <div key={course.id} onClick={(e) => handleContentClick(e, `/course/${course.id}`)} className="cursor-pointer">
+                      <div className="flex items-center gap-4 p-3 rounded-xl hover:bg-[#F9FAFB] transition-colors relative">
+                        {!isSubscribed && !isTestModeEnabled && (
+                          <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                            <Lock className="w-4 h-4 text-gray-400" />
+                          </div>
+                        )}
                         <div className="w-10 h-10 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
                           <img 
                             src={course.image} 
@@ -694,16 +746,18 @@ export default function Dashboard() {
                             {course.completedLessons}/{course.totalLessons} lessons • {course.progress}%
                           </p>
                         </div>
-                        {course.progress === 100 ? (
-                          <Trophy className="w-5 h-5 text-green-500" />
-                        ) : course.progress > 0 ? (
-                          <div className="text-xs font-medium text-[#5A4CFF]">{course.progress}%</div>
-                        ) : (
-                          <ChevronRight className="w-5 h-5 text-gray-400" />
+                        {(isSubscribed || isTestModeEnabled) && (
+                          course.progress === 100 ? (
+                            <Trophy className="w-5 h-5 text-green-500" />
+                          ) : course.progress > 0 ? (
+                            <div className="text-xs font-medium text-[#5A4CFF]">{course.progress}%</div>
+                          ) : (
+                            <ChevronRight className="w-5 h-5 text-gray-400" />
+                          )
                         )}
                       </div>
                       <Progress value={course.progress} className="h-1.5" />
-                    </Link>
+                    </div>
                   ))}
                 </div>
                 {coursesWithProgress.length > 6 && (
@@ -765,6 +819,13 @@ export default function Dashboard() {
         onClose={handleOnboardingClose}
         onComplete={handleOnboardingComplete}
         userName={displayName}
+      />
+
+      {/* Subscription Modal */}
+      <SubscriptionModal
+        isOpen={isSubscriptionModalOpen}
+        onClose={() => setIsSubscriptionModalOpen(false)}
+        userEmail={user?.email}
       />
     </div>
   );

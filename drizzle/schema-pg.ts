@@ -41,6 +41,12 @@ export const emailUsers = pgTable("email_users", {
   testModeEnabled: boolean("testModeEnabled").default(false),
   darkModeEnabled: boolean("darkModeEnabled").default(false),
   onboardingCompleted: boolean("onboardingCompleted").default(false),
+  // Subscription status
+  subscriptionStatus: varchar("subscriptionStatus", { length: 32 }).default("none"), // 'none', 'active', 'cancelled', 'expired'
+  subscriptionPlan: varchar("subscriptionPlan", { length: 32 }), // 'monthly', 'yearly'
+  subscriptionStartDate: timestamp("subscriptionStartDate"),
+  subscriptionEndDate: timestamp("subscriptionEndDate"),
+  fastspringSubscriptionId: varchar("fastspringSubscriptionId", { length: 128 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().notNull(),
   lastLoginAt: timestamp("lastLoginAt").defaultNow().notNull(),

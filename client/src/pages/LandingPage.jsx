@@ -494,6 +494,13 @@ export default function LandingPage() {
               </div>
               
               <div>
+                <h4 className="font-bold text-lg mb-4">Support</h4>
+                <ul className="space-y-2 text-sm text-[#24234C]/80">
+                  <li><a href="mailto:support@highlight.mobi" className="hover:text-[#5A4CFF]">support@highlight.mobi</a></li>
+                </ul>
+              </div>
+              
+              <div>
                 <h4 className="font-bold text-lg mb-4">Legal</h4>
                 <ul className="space-y-2 text-sm text-[#24234C]/80">
                   <li><a href="/privacy-policy" className="hover:text-[#5A4CFF]">Privacy Policy</a></li>

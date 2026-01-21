@@ -13,6 +13,11 @@ export interface EmailUser {
   testModeEnabled: boolean | null;
   darkModeEnabled: boolean | null;
   onboardingCompleted: boolean | null;
+  // Subscription fields
+  subscriptionStatus: string | null; // 'none', 'active', 'cancelled', 'expired'
+  subscriptionPlan: string | null; // 'monthly', 'yearly'
+  subscriptionStartDate: Date | null;
+  subscriptionEndDate: Date | null;
   createdAt: Date;
   updatedAt: Date;
   lastLoginAt: Date;
@@ -164,10 +169,27 @@ export function useEmailAuth() {
     }
   }, [updateSettingsMutation, refetch]);
 
+  // Check if user has active subscription
+  const hasActiveSubscription = useCallback(() => {
+    if (!user) return false;
+    
+    const status = user.subscriptionStatus;
+    if (status !== 'active') return false;
+    
+    // Check if subscription has expired
+    if (user.subscriptionEndDate) {
+      const endDate = new Date(user.subscriptionEndDate);
+      if (endDate < new Date()) return false;
+    }
+    
+    return true;
+  }, [user]);
+
   return {
     user,
     isLoading,
     isAuthenticated: !!user,
+    isSubscribed: hasActiveSubscription(),
     register,
     login,
     logout,

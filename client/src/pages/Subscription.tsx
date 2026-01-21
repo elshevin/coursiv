@@ -101,9 +101,7 @@ export default function Subscription() {
     return null;
   }
 
-  const handleSkip = () => {
-    setLocation('/dashboard');
-  };
+  // Skip option removed - subscription is required
 
   const handleSubscribe = (plan: 'monthly' | 'yearly') => {
     // Trigger FastSpring checkout
@@ -542,15 +540,7 @@ export default function Subscription() {
           </div>
         </div>
 
-        {/* Skip option */}
-        <div className="text-center">
-          <button
-            onClick={handleSkip}
-            className="text-gray-400 hover:text-gray-600 text-sm underline"
-          >
-            Skip for now
-          </button>
-        </div>
+        {/* Skip option removed - subscription is required */}
       </main>
 
       {/* Footer */}
@@ -559,6 +549,7 @@ export default function Subscription() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-xs text-gray-400">© 2025 Learnway Limited. All rights reserved.</p>
             <div className="flex items-center gap-4">
+              <a href="mailto:support@highlight.mobi" className="text-xs text-gray-400 hover:text-gray-600">Support</a>
               <a href="/privacy-policy" className="text-xs text-gray-400 hover:text-gray-600">Privacy Policy</a>
               <a href="/terms" className="text-xs text-gray-400 hover:text-gray-600">Terms</a>
               <a href="/subscription-terms" className="text-xs text-gray-400 hover:text-gray-600">Subscription Terms</a>
