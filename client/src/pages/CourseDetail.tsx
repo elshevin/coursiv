@@ -62,6 +62,29 @@ export default function CourseDetail() {
     }
   }, [progressData]);
 
+  // Redirect to login if not authenticated (unless in test mode)
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated && !isTestModeEnabled) {
+      setLocation('/login');
+    }
+  }, [isLoading, isAuthenticated, isTestModeEnabled, setLocation]);
+
+  // Show loading while checking auth
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-500">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render content if not authenticated (will redirect)
+  if (!isAuthenticated && !isTestModeEnabled) {
+    return null;
+  }
+
   if (!course) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -100,29 +123,6 @@ export default function CourseDetail() {
       description: "We're working on adding audio lessons.",
     });
   };
-
-  // Redirect to login if not authenticated (unless in test mode)
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated && !isTestModeEnabled) {
-      setLocation('/login');
-    }
-  }, [isLoading, isAuthenticated, isTestModeEnabled, setLocation]);
-
-  // Show loading while checking auth
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-gray-500">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Don't render content if not authenticated (will redirect)
-  if (!isAuthenticated && !isTestModeEnabled) {
-    return null;
-  }
 
   return (
     <div className="min-h-screen bg-gray-50">
