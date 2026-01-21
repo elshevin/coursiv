@@ -176,19 +176,19 @@ export function ScratchCardPage({ onComplete }: ScratchCardPageProps) {
 
       {/* Success Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-fadeIn">
-          <div className="bg-white rounded-3xl p-8 max-w-sm mx-4 text-center shadow-2xl animate-scaleIn">
-            <div className="text-6xl mb-4">🎉</div>
-            <h3 className="text-2xl font-bold text-[#24234C] mb-2">Wooo hooo!</h3>
-            <p className="text-[#24234C]/60 mb-2">You unlocked your own</p>
-            <p className="text-4xl font-bold text-[#5A4CFF] mb-6">50% off</p>
-            <p className="text-sm text-[#24234C]/40 mb-6">& a personalized learning plan</p>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-fadeIn px-4">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-[320px] text-center shadow-2xl animate-scaleIn">
+            <div className="text-5xl mb-3">🎉</div>
+            <h3 className="text-xl font-bold text-[#24234C] mb-1">Wooo hooo!</h3>
+            <p className="text-sm text-[#24234C]/60 mb-1">You unlocked your own</p>
+            <p className="text-3xl font-bold text-[#5A4CFF] mb-1">50% off</p>
+            <p className="text-xs text-[#24234C]/40 mb-5">& a personalized learning plan</p>
             
             <Button
               onClick={handleClaimDiscount}
-              className="w-full h-14 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-lg font-medium"
+              className="w-full h-12 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-sm font-medium"
             >
-              CLAIM MY DISCOUNT
+              Claim My Discount
             </Button>
           </div>
         </div>
