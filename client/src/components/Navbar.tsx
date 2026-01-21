@@ -40,7 +40,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
         {/* Logo - 增大尺寸 */}
         <div className="flex items-center">
           <Link href="/">
-            <img src="/logo.png" alt="Learnway" className="h-10 lg:h-12 w-auto cursor-pointer" />
+            <img src="/logo.png" alt="Learnway" className="h-12 lg:h-14 w-auto cursor-pointer" />
           </Link>
         </div>
         
