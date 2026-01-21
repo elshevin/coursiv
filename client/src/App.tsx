@@ -26,6 +26,8 @@ import Terms from "./pages/Terms";
 import SubscriptionTerms from "./pages/SubscriptionTerms";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import MapPage from "./pages/MapPage";
+import LearningPage from "./pages/LearningPage";
 
 function Router() {
   return (
@@ -51,6 +53,8 @@ function Router() {
       <Route path={"/privacy-policy"} component={PrivacyPolicy} />
       <Route path={"/terms"} component={Terms} />
       <Route path={"/subscription-terms"} component={SubscriptionTerms} />
+      <Route path={"/ai-map"} component={MapPage} />
+      <Route path={"/ai-learn/:levelId"} component={LearningPage} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

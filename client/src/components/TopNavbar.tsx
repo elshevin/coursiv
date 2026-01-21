@@ -8,7 +8,8 @@ import {
   User, 
   Flame,
   Menu,
-  X
+  X,
+  Gamepad2
 } from "lucide-react";
 import { StreakDetailModal } from "./StreakDetailModal";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -24,6 +25,7 @@ const navItems = [
   { id: 'guides', label: 'Guides', icon: BookOpen, path: '/dashboard/guides' },
   { id: 'challenges', label: 'Challenges', icon: Trophy, path: '/dashboard/challenges' },
   { id: 'ai-tools', label: 'AI Tools', icon: Sparkles, path: '/dashboard/ai-tools' },
+  { id: 'ai-learn', label: 'AI 闯关', icon: Gamepad2, path: '/ai-map' },
 ];
 
 export function TopNavbar({ 
