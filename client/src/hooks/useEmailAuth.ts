@@ -12,6 +12,7 @@ export interface EmailUser {
   quizAnswers: string | null;
   testModeEnabled: boolean | null;
   darkModeEnabled: boolean | null;
+  onboardingCompleted: boolean | null;
   createdAt: Date;
   updatedAt: Date;
   lastLoginAt: Date;
@@ -65,19 +66,19 @@ export function useEmailAuth() {
   const updateSettingsMutation = trpc.emailAuth.updateSettings.useMutation();
 
   useEffect(() => {
-    // Check localStorage first
-    const storedUser = getStoredUser();
-    if (storedUser) {
-      setUser(storedUser);
-      setIsLoading(false);
-    } else if (userData !== undefined) {
+    // Always prefer server data over localStorage to get latest settings
+    if (userData !== undefined) {
       setUser(userData as EmailUser | null);
       if (userData) {
         storeUser(userData as EmailUser);
       }
       setIsLoading(false);
     } else {
-      // No stored user and still loading from API
+      // Fall back to localStorage while loading
+      const storedUser = getStoredUser();
+      if (storedUser) {
+        setUser(storedUser);
+      }
       setIsLoading(false);
     }
   }, [userData]);
@@ -138,10 +139,16 @@ export function useEmailAuth() {
   const updateSettings = useCallback(async (settings: {
     testModeEnabled?: boolean;
     darkModeEnabled?: boolean;
+    onboardingCompleted?: boolean;
   }) => {
     try {
       await updateSettingsMutation.mutateAsync(settings);
-      await refetch();
+      // Refetch user data and update localStorage
+      const result = await refetch();
+      if (result.data) {
+        storeUser(result.data as EmailUser);
+        setUser(result.data as EmailUser);
+      }
     } catch (error) {
       throw error;
     }
