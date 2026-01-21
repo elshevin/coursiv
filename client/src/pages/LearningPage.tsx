@@ -1,11 +1,67 @@
 import { useState, useEffect, useRef } from "react";
-import { useRoute, Link } from "wouter";
+import { useRoute, Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Send, Sparkles, CheckCircle2, AlertCircle } from "lucide-react";
+import { ChevronLeft, Send, Sparkles, CheckCircle2, AlertCircle, PartyPopper } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
-// 模拟关卡配置数据 (后续会抽离到独立文件)
+// 进度管理 - 与 MapPage 共享逻辑
+const PROGRESS_KEY = "ai_learning_progress";
+const LEVELS_ORDER = ["chatgpt-basics", "prompt-engineering", "midjourney-art", "manus-automation"];
+
+interface LevelProgress {
+  completedLevels: string[];
+  unlockedLevels: string[];
+}
+
+function getProgress(): LevelProgress {
+  if (typeof window === "undefined") {
+    return { completedLevels: [], unlockedLevels: [LEVELS_ORDER[0]] };
+  }
+  try {
+    const saved = localStorage.getItem(PROGRESS_KEY);
+    if (saved) {
+      return JSON.parse(saved);
+    }
+  } catch (e) {
+    console.error("Failed to load progress:", e);
+  }
+  return { completedLevels: [], unlockedLevels: [LEVELS_ORDER[0]] };
+}
+
+function saveProgress(progress: LevelProgress) {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+    // 触发 storage 事件以便其他标签页同步
+    window.dispatchEvent(new Event("storage"));
+  } catch (e) {
+    console.error("Failed to save progress:", e);
+  }
+}
+
+function completeLevel(levelId: string) {
+  const progress = getProgress();
+  
+  // 标记当前关卡为已完成
+  if (!progress.completedLevels.includes(levelId)) {
+    progress.completedLevels.push(levelId);
+  }
+  
+  // 解锁下一关
+  const currentIndex = LEVELS_ORDER.indexOf(levelId);
+  if (currentIndex >= 0 && currentIndex < LEVELS_ORDER.length - 1) {
+    const nextLevelId = LEVELS_ORDER[currentIndex + 1];
+    if (!progress.unlockedLevels.includes(nextLevelId)) {
+      progress.unlockedLevels.push(nextLevelId);
+    }
+  }
+  
+  saveProgress(progress);
+  return progress;
+}
+
+// 模拟关卡配置数据
 const LEVEL_DATA = {
   "chatgpt-basics": {
     title: "ChatGPT 初体验",
@@ -19,16 +75,16 @@ const LEVEL_DATA = {
       },
       {
         id: 2,
-        mentorText: "太棒了！现在输入框已经激活。我们可以试着问它一个简单的问题，比如“帮我写一首关于春天的诗”。",
+        mentorText: "太棒了！现在输入框已经激活。我们可以试着问它一个简单的问题，比如「帮我写一首关于春天的诗」。",
         instruction: "请点击输入框右侧的【发送按钮】（模拟输入完成）。",
         hotspot: { top: "86%", left: "85%", width: "40px", height: "40px" },
         simulatedAction: "send_message"
       },
       {
         id: 3,
-        mentorText: "看！AI 马上就回复了。这就是生成式 AI 的魅力。现在，试着让它修改这首诗，让它变得更'现代'一点。",
+        mentorText: "看！AI 马上就回复了。这就是生成式 AI 的魅力。现在，试着让它修改这首诗，让它变得更现代一点。",
         instruction: "点击【重新生成】按钮（模拟追问）。",
-        hotspot: { top: "75%", left: "40%", width: "120px", height: "40px" },
+        hotspot: { bottom: "96px", left: "50%", width: "150px", height: "50px", transform: "translateX(-50%)" },
         simulatedAction: "regenerate"
       },
       {
@@ -44,12 +100,14 @@ const LEVEL_DATA = {
 
 export default function LearningPage() {
   const [match, params] = useRoute("/ai-learn/:levelId");
+  const [, setLocation] = useLocation();
   const levelId = params?.levelId || "chatgpt-basics";
   const levelConfig = LEVEL_DATA[levelId as keyof typeof LEVEL_DATA];
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [simulatedState, setSimulatedState] = useState("initial"); // initial, focused, sent, regenerated
   const [showHotspotHint, setShowHotspotHint] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const currentStep = levelConfig?.steps[currentStepIndex];
   const isLastStep = currentStepIndex === levelConfig?.steps.length - 1;
@@ -72,8 +130,13 @@ export default function LearningPage() {
     // 延迟进入下一步
     setTimeout(() => {
       if (isLastStep) {
-        // 完成关卡逻辑
-        window.location.href = "/ai-map"; // 简单跳转
+        // 完成关卡：保存进度并显示完成界面
+        completeLevel(levelId);
+        setIsCompleted(true);
+        toast.success("关卡完成！下一关已解锁！", { 
+          icon: <PartyPopper className="text-yellow-500" />,
+          duration: 3000
+        });
       } else {
         setCurrentStepIndex(prev => prev + 1);
       }
@@ -87,7 +150,24 @@ export default function LearningPage() {
     setShowHotspotHint(true);
   };
 
-  if (!levelConfig) return <div>关卡不存在</div>;
+  const handleReturnToMap = () => {
+    setLocation("/ai-map");
+  };
+
+  if (!levelConfig) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center space-y-4">
+          <div className="text-6xl">🚧</div>
+          <h2 className="text-2xl font-bold">关卡建设中</h2>
+          <p className="text-muted-foreground">这个关卡的内容正在紧张制作中，敬请期待！</p>
+          <Link href="/ai-map">
+            <Button className="rounded-full">返回地图</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-screen flex flex-col md:flex-row overflow-hidden bg-background">
@@ -105,6 +185,16 @@ export default function LearningPage() {
           </div>
         </header>
 
+        {/* 进度条 */}
+        <div className="px-4 py-2">
+          <div className="h-2 bg-muted rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-primary rounded-full transition-all duration-500"
+              style={{ width: `${((currentStepIndex + 1) / levelConfig.steps.length) * 100}%` }}
+            />
+          </div>
+        </div>
+
         <div className="flex-1 overflow-y-auto p-4 space-y-6">
           {levelConfig.steps.slice(0, currentStepIndex + 1).map((step, index) => (
             <div key={step.id} className={cn(
@@ -118,7 +208,7 @@ export default function LearningPage() {
                 <div className="bg-card p-4 rounded-2xl rounded-tl-none border border-border/50 shadow-sm">
                   <p className="text-sm leading-relaxed">{step.mentorText}</p>
                 </div>
-                {index === currentStepIndex && (
+                {index === currentStepIndex && !isCompleted && (
                   <div className="bg-primary/5 p-3 rounded-xl border border-primary/20 text-primary text-sm font-medium flex items-center gap-2 animate-pulse">
                     <div className="w-2 h-2 rounded-full bg-primary" />
                     任务：{step.instruction}
@@ -132,7 +222,7 @@ export default function LearningPage() {
       </div>
 
       {/* 右侧：模拟实操区 */}
-      <div className="flex-1 relative bg-slate-100 dark:bg-slate-900 flex items-center justify-center p-4 md:p-8" onClick={handleWrongClick}>
+      <div className="flex-1 relative bg-slate-100 dark:bg-slate-900 flex items-center justify-center p-4 md:p-8" onClick={!isCompleted ? handleWrongClick : undefined}>
         {/* 模拟界面容器 */}
         <div className="relative w-full max-w-4xl aspect-video bg-white dark:bg-slate-800 rounded-xl shadow-2xl overflow-hidden border border-border/50 transition-all duration-500">
           
@@ -205,53 +295,75 @@ export default function LearningPage() {
           </div>
 
           {/* 重新生成按钮 (仅在特定步骤显示) */}
-          {currentStep.simulatedAction === "regenerate" && (
-            <div className="absolute bottom-24 left-1/2 -translate-x-1/2">
-              <Button variant="outline" className="shadow-lg bg-white dark:bg-slate-800 gap-2">
+          {currentStep?.simulatedAction === "regenerate" && !isCompleted && (
+            <div className="absolute bottom-24 left-1/2 -translate-x-1/2 pointer-events-none">
+              <Button variant="outline" className="shadow-lg bg-white dark:bg-slate-800 gap-2 pointer-events-none">
                 <Sparkles className="w-4 h-4" /> 重新生成
               </Button>
             </div>
           )}
 
-          {/* 完成学习按钮 */}
-          {currentStep.simulatedAction === "finish" && (
-            <div className="absolute inset-0 bg-black/50 flex items-center justify-center backdrop-blur-sm animate-in fade-in">
-              <div className="bg-card p-8 rounded-3xl shadow-2xl text-center space-y-4 max-w-sm mx-4">
-                <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+          {/* 完成学习弹窗 */}
+          {isCompleted && (
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center backdrop-blur-sm animate-in fade-in z-30">
+              <div className="bg-card p-8 rounded-3xl shadow-2xl text-center space-y-4 max-w-sm mx-4 animate-in zoom-in-95">
+                <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle2 className="w-10 h-10" />
                 </div>
-                <h2 className="text-2xl font-bold">关卡完成！</h2>
-                <p className="text-muted-foreground">你已经掌握了 ChatGPT 的基础对话技巧。</p>
-                <Button size="lg" className="w-full rounded-full" onClick={() => window.location.href = "/map"}>
-                  返回地图
-                </Button>
+                <h2 className="text-2xl font-bold">🎉 关卡完成！</h2>
+                <p className="text-muted-foreground">你已经掌握了 ChatGPT 的基础对话技巧。下一关已解锁！</p>
+                <div className="flex gap-3 pt-2">
+                  <Button 
+                    variant="outline" 
+                    className="flex-1 rounded-full" 
+                    onClick={() => {
+                      setCurrentStepIndex(0);
+                      setSimulatedState("initial");
+                      setIsCompleted(false);
+                    }}
+                  >
+                    再练一次
+                  </Button>
+                  <Button 
+                    className="flex-1 rounded-full" 
+                    onClick={handleReturnToMap}
+                  >
+                    返回地图
+                  </Button>
+                </div>
               </div>
             </div>
           )}
 
-          {/* 热区层 (绝对定位覆盖) */}
-          <div 
-            className={cn(
-              "absolute cursor-pointer transition-all duration-300 z-20",
-              showHotspotHint ? "bg-blue-500/20 ring-4 ring-blue-500/50 animate-pulse" : "bg-transparent hover:bg-blue-500/10"
-            )}
-            style={{
-              top: currentStep.hotspot.top,
-              left: currentStep.hotspot.left,
-              width: currentStep.hotspot.width,
-              height: currentStep.hotspot.height,
-            }}
-            onClick={(e) => {
-              e.stopPropagation(); // 阻止触发背景的错误点击
-              handleHotspotClick();
-            }}
-          />
+          {/* 热区层 (绝对定位覆盖) - 仅在未完成时显示 */}
+          {!isCompleted && currentStep && (
+            <div 
+              className={cn(
+                "absolute cursor-pointer transition-all duration-300 z-20",
+                showHotspotHint ? "bg-blue-500/20 ring-4 ring-blue-500/50 animate-pulse" : "bg-transparent hover:bg-blue-500/10"
+              )}
+              style={{
+                top: currentStep.hotspot.top,
+                bottom: (currentStep.hotspot as any).bottom,
+                left: currentStep.hotspot.left,
+                width: currentStep.hotspot.width,
+                height: currentStep.hotspot.height,
+                transform: (currentStep.hotspot as any).transform,
+              }}
+              onClick={(e) => {
+                e.stopPropagation(); // 阻止触发背景的错误点击
+                handleHotspotClick();
+              }}
+            />
+          )}
         </div>
         
         {/* 提示文字 */}
-        <div className="absolute bottom-4 text-slate-400 text-sm pointer-events-none">
-          请在模拟界面中点击操作
-        </div>
+        {!isCompleted && (
+          <div className="absolute bottom-4 text-slate-400 text-sm pointer-events-none">
+            请在模拟界面中点击操作
+          </div>
+        )}
       </div>
     </div>
   );
