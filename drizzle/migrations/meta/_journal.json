@@ -8,6 +8,13 @@
       "when": 1768802844186,
       "tag": "0000_handy_lenny_balinger",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1737457500000,
+      "tag": "0001_add_subscription_fields",
+      "breakpoints": true
     }
   ]
 }
