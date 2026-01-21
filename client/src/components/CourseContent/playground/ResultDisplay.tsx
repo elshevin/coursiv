@@ -11,7 +11,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
 
   return (
     <div className="flex justify-start mb-6">
-      <div className="relative rounded-xl overflow-hidden bg-gray-100 max-w-[280px]">
+      <div className="relative rounded-xl overflow-hidden bg-gray-100 max-w-[360px]">
         {/* Loading State */}
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-gray-100 min-h-[120px]">
