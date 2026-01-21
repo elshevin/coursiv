@@ -211,15 +211,17 @@ export function PlaygroundPage({ block, onComplete, onBack }: PlaygroundPageProp
             
             {/* Result Image - Show immediately after correct answer */}
             {isCorrect && block.content.resultImage && !block.content.showImageOnStart && (
-              <div className="w-full rounded-xl overflow-hidden border border-gray-200 mb-4">
-                <img 
-                  src={block.content.resultImage} 
-                  alt="AI Generated Result" 
-                  className="w-full h-auto object-cover"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/images/course/success.jpg';
-                  }}
-                />
+              <div className="flex justify-center mb-4">
+                <div className="max-w-[120px] rounded-xl overflow-hidden border border-gray-200">
+                  <img 
+                    src={block.content.resultImage} 
+                    alt="AI Generated Result" 
+                    className="w-full h-auto object-cover"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/images/course/success.jpg';
+                    }}
+                  />
+                </div>
               </div>
             )}
             

@@ -18,7 +18,7 @@ export default function LessonContentV2() {
   const params = useParams<{ courseId: string; moduleId: string }>();
   const { courseId, moduleId } = params;
   const [, setLocation] = useLocation();
-  const { user } = useEmailAuth();
+  const { user, isLoading, isAuthenticated } = useEmailAuth();
   const { isTestModeEnabled } = useTestMode();
   
   const [module, setModule] = useState<CourseModule | null>(null);
@@ -139,6 +139,29 @@ export default function LessonContentV2() {
   const handleClose = () => {
     setLocation(`/course/${courseId}`);
   };
+
+  // Redirect to login if not authenticated (unless in test mode)
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated && !isTestModeEnabled) {
+      setLocation('/login');
+    }
+  }, [isLoading, isAuthenticated, isTestModeEnabled, setLocation]);
+
+  // Show loading while checking auth
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-500">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render content if not authenticated (will redirect)
+  if (!isAuthenticated && !isTestModeEnabled) {
+    return null;
+  }
 
   if (!module || blocks.length === 0) {
     return (
