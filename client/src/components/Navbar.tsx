@@ -177,7 +177,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                       Login
                     </Button>
                   </Link>
-                  <Link href="/quiz" onClick={() => { trackStartQuizClick('navbar_mobile'); setMobileMenuOpen(false); }}>
+                  <Link href="/quiz" onClick={() => { trackStartQuizClick('navbar'); setMobileMenuOpen(false); }}>
                     <Button 
                       className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full h-11 font-medium flex items-center justify-center gap-1"
                     >
