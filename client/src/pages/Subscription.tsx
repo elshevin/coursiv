@@ -5,6 +5,7 @@ import { useLocation } from "wouter";
 import { Check, X, Clock, Star, Shield, Sparkles, BookOpen, Award, Rocket, Loader2, TrendingUp, Brain, Zap, Target, ArrowRight } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useEmailAuth } from "@/hooks/useEmailAuth";
+import { trackSubscriptionPageView, trackSubscriptionSkuClick, trackSubscriptionStart, trackSubscriptionSkip } from "@/lib/analytics";
 
 // Declare FastSpring global
 declare global {
@@ -39,6 +40,13 @@ export default function Subscription() {
       setLocation('/login');
     }
   }, [loading, isAuthenticated, setLocation]);
+
+  // Track subscription page view
+  useEffect(() => {
+    if (isAuthenticated) {
+      trackSubscriptionPageView('onboarding');
+    }
+  }, [isAuthenticated]);
 
   // Countdown timer - moved before conditional returns
   useEffect(() => {
@@ -104,6 +112,10 @@ export default function Subscription() {
   // Skip option removed - subscription is required
 
   const handleSubscribe = (plan: 'monthly' | 'yearly') => {
+    // Track subscription start
+    const price = plan === 'yearly' ? 59.99 : 9.99;
+    trackSubscriptionStart(plan, price);
+    
     // Trigger FastSpring checkout
     if (window.fastspring && window.fastspring.builder) {
       window.fastspring.builder.reset();
@@ -112,6 +124,12 @@ export default function Subscription() {
     } else {
       console.error('FastSpring not loaded');
     }
+  };
+
+  const handlePlanSelect = (plan: 'monthly' | 'yearly') => {
+    setSelectedPlan(plan);
+    const price = plan === 'yearly' ? 59.99 : 9.99;
+    trackSubscriptionSkuClick(plan, price);
   };
 
   const monthlyFeatures = [
@@ -372,7 +390,7 @@ export default function Subscription() {
           {/* Yearly Plan */}
           <Card 
             className={getCardClass('yearly', true)}
-            onClick={() => setSelectedPlan('yearly')}
+            onClick={() => handlePlanSelect('yearly')}
           >
             {/* Best Value Badge */}
             <div className="absolute top-0 right-0 bg-gradient-to-r from-[#5A4CFF] to-purple-500 text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl">
@@ -439,7 +457,7 @@ export default function Subscription() {
           {/* Monthly Plan */}
           <Card 
             className={getCardClass('monthly')}
-            onClick={() => setSelectedPlan('monthly')}
+            onClick={() => handlePlanSelect('monthly')}
           >
             <CardContent className="p-6">
               <div className="flex items-center gap-3 mb-4">
@@ -543,7 +561,7 @@ export default function Subscription() {
         {/* Skip option - user can explore dashboard first */}
         <div className="text-center">
           <button
-            onClick={() => setLocation('/dashboard')}
+            onClick={() => { trackSubscriptionSkip(); setLocation('/dashboard'); }}
             className="text-sm text-gray-400 hover:text-gray-600 underline transition-colors"
           >
             Skip for now, explore first

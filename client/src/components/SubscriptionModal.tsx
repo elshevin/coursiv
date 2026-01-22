@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -9,6 +9,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Check, Crown, Sparkles, Lock, Clock } from 'lucide-react';
+import { trackSubscriptionModalView, trackSubscriptionModalSkuClick, trackSubscriptionStart } from '@/lib/analytics';
 
 declare global {
   interface Window {
@@ -30,6 +31,18 @@ interface SubscriptionModalProps {
 export function SubscriptionModal({ isOpen, onClose, userEmail }: SubscriptionModalProps) {
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'yearly'>('yearly');
   const [isProcessing, setIsProcessing] = useState(false);
+
+  // Track modal view when opened
+  useEffect(() => {
+    if (isOpen) {
+      trackSubscriptionModalView();
+    }
+  }, [isOpen]);
+
+  const handlePlanSelect = (plan: 'monthly' | 'yearly') => {
+    setSelectedPlan(plan);
+    trackSubscriptionModalSkuClick(plan);
+  };
 
   const plans = {
     monthly: {
@@ -65,6 +78,8 @@ export function SubscriptionModal({ isOpen, onClose, userEmail }: SubscriptionMo
 
   const handleSubscribe = (plan: 'monthly' | 'yearly') => {
     setIsProcessing(true);
+    const price = plan === 'yearly' ? 59.99 : 9.99;
+    trackSubscriptionStart(plan, price);
     
     // Trigger FastSpring checkout
     if (window.fastspring && window.fastspring.builder) {
@@ -117,7 +132,7 @@ export function SubscriptionModal({ isOpen, onClose, userEmail }: SubscriptionMo
                   ? 'border-[#5A4CFF] ring-2 ring-[#5A4CFF]/20' 
                   : 'border-gray-200 hover:border-gray-300'
               }`}
-              onClick={() => setSelectedPlan('monthly')}
+              onClick={() => handlePlanSelect('monthly')}
             >
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-3">
@@ -151,7 +166,7 @@ export function SubscriptionModal({ isOpen, onClose, userEmail }: SubscriptionMo
                   ? 'border-[#5A4CFF] ring-2 ring-[#5A4CFF]/20' 
                   : 'border-gray-200 hover:border-gray-300'
               }`}
-              onClick={() => setSelectedPlan('yearly')}
+              onClick={() => handlePlanSelect('yearly')}
             >
               {plans.yearly.savings && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">

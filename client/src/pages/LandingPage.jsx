@@ -21,6 +21,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import BrowserWindowAnimation from "@/components/BrowserWindowAnimation";
 import CountUp from "@/components/CountUp";
 import { ChevronRight } from "lucide-react";
+import { trackStartQuizClick } from "@/lib/analytics";
 
 export default function LandingPage() {
   return (
@@ -48,7 +49,7 @@ export default function LandingPage() {
               <p className="text-base lg:text-lg text-[#24234C]/70 mb-8 max-w-[450px] leading-[1.6]">
                 Learn AI skills to advance your career and stay competitive
               </p>
-              <Link href="/quiz/1">
+              <Link href="/quiz/1" onClick={() => trackStartQuizClick('hero')}>
                 <Button className="h-[52px] px-8 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-base font-medium flex items-center gap-1">
                   Start Now
                   <ChevronRight className="w-4 h-4" />

@@ -9,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { trackLoginClick, trackStartQuizClick } from "@/lib/analytics";
 
 interface NavbarProps {
   variant?: 'light' | 'dark';
@@ -105,7 +106,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
             ) : (
               <>
                 {/* Login Button */}
-                <Link href="/login">
+                <Link href="/login" onClick={() => trackLoginClick()}>
                   <Button 
                     variant="ghost"
                     className="text-[#24234C] hover:text-[#5A4CFF] hover:bg-transparent text-sm font-medium h-11 px-5"
@@ -114,7 +115,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                   </Button>
                 </Link>
                 {/* Start Now Button - Highlighted with arrow */}
-                <Link href="/quiz">
+                <Link href="/quiz" onClick={() => trackStartQuizClick('navbar')}>
                   <Button 
                     className="bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full px-6 h-11 text-sm font-medium flex items-center gap-1"
                   >
@@ -168,7 +169,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                 </div>
               ) : (
                 <div className="flex flex-col gap-3">
-                  <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+                  <Link href="/login" onClick={() => { trackLoginClick(); setMobileMenuOpen(false); }}>
                     <Button 
                       variant="outline"
                       className="w-full border-[#5A4CFF] text-[#5A4CFF] rounded-full h-11"
@@ -176,7 +177,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                       Login
                     </Button>
                   </Link>
-                  <Link href="/quiz" onClick={() => setMobileMenuOpen(false)}>
+                  <Link href="/quiz" onClick={() => { trackStartQuizClick('navbar_mobile'); setMobileMenuOpen(false); }}>
                     <Button 
                       className="w-full bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full h-11 font-medium flex items-center justify-center gap-1"
                     >

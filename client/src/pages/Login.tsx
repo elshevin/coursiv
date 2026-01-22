@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
 import { Loader2, Eye, EyeOff } from "lucide-react";
 import { useEmailAuth } from "@/hooks/useEmailAuth";
+import { trackLoginSuccess } from "@/lib/analytics";
 
 export default function Login() {
   const [, setLocation] = useLocation();
@@ -23,6 +24,7 @@ export default function Login() {
       console.log('[Login] Starting login...');
       const result = await login(email, password);
       console.log('[Login] Login successful:', result);
+      trackLoginSuccess();
       // Check if there's a redirect path saved
       const redirectPath = sessionStorage.getItem('redirectAfterLogin');
       if (redirectPath) {

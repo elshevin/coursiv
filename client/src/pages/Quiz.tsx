@@ -6,6 +6,7 @@ import { ChevronLeft, Loader2, Eye, EyeOff, Check, Star, TrendingUp, Brain, Targ
 import { useEmailAuth } from "@/hooks/useEmailAuth";
 import { useDemoAuth } from "@/hooks/useDemoAuth";
 import { ScratchCardPage } from "@/components/ScratchCardPage";
+import { trackQuizPageView, trackQuizContinue, trackQuizComplete, trackSignupSuccess } from "@/lib/analytics";
 
 // Quiz step types
 type QuizStepType = 
@@ -387,6 +388,15 @@ export default function Quiz() {
     }
   }, [demoUser, authLoading, setLocation]);
 
+  // Track quiz page view
+  useEffect(() => {
+    trackQuizPageView(currentStep);
+    // Track quiz complete when reaching register step
+    if (step?.type === 'register') {
+      trackQuizComplete();
+    }
+  }, [currentStep, step?.type]);
+
   // Auto-advance for loading step with progress animation
   useEffect(() => {
     if (step?.type === 'loading') {
@@ -461,6 +471,7 @@ export default function Quiz() {
       });
 
       await register(email, password, email.split('@')[0], quizAnswers);
+      trackSignupSuccess();
       setLocation('/subscription');
     } catch (err: any) {
       const errorMessage = err.message || '';
