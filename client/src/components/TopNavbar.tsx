@@ -57,9 +57,9 @@ export function TopNavbar({
                 const isActive = currentTab === item.id || (currentTab === '' && item.id === 'home');
                 return (
                   <Link key={item.id} href={item.path}>
-                    <a
+                    <span
                       className={`
-                        flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors
+                        flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer
                         ${isActive 
                           ? 'bg-purple-100 text-purple-700' 
                           : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
@@ -69,7 +69,7 @@ export function TopNavbar({
                     >
                       <Icon className="w-4 h-4" />
                       <span>{item.label}</span>
-                    </a>
+                    </span>
                   </Link>
                 );
               })}
@@ -89,9 +89,9 @@ export function TopNavbar({
 
               {/* Profile */}
               <Link href="/dashboard/profile">
-                <a
+                <span
                   className={`
-                    p-2 rounded-lg transition-colors
+                    p-2 rounded-lg transition-colors cursor-pointer inline-flex
                     ${currentTab === 'profile' 
                       ? 'bg-purple-100 text-purple-700' 
                       : 'text-gray-600 hover:bg-gray-100'
@@ -100,7 +100,7 @@ export function TopNavbar({
                   data-testid="nav-profile"
                 >
                   <User className="w-5 h-5" />
-                </a>
+                </span>
               </Link>
 
               {/* Mobile menu button */}
@@ -126,11 +126,10 @@ export function TopNavbar({
                 const Icon = item.icon;
                 const isActive = currentTab === item.id;
                 return (
-                  <Link key={item.id} href={item.path}>
-                    <a
-                      onClick={() => setIsMobileMenuOpen(false)}
+                  <Link key={item.id} href={item.path} onClick={() => setIsMobileMenuOpen(false)}>
+                    <span
                       className={`
-                        flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors
+                        flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors cursor-pointer
                         ${isActive 
                           ? 'bg-purple-100 text-purple-700' 
                           : 'text-gray-600 hover:bg-gray-100'
@@ -139,7 +138,7 @@ export function TopNavbar({
                     >
                       <Icon className="w-5 h-5" />
                       <span>{item.label}</span>
-                    </a>
+                    </span>
                   </Link>
                 );
               })}

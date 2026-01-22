@@ -194,7 +194,12 @@ export default function Subscription() {
           <Button
             variant="outline"
             className="bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white border-none rounded-full px-6"
-            onClick={() => handleSubscribe(selectedPlan)}
+            onClick={() => {
+              const pricingCards = document.getElementById('pricing-cards');
+              if (pricingCards) {
+                pricingCards.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }}
           >
             GET MY PLAN
           </Button>
@@ -386,7 +391,7 @@ export default function Subscription() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <div id="pricing-cards" className="grid md:grid-cols-2 gap-6 mb-12 scroll-mt-24">
           {/* Yearly Plan */}
           <Card 
             className={getCardClass('yearly', true)}
