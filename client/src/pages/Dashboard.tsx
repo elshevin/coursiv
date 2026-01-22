@@ -663,47 +663,47 @@ export default function Dashboard() {
         {currentTab === 'profile' && (
           <div data-testid="profile-page" className="max-w-2xl mx-auto">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-[#24234C] mb-2">Profile</h1>
-              <p className="text-[#24234C]/60">Manage your account settings</p>
+              <h1 className={`text-3xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>Profile</h1>
+              <p className={theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}>Manage your account settings</p>
             </div>
 
             <div className="space-y-6">
               {/* User Info */}
-              <div className="bg-white rounded-2xl p-6 border border-[#E2E5E9]">
+              <div className={`rounded-2xl p-6 border ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-[#E2E5E9]'}`}>
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 rounded-full bg-[#5A4CFF]/10 flex items-center justify-center">
                     <User className="w-8 h-8 text-[#5A4CFF]" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-[#24234C]">{displayName}</h2>
-                    <p className="text-[#24234C]/60">{user?.email}</p>
+                    <h2 className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>{displayName}</h2>
+                    <p className={theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}>{user?.email}</p>
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-3 gap-4 text-center">
-                  <div className="p-4 bg-[#F9FAFB] rounded-xl">
+                  <div className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-gray-700' : 'bg-[#F9FAFB]'}`}>
                     <p className="text-2xl font-bold text-[#5A4CFF]">{stats.streak}</p>
-                    <p className="text-sm text-[#24234C]/60">Day Streak</p>
+                    <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>Day Streak</p>
                   </div>
-                  <div className="p-4 bg-[#F9FAFB] rounded-xl">
+                  <div className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-gray-700' : 'bg-[#F9FAFB]'}`}>
                     <p className="text-2xl font-bold text-green-600">{stats.lessonsCompleted}</p>
-                    <p className="text-sm text-[#24234C]/60">Lessons</p>
+                    <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>Lessons</p>
                   </div>
-                  <div className="p-4 bg-[#F9FAFB] rounded-xl">
+                  <div className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-gray-700' : 'bg-[#F9FAFB]'}`}>
                     <p className="text-2xl font-bold text-amber-500">{formatXP(stats.xpEarned)}</p>
-                    <p className="text-sm text-[#24234C]/60">XP</p>
+                    <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>XP</p>
                   </div>
                 </div>
               </div>
 
               {/* Theme Toggle */}
-              <div className="bg-white rounded-2xl p-6 border border-[#E2E5E9]">
+              <div className={`rounded-2xl p-6 border ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-[#E2E5E9]'}`}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     {theme === 'dark' ? <Moon className="w-5 h-5 text-[#5A4CFF]" /> : <Sun className="w-5 h-5 text-amber-500" />}
                     <div>
-                      <p className="font-medium text-[#24234C]">Dark Mode</p>
-                      <p className="text-sm text-[#24234C]/60">Toggle dark theme</p>
+                      <p className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>Dark Mode</p>
+                      <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>Toggle dark theme</p>
                     </div>
                   </div>
                   <button
@@ -716,15 +716,15 @@ export default function Dashboard() {
               </div>
 
               {/* AI Tools Learning Progress */}
-              <div className="bg-white rounded-2xl p-6 border border-[#E2E5E9]">
+              <div className={`rounded-2xl p-6 border ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-[#E2E5E9]'}`}>
                 <div className="flex items-center gap-3 mb-4">
                   <Sparkles className="w-5 h-5 text-[#5A4CFF]" />
-                  <h3 className="text-lg font-bold text-[#24234C]">AI Tools Progress</h3>
+                  <h3 className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>AI Tools Progress</h3>
                 </div>
                 <div className="space-y-3">
                   {coursesWithProgress.slice(0, 6).map((course) => (
                     <div key={course.id} onClick={(e) => handleContentClick(e, `/course/${course.id}`)} className="cursor-pointer">
-                      <div className="flex items-center gap-4 p-3 rounded-xl hover:bg-[#F9FAFB] transition-colors relative">
+                      <div className={`flex items-center gap-4 p-3 rounded-xl transition-colors relative ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-[#F9FAFB]'}`}>
                         {!isSubscribed && !isTestModeEnabled && (
                           <div className="absolute right-3 top-1/2 -translate-y-1/2">
                             <Lock className="w-4 h-4 text-gray-400" />
@@ -741,8 +741,8 @@ export default function Dashboard() {
                           />
                         </div>
                         <div className="flex-1">
-                          <p className="font-medium text-[#24234C] text-sm">{course.title}</p>
-                          <p className="text-xs text-[#24234C]/60">
+                          <p className={`font-medium text-sm ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>{course.title}</p>
+                          <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
                             {course.completedLessons}/{course.totalLessons} lessons • {course.progress}%
                           </p>
                         </div>
@@ -771,15 +771,15 @@ export default function Dashboard() {
 
               {/* Developer Options */}
               {isTestModeAllowed && (
-                <div className="bg-white rounded-2xl p-6 border border-[#E2E5E9] mb-6">
+                <div className={`rounded-2xl p-6 border mb-6 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-[#E2E5E9]'}`}>
                   <div className="flex items-center gap-3 mb-4">
                     <FlaskConical className="w-5 h-5 text-purple-600" />
-                    <h3 className="text-lg font-bold text-[#24234C]">Developer Options</h3>
+                    <h3 className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>Developer Options</h3>
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium text-[#24234C]">Test Mode</p>
-                      <p className="text-sm text-[#24234C]/60">Unlock all content for testing</p>
+                      <p className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>Test Mode</p>
+                      <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>Unlock all content for testing</p>
                     </div>
                     <button
                       onClick={toggleTestMode}
@@ -794,7 +794,7 @@ export default function Dashboard() {
               {/* Logout */}
               <button 
                 onClick={handleLogout}
-                className="w-full flex items-center justify-center gap-2 p-4 bg-red-50 text-red-600 rounded-xl hover:bg-red-100 transition-colors font-medium"
+                className={`w-full flex items-center justify-center gap-2 p-4 rounded-xl transition-colors font-medium ${theme === 'dark' ? 'bg-red-900/30 text-red-400 hover:bg-red-900/50' : 'bg-red-50 text-red-600 hover:bg-red-100'}`}
               >
                 <LogOut className="w-5 h-5" />
                 <span>Log out</span>

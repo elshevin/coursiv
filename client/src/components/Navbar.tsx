@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { useDemoAuth } from "@/hooks/useDemoAuth";
+import { useEmailAuth } from "@/hooks/useEmailAuth";
 import { Link } from "wouter";
 import { Loader2, LogOut, User, Menu, X, ChevronRight } from "lucide-react";
 import {
@@ -16,22 +17,32 @@ interface NavbarProps {
 }
 
 export default function Navbar({ variant = 'light' }: NavbarProps) {
-  const { demoUser, isLoading, isAuthenticated, login, logout, isLoggingIn, isLoggingOut } = useDemoAuth();
+  // Support both OAuth and Email authentication
+  const { demoUser, isLoading: demoLoading, isAuthenticated: demoAuthenticated, logout: demoLogout, isLoggingOut: demoLoggingOut } = useDemoAuth();
+  const { user: emailUser, isLoading: emailLoading, isAuthenticated: emailAuthenticated, logout: emailLogout } = useEmailAuth();
+  
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const handleLogin = async () => {
-    try {
-      await login();
-    } catch (error) {
-      console.error('Login failed:', error);
-    }
-  };
+  // Combined auth state - user is authenticated if either OAuth or Email auth is valid
+  const isLoading = demoLoading || emailLoading;
+  const isAuthenticated = demoAuthenticated || emailAuthenticated;
+  const currentUser = demoUser || emailUser;
+  const displayName = demoUser?.displayName || demoUser?.username || emailUser?.name || emailUser?.email?.split('@')[0] || 'User';
 
   const handleLogout = async () => {
+    setIsLoggingOut(true);
     try {
-      await logout();
+      if (demoAuthenticated) {
+        await demoLogout();
+      }
+      if (emailAuthenticated) {
+        await emailLogout();
+      }
     } catch (error) {
       console.error('Logout failed:', error);
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 
@@ -72,7 +83,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
               <Button disabled className="bg-[#5A4CFF] text-white rounded-full px-6 h-11">
                 <Loader2 className="w-4 h-4 animate-spin" />
               </Button>
-            ) : isAuthenticated && demoUser ? (
+            ) : isAuthenticated && currentUser ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button 
@@ -80,7 +91,7 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                     className="rounded-full px-5 h-11 border-[#5A4CFF] text-[#5A4CFF] hover:bg-[#5A4CFF]/10"
                   >
                     <User className="w-4 h-4 mr-2" />
-                    {demoUser.displayName || demoUser.username}
+                    {displayName}
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
@@ -91,10 +102,10 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                   </DropdownMenuItem>
                   <DropdownMenuItem 
                     onClick={handleLogout}
-                    disabled={isLoggingOut}
+                    disabled={isLoggingOut || demoLoggingOut}
                     className="text-red-600 cursor-pointer"
                   >
-                    {isLoggingOut ? (
+                    {(isLoggingOut || demoLoggingOut) ? (
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                     ) : (
                       <LogOut className="w-4 h-4 mr-2" />
@@ -138,11 +149,11 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                 <Button disabled className="w-full bg-[#5A4CFF] text-white rounded-full h-11">
                   <Loader2 className="w-4 h-4 animate-spin" />
                 </Button>
-              ) : isAuthenticated && demoUser ? (
+              ) : isAuthenticated && currentUser ? (
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center gap-2 px-4 py-2 text-[#5A4CFF] font-medium">
                     <User className="w-4 h-4" />
-                    {demoUser.displayName || demoUser.username}
+                    {displayName}
                   </div>
                   <Link 
                     href="/dashboard" 
@@ -156,10 +167,10 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
                       handleLogout();
                       setMobileMenuOpen(false);
                     }}
-                    disabled={isLoggingOut}
+                    disabled={isLoggingOut || demoLoggingOut}
                     className="py-3 px-4 hover:bg-red-50 rounded-lg transition-colors text-red-600 text-left flex items-center gap-2"
                   >
-                    {isLoggingOut ? (
+                    {(isLoggingOut || demoLoggingOut) ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
                     ) : (
                       <LogOut className="w-4 h-4" />
