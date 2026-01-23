@@ -282,7 +282,7 @@ export const appRouter = router({
 
         try {
           await resend.emails.send({
-            from: 'Learnway <noreply@highlight.mobi>',
+            from: 'Learnway <noreply@learnway.io>',
             to: input.email,
             subject: 'Reset Your Learnway Password',
             html: `
