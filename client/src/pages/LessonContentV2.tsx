@@ -18,7 +18,7 @@ export default function LessonContentV2() {
   const params = useParams<{ courseId: string; moduleId: string }>();
   const { courseId, moduleId } = params;
   const [, setLocation] = useLocation();
-  const { user, isLoading, isAuthenticated } = useEmailAuth();
+  const { user, isLoading, isAuthenticated, isSubscribed } = useEmailAuth();
   const { isTestModeEnabled } = useTestMode();
   
   const [module, setModule] = useState<CourseModule | null>(null);
@@ -146,6 +146,13 @@ export default function LessonContentV2() {
       setLocation('/login');
     }
   }, [isLoading, isAuthenticated, isTestModeEnabled, setLocation]);
+
+  // Redirect to subscription page if not subscribed (unless in test mode)
+  useEffect(() => {
+    if (!isLoading && isAuthenticated && !isSubscribed && !isTestModeEnabled) {
+      setLocation('/subscription');
+    }
+  }, [isLoading, isAuthenticated, isSubscribed, isTestModeEnabled, setLocation]);
 
   // Show loading while checking auth
   if (isLoading) {
