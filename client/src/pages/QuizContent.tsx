@@ -10,7 +10,7 @@ export default function QuizContent() {
   const params = useParams<{ courseId: string; moduleId: string }>();
   const { courseId, moduleId } = params;
   const [, setLocation] = useLocation();
-  const { user } = useEmailAuth();
+  const { user, isLoading, isAuthenticated, isSubscribed } = useEmailAuth();
   const { isTestModeEnabled } = useTestMode();
   
   const [module, setModule] = useState<CourseModule | null>(null);
@@ -47,6 +47,20 @@ export default function QuizContent() {
   }, [courseId, moduleId]);
 
   const quiz = moduleId ? getModuleQuiz(moduleId) : null;
+
+  // Redirect to login if not authenticated (unless in test mode)
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated && !isTestModeEnabled) {
+      setLocation('/login');
+    }
+  }, [isLoading, isAuthenticated, isTestModeEnabled, setLocation]);
+
+  // Redirect to subscription if not subscribed (unless in test mode)
+  useEffect(() => {
+    if (!isLoading && isAuthenticated && !isSubscribed && !isTestModeEnabled) {
+      setLocation('/subscription');
+    }
+  }, [isLoading, isAuthenticated, isSubscribed, isTestModeEnabled, setLocation]);
 
   const handleOptionSelect = (index: number) => {
     if (showResult) return; // Don't allow changing after submission
@@ -95,6 +109,22 @@ export default function QuizContent() {
       console.error("Failed to quick complete:", error);
     }
   };
+
+  // Show loading while checking auth
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-500">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render content if not authenticated or not subscribed (will redirect)
+  if ((!isAuthenticated || !isSubscribed) && !isTestModeEnabled) {
+    return null;
+  }
 
   if (!module || !quiz) {
     return (

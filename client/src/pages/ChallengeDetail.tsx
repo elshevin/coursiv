@@ -24,7 +24,7 @@ export default function ChallengeDetail() {
   const { challengeId } = useParams<{ challengeId: string }>();
   const [, setLocation] = useLocation();
   const { isTestModeEnabled } = useTestMode();
-  const { isAuthenticated } = useEmailAuth();
+  const { isAuthenticated, isSubscribed, isLoading } = useEmailAuth();
   
   const challenge = getChallengeById(challengeId || '');
   const [selectedDay, setSelectedDay] = useState(1);
@@ -75,6 +75,20 @@ export default function ChallengeDetail() {
   const currentDay = challenge ? calculateCurrentDay(userStartDate, challenge.totalDays) : 0;
   const isStarted = !!progressData?.startedAt;
   
+  // Redirect to login if not authenticated (unless in test mode)
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated && !isTestModeEnabled) {
+      setLocation('/login');
+    }
+  }, [isLoading, isAuthenticated, isTestModeEnabled, setLocation]);
+
+  // Redirect to subscription if not subscribed (unless in test mode)
+  useEffect(() => {
+    if (!isLoading && isAuthenticated && !isSubscribed && !isTestModeEnabled) {
+      setLocation('/subscription');
+    }
+  }, [isLoading, isAuthenticated, isSubscribed, isTestModeEnabled, setLocation]);
+
   // In test mode, simulate some completed tasks
   useEffect(() => {
     if (isTestModeEnabled && !progressData) {
@@ -85,6 +99,22 @@ export default function ChallengeDetail() {
       setLocalCompletedTasks(initialCompleted);
     }
   }, [isTestModeEnabled, challenge, progressData]);
+
+  // Show loading while checking auth
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#F9FAFB] flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-500">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render content if not authenticated or not subscribed (will redirect)
+  if ((!isAuthenticated || !isSubscribed) && !isTestModeEnabled) {
+    return null;
+  }
 
   if (!challenge) {
     return (
