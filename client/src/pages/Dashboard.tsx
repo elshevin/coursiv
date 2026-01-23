@@ -205,8 +205,15 @@ export default function Dashboard() {
     } catch (error) {
       console.error('Failed to save onboarding status:', error);
     }
-    // Navigate to the selected course
-    setLocation(`/course/${selectedCourseId}`);
+    
+    // If user is subscribed or in test mode, navigate to the selected course
+    // Otherwise, show subscription modal instead of redirecting to subscription page
+    if (isSubscribed || isTestModeEnabled) {
+      setLocation(`/course/${selectedCourseId}`);
+    } else {
+      // Show subscription modal for non-subscribers
+      setIsSubscriptionModalOpen(true);
+    }
   };
 
   // Handle onboarding close (dismiss)
