@@ -101,6 +101,9 @@ export async function handleFastSpringWebhook(req: Request, res: Response) {
 function extractEmail(data: any): string | null {
   console.log('[FastSpring Webhook] Extracting email from data...');
   
+  // Log all available tags for debugging
+  console.log('[FastSpring Webhook] Tags in data:', JSON.stringify(data.tags || 'no tags'));
+  
   // First priority: use registeredEmail from tags (this is the user's Learnway account email)
   if (data.tags?.registeredEmail) {
     console.log('[FastSpring Webhook] ✓ Found registeredEmail in tags:', data.tags.registeredEmail);

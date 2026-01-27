@@ -17,6 +17,13 @@ declare global {
         checkout: () => void;
         recognize: (contact: { email: string; firstName?: string }) => void;
         tag: (tags: Record<string, string>) => void;
+        push: (sessionData: {
+          products?: Array<{ path: string; quantity: number }>;
+          tags?: Record<string, string>;
+          paymentContact?: { email?: string; firstName?: string; lastName?: string };
+          coupon?: string;
+          reset?: boolean;
+        }) => void;
       };
     };
   }
@@ -122,16 +129,22 @@ export default function Subscription() {
     if (window.fastspring && window.fastspring.builder) {
       window.fastspring.builder.reset();
       
-      // Add product first
-      window.fastspring.builder.add(plan);
-      
-      // Pass registered email as tag for webhook to identify the user
-      // tag() must be called after add() and before checkout()
+      // Get user email for webhook identification
       const userEmail = emailUser?.email || oauthUser?.email;
-      if (userEmail) {
-        window.fastspring.builder.tag({ registeredEmail: userEmail });
-        console.log('[FastSpring] Tagged with registeredEmail:', userEmail);
-      }
+      
+      // Use push() to set session data including tags
+      // This is the recommended way to pass custom data to webhooks
+      // Reference: https://developer.fastspring.com/reference/session-object
+      window.fastspring.builder.push({
+        products: [{ path: plan, quantity: 1 }],
+        tags: userEmail ? { registeredEmail: userEmail } : undefined
+      });
+      
+      console.log('[FastSpring] Session pushed with:', {
+        product: plan,
+        tags: userEmail ? { registeredEmail: userEmail } : 'no email'
+      });
+      
       window.fastspring.builder.checkout();
     } else {
       console.error('FastSpring not loaded');
