@@ -15,6 +15,8 @@ declare global {
         reset: () => void;
         add: (productPath: string) => void;
         checkout: () => void;
+        recognize: (contact: { email: string; firstName?: string }) => void;
+        tag: (tags: Record<string, string>) => void;
       };
     };
   }
@@ -119,6 +121,18 @@ export default function Subscription() {
     // Trigger FastSpring checkout
     if (window.fastspring && window.fastspring.builder) {
       window.fastspring.builder.reset();
+      
+      // Pre-fill user's registered email to ensure webhook matches
+      const userEmail = emailUser?.email || oauthUser?.email;
+      if (userEmail) {
+        window.fastspring.builder.recognize({
+          email: userEmail,
+          firstName: emailUser?.name || oauthUser?.name || undefined
+        });
+        // Also add as tag for webhook reference
+        window.fastspring.builder.tag({ registeredEmail: userEmail });
+      }
+      
       window.fastspring.builder.add(plan);
       window.fastspring.builder.checkout();
     } else {
