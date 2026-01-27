@@ -87,17 +87,19 @@ export function SubscriptionModal({ isOpen, onClose, userEmail }: SubscriptionMo
         ? 'learnway-monthly-subscription'
         : 'learnway-yearly-subscription';
       
-      // Recognize user email if available
+      window.fastspring.builder.reset();
+      
+      // Add product first
+      window.fastspring.builder.add(productPath);
+      
+      // Pass registered email as tag for webhook to identify the user
+      // tag() must be called after add() and before checkout()
       if (userEmail) {
-        window.fastspring.builder.recognize({
-          email: userEmail,
-        });
+        window.fastspring.builder.tag({ registeredEmail: userEmail });
+        console.log('[FastSpring] Tagged with registeredEmail:', userEmail);
       }
       
-      window.fastspring.builder.push({
-        products: [{ path: productPath, quantity: 1 }],
-        checkout: true,
-      });
+      window.fastspring.builder.checkout();
     } else {
       console.error('FastSpring not loaded');
       alert('Payment system is loading. Please try again in a moment.');

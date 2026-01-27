@@ -122,13 +122,16 @@ export default function Subscription() {
     if (window.fastspring && window.fastspring.builder) {
       window.fastspring.builder.reset();
       
+      // Add product first
+      window.fastspring.builder.add(plan);
+      
       // Pass registered email as tag for webhook to identify the user
+      // tag() must be called after add() and before checkout()
       const userEmail = emailUser?.email || oauthUser?.email;
       if (userEmail) {
         window.fastspring.builder.tag({ registeredEmail: userEmail });
+        console.log('[FastSpring] Tagged with registeredEmail:', userEmail);
       }
-      
-      window.fastspring.builder.add(plan);
       window.fastspring.builder.checkout();
     } else {
       console.error('FastSpring not loaded');
