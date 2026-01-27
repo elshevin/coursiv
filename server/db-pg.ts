@@ -630,3 +630,49 @@ export async function markChallengeCompleted(userId: number, userType: string, c
       .where(eq(userChallengeProgress.id, existing.id));
   }
 }
+
+// ============================================
+// Subscription Functions
+// ============================================
+
+export async function updateUserSubscription(
+  email: string,
+  status: 'none' | 'active' | 'cancelled' | 'expired',
+  plan?: 'monthly' | 'yearly',
+  subscriptionId?: string,
+  endDate?: Date
+): Promise<void> {
+  if (!db) {
+    console.warn("[Database] Cannot update subscription: database not available");
+    return;
+  }
+
+  try {
+    const user = await getEmailUserByEmail(email);
+    if (!user) {
+      console.warn(`[Database] User not found for subscription update: ${email}`);
+      return;
+    }
+
+    const updateData: any = {
+      subscriptionStatus: status,
+      updatedAt: new Date()
+    };
+
+    if (plan) updateData.subscriptionPlan = plan;
+    if (subscriptionId) updateData.fastspringSubscriptionId = subscriptionId;
+    if (endDate) updateData.subscriptionEndDate = endDate;
+    if (status === 'active') {
+      updateData.subscriptionStartDate = new Date();
+    }
+
+    await db.update(emailUsers)
+      .set(updateData)
+      .where(eq(emailUsers.id, user.id));
+    
+    console.log(`[Database] Updated subscription for ${email}: status=${status}, plan=${plan}`);
+  } catch (error) {
+    console.error("[Database] Failed to update subscription:", error);
+    throw error;
+  }
+}
