@@ -1,4 +1,4 @@
-import "dotenv/config";
+
 import express from "express";
 import cookieParser from "cookie-parser";
 import { createServer } from "http";
@@ -36,15 +36,33 @@ async function startServer() {
   // Trust proxy for Railway/Vercel (needed for secure cookies)
   app.set('trust proxy', 1);
   
-  // Configure body parser with larger size limit for file uploads
-  app.use(express.json({ limit: "50mb" }));
-  app.use(express.urlencoded({ limit: "50mb", extended: true }));
   app.use(cookieParser());
+  
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
 
-  // FastSpring Webhook
-  app.post("/api/fastspring/webhook", express.json(), handleFastSpringWebhook);
+  // FastSpring Webhook - MUST be before global JSON parser
+  // Use raw body for signature verification
+  app.post("/api/fastspring/webhook", 
+    express.raw({ type: 'application/json' }), 
+    (req, res, next) => {
+      // Store raw body for signature verification
+      (req as any).rawBody = req.body;
+      // Parse JSON manually
+      try {
+        req.body = JSON.parse(req.body.toString());
+      } catch (e) {
+        console.error('[FastSpring Webhook] Failed to parse JSON:', e);
+        return res.status(400).json({ error: 'Invalid JSON' });
+      }
+      next();
+    },
+    handleFastSpringWebhook
+  );
+
+  // Configure body parser with larger size limit for file uploads (after webhook route)
+  app.use(express.json({ limit: "50mb" }));
+  app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
   // tRPC API
   app.use(

@@ -16,8 +16,15 @@ export async function handleFastSpringWebhook(req: Request, res: Response) {
 
   // 1. Verify HMAC signature if secret is configured
   if (secret && signature) {
+    // Use raw body for signature verification (set by middleware in index.ts)
+    const rawBody = (req as any).rawBody;
+    if (!rawBody) {
+      console.error('[FastSpring Webhook] No raw body available for signature verification');
+      return res.status(500).send('Server configuration error');
+    }
+    
     const hmac = crypto.createHmac('sha256', secret);
-    const digest = hmac.update(JSON.stringify(req.body)).digest('base64');
+    const digest = hmac.update(rawBody).digest('base64');
     
     if (digest !== signature) {
       console.error('[FastSpring Webhook] Invalid signature. Expected:', digest, 'Got:', signature);
