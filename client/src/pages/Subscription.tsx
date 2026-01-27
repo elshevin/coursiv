@@ -124,10 +124,17 @@ export default function Subscription() {
       
       // Pre-fill user's registered email to ensure webhook matches
       const userEmail = emailUser?.email || oauthUser?.email;
+      const userName = emailUser?.name || oauthUser?.name || '';
       if (userEmail) {
+        // FastSpring requires firstName and lastName along with email
+        const nameParts = userName.split(' ');
+        const firstName = nameParts[0] || 'User';
+        const lastName = nameParts.slice(1).join(' ') || 'User';
+        
         window.fastspring.builder.recognize({
           email: userEmail,
-          firstName: emailUser?.name || oauthUser?.name || undefined
+          firstName: firstName,
+          lastName: lastName
         });
         // Also add as tag for webhook reference
         window.fastspring.builder.tag({ registeredEmail: userEmail });
