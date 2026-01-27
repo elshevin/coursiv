@@ -676,3 +676,79 @@ export async function updateUserSubscription(
     throw error;
   }
 }
+
+// Save FastSpring account ID mapping to user
+export async function saveAccountIdMapping(
+  accountId: string,
+  email: string
+): Promise<void> {
+  if (!db) {
+    console.warn("[Database] Cannot save account ID mapping: database not available");
+    return;
+  }
+
+  try {
+    const user = await getEmailUserByEmail(email);
+    if (!user) {
+      console.warn(`[Database] User not found for account ID mapping: ${email}`);
+      return;
+    }
+
+    await db.update(emailUsers)
+      .set({ 
+        fastspringAccountId: accountId,
+        updatedAt: new Date()
+      })
+      .where(eq(emailUsers.id, user.id));
+    
+    console.log(`[Database] Saved FastSpring account ID ${accountId} for ${email}`);
+  } catch (error) {
+    console.error("[Database] Failed to save account ID mapping:", error);
+  }
+}
+
+// Update subscription by FastSpring account ID
+export async function updateUserSubscriptionByAccountId(
+  accountId: string,
+  status: 'none' | 'active' | 'cancelled' | 'expired',
+  plan?: 'monthly' | 'yearly',
+  subscriptionId?: string
+): Promise<void> {
+  if (!db) {
+    console.warn("[Database] Cannot update subscription by account ID: database not available");
+    return;
+  }
+
+  try {
+    // Find user by FastSpring account ID
+    const result = await db.select().from(emailUsers)
+      .where(eq(emailUsers.fastspringAccountId, accountId))
+      .limit(1);
+    
+    if (result.length === 0) {
+      console.warn(`[Database] No user found with FastSpring account ID: ${accountId}`);
+      return;
+    }
+
+    const user = result[0];
+    const updateData: any = {
+      subscriptionStatus: status,
+      updatedAt: new Date()
+    };
+
+    if (plan) updateData.subscriptionPlan = plan;
+    if (subscriptionId) updateData.fastspringSubscriptionId = subscriptionId;
+    if (status === 'active') {
+      updateData.subscriptionStartDate = new Date();
+    }
+
+    await db.update(emailUsers)
+      .set(updateData)
+      .where(eq(emailUsers.id, user.id));
+    
+    console.log(`[Database] Updated subscription for accountId ${accountId}: status=${status}, plan=${plan}`);
+  } catch (error) {
+    console.error("[Database] Failed to update subscription by account ID:", error);
+    throw error;
+  }
+}

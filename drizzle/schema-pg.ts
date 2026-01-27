@@ -47,6 +47,7 @@ export const emailUsers = pgTable("email_users", {
   subscriptionStartDate: timestamp("subscriptionStartDate"),
   subscriptionEndDate: timestamp("subscriptionEndDate"),
   fastspringSubscriptionId: varchar("fastspringSubscriptionId", { length: 128 }),
+  fastspringAccountId: varchar("fastspringAccountId", { length: 128 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().notNull(),
   lastLoginAt: timestamp("lastLoginAt").defaultNow().notNull(),
