@@ -335,10 +335,10 @@ export default function Dashboard() {
         {(currentTab === 'home' || !currentTab) && (
           <div data-testid="home-page">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-[#24234C] mb-2">
+              <h1 className={`text-3xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>
                 Welcome back, {displayName}! 👋
               </h1>
-              <p className="text-[#24234C]/60">Continue your AI learning journey</p>
+              <p className={theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}>Continue your AI learning journey</p>
             </div>
 
             {/* Weekly Streaks - Clickable */}
@@ -352,43 +352,43 @@ export default function Dashboard() {
 
             {/* Stats Cards - Now with real data */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <Card className="border-[#E2E5E9] hover-lift">
+              <Card className={`hover-lift ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'border-[#E2E5E9]'}`}>
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#5A4CFF]/10 flex items-center justify-center">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${theme === 'dark' ? 'bg-[#5A4CFF]/20' : 'bg-[#5A4CFF]/10'}`}>
                       <Flame className="w-6 h-6 text-[#5A4CFF]" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-[#24234C]">{stats.streak}</p>
-                      <p className="text-sm text-[#24234C]/60">Day Streak</p>
+                      <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>{stats.streak}</p>
+                      <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>Day Streak</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
               
-              <Card className="border-[#E2E5E9] hover-lift">
+              <Card className={`hover-lift ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'border-[#E2E5E9]'}`}>
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
-                      <Target className="w-6 h-6 text-green-600" />
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${theme === 'dark' ? 'bg-green-900/50' : 'bg-green-100'}`}>
+                      <Target className="w-6 h-6 text-green-500" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-[#24234C]">{stats.lessonsCompleted}</p>
-                      <p className="text-sm text-[#24234C]/60">Lessons Completed</p>
+                      <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>{stats.lessonsCompleted}</p>
+                      <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>Lessons Completed</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
               
-              <Card className="border-[#E2E5E9] hover-lift">
+              <Card className={`hover-lift ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'border-[#E2E5E9]'}`}>
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center">
-                      <Zap className="w-6 h-6 text-amber-600" />
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${theme === 'dark' ? 'bg-amber-900/50' : 'bg-amber-100'}`}>
+                      <Zap className="w-6 h-6 text-amber-500" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-[#24234C]">{formatXP(stats.xpEarned)}</p>
-                      <p className="text-sm text-[#24234C]/60">XP Earned</p>
+                      <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>{formatXP(stats.xpEarned)}</p>
+                      <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>XP Earned</p>
                     </div>
                   </div>
                 </CardContent>
@@ -399,7 +399,7 @@ export default function Dashboard() {
             {inProgressCourses.length > 0 && (
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-[#24234C]">Continue Learning</h2>
+                  <h2 className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>Continue Learning</h2>
                   <Link href="/dashboard/guides">
                     <a className="text-[#5A4CFF] text-sm font-medium hover:underline">View all</a>
                   </Link>
@@ -408,7 +408,7 @@ export default function Dashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {inProgressCourses.map((course) => (
                     <div key={course.id} onClick={(e) => handleContentClick(e, `/course/${course.slug}`)} className="cursor-pointer">
-                      <Card className="border-[#E2E5E9] overflow-hidden hover-lift relative" data-testid={`course-card-${course.slug}`}>
+                      <Card className={`overflow-hidden hover-lift relative ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'border-[#E2E5E9]'}`} data-testid={`course-card-${course.slug}`}>
                         {!isSubscribed && !isTestModeEnabled && (
                           <div className="absolute inset-0 bg-black/5 z-10">
                             <div className="absolute top-2 right-2 bg-white/90 rounded-full p-1.5">
@@ -420,8 +420,8 @@ export default function Dashboard() {
                           <img src={course.image} alt={course.title} className="w-full h-full object-cover" />
                         </div>
                         <CardContent className="p-4">
-                          <h3 className="font-semibold text-[#24234C] mb-2">{course.title}</h3>
-                          <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-3">
+                          <h3 className={`font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>{course.title}</h3>
+                          <div className={`flex items-center gap-2 text-sm mb-3 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
                             <Clock className="w-4 h-4" />
                             <span>{course.completedLessons}/{course.totalLessons} lessons</span>
                           </div>
@@ -437,7 +437,7 @@ export default function Dashboard() {
             {/* Active Challenges */}
             <div>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold text-[#24234C]">Active Challenges</h2>
+                <h2 className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>Active Challenges</h2>
                 <Link href="/dashboard/challenges">
                   <a className="text-[#5A4CFF] text-sm font-medium hover:underline">View all</a>
                 </Link>
@@ -452,7 +452,7 @@ export default function Dashboard() {
                   
                   return (
                     <div key={challenge.id} onClick={(e) => handleContentClick(e, `/challenge/${challenge.id}`)} className="cursor-pointer">
-                      <Card className="border-[#E2E5E9] hover-lift relative">
+                      <Card className={`hover-lift relative ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'border-[#E2E5E9]'}`}>
                         {!isSubscribed && !isTestModeEnabled && (
                           <div className="absolute inset-0 bg-black/5 z-10 rounded-lg">
                             <div className="absolute top-2 right-2 bg-white/90 rounded-full p-1.5">
@@ -464,7 +464,7 @@ export default function Dashboard() {
                           <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-2">
                               <span className="text-2xl">{challenge.icon}</span>
-                              <h3 className="font-semibold text-[#24234C]">{challenge.title}</h3>
+                              <h3 className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>{challenge.title}</h3>
                             </div>
                             <span className={`px-2 py-1 text-xs rounded-full ${
                               isActive ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
@@ -472,12 +472,12 @@ export default function Dashboard() {
                               {isActive ? `Day ${challenge.currentDay}/${challenge.totalDays}` : 'Start'}
                             </span>
                           </div>
-                          <p className="text-sm text-[#24234C]/60 mb-3 line-clamp-2">{challenge.description}</p>
+                          <p className={`text-sm mb-3 line-clamp-2 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>{challenge.description}</p>
                           
                           {/* Progress bar for active challenges */}
                           {isActive && (
                             <div className="mb-3">
-                              <div className="flex justify-between text-xs text-[#24234C]/60 mb-1">
+                              <div className={`flex justify-between text-xs mb-1 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
                                 <span>Progress</span>
                                 <span>{progress}%</span>
                               </div>
@@ -485,7 +485,7 @@ export default function Dashboard() {
                             </div>
                           )}
                           
-                          <div className="flex items-center gap-4 text-sm text-[#24234C]/60 mb-3">
+                          <div className={`flex items-center gap-4 text-sm mb-3 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
                             <div className="flex items-center gap-1">
                               <Clock className="w-4 h-4" />
                               <span>{challenge.totalDays} days</span>
@@ -513,14 +513,14 @@ export default function Dashboard() {
         {currentTab === 'guides' && (
           <div data-testid="guides-page">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-[#24234C] mb-2">AI Guides</h1>
-              <p className="text-[#24234C]/60">Master the most powerful AI tools</p>
+              <h1 className={`text-3xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>AI Guides</h1>
+              <p className={theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}>Master the most powerful AI tools</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {coursesWithProgress.map((course) => (
                 <div key={course.id} onClick={(e) => handleContentClick(e, `/course/${course.slug}`)} className="cursor-pointer">
-                  <Card className="border-[#E2E5E9] overflow-hidden hover-lift h-full relative">
+                  <Card className={`overflow-hidden hover-lift h-full relative ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'border-[#E2E5E9]'}`}>
                     {/* Lock overlay for non-subscribers */}
                     {!isSubscribed && !isTestModeEnabled && (
                       <div className="absolute inset-0 bg-black/5 z-10 flex items-center justify-center">
@@ -533,8 +533,8 @@ export default function Dashboard() {
                       <img src={course.image} alt={course.title} className="w-full h-full object-cover" />
                     </div>
                     <CardContent className="p-4">
-                      <h3 className="font-semibold text-[#24234C] mb-2">{course.title}</h3>
-                      <div className="flex items-center gap-2 text-sm text-[#24234C]/60 mb-3">
+                      <h3 className={`font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>{course.title}</h3>
+                      <div className={`flex items-center gap-2 text-sm mb-3 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
                         <Clock className="w-4 h-4" />
                         <span>{course.duration}</span>
                         <span className="mx-1">•</span>
@@ -543,7 +543,7 @@ export default function Dashboard() {
                       {course.progress > 0 ? (
                         <div>
                           <div className="flex items-center justify-between text-sm mb-1">
-                            <span className="text-[#24234C]/60">{course.completedLessons}/{course.totalLessons} completed</span>
+                            <span className={theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}>{course.completedLessons}/{course.totalLessons} completed</span>
                             <span className="text-[#5A4CFF] font-medium">{course.progress}%</span>
                           </div>
                           <Progress value={course.progress} className="h-2" />
@@ -565,8 +565,8 @@ export default function Dashboard() {
         {currentTab === 'challenges' && (
           <div data-testid="challenges-page">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-[#24234C] mb-2">Challenges</h1>
-              <p className="text-[#24234C]/60">Push your limits with daily challenges</p>
+              <h1 className={`text-3xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>Challenges</h1>
+              <p className={theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}>Push your limits with daily challenges</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -579,7 +579,7 @@ export default function Dashboard() {
                 
                 return (
                   <div key={challenge.id} onClick={(e) => handleContentClick(e, `/challenge/${challenge.id}`)} className="cursor-pointer">
-                    <Card className="border-[#E2E5E9] overflow-hidden hover-lift relative">
+                    <Card className={`overflow-hidden hover-lift relative ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'border-[#E2E5E9]'}`}>
                       {!isSubscribed && !isTestModeEnabled && (
                         <div className="absolute inset-0 bg-black/5 z-10 rounded-lg">
                           <div className="absolute top-2 right-2 bg-white/90 rounded-full p-1.5">
@@ -595,7 +595,7 @@ export default function Dashboard() {
                       </div>
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between mb-2">
-                          <h3 className="font-semibold text-[#24234C]">{challenge.title}</h3>
+                          <h3 className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>{challenge.title}</h3>
                           <span className={`px-2 py-1 text-xs rounded-full ${
                             status === 'active' ? 'bg-green-100 text-green-700' :
                             'bg-blue-100 text-blue-700'
@@ -603,12 +603,12 @@ export default function Dashboard() {
                             {status === 'active' ? `Day ${challenge.currentDay}/${challenge.totalDays}` : 'Start'}
                           </span>
                         </div>
-                        <p className="text-sm text-[#24234C]/60 mb-3 line-clamp-2">{challenge.description}</p>
+                        <p className={`text-sm mb-3 line-clamp-2 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>{challenge.description}</p>
                         
                         {/* Progress bar for active challenges */}
                         {status === 'active' && (
                           <div className="mb-3">
-                            <div className="flex justify-between text-xs text-[#24234C]/60 mb-1">
+                            <div className={`flex justify-between text-xs mb-1 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
                               <span>Progress</span>
                               <span>{progress}%</span>
                             </div>
@@ -616,7 +616,7 @@ export default function Dashboard() {
                           </div>
                         )}
                         
-                        <div className="flex items-center gap-4 text-sm text-[#24234C]/60">
+                        <div className={`flex items-center gap-4 text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
                           <div className="flex items-center gap-1">
                             <Clock className="w-4 h-4" />
                             <span>{challenge.totalDays} days</span>
@@ -642,22 +642,22 @@ export default function Dashboard() {
         {currentTab === 'ai-tools' && (
           <div data-testid="ai-tools-page" className="max-w-4xl mx-auto">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-[#24234C] mb-2">AI Tools</h1>
-              <p className="text-[#24234C]/60">Explore and master the latest AI tools</p>
+              <h1 className={`text-3xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>AI Tools</h1>
+              <p className={theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}>Explore and master the latest AI tools</p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 border border-[#E2E5E9] text-center">
-              <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-[#5A4CFF]/10 flex items-center justify-center">
+            <div className={`rounded-2xl p-8 border text-center ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-[#E2E5E9]'}`}>
+              <div className={`w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center ${theme === 'dark' ? 'bg-[#5A4CFF]/20' : 'bg-[#5A4CFF]/10'}`}>
                 <Sparkles className="w-10 h-10 text-[#5A4CFF]" />
               </div>
-              <h2 className="text-2xl font-bold text-[#24234C] mb-3">Coming Soon</h2>
-              <p className="text-[#24234C]/60 max-w-md mx-auto mb-6">
+              <h2 className={`text-2xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-[#24234C]'}`}>Coming Soon</h2>
+              <p className={`max-w-md mx-auto mb-6 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
                 We're building an amazing collection of AI tools guides and tutorials. 
                 Stay tuned for comprehensive guides on ChatGPT, DALL-E, Midjourney, Claude, and more!
               </p>
               <div className="flex flex-wrap justify-center gap-3">
                 {['ChatGPT', 'DALL-E', 'Midjourney', 'Claude', 'Gemini', 'Copilot'].map((tool) => (
-                  <span key={tool} className="px-4 py-2 bg-[#F9FAFB] rounded-full text-sm font-medium text-[#24234C]/70">
+                  <span key={tool} className={`px-4 py-2 rounded-full text-sm font-medium ${theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-[#F9FAFB] text-[#24234C]/70'}`}>
                     {tool}
                   </span>
                 ))}
