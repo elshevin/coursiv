@@ -81,6 +81,8 @@ export default function Dashboard() {
   // Fetch all challenge progress from backend
   const { data: challengeProgressData } = trpc.challenges.getAllProgress.useQuery(undefined, {
     enabled: isAuthenticated,
+    refetchOnWindowFocus: true,
+    staleTime: 0,
   });
 
   // Calculate real statistics
@@ -445,10 +447,9 @@ export default function Dashboard() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {challengesWithProgress.slice(0, 2).map((challenge) => {
-                  const isActive = challenge.isStarted && challenge.currentDay > 0;
-                  const progress = isActive 
-                    ? Math.round((challenge.currentDay / challenge.totalDays) * 100) 
-                    : 0;
+                  const isActive = challenge.isStarted;
+                  const completedCount = challenge.completedTasks?.length || 0;
+                  const progress = Math.round((completedCount / challenge.totalDays) * 100);
                   
                   return (
                     <div key={challenge.id} onClick={(e) => handleContentClick(e, `/challenge/${challenge.id}`)} className="cursor-pointer">
@@ -469,21 +470,19 @@ export default function Dashboard() {
                             <span className={`px-2 py-1 text-xs rounded-full ${
                               isActive ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
                             }`}>
-                              {isActive ? `Day ${challenge.currentDay}/${challenge.totalDays}` : 'Start'}
+                              {isActive ? `${completedCount}/${challenge.totalDays} completed` : 'Start'}
                             </span>
                           </div>
                           <p className={`text-sm mb-3 line-clamp-2 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>{challenge.description}</p>
                           
-                          {/* Progress bar for active challenges */}
-                          {isActive && (
-                            <div className="mb-3">
-                              <div className={`flex justify-between text-xs mb-1 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
-                                <span>Progress</span>
-                                <span>{progress}%</span>
-                              </div>
-                              <Progress value={progress} className="h-2" />
+                          {/* Progress bar for challenges */}
+                          <div className="mb-3">
+                            <div className={`flex justify-between text-xs mb-1 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
+                              <span>Progress</span>
+                              <span>{progress}%</span>
                             </div>
-                          )}
+                            <Progress value={progress} className="h-2" />
+                          </div>
                           
                           <div className={`flex items-center gap-4 text-sm mb-3 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
                             <div className="flex items-center gap-1">
@@ -572,10 +571,9 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {challengesWithProgress.map((challenge) => {
                 // Determine status based on user's progress
-                const status = challenge.isStarted && challenge.currentDay > 0 ? 'active' : 'available';
-                const progress = challenge.currentDay > 0 
-                  ? Math.round((challenge.currentDay / challenge.totalDays) * 100) 
-                  : 0;
+                const status = challenge.isStarted ? 'active' : 'available';
+                const completedCount = challenge.completedTasks?.length || 0;
+                const progress = Math.round((completedCount / challenge.totalDays) * 100);
                 
                 return (
                   <div key={challenge.id} onClick={(e) => handleContentClick(e, `/challenge/${challenge.id}`)} className="cursor-pointer">
@@ -600,21 +598,19 @@ export default function Dashboard() {
                             status === 'active' ? 'bg-green-100 text-green-700' :
                             'bg-blue-100 text-blue-700'
                           }`}>
-                            {status === 'active' ? `Day ${challenge.currentDay}/${challenge.totalDays}` : 'Start'}
+                            {status === 'active' ? `${completedCount}/${challenge.totalDays} completed` : 'Start'}
                           </span>
                         </div>
                         <p className={`text-sm mb-3 line-clamp-2 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>{challenge.description}</p>
                         
-                        {/* Progress bar for active challenges */}
-                        {status === 'active' && (
-                          <div className="mb-3">
-                            <div className={`flex justify-between text-xs mb-1 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
-                              <span>Progress</span>
-                              <span>{progress}%</span>
-                            </div>
-                            <Progress value={progress} className="h-2" />
+                        {/* Progress bar for challenges */}
+                        <div className="mb-3">
+                          <div className={`flex justify-between text-xs mb-1 ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
+                            <span>Progress</span>
+                            <span>{progress}%</span>
                           </div>
-                        )}
+                          <Progress value={progress} className="h-2" />
+                        </div>
                         
                         <div className={`flex items-center gap-4 text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#24234C]/60'}`}>
                           <div className="flex items-center gap-1">
