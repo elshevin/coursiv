@@ -471,12 +471,11 @@ export default function LandingPage() {
           <p className="text-[18px] lg:text-[20px] text-[#24234C]/80 mb-12 leading-[1.4]">
             Learn today, take control of your future, and build new skills in AI and digitization.
           </p>
-          <Button 
-            onClick={() => window.location.href = '/login'}
-            className="h-[72px] px-12 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-[24px] font-medium shadow-lg shadow-[#5A4CFF]/20"
-          >
-            Start Now
-          </Button>
+          <Link href="/quiz/1" onClick={() => trackStartQuizClick('footer_cta')}>
+            <Button className="h-[72px] px-12 bg-[#5A4CFF] hover:bg-[#4B3FE0] text-white rounded-full text-[24px] font-medium shadow-lg shadow-[#5A4CFF]/20">
+              Start Now
+            </Button>
+          </Link>
         </div>
       </section>
       </AnimatedSection>
