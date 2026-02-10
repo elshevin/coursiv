@@ -5,7 +5,8 @@ import { useLocation } from "wouter";
 import { Check, X, Clock, Star, Shield, Sparkles, BookOpen, Award, Rocket, Loader2, TrendingUp, Brain, Zap, Target, ArrowRight } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useEmailAuth } from "@/hooks/useEmailAuth";
-import { trackSubscriptionPageView, trackSubscriptionSkuClick, trackSubscriptionStart, trackSubscriptionSkip } from "@/lib/analytics";
+import { trackSubscriptionPageView, trackSubscriptionSkuClick, trackSubscriptionStart, trackSubscriptionSkip, trackSubscriptionSuccess } from "@/lib/analytics";
+
 
 // Declare FastSpring global
 declare global {
@@ -82,7 +83,7 @@ export default function Subscription() {
     // Define callback for successful purchase
     (window as any).fastspringOnPopupClosed = (orderReference: any) => {
       if (orderReference && orderReference.id) {
-        // Payment successful, redirect to dashboard
+        // Track purchase event in GA4         trackSubscriptionSuccess(selectedPlan, selectedPlan === 'yearly' ? 59.99 : 9.99);         // Payment successful, redirect to dashboard
         setLocation('/dashboard');
       }
     };
