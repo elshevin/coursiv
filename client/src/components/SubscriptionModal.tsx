@@ -9,7 +9,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Check, Crown, Sparkles, Lock, Clock } from 'lucide-react';
-import { trackSubscriptionModalView, trackSubscriptionModalSkuClick, trackSubscriptionStart } from '@/lib/analytics';
+import { trackSubscriptionModalView, trackSubscriptionModalSkuClick, trackSubscriptionStart, trackSubscriptionSuccess } from '@/lib/analytics';
 
 declare global {
   interface Window {
@@ -47,7 +47,7 @@ export function SubscriptionModal({ isOpen, onClose, userEmail }: SubscriptionMo
     if (isOpen) {
       trackSubscriptionModalView();
     }
-  }, [isOpen]);
+  }, [isOpen]);    // Register FastSpring popup closed callback for purchase tracking   useEffect(() => {     if (isOpen) {       (window as any).fastspringOnPopupClosed = (orderReference: any) => {         if (orderReference && orderReference.id) {           trackSubscriptionSuccess(selectedPlan, selectedPlan === 'yearly' ? 59.99 : 9.99);           window.location.href = '/dashboard';         }       };     }     return () => {       if (!isOpen) {         delete (window as any).fastspringOnPopupClosed;       }     };   }, [isOpen, selectedPlan]);
 
   const handlePlanSelect = (plan: 'monthly' | 'yearly') => {
     setSelectedPlan(plan);
